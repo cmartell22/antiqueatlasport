@@ -6,6 +6,8 @@ A fork of [Antique Atlas 4](https://modrinth.com/mod/antique-atlas-4) by [Sisby 
 
 **Client-side only.** The server needs no mod, which is the point: most roleplay servers run plugin cores you can't add mods to. [Surveyor Map Framework](https://modrinth.com/mod/surveyor) rides inside the jar, so there is nothing else to install.
 
+> ![territories, roads and inscriptions on one page](https://cdn.modrinth.com/data/P0zBDYta/images/904d9da9769a2a14ac879571427b0d5fae137757.png)
+
 ---
 
 ## The book opens in two stages
@@ -15,6 +17,8 @@ Press **[M]** once and the book is drawn into your hands, held open in front of 
 Press it again and the book is put away and the full page opens, where you drag to pan, scroll to zoom, and draw with the tools down the right edge. This is the stage you work on.
 
 A third press closes it.
+
+> ![the atlas held open in your hands](https://cdn.modrinth.com/data/P0zBDYta/images/8cb9e8c17768f32843fc8d80637ac864cb38ebac.png)
 
 ---
 
@@ -28,9 +32,15 @@ A third press closes it.
 
 **Hand-drawn towns.** The atlas draws villages the game tells it about. A town players built is invisible to it, so draw it yourself, from the same box of pieces the villages use: roads, crossroads, wells, houses, farms, market stalls, lamps. Nothing about the land underneath is changed, and any of it lifts again.
 
+> ![a town drawn by hand](https://cdn.modrinth.com/data/P0zBDYta/images/5213acdb856f40e845504dae47d3ed51cd61c8ea.png)
+
 **Biome corrections.** The atlas guesses at biomes it has no drawing for, and a datapack server gives it plenty to guess at. When a guess is wrong, overrule it – draw one biome as another everywhere, or correct named cells one at a time.
 
+> ![choosing what a biome is drawn as](https://cdn.modrinth.com/data/P0zBDYta/images/e4c44043b061b5bb7a970adf696511058fdcaa97.png)
+
 **Undo and redo,** twenty steps deep, across every drawing tool.
+
+> ![the box of town pieces](https://cdn.modrinth.com/data/P0zBDYta/images/55c37b4eeef755aaafe896ebf66139e677603c60.png)
 
 ---
 
@@ -42,7 +52,11 @@ A third press closes it.
 
 **Notes and search.** Any mark can carry a note, and the magnifier searches names and notes alike. The tab below reorders the list: by kind, nearest first, newest first, or alphabetically.
 
+> ![a mark with a note and the day it was drawn](https://cdn.modrinth.com/data/P0zBDYta/images/91f33bfc55afaa1f91378f707a3ff12f3dd35096.png)
+
 **Place names on screen.** Come near a named mark and its name fades in over the world, the way vanilla announces a biome. How near is set per mark or once for all of them, with an optional chime. Territories announce by standing inside them, and the smallest one containing you wins – walk into a duchy inside a kingdom and it is the duchy you are told you are in. Marks on hidden layers stay quiet, and any mark can have it switched off on its own.
+
+> ![a place name announcing itself](https://cdn.modrinth.com/data/P0zBDYta/images/a16492c55d482bc4c44d627f1edee18be9a176ca.png)
 
 **Quick marks.** One key marks a place without opening anything – under your feet, or wherever you are looking, so a peak on the horizon can be marked from the valley you stand in.
 
@@ -58,9 +72,17 @@ Export a slice of your atlas – terrain, chosen marks, inscriptions, territorie
 
 Signed scrolls carry your name and the date. On the other side those marks arrive **faint**, filed into a layer named after you, captioned *"As told by …"*. They stay faint until that player has physically walked to the spot, at which point the mark firms up and records the day it was seen.
 
+> ![hearsay from another player](https://cdn.modrinth.com/data/P0zBDYta/images/0416495ff08cdc1c1130ebacba6306c6e94d3eb8.png)
+
 Your corrections and towns land as a sheet under your name. That sheet never overrules anything the reader drew themselves, and it can be torn out whole. Before any of it is written, the reader sees exactly what the scroll holds and can decline.
 
+> ![a scroll read before it is taken in](https://cdn.modrinth.com/data/P0zBDYta/images/049f65d8681db5f6b5d1b4d2b7059bc05598bbc8.png)
+
 **Snapshots to a PNG.** The map also comes out of the game as an image, written to your `screenshots` folder like any other. Two kinds: the page as you are looking at it, or the whole explored world stitched together at full tile resolution – and that second one is a poster rather than a screenshot, running to tens of thousands of pixels on a side for a well-travelled world. Either can be framed like a hung item frame and signed with your name and the date. Post it, print it, hang it in a Discord.
+
+> ![the whole map saved out as an image](https://cdn.modrinth.com/data/P0zBDYta/images/676f2b75d001793ac3d4355ce7440fc947bd1430.png)
+
+---
 
 ---
 
