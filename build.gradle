@@ -129,8 +129,10 @@ modrinth {
 	syncBodyFrom = rootProject.file("README.md").text
 	dependencies {
 		required.version libs.fapi.get().getName(), libs.versions.fapi.get()
-		required.version libs.surveyor.get().getName(), libs.versions.surveyor.get()
-		required.project "mcqoy"
+		// Surveyor rides inside the jar, so it is embedded rather than required:
+		// listing it as required tells people to go and install it separately,
+		// which they neither need to do nor can do wrongly.
+		embedded.version libs.surveyor.get().getName(), libs.versions.surveyor.get()
 		optional.project "cloth-config"
 		optional.project "modmenu"
 	}
@@ -139,14 +141,17 @@ modrinth {
 tasks.register('curseforge', net.darkhax.curseforgegradle.TaskPublishCurseForge) {
 	apiToken = "$System.env.CURSEFORGE_TOKEN"
 	disableVersionDetection()
-	def projectId = "1391589"
+	// Inherited from upstream this was their project id, and running the task
+	// would have tried to upload this fork onto someone else's page. It now
+	// refuses to run until a project of one's own is named in gradle.properties.
+	def projectId = project.findProperty("curseforgeId") ?: ""
+	if (!projectId) throw new GradleException("Set curseforgeId in gradle.properties before publishing to CurseForge.")
 	def mainFile = upload(projectId, remapJar)
 	compatibleLoaders.split(", ").toList().forEach { mainFile.addModLoader(it) }
 	compatibleVersions.split(", ").toList().forEach { mainFile.addGameVersion(it) }
 	mainFile.addEnvironment("client")
 	mainFile.addRequirement(libs.fapi.get().getName())
-	mainFile.addRequirement("surveyor-map-framework")
-	mainFile.addRequirement("mcqoy")
+	mainFile.addEmbedded("surveyor-map-framework")
 	mainFile.addOptional("cloth-config")
 	mainFile.addOptional("modmenu")
 	mainFile.changelog = !file("CHANGELOG.md").exists() ? "" : rootProject.file("CHANGELOG.md").text + "\n\nChangelog: https://github.com/${user}/${slug}/releases/tag/v${baseVersion}+${tagBranch}"
