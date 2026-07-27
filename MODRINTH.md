@@ -42,6 +42,8 @@ A third press closes it.
 
 **Notes and search.** Any mark can carry a note, and the magnifier searches names and notes alike. The tab below reorders the list: by kind, nearest first, newest first, or alphabetically.
 
+**Place names on screen.** Come near a named mark and its name fades in over the world, the way vanilla announces a biome. How near is set per mark or once for all of them, with an optional chime. Territories announce by standing inside them, and the smallest one containing you wins – walk into a duchy inside a kingdom and it is the duchy you are told you are in. Marks on hidden layers stay quiet, and any mark can have it switched off on its own.
+
 **Quick marks.** One key marks a place without opening anything – under your feet, or wherever you are looking, so a peak on the horizon can be marked from the valley you stand in.
 
 **Guide arrows.** Track a mark and an arrow points at it with the distance. It drops itself when you arrive.
