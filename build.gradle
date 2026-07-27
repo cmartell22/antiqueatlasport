@@ -119,14 +119,19 @@ githubRelease {
 }
 
 modrinth {
-	token = "$System.env.MODRINTH_TOKEN"
+	// From the environment, or from ~/.gradle/gradle.properties, which lives
+	// outside the repository and so cannot be committed by accident.
+	token = System.getenv("MODRINTH_TOKEN") ?: (project.findProperty("modrinthToken") ?: "")
 	projectId = modrinthSlug
 	versionNumber = project.version
 	uploadFile = remapJar
 	gameVersions = compatibleVersions.split(", ").toList()
 	loaders = compatibleLoaders.split(", ").toList()
 	changelog = !file("CHANGELOG.md").exists() ? "" : rootProject.file("CHANGELOG.md").text + "\n\nChangelog: https://github.com/${user}/${slug}/releases/tag/v${baseVersion}+${tagBranch}"
-	syncBodyFrom = rootProject.file("README.md").text
+	// The page body is written for Modrinth rather than reusing the README:
+	// the README opens with install and repository matter that a mod page has
+	// its own fields for.
+	syncBodyFrom = rootProject.file("MODRINTH.md").text
 	dependencies {
 		required.version libs.fapi.get().getName(), libs.versions.fapi.get()
 		// Surveyor rides inside the jar, so it is embedded rather than required:
