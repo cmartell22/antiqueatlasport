@@ -33,7 +33,7 @@ The first stage is the one you travel with. The second is the one you work on.
 
 **The hearth.** Your respawn point, marked automatically, with its own button beside the player button. Read from the same packet the vanilla compass follows, so it works for beds, respawn anchors, `/spawnpoint` and plugins that set a real respawn point.
 
-**Map snapshots.** Save the current view or the whole explored map – stitched from real in-game renders, so it's pixel-identical to what you see. Optionally framed like a hung item frame and signed with your name and the date.
+**Snapshots to a PNG.** The map comes out of the game as an image, written to the `screenshots` folder like any other. Two kinds: the page as you're looking at it, or the whole explored world stitched together at full tile resolution – the second is a poster rather than a screenshot, running to tens of thousands of pixels a side on a well-travelled world. Either can be framed like a hung item frame and signed with your name and the date.
 
 **Notes and search.** Any mark can carry a note; the magnifier above the layer tabs searches both names and notes. The tab below it reorders the list: by kind, nearest first, newest first, or alphabetically.
 

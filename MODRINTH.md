@@ -60,7 +60,7 @@ Signed scrolls carry your name and the date. On the other side those marks arriv
 
 Your corrections and towns land as a sheet under your name. That sheet never overrules anything the reader drew themselves, and it can be torn out whole. Before any of it is written, the reader sees exactly what the scroll holds and can decline.
 
-**Map snapshots.** Save the current view or the whole explored map, stitched from real in-game renders so it is pixel-identical to what you see. Optionally framed like a hung item frame and signed.
+**Snapshots to a PNG.** The map also comes out of the game as an image, written to your `screenshots` folder like any other. Two kinds: the page as you are looking at it, or the whole explored world stitched together at full tile resolution – and that second one is a poster rather than a screenshot, running to tens of thousands of pixels on a side for a well-travelled world. Either can be framed like a hung item frame and signed with your name and the date. Post it, print it, hang it in a Discord.
 
 ---
 
