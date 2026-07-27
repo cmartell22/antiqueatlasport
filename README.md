@@ -11,13 +11,19 @@ A fork of [Antique Atlas 4](https://modrinth.com/mod/antique-atlas-4) by [Sisby 
 
 Everything here is **client-side**. The server needs no mod – which is the point, since most roleplay servers run plugin cores.
 
+![the whole map exported as an image](docs/images/map-export.png)
+
 **[M] opens the atlas in two stages.** Press it once and the book is drawn into your hands, held open in front of you: you keep walking, keep looking around, keep whatever is in your main hand, and the map is simply there, tilting with you. Press it again and the book is put away and the full page opens, where you drag to pan, scroll to zoom, and draw with the tools down the right edge. Press it a third time to close.
 
 The first stage is the one you travel with. The second is the one you work on.
 
+![the atlas held open in your hands](docs/images/handheld.png)
+
 ## What this fork adds
 
 **Territories.** Paint an area chunk by chunk, give it a name, and it appears written across the land in the old cartographic style. Entering it can announce itself on screen.
+
+![territories, roads and inscriptions on one page](docs/images/map-overview.png)
 
 **Roads and routes.** Click out a path and it's drawn as a curving dashed track with its name written along the curve. Optionally reports its length on hover.
 
@@ -29,6 +35,10 @@ The first stage is the one you travel with. The second is the one you work on.
 
 **Scrolls, signatures and hearsay.** Export any slice of your atlas – terrain, chosen markers, inscriptions, territories, routes – into an `.atlas` scroll and hand the file to another player. Signed scrolls carry your name and date. On the other side those marks arrive **faint**, filed into a layer of their own named after you, captioned *"As told by …"*. They stay faint until that player physically walks to the spot, at which point the mark firms up and records the day it was verified.
 
+![hearsay from another player](docs/images/hearsay.png)
+
+![a scroll read before it is taken in](docs/images/scroll-preview.png)
+
 **Guide arrows.** Track any mark and an arrow points to it from your position with the distance. Arrives, drops itself, and chimes.
 
 **The hearth.** Your respawn point, marked automatically, with its own button beside the player button. Read from the same packet the vanilla compass follows, so it works for beds, respawn anchors, `/spawnpoint` and plugins that set a real respawn point.
@@ -37,13 +47,23 @@ The first stage is the one you travel with. The second is the one you work on.
 
 **Notes and search.** Any mark can carry a note; the magnifier above the layer tabs searches both names and notes. The tab below it reorders the list: by kind, nearest first, newest first, or alphabetically.
 
+![a mark with a note and the day it was drawn](docs/images/marker-lore.png)
+
 **Biome corrections.** The atlas guesses at biomes it has no drawing for, and a datapack server gives it plenty to guess at. When a guess is wrong, overrule it: draw one biome as another everywhere, or correct named cells one at a time. Corrections off someone else's scroll are filed under their name, never overrule your own, and can be torn out whole.
 
+![choosing what a biome is drawn as](docs/images/biome-picker.png)
+
 **Hand-drawn towns.** The atlas draws villages the game tells it about; a town players built is invisible to it. So draw it yourself, from the same box of pieces the villages use: roads, crossroads, wells, houses, farms, market stalls, lamps. Nothing about the land underneath is changed.
+
+![a town drawn by hand](docs/images/town.png)
+
+![the box of town pieces](docs/images/town-pieces.png)
 
 **Undo and redo.** Twenty steps deep, across every drawing tool. Ctrl+Z and Ctrl+Y.
 
 **Place names on screen.** Come near a named mark and its name fades in over the world, the way vanilla announces a biome. How near is set per mark or once for all of them, with an optional chime. Territories announce by standing inside them, and the smallest one containing you wins – walk into a duchy inside a kingdom and it is the duchy you are told you are in. Marks on hidden layers stay quiet, and any mark can have it switched off on its own.
+
+![a place name announcing itself](docs/images/place-name.png)
 
 **Quick marks.** A key that marks a place without opening anything, either under your feet or wherever you are looking, so a peak on the horizon can be marked from the valley you are standing in.
 
