@@ -14,6 +14,8 @@ base.archivesName = project.slug
 repositories {
 	mavenLocal()
 	maven { url "https://repo.sleeping.town/" }
+	maven { url "https://maven.terraformersmc.com/" }
+	maven { url "https://maven.shedaniel.me/" }
 }
 
 dependencies {
@@ -26,6 +28,25 @@ dependencies {
 	modImplementation libs.fapi
 
 	modImplementation libs.surveyor
+	include libs.surveyor
+
+	// ModMenu: config screen entrypoint; present in the dev client for testing.
+	modCompileOnly "com.terraformersmc:modmenu:15.0.2"
+	modLocalRuntime "com.terraformersmc:modmenu:15.0.2"
+
+	// Cloth Config: optional at runtime, so it must not be shaded in. It brings
+	// its own copy of Fabric API along, which would fight with ours.
+	modCompileOnly(libs.clothConfig) { exclude group: "net.fabricmc.fabric-api" }
+	modLocalRuntime(libs.clothConfig) { exclude group: "net.fabricmc.fabric-api" }
+}
+
+loom {
+	runs {
+		client {
+			// Dev convenience: jump straight into the test world.
+			programArgs "--quickPlaySingleplayer", "New World"
+		}
+	}
 }
 
 processResources {
@@ -53,13 +74,13 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
 	withSourcesJar()
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
@@ -110,6 +131,8 @@ modrinth {
 		required.version libs.fapi.get().getName(), libs.versions.fapi.get()
 		required.version libs.surveyor.get().getName(), libs.versions.surveyor.get()
 		required.project "mcqoy"
+		optional.project "cloth-config"
+		optional.project "modmenu"
 	}
 }
 
@@ -124,6 +147,8 @@ tasks.register('curseforge', net.darkhax.curseforgegradle.TaskPublishCurseForge)
 	mainFile.addRequirement(libs.fapi.get().getName())
 	mainFile.addRequirement("surveyor-map-framework")
 	mainFile.addRequirement("mcqoy")
+	mainFile.addOptional("cloth-config")
+	mainFile.addOptional("modmenu")
 	mainFile.changelog = !file("CHANGELOG.md").exists() ? "" : rootProject.file("CHANGELOG.md").text + "\n\nChangelog: https://github.com/${user}/${slug}/releases/tag/v${baseVersion}+${tagBranch}"
 	mainFile.changelogType = "markdown"
 	mainFile.releaseType = "release"
@@ -136,3 +161,5 @@ tasks.register("fullRelease") {
 	dependsOn "modrinth"
 	dependsOn "curseforge"
 }
+
+

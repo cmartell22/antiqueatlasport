@@ -1,0 +1,5 @@
+{
+	"roleplayers_atlas:tiling": {
+		"parent": "roleplayers_atlas:base/plateau"
+	}
+}

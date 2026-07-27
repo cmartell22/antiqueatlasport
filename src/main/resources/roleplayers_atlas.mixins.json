@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "folk.sisby.roleplayers_atlas.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"MixinDrawContext",
+		"MixinHeldItemRenderer",
+		"MixinMinecraftClient",
+		"MixinRegionStructureSummary"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

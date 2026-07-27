@@ -1,3 +1,13 @@
 {
-	"textures": "antique_atlas:biome/highland/peaks/frozen/rough_mountains"
+	"textures": {
+		"valley": {
+			"roleplayers_atlas:base/snow": 4,
+			"roleplayers_atlas:biome/flatland/plains/snowy/snow_2": 2,
+			"roleplayers_atlas:biome/flatland/plains/snowy/snow_3": 2
+		},
+		"low": "roleplayers_atlas:biome/flatland/plains/snowy/snow_hills_low",
+		"mid": "roleplayers_atlas:biome/flatland/plains/snowy/snow_hills",
+		"high": "roleplayers_atlas:biome/highland/slopes/snowy/snow_cliffs",
+		"peak": "roleplayers_atlas:biome/highland/peaks/frozen/rough_mountains"
+	}
 }

@@ -1,0 +1,20 @@
+{
+	"roleplayers_atlas:tiling": {
+		"tilesToThis": [
+			"#roleplayers_atlas:caves",
+			"#roleplayers_atlas:cliffs",
+			"#roleplayers_atlas:flat",
+			"#roleplayers_atlas:floating_islands",
+			"#roleplayers_atlas:grass",
+			"#roleplayers_atlas:plateaus",
+			"#roleplayers_atlas:low_plateaus",
+			"#roleplayers_atlas:sky",
+			"#roleplayers_atlas:mountains",
+			"#roleplayers_atlas:snow",
+			"#roleplayers_atlas:tiered",
+			"#roleplayers_atlas:ice",
+			"#roleplayers_atlas:lava",
+			"#roleplayers_atlas:water"
+		]
+	}
+}

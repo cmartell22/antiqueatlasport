@@ -1,0 +1,15 @@
+{
+	"roleplayers_atlas:tiling": {
+		"tags": [
+			"roleplayers_atlas:water",
+			"roleplayers_atlas:swamp_water"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:water",
+			"#roleplayers_atlas:ice",
+			"#roleplayers_atlas:shore_water",
+			"#roleplayers_atlas:swamp_water",
+			"#roleplayers_atlas:swamp_hills"
+		]
+	}
+}

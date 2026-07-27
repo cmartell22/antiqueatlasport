@@ -21,14 +21,21 @@
 		"${modId}.mixins.json"
 	],
 	"depends": {
-		"minecraft": ">=${mc}",
+		"minecraft": "${mc}",
 		"fabricloader": ">=${fl}",
 		"fabric-api": ">=${fapi}",
 		"surveyor": ">=${surveyor}"
 	},
+	"suggests": {
+		"modmenu": "*",
+		"cloth-config": "*"
+	},
 	"entrypoints": {
 		"client": [
-			"folk.sisby.antique_atlas.AntiqueAtlas"
+			"folk.sisby.roleplayers_atlas.RoleplayersAtlas"
+		],
+		"modmenu": [
+			"folk.sisby.roleplayers_atlas.compat.AtlasModMenu"
 		]
 	}
 }

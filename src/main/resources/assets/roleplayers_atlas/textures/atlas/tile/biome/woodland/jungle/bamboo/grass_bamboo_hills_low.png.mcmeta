@@ -1,0 +1,8 @@
+{
+	"roleplayers_atlas:tiling": {
+		"parent": "roleplayers_atlas:biome/woodland/jungle/bamboo/grass_bamboo",
+		"tags": [
+			"roleplayers_atlas:hills_low"
+		]
+	}
+}

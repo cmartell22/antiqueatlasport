@@ -1,0 +1,11 @@
+{
+	"roleplayers_atlas:tiling": {
+		"parent": "roleplayers_atlas:base/hills_low",
+		"tags": [
+			"roleplayers_atlas:mega_spruce_hills_low"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:mega_spruce_hills_low"
+		]
+	}
+}

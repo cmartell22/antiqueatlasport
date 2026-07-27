@@ -1,0 +1,10 @@
+{
+  "roleplayers_atlas:tiling": {
+    "tags": [
+      "roleplayers_atlas:crimson_forest"
+    ],
+    "tilesTo": [
+      "#roleplayers_atlas:crimson_forest"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+	"gui.roleplayers_atlas.scalebar": "Escala en bloques",
+	"gui.roleplayers_atlas.addMarker": "Agregar marcador",
+	"gui.roleplayers_atlas.delMarker": "Quitar marcador",
+	"gui.roleplayers_atlas.followPlayer": "Seguir jugador",
+	"gui.roleplayers_atlas.hideMarkers": "Ocultar marcadores",
+	"gui.roleplayers_atlas.showMarkers": "Mostrar marcadores",
+	"gui.roleplayers_atlas.marker.label": "Etiqueta",
+	"structure.tag.minecraft.village": "Aldea",
+	"structure.type.minecraft.ocean_monument": "Monumento oceánico",
+	"structure.type.minecraft.woodland_mansion": "Mansión del bosque",
+	"key.roleplayers_atlas.open": "Abrir atlas",
+	"key.roleplayers_atlas.category": "Roleplayer's Atlas"
+}

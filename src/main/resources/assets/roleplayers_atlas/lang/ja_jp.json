@@ -1,0 +1,12 @@
+{
+	"gui.roleplayers_atlas.scalebar": "ブロックのスケール",
+	"gui.roleplayers_atlas.addMarker": "印をつける",
+	"gui.roleplayers_atlas.delMarker": "印を消す",
+	"gui.roleplayers_atlas.followPlayer": "プレイヤーに焦点を当てる",
+	"gui.roleplayers_atlas.hideMarkers": "印を隠す",
+	"gui.roleplayers_atlas.showMarkers": "印を表す",
+	"gui.roleplayers_atlas.marker.label": "ラベル",
+	"structure.tag.minecraft.village": "村",
+	"key.roleplayers_atlas.open": "アトラスを開く",
+	"key.roleplayers_atlas.category": "Roleplayer's Atlas"
+}

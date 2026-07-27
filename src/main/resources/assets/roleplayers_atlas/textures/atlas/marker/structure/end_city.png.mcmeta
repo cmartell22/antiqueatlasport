@@ -1,0 +1,8 @@
+{
+	"roleplayers_atlas:marker": {
+		"textureWidth": 64,
+		"textureHeight": 64,
+		"mipLevels": 2,
+		"offsetY": -48
+	}
+}

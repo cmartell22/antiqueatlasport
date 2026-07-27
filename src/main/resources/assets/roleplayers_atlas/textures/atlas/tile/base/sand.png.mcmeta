@@ -1,0 +1,12 @@
+{
+	"roleplayers_atlas:tiling": {
+		"parent": "roleplayers_atlas:base/flat",
+		"tags": [
+			"roleplayers_atlas:sand"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:sand",
+			"#roleplayers_atlas:sand_hills_low"
+		]
+	}
+}

@@ -1,6 +1,6 @@
 {
 	"textures": {
-		"path_straight_horizontal": "antique_atlas:structure/village/path_horizontal",
-		"path_straight_vertical": "antique_atlas:structure/village/path_vertical"
+		"path_straight_horizontal": "roleplayers_atlas:structure/village/path_horizontal",
+		"path_straight_vertical": "roleplayers_atlas:structure/village/path_vertical"
 	}
 }

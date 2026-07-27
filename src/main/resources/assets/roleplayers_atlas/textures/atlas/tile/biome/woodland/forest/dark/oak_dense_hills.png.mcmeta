@@ -1,0 +1,8 @@
+{
+	"roleplayers_atlas:tiling": {
+		"parent": "roleplayers_atlas:biome/woodland/forest/dark/oak_dense",
+		"tags": [
+			"roleplayers_atlas:hills_low"
+		]
+	}
+}

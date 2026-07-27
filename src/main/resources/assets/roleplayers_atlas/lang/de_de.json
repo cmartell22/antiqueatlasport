@@ -1,0 +1,12 @@
+{
+	"gui.roleplayers_atlas.scalebar": "Maßstab in Blöcken",
+	"gui.roleplayers_atlas.addMarker": "Markierung hinzufügen",
+	"gui.roleplayers_atlas.delMarker": "Markierung löschen",
+	"gui.roleplayers_atlas.followPlayer": "Spieler folgen",
+	"gui.roleplayers_atlas.hideMarkers": "Markierungen verstecken",
+	"gui.roleplayers_atlas.showMarkers": "Markierungen zeigen",
+	"gui.roleplayers_atlas.marker.label": "Bezeichnung",
+	"structure.tag.minecraft.village": "Dorf",
+	"key.roleplayers_atlas.open": "Atlas öffnen",
+	"key.roleplayers_atlas.category": "Roleplayer's Atlas"
+}

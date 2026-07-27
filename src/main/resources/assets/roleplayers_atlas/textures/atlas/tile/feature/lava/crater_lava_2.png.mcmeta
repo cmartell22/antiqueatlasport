@@ -1,0 +1,5 @@
+{
+	"roleplayers_atlas:tiling": {
+		"parent": "roleplayers_atlas:feature/lava/crater_lava_1"
+	}
+}

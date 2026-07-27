@@ -1,0 +1,8 @@
+{
+	"roleplayers_atlas:tiling": {
+		"parent": "roleplayers_atlas:biome/woodland/taiga/pine",
+		"tags": [
+			"roleplayers_atlas:hills_low"
+		]
+	}
+}

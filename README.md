@@ -1,106 +1,86 @@
 <!--suppress HtmlDeprecatedTag, XmlDeprecatedElement -->
 <center>
-A hand-drawn clientside world map, with map sharing, structure discovery, and more!<br/>
-A rewrite of <a href="https://modrinth.com/mod/antique-atlas">Antique Atlas</a> by <a href="https://github.com/Hunternif">Hunternif</a>, as continued by <a href="https://github.com/Kenkron">Kenkron</a>, <a href="https://github.com/asiekierka">asie</a>, and <a href="https://github.com/tyra314">tyra314</a>.<br/>
-<b>Requires <a href="https://modrinth.com/mod/surveyor">Surveyor Map Framework</a>.</b>
-<b>Requires <a href="https://modrinth.com/mod/connector">Connector</a> and <a href="https://modrinth.com/mod/forgified-fabric-api">FFAPI</a> on (neo)forge.</b><br/>
+<b>Roleplayer's Atlas</b><br/>
+A hand-drawn clientside atlas for roleplay servers – territories, roads, quill inscriptions, dated marks, and maps you sign and hand to other players.<br/>
+<b>Requires <a href="https://modrinth.com/mod/surveyor">Surveyor Map Framework</a>.</b><br/>
 </center>
 
 ---
 
-Press **[M]** at any time to bring up the world map.<br/>
-Drag the map to pan, scroll to zoom, and use the bookmark buttons to create and remove map markers.
+A fork of [Antique Atlas 4](https://modrinth.com/mod/antique-atlas-4) by [Sisby folk](https://github.com/sisby-folk), ported to 1.21.8 and rebuilt around one idea: on a roleplay server a map isn't a HUD, it's a document. You draw it, you sign it, you date it, and you give it to someone who then knows the place only by your word until they go and see it for themselves.
 
-## Client-Side Features
+Everything here is **client-side**. The server needs no mod – which is the point, since most roleplay servers run plugin cores.
 
-- A physical-feeling map screen, with hand-drawn tiles representing chunks in the world:
+**[M] opens the atlas in two stages.** Press it once and the book is drawn into your hands, held open in front of you: you keep walking, keep looking around, keep whatever is in your main hand, and the map is simply there, tilting with you. Press it again and the book is put away and the full page opens, where you drag to pan, scroll to zoom, and draw with the tools down the right edge. Press it a third time to close.
 
-> ![map preview](https://cdn.modrinth.com/data/Y5Ve4Ui4/images/7cf5acd45f4babac74e4776a792779d76206716f.png)
+The first stage is the one you travel with. The second is the one you work on.
 
-- Waypoint markers in a variety of styles and accent colors:
+## What this fork adds
 
-> ![marker styles](https://cdn.modrinth.com/data/Y5Ve4Ui4/images/b7064c3287c5535cd9ac6d454c10ead984c7a7b3.png)
+**Territories.** Paint an area chunk by chunk, give it a name, and it appears written across the land in the old cartographic style. Entering it can announce itself on screen.
 
-- Hold the map in your hands by renaming a book "Antique Atlas" at an anvil:
+**Roads and routes.** Click out a path and it's drawn as a curving dashed track with its name written along the curve. Optionally reports its length on hover.
 
-> ![handheld atlas](https://cdn.modrinth.com/data/Y5Ve4Ui4/images/b3002225851522c2d4eabc7462a374fbcdd2db6b.png)
+**Quill inscriptions.** Free text written anywhere on the map, with no icon – for the things a place is called rather than the things that are there.
 
-- Automatic migration of waypoints from Xaero's Minimap, and a shared save format with [Hoofprint](https://modrinth.com/mod/hoofprint).
-- Extra features via addons like [Antique Trains](https://modrinth.com/mod/antique-trains) and [Antique Atlas Compass HUD](https://modrinth.com/mod/antique-atlas-compass-hud)!
+**Marker layers.** Your own layers with names and colours, filtered by tabs down the left edge. Deaths get their own automatically.
 
-## Mixed-Side / Singleplayer Features
+**Dating.** Every mark records the day it was drawn. The day comes from the world's *game* time, not its time of day, because a server can freeze the day cycle or hand each player their own – game time keeps ticking and is the same for everyone.
 
-- Markers are automatically added for notable structures and active nether portals:
+**Scrolls, signatures and hearsay.** Export any slice of your atlas – terrain, chosen markers, inscriptions, territories, routes – into an `.atlas` scroll and hand the file to another player. Signed scrolls carry your name and date. On the other side those marks arrive **faint**, filed into a layer of their own named after you, captioned *"As told by …"*. They stay faint until that player physically walks to the spot, at which point the mark firms up and records the day it was verified.
 
-> ![structure markers](https://cdn.modrinth.com/data/Y5Ve4Ui4/images/190cc4eaa2e8784dd0f46bee9c225228a05f191a.png)
+**Guide arrows.** Track any mark and an arrow points to it from your position with the distance. Arrives, drops itself, and chimes.
 
-- Structures only appear on the map after you've looked at them or stood on them in-game:
+**The hearth.** Your respawn point, marked automatically, with its own button beside the player button. Read from the same packet the vanilla compass follows, so it works for beds, respawn anchors, `/spawnpoint` and plugins that set a real respawn point.
 
-> ![structure discovery](https://cdn.modrinth.com/data/Y5Ve4Ui4/images/86054c7949fed59341cef60d0d9f27aee86ae6ef.gif)
+**Map snapshots.** Save the current view or the whole explored map – stitched from real in-game renders, so it's pixel-identical to what you see. Optionally framed like a hung item frame and signed with your name and the date.
 
-- Map exploration and waypoints can be shared with friends via `/surveyor share [player]`:
+**Notes and search.** Any mark can carry a note; the magnifier above the layer tabs searches both names and notes. The tab below it reorders the list: by kind, nearest first, newest first, or alphabetically.
 
-> ![map sharing](https://cdn.modrinth.com/data/Y5Ve4Ui4/images/305e5c88b384bc1a0a6fd2d0fcdc21f72b8d3a57.png)
+**Biome corrections.** The atlas guesses at biomes it has no drawing for, and a datapack server gives it plenty to guess at. When a guess is wrong, overrule it: draw one biome as another everywhere, or correct named cells one at a time. Corrections off someone else's scroll are filed under their name, never overrule your own, and can be torn out whole.
 
-- Add [AA4 Atlas](https://modrinth.com/mod/aa4-atlas) to give the handheld atlas a full item ID and crafting recipe!
+**Hand-drawn towns.** The atlas draws villages the game tells it about; a town players built is invisible to it. So draw it yourself, from the same box of pieces the villages use: roads, crossroads, wells, houses, farms, market stalls, lamps. Nothing about the land underneath is changed.
 
-## Troubleshooting / Suggestions
+**Undo and redo.** Twenty steps deep, across every drawing tool. Ctrl+Z and Ctrl+Y.
 
-Antique Atlas 4 is a **clientside map frontend** for [Surveyor Map Framework](https://modrinth.com/mod/surveyor).<br/>
-It renders surveyor save data as tiles on screen using respacks, and provides a GUI editor for waypoints.<br/>
-Issues and suggestions regarding the screen, tiles, markers, and resource packs are [Antique Atlas 4 Issues](https://github.com/sisby-folk/antique-atlas/issues).<br/>
-Issues and suggestions regarding map sharing, explored map area, and automatic markers are [Surveyor Issues](https://github.com/sisby-folk/surveyor).<br/>
-**Crash reports must have AA4 and Surveyor on the latest version, and include `logs/latest.log` via [mclo.gs](https://mclo.gs/).** 
+**Quick marks.** A key that marks a place without opening anything, either under your feet or wherever you are looking, so a peak on the horizon can be marked from the valley you are standing in.
+
+Plus 53 marker icons and sounds for drawing, tracking and sealing.
 
 ## Configuration
 
-Antique Atlas can be configured from `config/antique-atlas.toml` or in-game using [McQoy](https://modrinth.com/mod/mcqoy), including:<br/>
-- Whether to require having an atlas item in the inventory in order to enable the map hotkey.
-- Adjustments to the size and scale of the map screen.
-- Adjustments to which structures to mark on the map.
-- Adjustments for how to stylize player graves.
+`config/roleplayers-atlas.toml`, or in-game via [Mod Menu](https://modrinth.com/mod/modmenu). Death markers and grave styles, zone titles and their radius, guide arrow opacity, whether arrows drop on arrival, the hearth mark, fullscreen, remembered zoom and position, and how unexplored land is drawn.
 
-Additional options can be found in the Surveyor config in `config/surveyor.toml`.
+With [Cloth Config](https://modrinth.com/mod/cloth-config) installed the settings screen is the searchable one, with a reset on every row. Both mods are optional; without them the config file still works.
 
-## Addon & Resource Pack Developers
+Scrolls, layers and tracked marks live in `config/roleplayers-atlas/`.
 
-### Resource Packs
+Additional options are in the Surveyor config at `config/surveyor.toml`.
 
-Tiles, markers, biome detection, and structure detection is fully data-driven via resource packs.<br/>
-**Without defined biomes, atlas "guesses" tiles via tags, and shows `???` if that fails.**
+## Resource packs
 
-For a how-to on AA4 resource packs, check out the [resource pack tutorial](https://github.com/sisby-folk/antique-atlas/blob/1.20/RESPACKS.md).
+Tiles, markers, biome detection and structure detection are fully data-driven through resource packs, unchanged from upstream. See the [resource pack tutorial](https://github.com/sisby-folk/antique-atlas/blob/1.20/RESPACKS.md).
 
-### API
+Marker icons come in pairs – `name.png` and `name_accent.png`, where the accent layer is recoloured to whatever colour the player picked for that marker.
 
-Nothing stable! But feel free to poke around:
+## Troubleshooting
 
-```groovy
-repositories {
-	maven { url "https://repo.sleeping.town/" }
-}
-dependencies {
-	modImplementation "folk.sisby:antique-atlas:3.0.0+1.20"
-}
-```
+Roleplayer's Atlas is a clientside frontend for [Surveyor Map Framework](https://modrinth.com/mod/surveyor). It renders Surveyor's save data as tiles and gives you the tools to draw on top.
 
-Try `AtlasRenderer.registerOverlay()` for non-surveyor mod compat (i.e. mods that already have client sync)
+Anything about the screen, tiles, markers, drawing tools or resource packs belongs in [this repository's issues](https://github.com/GlamArdor/roleplayers-atlas/issues). Anything about explored area, structure discovery or save data belongs in [Surveyor's](https://github.com/sisby-folk/surveyor/issues).
 
-To automatically mark non-structure points of interest - instead use [Surveyor](https://modrinth.com/mod/surveyor)'s Landmark API.
+**Crash reports need `logs/latest.log` via [mclo.gs](https://mclo.gs/), with both mods on their latest version.**
 
-### Licensing + Credit
+## Credit
 
-Please match your addon/respack licenses to LGPLv3 for code & CC BY-NC-SA for assets to help the ecosystem!<br/>
-(LGPLv3 and CC BY-NC-SA are a copyleft licenses, so this is required for anything directly adapted from AA4)
+This is a fork, and almost all of the foundation is someone else's work.
 
-If you've made an addon/respack, hit us up and we might link it here! If it's still WIP feel free to ask us questions.<br/>
-Devs can reach out to us on [mastodon](https://tech.lgbt/@sleepingdragoninn), via [email](mailto:sleepingdragoninn@gmail.com), or in [#projects->Surveyor on ModFest](https://discord.gg/HKuwYuZ7Qu).
+Antique Atlas was created by [Hunternif](https://github.com/Hunternif), continued by [Kenkron](https://github.com/Kenkron), [asie](https://github.com/asiekierka) and [tyra314](https://github.com/tyra314), and rewritten as Antique Atlas 4 by [Sisby folk](https://github.com/sisby-folk). Surveyor Map Framework, which this mod cannot run without, is also theirs.
 
-## Afterword
+The map art is by [Hunternif](https://www.deviantart.com/hunternif) and [lumiscosity](https://lumiscosity.neocities.org/) – see [CREDITS](CREDITS) for the file-by-file breakdown, which also marks the icons drawn for this fork.
 
-All mods are built on the work of many others.
+This fork is maintained by Glam_Ardor.
 
-The art for antique atlas was created by [Hunternif](https://github.com/Hunternif) ([DA](https://www.deviantart.com/hunternif)) and [lumiscosity](https://github.com/lumiscosity) ([Neocities](https://lumiscosity.neocities.org/)).<br/>
-[Click here](https://github.com/sisby-folk/antique-atlas/blob/1.20/CREDITS) for detailed art credit.
+## Licence
 
-This mod is a loveletter rewrite, and relies heavily on contributions of many developers and artists before us.<br/>
+LGPL-3.0-or-later for code, CC BY-NC-SA for assets – inherited from upstream and unchanged. Both are copyleft: anything adapted from this mod has to carry the same terms.

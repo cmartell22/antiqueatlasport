@@ -1,0 +1,13 @@
+{
+	"roleplayers_atlas:tiling": {
+		"tags": [
+			"roleplayers_atlas:grass"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:grass",
+			"#roleplayers_atlas:grass_hills_low",
+			"#roleplayers_atlas:grass_hills",
+			"#roleplayers_atlas:grass_cliffs"
+		]
+	}
+}

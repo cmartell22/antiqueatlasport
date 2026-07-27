@@ -1,0 +1,8 @@
+{
+	"roleplayers_atlas:tiling": {
+		"parent": "roleplayers_atlas:structure/fortress/nether/nether_fortress_corridor",
+		"tags": [
+			"roleplayers_atlas:nether_fortress_bridge_accessible"
+		]
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"gui.roleplayers_atlas.scalebar": "Escala em blocos",
+	"gui.roleplayers_atlas.addMarker": "Adicionar marcador",
+	"gui.roleplayers_atlas.delMarker": "Excluir marcador",
+	"gui.roleplayers_atlas.followPlayer": "Centralizar no jogador",
+	"gui.roleplayers_atlas.hideMarkers": "Ocultar marcadores",
+	"gui.roleplayers_atlas.showMarkers": "Mostrar marcadores",
+	"gui.roleplayers_atlas.marker.label": "Título",
+	"structure.tag.minecraft.village": "Vila",
+	"key.roleplayers_atlas.open": "Abrir atlas",
+	"key.roleplayers_atlas.category": "Roleplayer's Atlas"
+}

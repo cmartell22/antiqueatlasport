@@ -1,6 +1,6 @@
 {
 	"textures": {
-		"antique_atlas:biome/nether/wastes/nether_wastes_low": 6,
-		"antique_atlas:biome/nether/wastes/nether_wastes_low_fire": 1
+		"roleplayers_atlas:biome/nether/wastes/nether_wastes_low": 6,
+		"roleplayers_atlas:biome/nether/wastes/nether_wastes_low_fire": 1
 	}
 }

@@ -1,0 +1,11 @@
+{
+	"roleplayers_atlas:tiling": {
+		"tags": [
+			"roleplayers_atlas:sky"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:sky",
+			"#roleplayers_atlas:floating_islands"
+		]
+	}
+}

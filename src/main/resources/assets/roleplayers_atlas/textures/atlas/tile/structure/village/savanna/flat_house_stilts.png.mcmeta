@@ -1,0 +1,12 @@
+{
+	"roleplayers_atlas:tiling": {
+		"borderType": "inner",
+		"tags": [
+			"roleplayers_atlas:small_land_structures",
+			"roleplayers_atlas:village_path_accessible"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:village_path"
+		]
+	}
+}

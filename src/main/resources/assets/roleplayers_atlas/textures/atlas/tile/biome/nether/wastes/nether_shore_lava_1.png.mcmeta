@@ -1,0 +1,11 @@
+{
+	"roleplayers_atlas:tiling": {
+		"borderType": "inner",
+		"tags": [
+			"roleplayers_atlas:shore_lava"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:lava"
+		]
+	}
+}

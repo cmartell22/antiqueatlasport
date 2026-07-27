@@ -1,0 +1,20 @@
+{
+	"roleplayers_atlas:tiling": {
+		"tags": [
+			"roleplayers_atlas:lava",
+			"roleplayers_atlas:large_structures",
+			"roleplayers_atlas:nether_fortress",
+			"roleplayers_atlas:nether_fortress_bridge_crossings"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:nether_fortress_bridge_crossings",
+			"#roleplayers_atlas:nether_fortress_bridge_accessible"
+		],
+		"tilesToVertical": [
+			"#roleplayers_atlas:nether_fortress_bridge_vertical"
+		],
+		"tilesToHorizontal": [
+			"#roleplayers_atlas:nether_fortress_bridge_horizontal"
+		]
+	}
+}

@@ -1,6 +1,18 @@
 {
-	"textures": [
-		"antique_atlas:base/cliffs",
-		"antique_atlas:biome/highland/windswept/hills/grass_cliffs"
-	]
+	"textures": {
+		"valley": {
+			"roleplayers_atlas:base/grass": 4,
+			"roleplayers_atlas:biome/flatland/plains/grass_3": 2
+		},
+		"low": "roleplayers_atlas:biome/flatland/plains/grass_hills_low",
+		"mid": "roleplayers_atlas:biome/flatland/plains/grass_hills",
+		"high": [
+			"roleplayers_atlas:base/cliffs",
+			"roleplayers_atlas:biome/highland/windswept/hills/grass_cliffs"
+		],
+		"peak": [
+			"roleplayers_atlas:base/cliffs",
+			"roleplayers_atlas:biome/highland/windswept/hills/grass_cliffs"
+		]
+	}
 }

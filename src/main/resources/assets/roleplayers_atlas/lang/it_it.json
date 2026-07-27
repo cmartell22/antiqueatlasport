@@ -1,0 +1,10 @@
+{
+	"gui.roleplayers_atlas.scalebar": "Scala in blocchi",
+	"gui.roleplayers_atlas.addMarker": "Aggiungi marcatore",
+	"gui.roleplayers_atlas.delMarker": "Elimina marcatore",
+	"gui.roleplayers_atlas.followPlayer": "Segui giocatore",
+	"gui.roleplayers_atlas.hideMarkers": "Nascondi marcatori",
+	"gui.roleplayers_atlas.showMarkers": "Mostra marcatori",
+	"gui.roleplayers_atlas.marker.label": "Etichetta",
+	"structure.tag.minecraft.village": "Villaggio"
+}

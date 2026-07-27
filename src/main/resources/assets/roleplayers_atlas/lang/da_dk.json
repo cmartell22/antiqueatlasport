@@ -1,0 +1,12 @@
+{
+	"gui.roleplayers_atlas.scalebar": "Målestok i blokke",
+	"gui.roleplayers_atlas.addMarker": "Tilføj markør",
+	"gui.roleplayers_atlas.delMarker": "Fjern markør",
+	"gui.roleplayers_atlas.followPlayer": "Følg spiller",
+	"gui.roleplayers_atlas.hideMarkers": "Skjul markører",
+	"gui.roleplayers_atlas.showMarkers": "Vis markører",
+	"gui.roleplayers_atlas.marker.label": "Mærkat",
+	"structure.tag.minecraft.village": "Landsby",
+	"key.roleplayers_atlas.open": "Åben Atlas",
+	"key.roleplayers_atlas.category": "Roleplayer's Atlas"
+}

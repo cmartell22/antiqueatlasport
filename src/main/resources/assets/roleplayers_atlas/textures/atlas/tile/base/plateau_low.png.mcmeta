@@ -1,0 +1,15 @@
+{
+	"roleplayers_atlas:tiling": {
+		"tags": [
+			"roleplayers_atlas:low_plateaus"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:caves",
+			"#roleplayers_atlas:low_plateaus",
+			"#roleplayers_atlas:cliffs",
+			"#roleplayers_atlas:plateaus",
+			"#roleplayers_atlas:mountains",
+			"#roleplayers_atlas:small_land_structures"
+		]
+	}
+}

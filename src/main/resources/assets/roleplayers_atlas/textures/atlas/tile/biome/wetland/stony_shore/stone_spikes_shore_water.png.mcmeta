@@ -1,0 +1,11 @@
+{
+	"roleplayers_atlas:tiling": {
+		"borderType": "inner",
+		"tags": [
+			"roleplayers_atlas:shore_water"
+		],
+		"tilesTo": [
+			"#roleplayers_atlas:water"
+		]
+	}
+}
