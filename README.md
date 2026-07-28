@@ -9,7 +9,7 @@ A hand-drawn clientside atlas for roleplay servers – territories, roads, quill
 
 A fork of [Antique Atlas 4](https://modrinth.com/mod/antique-atlas-4) by [Sisby folk](https://github.com/sisby-folk), ported to 1.21.8 and rebuilt around one idea: on a roleplay server a map isn't a HUD, it's a document. You draw it, you sign it, you date it, and you give it to someone who then knows the place only by your word until they go and see it for themselves.
 
-Everything here is **client-side**. The server needs no mod – which is the point, since most roleplay servers run plugin cores.
+Everything here is **client-side**.
 
 ![the whole map exported as an image](docs/images/map-export.png)
 
