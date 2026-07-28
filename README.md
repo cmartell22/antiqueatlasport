@@ -99,6 +99,8 @@ This is a fork, and almost all of the foundation is someone else's work.
 
 Antique Atlas was created by [Hunternif](https://github.com/Hunternif), continued by [Kenkron](https://github.com/Kenkron), [asie](https://github.com/asiekierka) and [tyra314](https://github.com/tyra314), and rewritten as Antique Atlas 4 by [Sisby folk](https://github.com/sisby-folk). Surveyor Map Framework, which this mod cannot run without, is also theirs.
 
+Upstream Surveyor has no 1.21.11 build – its 1.21 line ends at `1.2.1+1.22` for 1.21.8, after which it moved to 26.1. The jar therefore carries **a modified copy of Surveyor**, ported to 1.21.11 on 2026-07-28 by Glam_Ardor and versioned `1.2.1+1.21.11-ra.1` so it cannot be mistaken for an official build. It stays under LGPL-3.0-or-later, and its source is at [codeberg.org/Glam_Ardor/surveyor-1.21.11](https://codeberg.org/Glam_Ardor/surveyor-1.21.11). Bugs in that build belong in this repository's issues, not in Sisby folk's.
+
 The map art is by [Hunternif](https://www.deviantart.com/hunternif) and [lumiscosity](https://lumiscosity.neocities.org/) – see [CREDITS](CREDITS) for the file-by-file breakdown, which also marks the icons drawn for this fork.
 
 This fork is maintained by Glam_Ardor.

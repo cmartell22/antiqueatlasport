@@ -102,6 +102,8 @@ This is a fork, and almost all of the foundation is someone else's work.
 
 Antique Atlas was created by [Hunternif](https://github.com/Hunternif), continued by [Kenkron](https://github.com/Kenkron), [asie](https://github.com/asiekierka) and [tyra314](https://github.com/tyra314), and rewritten as Antique Atlas 4 by [Sisby folk](https://modrinth.com/user/sisby). [Surveyor Map Framework](https://modrinth.com/mod/surveyor), which this cannot run without, is theirs as well.
 
+Surveyor has no 1.21.11 build of its own – its 1.21 line ends at 1.21.8, after which it moved to 26.1. The 1.21.11 file here therefore carries **a modified copy of Surveyor**, ported by hand and versioned `1.2.1+1.21.11-ra.1` so it cannot be mistaken for an official build. It stays under LGPL-3.0-or-later, and its source is [on Codeberg](https://codeberg.org/Glam_Ardor/surveyor-1.21.11). Anything wrong with that build is this mod's fault, not Sisby folk's – report it here.
+
 The map art is by Hunternif and [lumiscosity](https://lumiscosity.neocities.org/) – the [CREDITS](https://codeberg.org/Glam_Ardor/roleplayers-atlas/src/branch/main/CREDITS) file names every texture and who drew it.
 
 LGPL-3.0-or-later for code, CC BY-NC-SA for assets, inherited from upstream and unchanged. Both are copyleft: anything adapted from this has to carry the same terms.
