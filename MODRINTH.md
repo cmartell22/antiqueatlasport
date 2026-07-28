@@ -34,13 +34,13 @@ A third press closes it.
 
 > ![a town drawn by hand](https://cdn.modrinth.com/data/P0zBDYta/images/5213acdb856f40e845504dae47d3ed51cd61c8ea.png)
 
+> ![the box of town pieces](https://cdn.modrinth.com/data/P0zBDYta/images/55c37b4eeef755aaafe896ebf66139e677603c60.png)
+
 **Biome corrections.** The atlas guesses at biomes it has no drawing for, and a datapack server gives it plenty to guess at. When a guess is wrong, overrule it – draw one biome as another everywhere, or correct named cells one at a time.
 
 > ![choosing what a biome is drawn as](https://cdn.modrinth.com/data/P0zBDYta/images/e4c44043b061b5bb7a970adf696511058fdcaa97.png)
 
 **Undo and redo,** twenty steps deep, across every drawing tool.
-
-> ![the box of town pieces](https://cdn.modrinth.com/data/P0zBDYta/images/55c37b4eeef755aaafe896ebf66139e677603c60.png)
 
 ---
 
