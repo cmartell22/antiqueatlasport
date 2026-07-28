@@ -304,7 +304,7 @@ public class WorldAtlasData {
 	private void checkArrivals(WorldSummary summary) {
 		if (!RoleplayersAtlas.CONFIG.clearTrackingOnArrival || RoleplayersAtlas.trackedMarkers.isEmpty()) return;
 		MinecraftClient client = MinecraftClient.getInstance();
-		if (client.player == null || !client.player.getWorld().getRegistryKey().equals(summary.dimension())) return;
+		if (client.player == null || !client.player.getEntityWorld().getRegistryKey().equals(summary.dimension())) return;
 		double px = client.player.getX();
 		double pz = client.player.getZ();
 		ChunkPos playerChunk = new ChunkPos(client.player.getBlockPos());
@@ -349,7 +349,7 @@ public class WorldAtlasData {
 	private void verifyNearbyHearsay(WorldSummary summary) {
 		if (summary.landmarks() == null) return;
 		MinecraftClient client = MinecraftClient.getInstance();
-		if (client.player == null || !client.player.getWorld().getRegistryKey().equals(summary.dimension())) return;
+		if (client.player == null || !client.player.getEntityWorld().getRegistryKey().equals(summary.dimension())) return;
 		double px = client.player.getX();
 		double pz = client.player.getZ();
 		ChunkPos playerChunk = new ChunkPos(client.player.getBlockPos());

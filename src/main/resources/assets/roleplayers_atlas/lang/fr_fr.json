@@ -7,7 +7,7 @@
 	"gui.roleplayers_atlas.showMarkers": "Afficher les marqueurs",
 	"gui.roleplayers_atlas.marker.label": "Marqueurs",
 	"key.roleplayers_atlas.open": "Ouvrir l'Atlas",
-	"key.roleplayers_atlas.category": "Roleplayer's Atlas",
+	"key.category.roleplayers_atlas.atlas": "Roleplayer's Atlas",
     "structure.start.minecraft.bastion_remnant": "Vestige de Bastion",
     "structure.start.minecraft.village_plains": "Village des plaines",
     "structure.start.minecraft.village_desert": "Village du desert",

@@ -31,8 +31,8 @@ dependencies {
 	include libs.surveyor
 
 	// ModMenu: config screen entrypoint; present in the dev client for testing.
-	modCompileOnly "com.terraformersmc:modmenu:15.0.2"
-	modLocalRuntime "com.terraformersmc:modmenu:15.0.2"
+	modCompileOnly "com.terraformersmc:modmenu:17.0.0"
+	modLocalRuntime "com.terraformersmc:modmenu:17.0.0"
 
 	// Cloth Config: optional at runtime, so it must not be shaded in. It brings
 	// its own copy of Fabric API along, which would fight with ours.

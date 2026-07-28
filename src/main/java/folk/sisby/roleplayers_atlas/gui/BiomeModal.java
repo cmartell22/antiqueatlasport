@@ -1,27 +1,93 @@
 package folk.sisby.roleplayers_atlas.gui;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.BiomeOverrides;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.TileTexture;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ButtonComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.Component;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ScrollBoxComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.reloader.BiomeTileProviders;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.tooltip.Tooltip;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.text.Text;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import org.jetbrains.annotations.Nullable;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.ArrayList;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.Comparator;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.List;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.Locale;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.Map;
 
 /**
@@ -326,7 +392,7 @@ public class BiomeModal extends Component {
 
 	/** Rebuilt after something was torn out, dropping back to the list once it is bare. */
 	private void afterTearOut() {
-		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
+		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
 		if (sheetCount() > 0) rebuildSheets();
 		else closeSheets();
 	}
@@ -411,13 +477,15 @@ public class BiomeModal extends Component {
 		}
 
 		@Override
-		public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		public boolean mouseClicked(Click click, boolean doubled) {
+			double mouseX = click.x(), mouseY = click.y();
+			int button = click.button();
 			if (mouseY < listTop() || mouseY >= listTop() + LIST_H) return false;
 			if (!isMouseOver(mouseX, mouseY)) return false;
 			// Only the word on the right tears the sheet out — the rest of the row
 			// is there to be read, and a whole sheet is too much to lose by a slip.
 			if (mouseX < getGuiX() + getWidth() - 46) return false;
-			return super.mouseClicked(mouseX, mouseY, button);
+			return super.mouseClicked(click, doubled);
 		}
 	}
 
@@ -441,7 +509,7 @@ public class BiomeModal extends Component {
 		for (int[] part : FULL_TILE) {
 			context.drawTexture(RenderPipelines.GUI_TEXTURED, texture.id(), x + part[0] * half, y + part[1] * half, part[2] * 8, part[3] * 8, half, half, 8, 8, 32, 48);
 		}
-		context.drawBorder(x, y, size, size, PAPER_EDGE);
+		context.drawStrokedRectangle(x, y, size, size, PAPER_EDGE);
 	}
 
 	/**
@@ -522,17 +590,19 @@ public class BiomeModal extends Component {
 		}
 
 		@Override
-		public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		public boolean mouseClicked(Click click, boolean doubled) {
+			double mouseX = click.x(), mouseY = click.y();
+			int button = click.button();
 			if (mouseY < listTop() || mouseY >= listTop() + LIST_H) return false;
 			if (!isMouseOver(mouseX, mouseY)) return false;
 			// The reset word on the bottom right takes the click back to the guess.
 			if (BiomeOverrides.all().containsKey(entry.biome) && mouseX >= getGuiX() + getWidth() - 46 && mouseY >= getGuiY() + ROW_H / 2) {
 				BiomeOverrides.set(entry.biome, null);
-				MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
+				MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
 				rebuildList();
 				return true;
 			}
-			return super.mouseClicked(mouseX, mouseY, button);
+			return super.mouseClicked(click, doubled);
 		}
 	}
 
@@ -559,17 +629,19 @@ public class BiomeModal extends Component {
 			TileTexture texture = tileOf(look);
 			if (texture != null) drawTile(context, texture, x, y, GRID_TILE);
 			boolean chosen = chosenLook != null ? look.equals(chosenLook) : (picking != null && look.equals(BiomeTileProviders.getInstance().drawnAs(picking)));
-			if (chosen) context.drawBorder(x - 1, y - 1, GRID_TILE + 2, GRID_TILE + 2, 0xFF8FB4D8);
+			if (chosen) context.drawStrokedRectangle(x - 1, y - 1, GRID_TILE + 2, GRID_TILE + 2, 0xFF8FB4D8);
 			if (!isClipped && isMouseOver(mouseX, mouseY) && mouseY >= top && mouseY < bottom) {
-				context.drawBorder(x - 1, y - 1, GRID_TILE + 2, GRID_TILE + 2, 0xFFFFE8B0);
+				context.drawStrokedRectangle(x - 1, y - 1, GRID_TILE + 2, GRID_TILE + 2, 0xFFFFE8B0);
 			}
 			context.disableScissor();
 		}
 
 		@Override
-		public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		public boolean mouseClicked(Click click, boolean doubled) {
+			double mouseX = click.x(), mouseY = click.y();
+			int button = click.button();
 			if (mouseY < listTop() || mouseY >= listTop() + LIST_H) return false;
-			return super.mouseClicked(mouseX, mouseY, button);
+			return super.mouseClicked(click, doubled);
 		}
 	}
 
@@ -642,17 +714,20 @@ public class BiomeModal extends Component {
 	}
 
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+	public boolean mouseClicked(Click click, boolean doubled) {
+		double mouseX = click.x(), mouseY = click.y();
+		int button = click.button();
 		if (view == View.LIST && searchField.isVisible()) {
 			boolean overSearch = searchField.isMouseOver(mouseX, mouseY);
 			searchField.setFocused(overSearch);
-			if (overSearch) return searchField.mouseClicked(mouseX, mouseY, button);
+			if (overSearch) return searchField.mouseClicked(click, doubled);
 		}
-		return super.mouseClicked(mouseX, mouseY, button);
+		return super.mouseClicked(click, doubled);
 	}
 
 	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+	public boolean keyPressed(KeyInput input) {
+		int keyCode = input.key(), scanCode = input.scancode(), modifiers = input.modifiers();
 		// Escape steps back one view at a time, and out of the window from the
 		// list. Left to the screen behind it, it would shut the book instead.
 		if (keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE) {
@@ -664,15 +739,17 @@ public class BiomeModal extends Component {
 			return true;
 		}
 		if (keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER || keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_KP_ENTER) {
-			if (view == View.PICK && btnPickApply.active) btnPickApply.onPress();
+			if (view == View.PICK && btnPickApply.active) btnPickApply.onPress(input);
 			else if (view == View.LIST) closeChild();
 			return true;
 		}
-		return super.keyPressed(keyCode, scanCode, modifiers) || searchField.keyPressed(keyCode, scanCode, modifiers);
+		return super.keyPressed(input) || searchField.keyPressed(input);
 	}
 
 	@Override
-	public boolean charTyped(char chr, int modifiers) {
-		return super.charTyped(chr, modifiers) || searchField.charTyped(chr, modifiers);
+	public boolean charTyped(CharInput input) {
+		char chr = (char) input.codepoint();
+		int modifiers = input.modifiers();
+		return super.charTyped(input) || searchField.charTyped(input);
 	}
 }

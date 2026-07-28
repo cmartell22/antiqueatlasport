@@ -126,7 +126,7 @@ public final class AtlasPainter {
 			context.getMatrices().popMatrix();
 		} else {
 			int width = textRenderer.getWidth(text);
-			DrawUtil.fill(this, net.minecraft.client.render.RenderLayer.getTextBackground(), -0.5F, light, (int) x - 2, (int) y - 1, (int) x + width + 1, (int) y + 9, alpha / 255.0F * 0.45F, new float[]{0.125F, 0.078F, 0.035F});
+			DrawUtil.fill(this, net.minecraft.client.render.RenderLayers.textBackground(), -0.5F, light, (int) x - 2, (int) y - 1, (int) x + width + 1, (int) y + 9, alpha / 255.0F * 0.45F, new float[]{0.125F, 0.078F, 0.035F});
 			matrices.push();
 			matrices.translate(0.0, 0.0, -0.6);
 			textRenderer.draw(text, x, y, argb, false, matrices.peek().getPositionMatrix(), vertexConsumers, TextRenderer.TextLayerType.NORMAL, 0, light);

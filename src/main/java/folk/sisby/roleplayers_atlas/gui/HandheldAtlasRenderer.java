@@ -11,7 +11,10 @@ import folk.sisby.surveyor.client.SurveyorClient;
 import folk.sisby.surveyor.landmark.Landmark;
 import folk.sisby.surveyor.landmark.component.LandmarkComponentTypes;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.util.BufferAllocator;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Rect2i;
 import net.minecraft.entity.player.PlayerEntity;
@@ -43,12 +46,32 @@ public record HandheldAtlasRenderer(int bookX, int bookY, int bookWidth, int boo
 			-player.getBlockZ(),
 			1,
 			player,
-			WorldAtlasData.getOrCreate(player.getWorld().getRegistryKey()),
-			player.getWorld().getRegistryKey()
+			WorldAtlasData.getOrCreate(player.getEntityWorld().getRegistryKey()),
+			player.getEntityWorld().getRegistryKey()
 		);
 	}
 
-	public void renderHandheldAtlas(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+	/**
+	 * 1.21.9 stopped handing the first-person renderer a {@link VertexConsumerProvider}
+	 * and defers everything through a command queue instead. The book is still drawn
+	 * exactly as before, into a provider of our own, and that provider is flushed
+	 * inside a custom command so it lands at the point in the frame the hand is drawn.
+	 * The vertices are already in world space by then, so the entry handed to the
+	 * command is not needed.
+	 * <p>
+	 * The allocator is kept between frames rather than rebuilt, since it holds
+	 * native memory.
+	 */
+	private static BufferAllocator bookAllocator;
+	private static VertexConsumerProvider.Immediate bookBuffers;
+
+	public void renderHandheldAtlas(MatrixStack matrices, OrderedRenderCommandQueue queue, int light) {
+		if (bookBuffers == null) {
+			bookAllocator = new BufferAllocator(786432);
+			bookBuffers = VertexConsumerProvider.immediate(bookAllocator);
+		}
+		VertexConsumerProvider.Immediate vertexConsumers = bookBuffers;
+
 		matrices.push();
 		// Mirror the vanilla first-person map transform so the book sits in the
 		// hands exactly like a held map, then fit the book spread to map height.
@@ -124,6 +147,8 @@ public record HandheldAtlasRenderer(int bookX, int bookY, int bookWidth, int boo
 		}
 
 		matrices.pop();
+
+		queue.submitCustom(matrices, RenderLayers.entityTranslucent(AtlasScreen.BOOK), (entry, vertices) -> vertexConsumers.draw());
 	}
 
 	/**

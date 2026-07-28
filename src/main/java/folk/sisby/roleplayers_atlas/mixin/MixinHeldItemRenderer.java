@@ -8,7 +8,7 @@ import folk.sisby.roleplayers_atlas.AtlasHoldMode;
 import folk.sisby.roleplayers_atlas.gui.HandheldAtlasRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
@@ -27,7 +27,7 @@ public class MixinHeldItemRenderer {
 	// an item there it moves to the off hand (whose own item is hidden in
 	// first person), and the main hand renders its real item.
 	@ModifyVariable(method = "renderFirstPersonItem", at = @At("HEAD"), argsOnly = true)
-	private ItemStack roleplayers_atlas$virtualAtlas(ItemStack stack, AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack stackArg, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+	private ItemStack roleplayers_atlas$virtualAtlas(ItemStack stack, AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack stackArg, float equipProgress, MatrixStack matrices, OrderedRenderCommandQueue vertexConsumers, int light) {
 		if (!AtlasHoldMode.isActive()) return stack;
 		if (!AtlasHoldMode.bookInSmallHand()) {
 			// Big book fills both hands: virtual atlas in the main hand, whatever
@@ -58,7 +58,7 @@ public class MixinHeldItemRenderer {
 	// Field mode choreography: the main hand draws the closed book alone, then
 	// the off hand reaches in from the side to open the cover.
 	@WrapMethod(method = "renderArm")
-	private void roleplayers_atlas$offHandReachesIn(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, Arm arm, Operation<Void> original) {
+	private void roleplayers_atlas$offHandReachesIn(MatrixStack matrices, OrderedRenderCommandQueue vertexConsumers, int light, Arm arm, Operation<Void> original) {
 		MinecraftClient client = MinecraftClient.getInstance();
 		if (AtlasHoldMode.isActive() && client.player != null && arm != client.player.getMainArm()) {
 			float reach = AtlasHoldMode.easeOutCubic(AtlasHoldMode.armProgress());
@@ -80,7 +80,7 @@ public class MixinHeldItemRenderer {
 	// the book is lowered from both hands, second half — it rises small in the
 	// off hand while the main hand raises its real item.
 	@ModifyVariable(method = "renderFirstPersonItem", at = @At("HEAD"), argsOnly = true, ordinal = 3)
-	private float roleplayers_atlas$drawAnimation(float equipProgress, AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgressArg, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+	private float roleplayers_atlas$drawAnimation(float equipProgress, AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgressArg, MatrixStack matrices, OrderedRenderCommandQueue vertexConsumers, int light) {
 		if (!AtlasHoldMode.isActive()) return equipProgress;
 		float shift = AtlasHoldMode.easeInOutCubic(AtlasHoldMode.handShift());
 		if (shift > 0.5F) {
@@ -95,7 +95,7 @@ public class MixinHeldItemRenderer {
 		return equipProgress;
 	}
 	@Inject(method = "renderFirstPersonMap", at = @At("HEAD"), cancellable = true)
-	protected void renderFirstPersonAtlas(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, CallbackInfo ci) {
+	protected void renderFirstPersonAtlas(MatrixStack matrices, OrderedRenderCommandQueue vertexConsumers, int light, ItemStack stack, CallbackInfo ci) {
 		if (MinecraftClient.getInstance().player == null || MinecraftClient.getInstance().world == null) return;
 		// Reference check first: the field-mode virtual stack is a singleton and
 		// must not depend on locale-sensitive display-name matching.
@@ -108,7 +108,7 @@ public class MixinHeldItemRenderer {
 
 	// 1.21.8: the first-person map branch checks stack.contains(MAP_ID) instead of isOf(FILLED_MAP)
 	@ModifyExpressionValue(method = "renderFirstPersonItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;contains(Lnet/minecraft/component/ComponentType;)Z", ordinal = 0))
-	protected boolean enableFirstPersonAtlasRendering(boolean original, AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+	protected boolean enableFirstPersonAtlasRendering(boolean original, AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack matrices, OrderedRenderCommandQueue vertexConsumers, int light) {
 		return original || stack == AtlasHoldMode.getVirtualStack();
 	}
 }

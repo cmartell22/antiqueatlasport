@@ -35,9 +35,11 @@ public record AtlasQuadRenderState(Matrix3x2f pose, float[] xs, float[] ys, int 
 	}
 
 	@Override
-	public void setupVertices(VertexConsumer vertices, float depth) {
+	public void setupVertices(VertexConsumer vertices) {
+		// Depth is no longer passed in: since 1.21.9 the GUI renderer assigns it
+		// per element, and the vertex itself is plain 2D.
 		for (int i = 0; i < 4; i++) {
-			vertices.vertex(this.pose, this.xs[i], this.ys[i], depth).color(this.color);
+			vertices.vertex(this.pose, this.xs[i], this.ys[i]).color(this.color);
 		}
 	}
 

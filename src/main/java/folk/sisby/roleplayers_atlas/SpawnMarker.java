@@ -169,7 +169,7 @@ public final class SpawnMarker {
 		}
 
 		if (known) return;
-		BlockPos worldSpawn = world.getSpawnPos();
+		BlockPos worldSpawn = world.getSpawnPoint().getPos();
 		if (worldSpawn == null || worldSpawn.equals(pos)) return;
 		pos = worldSpawn;
 		dimension = world.getRegistryKey();

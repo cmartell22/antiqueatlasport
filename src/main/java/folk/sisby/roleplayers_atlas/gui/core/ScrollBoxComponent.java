@@ -1,11 +1,18 @@
 package folk.sisby.roleplayers_atlas.gui.core;
 
+import net.minecraft.client.gui.Click;
 import folk.sisby.roleplayers_atlas.RoleplayersAtlas;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.util.math.Rect2i;
+import net.minecraft.client.gui.Click;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.client.gui.Click;
 import net.minecraft.util.Identifier;
 
 public class ScrollBoxComponent extends Component {
@@ -53,17 +60,19 @@ public class ScrollBoxComponent extends Component {
 		if (hovered) {
 			int numSteps = (int) Math.round((double) getViewportSize() / scrollStep);
 			setScrollPos(scrollPos + numSteps * scrollStep * (prev ? -1 : 1));
-			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
+			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int mb) {
+	public boolean mouseClicked(Click click, boolean doubled) {
+		double mouseX = click.x(), mouseY = click.y();
+		int mb = click.button();
 		if (scrollPos > 0 && clickArrow(mouseX, mouseY, true)) return true;
 		if (scrollPos < getContentSize() - getViewportSize() && clickArrow(mouseX, mouseY, false)) return true;
-		return super.mouseClicked(mouseX, mouseY, mb);
+		return super.mouseClicked(click, doubled);
 	}
 
 	@Override

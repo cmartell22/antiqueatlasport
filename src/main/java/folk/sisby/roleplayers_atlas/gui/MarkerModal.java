@@ -1,34 +1,121 @@
 package folk.sisby.roleplayers_atlas.gui;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.MarkerTexture;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.WorldAtlasData;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.Component;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ScrollBoxComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ToggleButtonRadioGroup;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.reloader.MarkerTextures;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.util.ColorUtil;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.WorldSummary;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.landmark.Landmark;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.landmark.WorldLandmarks;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.landmark.component.LandmarkComponentTypes;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.item.Item;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.text.MutableText;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.text.Text;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.DyeColor;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.ArrayList;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.Arrays;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.LinkedHashMap;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.List;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.Map;
 
 /**
@@ -341,7 +428,7 @@ public class MarkerModal extends Component {
 			}
 			((AtlasScreen) getParent()).updateBookmarkerList();
 			ClientPlayerEntity player = MinecraftClient.getInstance().player;
-			if (player != null) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_VILLAGER_WORK_CARTOGRAPHER, 1F));
+			if (player != null) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ENTITY_VILLAGER_WORK_CARTOGRAPHER, 1F));
 			closeChild();
 		}).dimensions(this.width / 2 - BUTTON_WIDTH - BUTTON_SPACING / 2, this.height / 2 + bottomY(), BUTTON_WIDTH, 20).build());
 		addDrawableChild(btnCancel = ButtonWidget.builder(Text.translatable("gui.cancel"), (button) -> closeChild())
@@ -507,18 +594,21 @@ public class MarkerModal extends Component {
 	}
 
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int button) {
-		if (isSpawn()) return super.mouseClicked(mouseX, mouseY, button);
+	public boolean mouseClicked(Click click, boolean doubled) {
+		double mouseX = click.x(), mouseY = click.y();
+		int button = click.button();
+		if (isSpawn()) return super.mouseClicked(click, doubled);
 		noteFocused = isOverNoteBox(mouseX, mouseY);
 		if (noteFocused && textField != null) {
 			textField.setFocused(false);
 			return true;
 		}
-		return super.mouseClicked(mouseX, mouseY, button) || textField.mouseClicked(mouseX, mouseY, button);
+		return super.mouseClicked(click, doubled) || textField.mouseClicked(click, doubled);
 	}
 
 	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+	public boolean keyPressed(KeyInput input) {
+		int keyCode = input.key(), scanCode = input.scancode(), modifiers = input.modifiers();
 		if (noteFocused) {
 			if (keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_BACKSPACE && !noteText.isEmpty()) {
 				noteText = noteText.substring(0, noteText.length() - 1);
@@ -538,7 +628,7 @@ public class MarkerModal extends Component {
 		// Enter is the same as pressing Done. Typing a name and reaching for the
 		// mouse to confirm it is a step nobody expects to have to take.
 		if (keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER || keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_KP_ENTER) {
-			if (btnDone != null && btnDone.active) btnDone.onPress();
+			if (btnDone != null && btnDone.active) btnDone.onPress(input);
 			return true;
 		}
 		// Escape backs out of the dialog. Handled here rather than left to the
@@ -547,16 +637,18 @@ public class MarkerModal extends Component {
 			closeChild();
 			return true;
 		}
-		return super.keyPressed(keyCode, scanCode, modifiers) || textField.keyPressed(keyCode, scanCode, modifiers);
+		return super.keyPressed(input) || textField.keyPressed(input);
 	}
 
 	@Override
-	public boolean charTyped(char chr, int modifiers) {
+	public boolean charTyped(CharInput input) {
+		char chr = (char) input.codepoint();
+		int modifiers = input.modifiers();
 		if (noteFocused) {
 			if (chr >= ' ' && noteText.length() < 512) noteText += chr;
 			return true;
 		}
-		return super.charTyped(chr, modifiers) || textField.charTyped(chr, modifiers);
+		return super.charTyped(input) || textField.charTyped(input);
 	}
 
 	@Override

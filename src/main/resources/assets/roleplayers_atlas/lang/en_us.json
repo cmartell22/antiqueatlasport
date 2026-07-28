@@ -174,7 +174,7 @@
 	"gui.roleplayers_atlas.marker.zoneTitle": "Zone title: %s",
 	"gui.roleplayers_atlas.marker.zoneTitle.on": "ON",
 	"gui.roleplayers_atlas.marker.zoneTitle.off": "OFF",
-	"key.roleplayers_atlas.category": "Roleplayer's Atlas",
+	"key.category.roleplayers_atlas.atlas": "Roleplayer's Atlas",
 	"key.roleplayers_atlas.open": "Open Atlas",
 	"gui.roleplayers_atlas.addMarker": "Add marker",
 	"gui.roleplayers_atlas.addMarkerHere": "Add marker here",

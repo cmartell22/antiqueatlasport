@@ -1,16 +1,27 @@
 package folk.sisby.roleplayers_atlas.gui;
 
+import net.minecraft.client.input.KeyInput;
 import folk.sisby.roleplayers_atlas.ParchmentExport;
+import net.minecraft.client.input.KeyInput;
 import folk.sisby.roleplayers_atlas.WorldAtlasData;
+import net.minecraft.client.input.KeyInput;
 import folk.sisby.roleplayers_atlas.gui.core.Component;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.texture.NativeImage;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.text.Text;
 
+import net.minecraft.client.input.KeyInput;
 import java.nio.file.Path;
 
 /**
@@ -102,16 +113,17 @@ public class ScreenshotModal extends Component {
 	}
 
 	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+	public boolean keyPressed(KeyInput input) {
+		int keyCode = input.key(), scanCode = input.scancode(), modifiers = input.modifiers();
 		if (keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE) {
 			closeChild();
 			return true;
 		}
 		if (keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER || keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_KP_ENTER) {
-			btnView.onPress();
+			btnView.onPress(input);
 			return true;
 		}
-		return super.keyPressed(keyCode, scanCode, modifiers);
+		return super.keyPressed(input);
 	}
 
 	@Override

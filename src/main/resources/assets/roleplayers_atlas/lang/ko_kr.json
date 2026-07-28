@@ -1,5 +1,5 @@
 {
-	"key.roleplayers_atlas.category": "Roleplayer's Atlas",
+	"key.category.roleplayers_atlas.atlas": "Roleplayer's Atlas",
 	"key.roleplayers_atlas.open": "Atlas 지도 열기",
 	"gui.roleplayers_atlas.scalebar": "블록 단위 축척",
 	"gui.roleplayers_atlas.addMarker": "마커 추가",

@@ -7,12 +7,20 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 
 
 public class AtlasKeybindings {
-	public static final KeyBinding ATLAS_KEYMAPPING = new KeyBinding("key.roleplayers_atlas.open", InputUtil.Type.KEYSYM, 77, "key.roleplayers_atlas.category");
+	/**
+	 * Categories stopped being bare translation keys in 1.21.9. The label is now
+	 * derived from the id as {@code key.category.<namespace>.<path>}, which is the
+	 * key the language files carry.
+	 */
+	private static final KeyBinding.Category CATEGORY = KeyBinding.Category.create(Identifier.of(RoleplayersAtlas.ID, "atlas"));
+
+	public static final KeyBinding ATLAS_KEYMAPPING = new KeyBinding("key.roleplayers_atlas.open", InputUtil.Type.KEYSYM, 77, CATEGORY);
 	/** N by default, and rebindable in the vanilla controls screen like any other. */
-	public static final KeyBinding QUICK_MARK_KEYMAPPING = new KeyBinding("key.roleplayers_atlas.quickMark", InputUtil.Type.KEYSYM, 78, "key.roleplayers_atlas.category");
+	public static final KeyBinding QUICK_MARK_KEYMAPPING = new KeyBinding("key.roleplayers_atlas.quickMark", InputUtil.Type.KEYSYM, 78, CATEGORY);
 
 	public static void init() {
 		KeyBindingHelper.registerKeyBinding(ATLAS_KEYMAPPING);
@@ -37,7 +45,7 @@ public class AtlasKeybindings {
 				// First press: draw the book into the player's hands.
 				
 				AtlasHoldMode.activate();
-				client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+				client.getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 			}
 		}
 	}

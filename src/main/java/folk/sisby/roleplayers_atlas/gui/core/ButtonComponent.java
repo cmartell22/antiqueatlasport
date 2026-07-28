@@ -1,11 +1,17 @@
 package folk.sisby.roleplayers_atlas.gui.core;
 
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.gui.Click;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.client.gui.Click;
 import net.minecraft.sound.SoundEvents;
 
+import net.minecraft.client.gui.Click;
 import java.util.ArrayList;
+import net.minecraft.client.gui.Click;
 import java.util.List;
 
 /**
@@ -18,13 +24,15 @@ public class ButtonComponent extends Component {
 	protected SoundEvent clickSound = SoundEvents.UI_BUTTON_CLICK.value();
 
 	@Override
-	public boolean mouseClicked(double x, double y, int mouseButton) {
+	public boolean mouseClicked(Click click, boolean doubled) {
+		double x = click.x(), y = click.y();
+		int mouseButton = click.button();
 		if (!isClipped && mouseButton == 0 && isMouseOver(x, y)) {
 			onClick();
 			return true;
 		}
 
-		return super.mouseClicked(x, y, mouseButton);
+		return super.mouseClicked(click, doubled);
 	}
 
 	/**
@@ -33,7 +41,7 @@ public class ButtonComponent extends Component {
 	@SuppressWarnings("unchecked")
 	public void onClick() {
 		if (clickSound != null) {
-			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(clickSound, 1.0F));
+			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(clickSound, 1.0F));
 		}
 
 		for (IButtonListener listener : listeners) {

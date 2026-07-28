@@ -63,7 +63,7 @@ public final class AtlasTime {
 	/** The name this client signs its scrolls with. */
 	public static String selfName() {
 		MinecraftClient client = MinecraftClient.getInstance();
-		return client.player == null ? "" : client.player.getGameProfile().getName();
+		return client.player == null ? "" : client.player.getGameProfile().name();
 	}
 
 	/** Whether a mark came from someone else's hand. Stays true after it's verified — who told you doesn't change. */

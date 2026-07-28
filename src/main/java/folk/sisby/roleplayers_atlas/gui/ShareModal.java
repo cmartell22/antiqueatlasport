@@ -1,30 +1,105 @@
 package folk.sisby.roleplayers_atlas.gui;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.AtlasComponents;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.MapShare;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.WorldAtlasData;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ButtonComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.Component;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ScrollBoxComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ToggleButtonComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.WorldSummary;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.landmark.Landmark;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.landmark.component.LandmarkComponentTypes;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.tooltip.Tooltip;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.text.Text;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.Util;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.world.World;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.nio.file.Path;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.ArrayList;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.List;
 
 /**
@@ -90,9 +165,11 @@ public class ShareModal extends Component {
 		}
 
 		@Override
-		public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		public boolean mouseClicked(Click click, boolean doubled) {
+			double mouseX = click.x(), mouseY = click.y();
+			int button = click.button();
 			if (mouseY < listTop() || mouseY >= listTop() + LIST_H) return false;
-			return super.mouseClicked(mouseX, mouseY, button);
+			return super.mouseClicked(click, doubled);
 		}
 	}
 
@@ -147,9 +224,11 @@ public class ShareModal extends Component {
 		}
 
 		@Override
-		public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		public boolean mouseClicked(Click click, boolean doubled) {
+			double mouseX = click.x(), mouseY = click.y();
+			int button = click.button();
 			if (mouseY < listTop() || mouseY >= listTop() + LIST_H) return false;
-			return super.mouseClicked(mouseX, mouseY, button);
+			return super.mouseClicked(click, doubled);
 		}
 	}
 
@@ -181,9 +260,11 @@ public class ShareModal extends Component {
 		}
 
 		@Override
-		public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		public boolean mouseClicked(Click click, boolean doubled) {
+			double mouseX = click.x(), mouseY = click.y();
+			int button = click.button();
 			if (mouseY < listTop() || mouseY >= listTop() + LIST_H) return false;
-			return super.mouseClicked(mouseX, mouseY, button);
+			return super.mouseClicked(click, doubled);
 		}
 	}
 
@@ -218,7 +299,7 @@ public class ShareModal extends Component {
 	private void select(Path file) {
 		selectedFile = file;
 		preview = MapShare.peek(file, dim);
-		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 	}
 
 	void setData(WorldSummary summary, DynamicRegistryManager manager, RegistryKey<World> dim, WorldAtlasData data) {
@@ -446,7 +527,7 @@ public class ShareModal extends Component {
 				return;
 			}
 			player.sendMessage(Text.translatable("gui.roleplayers_atlas.share.imported", result.landmarks(), result.regions(), result.corrections()), false);
-			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_VILLAGER_WORK_CARTOGRAPHER, 1F));
+			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ENTITY_VILLAGER_WORK_CARTOGRAPHER, 1F));
 		}
 		if (getParent() instanceof AtlasScreen screen) screen.updateBookmarkerList();
 		closeChild();
@@ -552,20 +633,23 @@ public class ShareModal extends Component {
 	}
 
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+	public boolean mouseClicked(Click click, boolean doubled) {
+		double mouseX = click.x(), mouseY = click.y();
+		int button = click.button();
 		// Nothing in this component tree hands out focus, and a text field that
 		// never gets it silently swallows every keystroke — so it claims and
 		// releases focus on click itself.
 		if (!importMode && nameField.isVisible()) {
 			boolean overName = nameField.isMouseOver(mouseX, mouseY);
 			nameField.setFocused(overName);
-			if (overName) return nameField.mouseClicked(mouseX, mouseY, button);
+			if (overName) return nameField.mouseClicked(click, doubled);
 		}
-		return super.mouseClicked(mouseX, mouseY, button);
+		return super.mouseClicked(click, doubled);
 	}
 
 	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+	public boolean keyPressed(KeyInput input) {
+		int keyCode = input.key(), scanCode = input.scancode(), modifiers = input.modifiers();
 		// Escape steps back out of the dialog — first out of the file list, then
 		// out of the window. Left to the screen behind it, it would shut the book.
 		if (keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE) {
@@ -577,12 +661,14 @@ public class ShareModal extends Component {
 			if (btnExport.active) doExport();
 			return true;
 		}
-		return super.keyPressed(keyCode, scanCode, modifiers) || nameField.keyPressed(keyCode, scanCode, modifiers);
+		return super.keyPressed(input) || nameField.keyPressed(input);
 	}
 
 	@Override
-	public boolean charTyped(char chr, int modifiers) {
-		return super.charTyped(chr, modifiers) || nameField.charTyped(chr, modifiers);
+	public boolean charTyped(CharInput input) {
+		char chr = (char) input.codepoint();
+		int modifiers = input.modifiers();
+		return super.charTyped(input) || nameField.charTyped(input);
 	}
 
 	@Override

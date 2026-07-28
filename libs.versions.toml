@@ -6,13 +6,16 @@ curse = "1.1.+"
 
 kaleidoConfig = "0.3.3+1.3.2"
 
-mc = "1.21.8"
-fl = "0.16.14"
-yarn = "1.21.8+build.1"
-fapi = "0.136.1+1.21.8"
+mc = "1.21.11"
+fl = "0.19.3"
+yarn = "1.21.11+build.6"
+fapi = "0.141.6+1.21.11"
 
-surveyor = "1.2.1+1.22"
-clothConfig = "19.0.147"
+# Upstream Surveyor has no 1.21.11 build: it stops at 1.2.1+1.22 for 1.21.8 and
+# resumes at 26.1. This is our own port of that same 1.2.1, built from
+# Downloads\Reign\Surveyor and published to mavenLocal.
+surveyor = "1.2.1+1.21.11-ra.1"
+clothConfig = "21.11.153"
 
 [plugins]
 loom = { id = "fabric-loom", version.ref = "loom" }

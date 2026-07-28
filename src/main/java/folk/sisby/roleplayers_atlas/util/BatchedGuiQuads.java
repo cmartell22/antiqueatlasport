@@ -35,16 +35,18 @@ public final class BatchedGuiQuads implements SimpleGuiElementRenderState {
 	}
 
 	@Override
-	public void setupVertices(VertexConsumer vertices, float depth) {
+	public void setupVertices(VertexConsumer vertices) {
+		// Depth is no longer passed in: since 1.21.9 the GUI renderer assigns it
+		// per element, and the vertex itself is plain 2D.
 		for (int i = 0; i < count; i++) {
 			int q = i * 8;
 			float x1 = quads[q], y1 = quads[q + 1], x2 = quads[q + 2], y2 = quads[q + 3];
 			float u1 = quads[q + 4], v1 = quads[q + 5], u2 = quads[q + 6], v2 = quads[q + 7];
 			int color = colors[i];
-			vertices.vertex(pose, x1, y1, depth).texture(u1, v1).color(color);
-			vertices.vertex(pose, x1, y2, depth).texture(u1, v2).color(color);
-			vertices.vertex(pose, x2, y2, depth).texture(u2, v2).color(color);
-			vertices.vertex(pose, x2, y1, depth).texture(u2, v1).color(color);
+			vertices.vertex(pose, x1, y1).texture(u1, v1).color(color);
+			vertices.vertex(pose, x1, y2).texture(u1, v2).color(color);
+			vertices.vertex(pose, x2, y2).texture(u2, v2).color(color);
+			vertices.vertex(pose, x2, y1).texture(u2, v1).color(color);
 		}
 	}
 

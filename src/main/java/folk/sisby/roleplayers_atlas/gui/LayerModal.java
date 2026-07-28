@@ -1,25 +1,85 @@
 package folk.sisby.roleplayers_atlas.gui;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.RoleplayersAtlas;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.AtlasComponents;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.MarkerLayers;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.WorldAtlasData;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.Component;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ScrollBoxComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ToggleButtonRadioGroup;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.util.ColorUtil;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.WorldSummary;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.landmark.Landmark;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.text.Text;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.DyeColor;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.ArrayList;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.LinkedHashMap;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.List;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.Map;
 
 /**
@@ -157,26 +217,31 @@ public class LayerModal extends Component {
 	}
 
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int button) {
-		return super.mouseClicked(mouseX, mouseY, button) || nameField.mouseClicked(mouseX, mouseY, button);
+	public boolean mouseClicked(Click click, boolean doubled) {
+		double mouseX = click.x(), mouseY = click.y();
+		int button = click.button();
+		return super.mouseClicked(click, doubled) || nameField.mouseClicked(click, doubled);
 	}
 
 	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+	public boolean keyPressed(KeyInput input) {
+		int keyCode = input.key(), scanCode = input.scancode(), modifiers = input.modifiers();
 		if (keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE) {
 			closeChild();
 			return true;
 		}
 		if (keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER || keyCode == org.lwjgl.glfw.GLFW.GLFW_KEY_KP_ENTER) {
-			if (btnDone.active) btnDone.onPress();
+			if (btnDone.active) btnDone.onPress(input);
 			return true;
 		}
-		return super.keyPressed(keyCode, scanCode, modifiers) || nameField.keyPressed(keyCode, scanCode, modifiers);
+		return super.keyPressed(input) || nameField.keyPressed(input);
 	}
 
 	@Override
-	public boolean charTyped(char chr, int modifiers) {
-		return super.charTyped(chr, modifiers) || nameField.charTyped(chr, modifiers);
+	public boolean charTyped(CharInput input) {
+		char chr = (char) input.codepoint();
+		int modifiers = input.modifiers();
+		return super.charTyped(input) || nameField.charTyped(input);
 	}
 
 	@Override

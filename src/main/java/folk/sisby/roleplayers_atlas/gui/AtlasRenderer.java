@@ -21,6 +21,7 @@ import folk.sisby.surveyor.util.RegionPos;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -203,7 +204,7 @@ public interface AtlasRenderer {
 		y1 = Math.max(y1, clipY1);
 		x2 = Math.min(x2, clipX2);
 		y2 = Math.min(y2, clipY2);
-		if (x2 > x1 && y2 > y1) DrawUtil.fill(painter, RenderLayer.getTextBackgroundSeeThrough(), z, light, x1, y1, x2, y2, alpha, color);
+		if (x2 > x1 && y2 > y1) DrawUtil.fill(painter, RenderLayers.textBackgroundSeeThrough(), z, light, x1, y1, x2, y2, alpha, color);
 	}
 
 	default void renderMarker(AtlasPainter painter, Landmark landmark, MarkerTexture texture, float z, int light, BiFunction<Double, Double, Float> alphaGetter, boolean pinned, boolean hovering, float markerScale) {
@@ -517,7 +518,7 @@ public interface AtlasRenderer {
 					painter.push();
 					painter.translate(sx, sy);
 					painter.rotateDegrees(angle);
-					DrawUtil.fill(painter, RenderLayer.getTextBackgroundSeeThrough(), z, light, 0, y1, (int) Math.max(1, Math.round(advance)), y1 + th, alpha * 0.9F, colorF);
+					DrawUtil.fill(painter, RenderLayers.textBackgroundSeeThrough(), z, light, 0, y1, (int) Math.max(1, Math.round(advance)), y1 + th, alpha * 0.9F, colorF);
 					painter.pop();
 					dashGuard++;
 				} else {
@@ -653,7 +654,7 @@ public interface AtlasRenderer {
 				qy[2] = ribbon.get(k + 1)[1] + normals[k + 1][1] * plateFar;
 				qx[3] = ribbon.get(k + 1)[0] + normals[k + 1][0] * plateNear;
 				qy[3] = ribbon.get(k + 1)[1] + normals[k + 1][1] * plateNear;
-				DrawUtil.quadClipped(painter, RenderLayer.getTextBackground(), -0.5F, light, qx, qy, MAP_BORDER_WIDTH, MAP_BORDER_HEIGHT, MAP_BORDER_WIDTH + mapWidth(), MAP_BORDER_HEIGHT + mapHeight(), labelAlpha * 0.45F, plateColor);
+				DrawUtil.quadClipped(painter, RenderLayers.textBackground(), -0.5F, light, qx, qy, MAP_BORDER_WIDTH, MAP_BORDER_HEIGHT, MAP_BORDER_WIDTH + mapWidth(), MAP_BORDER_HEIGHT + mapHeight(), labelAlpha * 0.45F, plateColor);
 			}
 		}
 
@@ -694,7 +695,7 @@ public interface AtlasRenderer {
 		alpha *= RoleplayersAtlas.CONFIG.guideArrowOpacity / 100.0F;
 		if (RoleplayersAtlas.trackedMarkers.isEmpty() || alpha <= 0.05F) return;
 		MinecraftClient client = MinecraftClient.getInstance();
-		if (client.player == null || !dim().equals(client.player.getWorld().getRegistryKey())) return;
+		if (client.player == null || !dim().equals(client.player.getEntityWorld().getRegistryKey())) return;
 		double px = client.player.getX();
 		double pz = client.player.getZ();
 		double originX = MathHelper.clamp(worldXToScreenX(px) - bookX(), MAP_BORDER_WIDTH + 10, mapWidth() + MAP_BORDER_WIDTH - 10);

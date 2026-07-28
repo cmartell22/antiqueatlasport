@@ -17,7 +17,7 @@ public class MixinMinecraftClient {
 	private void roleplayers_atlas$closeFieldModeOnEscape(boolean pauseOnly, CallbackInfo ci) {
 		if (!pauseOnly && AtlasHoldMode.isActive() && !AtlasHoldMode.isClosing()) {
 			AtlasHoldMode.beginClose();
-			((MinecraftClient) (Object) this).getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 0.8F));
+			((MinecraftClient) (Object) this).getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 0.8F));
 			ci.cancel();
 		}
 	}

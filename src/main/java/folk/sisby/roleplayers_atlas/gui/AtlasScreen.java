@@ -1,58 +1,229 @@
 package folk.sisby.roleplayers_atlas.gui;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
+import static folk.sisby.roleplayers_atlas.util.AtlasInput.hasAltDown;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
+import static folk.sisby.roleplayers_atlas.util.AtlasInput.hasControlDown;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
+import static folk.sisby.roleplayers_atlas.util.AtlasInput.hasShiftDown;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import com.mojang.serialization.Codec;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.RoleplayersAtlas;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.AtlasKeybindings;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.MarkerTexture;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.TileTexture;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.WorldAtlasData;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ButtonComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.Component;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.CursorComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ScreenState;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.gui.core.ScrollBoxComponent;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.util.AtlasPainter;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.roleplayers_atlas.util.CodecUtil;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.PlayerSummary;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.client.SurveyorClient;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.landmark.Landmark;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.landmark.WorldLandmarks;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.landmark.component.LandmarkComponentTypes;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import folk.sisby.surveyor.util.RegionPos;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.resource.Resource;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.resource.metadata.ResourceMetadataSerializer;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.text.Text;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.DyeColor;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.Formatting;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.util.math.ColumnPos;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import net.minecraft.world.World;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import org.apache.commons.lang3.StringUtils;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import org.apache.commons.lang3.text.WordUtils;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import org.joml.Vector2d;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import org.lwjgl.glfw.GLFW;
 
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.io.IOException;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.ArrayList;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.HashMap;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.List;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.Map;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.NoSuchElementException;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.Set;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.UUID;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.concurrent.CopyOnWriteArrayList;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.function.BiFunction;
+import net.minecraft.client.gui.Click;
+import net.minecraft.client.input.KeyInput;
+import net.minecraft.client.input.CharInput;
 import java.util.stream.Stream;
 
 public class AtlasScreen extends Component implements AtlasRenderer {
@@ -176,8 +347,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			}
 
 			@Override
-			public boolean mouseClicked(double mouseX, double mouseY, int button) {
-				return available() && super.mouseClicked(mouseX, mouseY, button);
+			public boolean mouseClicked(Click click, boolean doubled) {
+				double mouseX = click.x(), mouseY = click.y();
+				int button = click.button();
+				return available() && super.mouseClicked(click, doubled);
 			}
 		};
 		addChild(spawnBookmark).offsetGuiCoords(bookWidth - 10, bookHeight - MAP_BORDER_HEIGHT - BookmarkButton.HEIGHT * 2 - 11);
@@ -187,7 +360,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			if (hasShiftDown()) {
 				Landmark spawn = folk.sisby.roleplayers_atlas.SpawnMarker.get(dim);
 				if (spawn == null) return;
-				markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getWorld().getRegistryManager(), spawn);
+				markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getEntityWorld().getRegistryManager(), spawn);
 				addChild(markerModal);
 				return;
 			}
@@ -213,13 +386,13 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 					double dimZ = player.getBlockZ();
 					Map<RegistryKey<World>, Integer> scales = RoleplayersAtlas.CONFIG.dimensions.getScales(MinecraftClient.getInstance().getNetworkHandler());
 					int newScale = scales.getOrDefault(dim(), 0);
-					int oldScale = scales.getOrDefault(player.getWorld().getRegistryKey(), 0);
+					int oldScale = scales.getOrDefault(player.getEntityWorld().getRegistryKey(), 0);
 					if (newScale * oldScale == 0) return; // no ratio!
 					double mult = newScale / (double) oldScale;
 					dimX = mult * dimX;
 					dimZ = mult * dimZ;
 
-					markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getWorld().getRegistryManager(), Landmark.create(SurveyorClient.getClientUuid(), RoleplayersAtlas.id("newmarker"), b -> b.add(LandmarkComponentTypes.POS, player.getBlockPos())));
+					markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getEntityWorld().getRegistryManager(), Landmark.create(SurveyorClient.getClientUuid(), RoleplayersAtlas.id("newmarker"), b -> b.add(LandmarkComponentTypes.POS, player.getBlockPos())));
 					addChild(markerModal);
 
 					markerCursor.setTexture(markerModal.selectedTexture.id(), markerModal.selectedTexture.textureWidth(), markerModal.selectedTexture.textureHeight());
@@ -293,7 +466,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			shareMapBookmark.setSelected(false);
 			selectedButton = null;
 			state.switchTo(NORMAL, this);
-			shareModal.setData(SurveyorClient.tryGetSummary(dim), player.getWorld().getRegistryManager(), dim, worldAtlasData);
+			shareModal.setData(SurveyorClient.tryGetSummary(dim), player.getEntityWorld().getRegistryManager(), dim, worldAtlasData);
 			addChild(shareModal);
 			KeyBinding.unpressAll();
 		});
@@ -417,7 +590,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 	}
 
 	public void prepareToOpen() {
-		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 
 		this.player = MinecraftClient.getInstance().player;
 		this.dim = MinecraftClient.getInstance().world.getRegistryKey();
@@ -557,7 +730,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 					if (!worldAtlasData.deleteLandmark(dim, landmark)) return;
 					if (RoleplayersAtlas.trackedMarkers.remove(RoleplayersAtlas.trackKey(landmark))) folk.sisby.roleplayers_atlas.TrackedMarkersStore.save();
 					updateBookmarkerList();
-					MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, 1F, 0.5F));
+					MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, 1F, 0.5F));
 					if (!hasShiftDown()) {
 						state.switchTo(NORMAL, this);
 					}
@@ -1364,7 +1537,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			return;
 		}
 
-		markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getWorld().getRegistryManager(),
+		markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getEntityWorld().getRegistryManager(),
 			Landmark.create(SurveyorClient.getClientUuid(), RoleplayersAtlas.id("newroute"), b -> b.add(folk.sisby.roleplayers_atlas.AtlasComponents.ROUTE, routePoints).add(LandmarkComponentTypes.POS, center)));
 		pendingRoute.clear();
 		addChild(markerModal);
@@ -1422,28 +1595,30 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		if (pendingTerritory.isEmpty()) return;
 		Map<RegionPos, java.util.BitSet> regions = folk.sisby.roleplayers_atlas.util.TerritoryUtil.chunksToRegions(pendingTerritory);
 		pendingTerritory.clear();
-		markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getWorld().getRegistryManager(), Landmark.create(SurveyorClient.getClientUuid(), RoleplayersAtlas.id("newterritory"), b -> b.add(LandmarkComponentTypes.CHUNKS, regions)));
+		markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getEntityWorld().getRegistryManager(), Landmark.create(SurveyorClient.getClientUuid(), RoleplayersAtlas.id("newterritory"), b -> b.add(LandmarkComponentTypes.CHUNKS, regions)));
 		addChild(markerModal);
 		KeyBinding.unpressAll();
 	}
 
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int mouseState) {
+	public boolean mouseClicked(Click click, boolean doubled) {
+		double mouseX = click.x(), mouseY = click.y();
+		int mouseState = click.button();
 		updateMouse(mouseX, mouseY);
 		if (screenshotModal.getParent() != null) {
-			return screenshotModal.mouseClicked(mouseX, mouseY, mouseState);
+			return screenshotModal.mouseClicked(click, doubled);
 		}
 		if (layerModal.getParent() != null) {
-			return layerModal.mouseClicked(mouseX, mouseY, mouseState);
+			return layerModal.mouseClicked(click, doubled);
 		}
 		if (shareModal.getParent() != null) {
-			return shareModal.mouseClicked(mouseX, mouseY, mouseState);
+			return shareModal.mouseClicked(click, doubled);
 		}
 		if (markerModal.getParent() != null) {
-			return markerModal.mouseClicked(mouseX, mouseY, mouseState);
+			return markerModal.mouseClicked(click, doubled);
 		}
 		if (cityModal.getParent() != null) {
-			return cityModal.mouseClicked(mouseX, mouseY, mouseState);
+			return cityModal.mouseClicked(click, doubled);
 		}
 
 		// Bookmark search field focus (only while the magnifier tab is open).
@@ -1451,7 +1626,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			boolean overSearch = mouseX >= searchField.getX() && mouseX < searchField.getX() + searchField.getWidth() && mouseY >= searchField.getY() && mouseY < searchField.getY() + searchField.getHeight();
 			searchField.setFocused(overSearch);
 			if (overSearch) {
-				searchField.mouseClicked(mouseX, mouseY, mouseState);
+				searchField.mouseClicked(click, doubled);
 				return true;
 			}
 		}
@@ -1479,7 +1654,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			}
 		}
 
-		if (super.mouseClicked(mouseX, mouseY, mouseState)) return true;
+		if (super.mouseClicked(click, doubled)) return true;
 
 		// LMB pressed on a marker/territory on the map: remember it — the guide
 		// arrow toggles on release, unless the press turned into a map drag.
@@ -1495,7 +1670,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 
 		// If clicked on the map, start dragging
 		if (state.is(NORMAL) && hoveredLandmark != null && (hoveredLandmark.contains(LandmarkComponentTypes.POS) || hoveredLandmark.contains(LandmarkComponentTypes.CHUNKS)) && (folk.sisby.roleplayers_atlas.SpawnMarker.is(hoveredLandmark) || (!hoveredLandmark.owner().equals(WorldLandmarks.GLOBAL) && SurveyorClient.canModify(hoveredLandmark.owner()))) && mouseState == GLFW.GLFW_MOUSE_BUTTON_2) {
-			markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getWorld().getRegistryManager(), hoveredLandmark);
+			markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getEntityWorld().getRegistryManager(), hoveredLandmark);
 			addChild(markerModal);
 
 			markerCursor.setTexture(markerModal.selectedTexture.id(), MARKER_SIZE, MARKER_SIZE);
@@ -1562,7 +1737,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 				return false;
 			}
 			if (state.is(PLACING_LABEL) && isMouseOverMap && mouseState == GLFW.GLFW_MOUSE_BUTTON_1) {
-				markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getWorld().getRegistryManager(), Landmark.create(SurveyorClient.getClientUuid(), RoleplayersAtlas.id("newlabel"), b -> b.add(LandmarkComponentTypes.POS, new BlockPos(screenXToWorldX(mouseX), 0, screenYToWorldZ(mouseY))).add(folk.sisby.roleplayers_atlas.AtlasComponents.PEN_LABEL, true)));
+				markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getEntityWorld().getRegistryManager(), Landmark.create(SurveyorClient.getClientUuid(), RoleplayersAtlas.id("newlabel"), b -> b.add(LandmarkComponentTypes.POS, new BlockPos(screenXToWorldX(mouseX), 0, screenYToWorldZ(mouseY))).add(folk.sisby.roleplayers_atlas.AtlasComponents.PEN_LABEL, true)));
 				addChild(markerModal);
 
 				markerCursor.setTexture(ICON_ADD_LABEL, 16, 16);
@@ -1575,7 +1750,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 				return true;
 			}
 			if (state.is(PLACING_MARKER) && isMouseOverMap && mouseState == GLFW.GLFW_MOUSE_BUTTON_1) {
-				markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getWorld().getRegistryManager(), Landmark.create(SurveyorClient.getClientUuid(), RoleplayersAtlas.id("newmarker"), b -> b.add(LandmarkComponentTypes.POS, new BlockPos(screenXToWorldX(mouseX), 0, screenYToWorldZ(mouseY)))));
+				markerModal.setMarkerData(SurveyorClient.tryGetSummary(dim), player.getEntityWorld().getRegistryManager(), Landmark.create(SurveyorClient.getClientUuid(), RoleplayersAtlas.id("newmarker"), b -> b.add(LandmarkComponentTypes.POS, new BlockPos(screenXToWorldX(mouseX), 0, screenYToWorldZ(mouseY)))));
 				addChild(markerModal);
 
 				markerCursor.setTexture(markerModal.selectedTexture.id(), MARKER_SIZE, MARKER_SIZE);
@@ -1589,7 +1764,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			} else if (state.is(DELETING_MARKER) && hoveredLandmark != null && isMouseOverMap && mouseState == GLFW.GLFW_MOUSE_BUTTON_1) {
 				if (worldAtlasData.deleteLandmark(dim, hoveredLandmark)) {
 					updateBookmarkerList();
-					MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, 1F, 0.5F));
+					MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, 1F, 0.5F));
 				}
 			} else if (state.is(PICKING_BIOME) && isMouseOverMap && mouseState == GLFW.GLFW_MOUSE_BUTTON_2) {
 				// Held still it names a biome; dragged it pans. Which one it was
@@ -1689,12 +1864,13 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			}
 		}
 		if (newPrevDimScale != 0) prevDimScale = newPrevDimScale;
-		client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.1F));
+		client.getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.1F));
 		updateAtlasData();
 	}
 
 	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+	public boolean keyPressed(KeyInput input) {
+		int keyCode = input.key(), scanCode = input.scancode(), modifiers = input.modifiers();
 		if (searchField != null && searchField.isFocused()) {
 			if (keyCode == GLFW.GLFW_KEY_ESCAPE || keyCode == GLFW.GLFW_KEY_ENTER) {
 				searchField.setFocused(false);
@@ -1706,7 +1882,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 				}
 				return true;
 			}
-			searchField.keyPressed(keyCode, scanCode, modifiers);
+			searchField.keyPressed(input);
 			return true;
 		}
 		// A window open on top of the book gets every key to itself. Without this
@@ -1714,7 +1890,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		// the dialog, and Enter never reached the Done button it belonged to.
 		Component modal = openModal();
 		if (modal != null) {
-			modal.keyPressed(keyCode, scanCode, modifiers);
+			modal.keyPressed(input);
 			return true;
 		}
 		// Ctrl+Z and Ctrl+Y anywhere in the book, whatever tool is in hand.
@@ -1730,7 +1906,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			}
 			return true;
 		}
-		if ((AtlasKeybindings.ATLAS_KEYMAPPING.matchesKey(keyCode, scanCode) && this.markerModal.getParent() == null && this.shareModal.getParent() == null && this.layerModal.getParent() == null && this.screenshotModal.getParent() == null)) {
+		if ((AtlasKeybindings.ATLAS_KEYMAPPING.matchesKey(input) && this.markerModal.getParent() == null && this.shareModal.getParent() == null && this.layerModal.getParent() == null && this.screenshotModal.getParent() == null)) {
 			close();
 			return true;
 		}
@@ -1802,7 +1978,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 				}
 			}
 			default -> {
-				return super.keyPressed(keyCode, scanCode, modifiers);
+				return super.keyPressed(input);
 			}
 		}
 		return true;
@@ -1833,16 +2009,20 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 	}
 
 	@Override
-	public boolean charTyped(char chr, int modifiers) {
+	public boolean charTyped(CharInput input) {
+		char chr = (char) input.codepoint();
+		int modifiers = input.modifiers();
 		if (searchField != null && searchField.isFocused()) {
-			searchField.charTyped(chr, modifiers);
+			searchField.charTyped(input);
 			return true;
 		}
-		return super.charTyped(chr, modifiers);
+		return super.charTyped(input);
 	}
 
 	@Override
-	public boolean mouseReleased(double mouseX, double mouseY, int mouseState) {
+	public boolean mouseReleased(Click click) {
+		double mouseX = click.x(), mouseY = click.y();
+		int mouseState = click.button();
 		// A right press that never moved was a click: correct the biome there.
 		if (pendingRightClick && mouseState == GLFW.GLFW_MOUSE_BUTTON_2) {
 			pendingRightClick = false;
@@ -1886,11 +2066,13 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			selectedButton = null;
 			isDragging = false;
 		}
-		return super.mouseReleased(mouseX, mouseY, mouseState) || result;
+		return super.mouseReleased(click) || result;
 	}
 
 	@Override
-	public boolean mouseDragged(double mouseX, double mouseY, int lastMouseButton, double deltaX, double deltaY) {
+	public boolean mouseDragged(Click click, double deltaX, double deltaY) {
+		double mouseX = click.x(), mouseY = click.y();
+		int lastMouseButton = click.button();
 		if (state.is(PLACING_TERRITORY) && lastMouseButton == GLFW.GLFW_MOUSE_BUTTON_1) {
 			updateMouse(mouseX, mouseY);
 			if (isMouseOverMap) {
@@ -1932,7 +2114,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			mapOffsetY += deltaY;
 			result = true;
 		}
-		return super.mouseDragged(mouseX, mouseY, lastMouseButton, deltaX, deltaY) || result;
+		return super.mouseDragged(click, deltaX, deltaY) || result;
 	}
 
 	@Override
@@ -1951,7 +2133,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		double dimZ = player.getBlockZ();
 		Map<RegistryKey<World>, Integer> scales = RoleplayersAtlas.CONFIG.dimensions.getScales(MinecraftClient.getInstance().getNetworkHandler());
 		int newScale = scales.getOrDefault(dim(), 0);
-		int oldScale = scales.getOrDefault(player.getWorld().getRegistryKey(), 0);
+		int oldScale = scales.getOrDefault(player.getEntityWorld().getRegistryKey(), 0);
 		if (newScale * oldScale > 0) {
 			double mult = newScale / (double) oldScale;
 			dimX = mult * dimX;
@@ -2066,10 +2248,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		if (tileChunks == 1) {
 			if (tilePixels >= maxTilePixels) return false;
 			tilePixels <<= 1;
-			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_SPYGLASS_USE, 1.0F));
+			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_SPYGLASS_USE, 1.0F));
 		} else {
 			tileChunks >>= 1;
-			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 		}
 		mapOffsetX *= 2;
 		mapOffsetY *= 2;
@@ -2082,10 +2264,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		if (tilePixels == 16) {
 			if (tileChunks >= maxTileChunks) return false;
 			tileChunks <<= 1;
-			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 		} else {
 			tilePixels >>= 1;
-			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_SPYGLASS_USE, 1.0F));
+			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_SPYGLASS_USE, 1.0F));
 		}
 		mapOffsetX /= 2;
 		mapOffsetY /= 2;
@@ -2597,7 +2779,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			tooltip.addAll(dateLines(hoveredLandmark));
 			if (!tooltip.isEmpty()) context.drawTooltip(textRenderer, tooltip, tooltipX, tooltipY);
 		} else if (hoveredFriend != null) {
-			boolean self = hoveredFriend.username().equals(MinecraftClient.getInstance().player.getGameProfile().getName());
+			boolean self = hoveredFriend.username().equals(MinecraftClient.getInstance().player.getGameProfile().name());
 			boolean inDim = hoveredFriend.dimension().equals(dim);
 			if (self && inDim) return;
 			context.drawTooltip(textRenderer, (self ? Text.translatable("gui.roleplayers_atlas.followPlayer") : Text.literal(hoveredFriend.username())).formatted(hoveredFriend.online() ? (self ? Formatting.WHITE : Formatting.LIGHT_PURPLE) : Formatting.GRAY), tooltipX, tooltipY);

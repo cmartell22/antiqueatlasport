@@ -184,7 +184,7 @@
 	"structure.type.minecraft.ocean_monument": "Подводная крепость",
 	"structure.type.minecraft.woodland_mansion": "Лесной особняк",
 	"key.roleplayers_atlas.open": "Открыть атлас",
-	"key.roleplayers_atlas.category": "Roleplayer's Atlas",
+	"key.category.roleplayers_atlas.atlas": "Roleplayer's Atlas",
 	"gui.roleplayers_atlas.addMarkerHere": "Добавить метку здесь",
 	"gui.roleplayers_atlas.resetScale": "Сбросить масштаб",
 	"structure.start.minecraft.bastion_remnant": "Развалины бастиона",
