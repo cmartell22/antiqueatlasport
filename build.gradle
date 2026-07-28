@@ -56,8 +56,8 @@ processResources {
 		modName       : modName,
 		modDescription: modDescription,
 		homepage      : "https://modrinth.com/mod/${slug}",
-		issues        : "https://github.com/${user}/${slug}/issues",
-		sources       : "https://github.com/${user}/${slug}",
+		issues        : "${repoUrl}/issues",
+		sources       : repoUrl,
 		license       : license,
 		authors       : authors.split(", ").join("\",\n    \""),
 		contributors  : contributors.split(", ").join("\",\n    \""),
@@ -127,7 +127,7 @@ modrinth {
 	uploadFile = remapJar
 	gameVersions = compatibleVersions.split(", ").toList()
 	loaders = compatibleLoaders.split(", ").toList()
-	changelog = !file("CHANGELOG.md").exists() ? "" : rootProject.file("CHANGELOG.md").text + "\n\nChangelog: https://github.com/${user}/${slug}/releases/tag/v${baseVersion}+${tagBranch}"
+	changelog = !file("CHANGELOG.md").exists() ? "" : rootProject.file("CHANGELOG.md").text + "\n\nChangelog: ${repoUrl}/releases/tag/v${baseVersion}+${tagBranch}"
 	// The page body is written for Modrinth rather than reusing the README:
 	// the README opens with install and repository matter that a mod page has
 	// its own fields for.
@@ -159,7 +159,7 @@ tasks.register('curseforge', net.darkhax.curseforgegradle.TaskPublishCurseForge)
 	mainFile.addEmbedded("surveyor-map-framework")
 	mainFile.addOptional("cloth-config")
 	mainFile.addOptional("modmenu")
-	mainFile.changelog = !file("CHANGELOG.md").exists() ? "" : rootProject.file("CHANGELOG.md").text + "\n\nChangelog: https://github.com/${user}/${slug}/releases/tag/v${baseVersion}+${tagBranch}"
+	mainFile.changelog = !file("CHANGELOG.md").exists() ? "" : rootProject.file("CHANGELOG.md").text + "\n\nChangelog: ${repoUrl}/releases/tag/v${baseVersion}+${tagBranch}"
 	mainFile.changelogType = "markdown"
 	mainFile.releaseType = "release"
 }

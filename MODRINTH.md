@@ -102,8 +102,8 @@ This is a fork, and almost all of the foundation is someone else's work.
 
 Antique Atlas was created by [Hunternif](https://github.com/Hunternif), continued by [Kenkron](https://github.com/Kenkron), [asie](https://github.com/asiekierka) and [tyra314](https://github.com/tyra314), and rewritten as Antique Atlas 4 by [Sisby folk](https://modrinth.com/user/sisby). [Surveyor Map Framework](https://modrinth.com/mod/surveyor), which this cannot run without, is theirs as well.
 
-The map art is by Hunternif and [lumiscosity](https://lumiscosity.neocities.org/) – the [CREDITS](https://github.com/GlamArdor/roleplayers-atlas/blob/main/CREDITS) file names every texture and who drew it.
+The map art is by Hunternif and [lumiscosity](https://lumiscosity.neocities.org/) – the [CREDITS](https://codeberg.org/Glam_Ardor/roleplayers-atlas/src/branch/main/CREDITS) file names every texture and who drew it.
 
 LGPL-3.0-or-later for code, CC BY-NC-SA for assets, inherited from upstream and unchanged. Both are copyleft: anything adapted from this has to carry the same terms.
 
-[Source and issues on GitHub.](https://github.com/GlamArdor/roleplayers-atlas)
+[Source and issues on Codeberg.](https://codeberg.org/Glam_Ardor/roleplayers-atlas)
