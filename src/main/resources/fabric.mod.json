@@ -32,10 +32,10 @@
 	},
 	"entrypoints": {
 		"client": [
-			"folk.sisby.roleplayers_atlas.RoleplayersAtlas"
+			"glam.ardor.roleplayers_atlas.RoleplayersAtlas"
 		],
 		"modmenu": [
-			"folk.sisby.roleplayers_atlas.compat.AtlasModMenu"
+			"glam.ardor.roleplayers_atlas.compat.AtlasModMenu"
 		]
 	}
 }
