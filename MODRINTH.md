@@ -34,13 +34,13 @@ A third press closes it.
 
 > ![a town drawn by hand](https://cdn.modrinth.com/data/P0zBDYta/images/5213acdb856f40e845504dae47d3ed51cd61c8ea.png)
 
+> ![the box of town pieces](https://cdn.modrinth.com/data/P0zBDYta/images/55c37b4eeef755aaafe896ebf66139e677603c60.png)
+
 **Biome corrections.** The atlas guesses at biomes it has no drawing for, and a datapack server gives it plenty to guess at. When a guess is wrong, overrule it – draw one biome as another everywhere, or correct named cells one at a time.
 
 > ![choosing what a biome is drawn as](https://cdn.modrinth.com/data/P0zBDYta/images/e4c44043b061b5bb7a970adf696511058fdcaa97.png)
 
 **Undo and redo,** twenty steps deep, across every drawing tool.
-
-> ![the box of town pieces](https://cdn.modrinth.com/data/P0zBDYta/images/55c37b4eeef755aaafe896ebf66139e677603c60.png)
 
 ---
 
@@ -101,6 +101,8 @@ Scrolls, layers, corrections and tracked marks live in `config/roleplayers-atlas
 This is a fork, and almost all of the foundation is someone else's work.
 
 Antique Atlas was created by [Hunternif](https://github.com/Hunternif), continued by [Kenkron](https://github.com/Kenkron), [asie](https://github.com/asiekierka) and [tyra314](https://github.com/tyra314), and rewritten as Antique Atlas 4 by [Sisby folk](https://modrinth.com/user/sisby). [Surveyor Map Framework](https://modrinth.com/mod/surveyor), which this cannot run without, is theirs as well.
+
+Surveyor has no 1.21.11 build of its own – its 1.21 line ends at 1.21.8, after which it moved to 26.1. The 1.21.11 file here therefore carries **a modified copy of Surveyor**, ported by hand and versioned `1.2.1+1.21.11-ra.1` so it cannot be mistaken for an official build. It stays under LGPL-3.0-or-later, and its source is [on Codeberg](https://codeberg.org/Glam_Ardor/surveyor-1.21.11). Anything wrong with that build is this mod's fault, not Sisby folk's – report it here.
 
 The map art is by Hunternif and [lumiscosity](https://lumiscosity.neocities.org/) – the [CREDITS](https://codeberg.org/Glam_Ardor/roleplayers-atlas/src/branch/main/CREDITS) file names every texture and who drew it.
 
