@@ -8,7 +8,8 @@
 		"MixinGameRenderer",
 		"MixinHeldItemRenderer",
 		"MixinMinecraftClient",
-		"MixinRegionStructureSummary"
+		"MixinRegionStructureSummary",
+		"MixinScreen"
 	],
 	"injectors": {
 		"defaultRequire": 1

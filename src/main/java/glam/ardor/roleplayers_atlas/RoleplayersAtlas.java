@@ -152,6 +152,9 @@ public class RoleplayersAtlas implements ClientModInitializer {
 		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> SpawnMarker.clear());
 		ClientTickEvents.END_CLIENT_TICK.register(ParchmentExport::tickCapture);
 		ClientTickEvents.END_CLIENT_TICK.register(AtlasScreen::tickFullExport);
+		// The Cloth settings screen shows its edits as they are made; the ticking
+		// is what reads its widgets back into the config while it is open.
+		ClientTickEvents.END_CLIENT_TICK.register(glam.ardor.roleplayers_atlas.gui.LivePreview::tick);
 		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> TrackedMarkersStore.save());
 
 
