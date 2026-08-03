@@ -38,7 +38,7 @@ public class AtlasConfigScreen extends Screen {
 	protected void init() {
 		int left = this.width / 2 - 155;
 		int right = this.width / 2 + 5;
-		int y = this.height / 2 - 72;
+		int y = this.height / 2 - 96;
 
 		addDrawableChild(toggle("gui.roleplayers_atlas.config.deathMarkers", "deathMarkers", () -> RoleplayersAtlas.CONFIG.deathMarkers, v -> RoleplayersAtlas.CONFIG.deathMarkers = v, left, y));
 		addDrawableChild(toggle("gui.roleplayers_atlas.config.zoneTitles", "zoneTitles", () -> RoleplayersAtlas.CONFIG.zoneTitles, v -> RoleplayersAtlas.CONFIG.zoneTitles = v, right, y));
@@ -95,6 +95,8 @@ public class AtlasConfigScreen extends Screen {
 			RoleplayersAtlas.CONFIG.setAndSave("markerSort", RoleplayersAtlas.CONFIG.markerSort);
 			button.setMessage(markerSortText());
 		}).dimensions(right, y, 150, 20).build());
+		y += 24;
+		addDrawableChild(toggle("gui.roleplayers_atlas.config.stabilizeHeldMap", "stabilizeHeldMap", () -> RoleplayersAtlas.CONFIG.stabilizeHeldMap, v -> RoleplayersAtlas.CONFIG.stabilizeHeldMap = v, left, y));
 
 		// Two clicks: undoing every setting at once is easy to hit by accident.
 		addDrawableChild(ButtonWidget.builder(Text.translatable("gui.roleplayers_atlas.config.reset"), button -> {
@@ -106,9 +108,9 @@ public class AtlasConfigScreen extends Screen {
 			RoleplayersAtlas.CONFIG.resetToDefaults();
 			resetArmed = false;
 			clearAndInit();
-		}).dimensions(this.width / 2 - 155, this.height / 2 + 124, 150, 20).build());
+		}).dimensions(this.width / 2 - 155, this.height / 2 + 152, 150, 20).build());
 		addDrawableChild(ButtonWidget.builder(Text.translatable("gui.done"), button -> close())
-			.dimensions(this.width / 2 + 5, this.height / 2 + 124, 150, 20).build());
+			.dimensions(this.width / 2 + 5, this.height / 2 + 152, 150, 20).build());
 	}
 
 	private boolean resetArmed = false;
@@ -193,7 +195,7 @@ public class AtlasConfigScreen extends Screen {
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		super.render(context, mouseX, mouseY, delta);
-		context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, this.height / 2 - 96, 0xFFFFFFFF);
+		context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, this.height / 2 - 120, 0xFFFFFFFF);
 	}
 
 	@Override

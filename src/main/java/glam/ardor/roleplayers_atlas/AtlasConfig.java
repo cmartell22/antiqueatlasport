@@ -116,6 +116,10 @@ public class AtlasConfig extends WrappedConfig {
 	@Comment("Whether the line of controls appears at the foot of the map while a drawing tool is in hand")
 	public boolean showHints = true;
 
+	@Comment("Whether the atlas held in the hands is steadied against the walking sway")
+	@Comment("Off by default: the book bobs in step with you, like any held map")
+	public boolean stabilizeHeldMap = false;
+
 	@Comment("Where the quick-mark key puts its mark: AT_PLAYER, or LOOKING at whatever you are facing")
 	public QuickMark quickMark = QuickMark.LOOKING;
 
