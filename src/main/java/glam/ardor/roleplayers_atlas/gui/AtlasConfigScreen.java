@@ -253,10 +253,11 @@ public class AtlasConfigScreen extends Screen {
 			}
 
 			@Override
-			public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-				widget.setX(getContentX());
-				widget.setY(getContentY());
-				widget.setWidth(getContentWidth());
+			public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight,
+					int mouseX, int mouseY, boolean hovered, float tickDelta) {
+				widget.setX(x);
+				widget.setY(y);
+				widget.setWidth(entryWidth);
 				widget.render(context, mouseX, mouseY, tickDelta);
 			}
 
@@ -279,10 +280,11 @@ public class AtlasConfigScreen extends Screen {
 			}
 
 			@Override
-			public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+			public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight,
+					int mouseX, int mouseY, boolean hovered, float tickDelta) {
 				MinecraftClient client = MinecraftClient.getInstance();
 				context.drawCenteredTextWithShadow(client.textRenderer, text,
-					getContentMiddleX(), getContentY() + 8, 0xFFE0C070);
+					x + entryWidth / 2, y + 8, 0xFFE0C070);
 			}
 
 			@Override
