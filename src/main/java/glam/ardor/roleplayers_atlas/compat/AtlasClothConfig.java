@@ -83,6 +83,11 @@ public final class AtlasClothConfig {
 			.setTooltip(tip("showHints"))
 			.setSaveConsumer(v -> config.showHints = v)
 			.build());
+		c.addEntry(e.startBooleanToggle(label("stabilizeHeldMap"), config.stabilizeHeldMap)
+			.setDefaultValue(false)
+			.setTooltip(tip("stabilizeHeldMap"))
+			.setSaveConsumer(v -> config.stabilizeHeldMap = v)
+			.build());
 		c.addEntry(e.startEnumSelector(label("quickMark"), AtlasConfig.QuickMark.class, config.quickMark)
 			.setDefaultValue(AtlasConfig.QuickMark.LOOKING)
 			.setEnumNameProvider(v -> Text.translatable("gui.roleplayers_atlas.config.quickMark." + v.name().toLowerCase()))
