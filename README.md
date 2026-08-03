@@ -73,7 +73,7 @@ Plus 53 marker icons and sounds for drawing, tracking and sealing.
 
 `config/roleplayers-atlas.toml`, or in-game via [Mod Menu](https://modrinth.com/mod/modmenu). Death markers and grave styles, zone titles and their radius, guide arrow opacity, whether arrows drop on arrival, the hearth mark, fullscreen, remembered zoom and position, and how unexplored land is drawn.
 
-With [Cloth Config](https://modrinth.com/mod/cloth-config) installed the settings screen is the searchable one, with a reset on every row. Both mods are optional; without them the config file still works.
+With [Cloth Config](https://modrinth.com/mod/cloth-config) installed the settings screen is one long searchable list with the categories down the side and the world left visible behind it. Without it a similar built-in list stands in, grouped under the same headers. Both mods are optional; without them the config file still works.
 
 Scrolls, layers and tracked marks live in `config/roleplayers-atlas/`.
 

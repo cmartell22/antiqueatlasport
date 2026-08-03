@@ -88,7 +88,7 @@ Your corrections and towns land as a sheet under your name. That sheet never ove
 
 ## Settings
 
-`config/roleplayers-atlas.toml`, or in-game through [Mod Menu](https://modrinth.com/mod/modmenu). With [Cloth Config](https://modrinth.com/mod/cloth-config) the settings screen is the searchable one; without either, the file still works and a plainer screen is built in.
+`config/roleplayers-atlas.toml`, or in-game through [Mod Menu](https://modrinth.com/mod/modmenu). With [Cloth Config](https://modrinth.com/mod/cloth-config) the screen is one long searchable list with the categories down the side and the world left visible behind it; without it, a similar built-in list stands in. Either way the file still works.
 
 Elevation tiers, unexplored land, death markers and their wording, place names on screen, guide arrows, the hearth, the quick-mark key and its icon, fullscreen, remembered zoom and position.
 
