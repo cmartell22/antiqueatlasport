@@ -8,6 +8,7 @@
 		"MixinGameRenderer",
 		"MixinHeldItemRenderer",
 		"MixinMinecraftClient",
+		"MixinPunchyConfig",
 		"MixinRegionStructureSummary",
 		"MixinScreen"
 	],
