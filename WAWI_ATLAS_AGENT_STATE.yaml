@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 8
-last_updated_utc: "2026-08-26T23:26:38Z"
+state_revision: 9
+last_updated_utc: "2026-08-26T23:38:54Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P0_ACTIVE_STABILIZATION"
+project_status: "P0_AWAITING_HUMAN_MATRIX"
 current_phase: "P0"
-current_task: "P0-T06_FIX_REPEAT_JOIN_RACE"
+current_task: "P0-T07_CAPTURE_HUMAN_BASELINE"
 
 authority:
   precedence:
@@ -423,8 +423,9 @@ p0_tasks:
       - "Nested Surveyor jar is byte-identical to the locally published artifact."
   - id: "P0-T06"
     name: "Dedicated server and client/integrated-world launch smokes"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
+    escalation_used: "GPT-5.6 Sol High methodology for the concurrency-critical failure and fix"
     evidence:
       - "Loopback-only dedicated server reached Done on 127.0.0.1:25575, loaded Surveyor data for all three dimensions, then stopped and saved cleanly."
       - "A separate client runtime loaded Atlas/Surveyor/resources and Player388 joined the dedicated server successfully."
@@ -441,8 +442,14 @@ p0_tasks:
       - "An immediate same-runtime relaunch succeeded and restored 1127 overworld tiles, bounding the failure as intermittent rather than persistent data corruption."
       - "JDK 25 HashMap source proves this exception is emitted when modCount changes while computeIfAbsent's mapping function runs. Atlas' mapping function does not mutate WORLDS; known structural writes are computeIfAbsent and disconnect-time clear, establishing an overlapping lifecycle mutation."
       - "Production source remained byte-for-byte equivalent to v1.1.2+1.21.11 throughout failure capture and diagnosis."
-    pending:
-      - "Implement the smallest concurrency-safe WORLDS change, build, and run repeated join stress before resuming feature-matrix work."
+      - "The authorized P0 stabilization changed only WORLDS' backing implementation from HashMap to ConcurrentHashMap and documented the lifecycle race requirement."
+      - "The final clean build passed in 35s with 8/8 actionable tasks executed; test tasks remain NO-SOURCE."
+      - "Five fresh-JVM integrated joins restored 1127 overworld tiles with zero CME, protocol error, or packet-handler failure; five normal window closes each saved all dimensions and returned Gradle exit 0."
+      - "A post-fix dedicated server reached Done on 127.0.0.1:25575, then saved all dimensions and returned Gradle exit 0 after stop."
+      - "Final bytecode initializes WORLDS with ConcurrentHashMap; a source audit found zero null-key calls affected by ConcurrentHashMap's null prohibition."
+      - "Final main jar SHA-256: B3023E1D2531B324A20F9550B2A7EF4FE2426AED1009F4B8BE066D1DA735BA08."
+      - "Final sources jar SHA-256: F5F3189F3ECFA25C417B52F4F7A9630FFF1D1C4A5264ECF073A9754390075BB8."
+      - "Nested Surveyor remains byte-identical: SHA-256 7D4A643B1CF1B5B67808FC04487D1C30C149C4550C21FCDAFF22CF33BD85F392."
   - id: "P0-T07"
     name: "Human-observed baseline matrix"
     status: "IN_PROGRESS"
@@ -523,9 +530,9 @@ known_risks:
     mitigation: "Use the ignored Loom run-config override plus explicit human UI navigation; do not alter production build behavior during P0."
   - id: "RISK-010"
     severity: "S2"
-    status: "OPEN_BASELINE_DEFECT_FIX_AUTHORIZED"
+    status: "MITIGATED_AND_VERIFIED_5X"
     risk: "An untouched-baseline repeat integrated join threw ConcurrentModificationException in WorldAtlasData.WORLDS.computeIfAbsent and disconnected the client with Network Protocol Error."
-    mitigation: "Use GPT-5.6 Sol High methodology for the concurrency-critical fix; make the smallest map-safety change, then clean-build and stress repeated joins before resuming the matrix."
+    mitigation: "WORLDS now uses ConcurrentHashMap; clean build, five fresh-JVM join/save/exit repetitions, bytecode/null-key audits, and a dedicated-server regression all passed. Retain repeat-join coverage in later runtime gates."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
@@ -543,10 +550,10 @@ test_evidence:
     context_yaml_parse: "PASS: PyYAML 6.0.2 safe_load plus structural assertions"
     diff_check: "PASS"
     legacy_surveyor_publish: "PASS: 11 tasks executed"
-    clean_build: "PASS: 8 actionable tasks executed; tests NO-SOURCE"
-    artifact_audit: "PASS_WITH_RECORDED_BASELINE_PACKAGING_DEFECTS"
-    dedicated_server_smoke: "PASS: three dimensions loaded; Done; clean Surveyor/world save and stop"
-    development_client_smoke: "BLOCKED_S2: earlier dedicated and integrated controls passed, but a later repeat integrated join failed in WorldAtlasData.getOrCreate with ConcurrentModificationException"
+    clean_build: "PASS_AFTER_FIX: final clean build in 35s; 8 actionable tasks executed; tests NO-SOURCE"
+    artifact_audit: "PASS_AFTER_FIX_WITH_RECORDED_BASELINE_PACKAGING_DEFECTS: bytecode and nested Surveyor verified"
+    dedicated_server_smoke: "PASS_PRE_AND_POST_FIX: three dimensions loaded; Done; clean Surveyor/world save and stop"
+    development_client_smoke: "PASS_AFTER_FIX: dedicated and integrated controls plus 5/5 fresh-JVM repeat joins and clean all-dimension exits; zero recurrence of the original CME/protocol failure"
     manual_baseline_matrix: "IN_PROGRESS: map-mode cycle, pan, and zoom PASS; player-centered circle observed; remaining rows pending"
     runtime_cleanup: "PASS: zero Java/javaw processes; TCP 25575 free"
     persisted_client_control_data: "PASS: 5 files / 49051 bytes retained under ignored run/p0-client/data/surveyor"
@@ -567,13 +574,14 @@ latest_session:
     - "Ran the isolated integrated-singleplayer control twice; the human owner confirmed map open/save-and-quit, and logs proved clean all-dimension saves plus persisted Atlas terrain reload."
     - "A subsequent untouched-baseline repeat join failed with ConcurrentModificationException in WorldAtlasData.getOrCreate and a Network Protocol Error; feature testing was stopped under the S2 gate policy."
     - "Bound the mechanism to an overlapping structural mutation of the static HashMap during computeIfAbsent; an immediate relaunch passed, and the owner authorized an independent P0 fix and tests."
+    - "Replaced only WORLDS' backing map with ConcurrentHashMap, then passed two clean builds, five fresh-JVM integrated join/save/exit repetitions, a dedicated-server regression, bytecode/null-key audits, and artifact verification."
     - "Disconnected the client, stopped/saved the server, and verified zero remaining Java processes and a free test port."
     - "Committed design-doc.txt and durable state revision 3 as local checkpoint 1ef024974390748cafc7b43c3b41d6cb638f3c2b; no tag or push was created."
   blockers:
-    - "S2 baseline defect under active repair: intermittent repeat integrated join failure in WorldAtlasData.WORLDS.computeIfAbsent."
+    - "Further P0 progress requires the human-observed visual and interaction matrix."
   next_action: >-
-    Replace the shared WORLDS HashMap with the smallest concurrency-safe implementation, then clean-build
-    and run repeated integrated-join stress before resuming the remaining P0 matrix.
+    When the human owner returns, run the next bounded manual matrix slice: window resize, GUI-scale change,
+    pause/resume, and F3+T resource reload with the atlas open before and after each transition.
 
 agent_first_prompt:
   text: >-

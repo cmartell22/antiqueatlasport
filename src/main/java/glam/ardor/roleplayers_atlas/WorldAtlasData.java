@@ -41,7 +41,8 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.function.Consumer;
 
 public class WorldAtlasData {
-	public static final Map<RegistryKey<World>, WorldAtlasData> WORLDS = new HashMap<>();
+	// Client lifecycle callbacks can overlap during world transitions; iteration and clear must stay race-safe.
+	public static final Map<RegistryKey<World>, WorldAtlasData> WORLDS = new ConcurrentHashMap<>();
 
 	public static WorldAtlasData getOrCreate(RegistryKey<World> dimension) {
 		return WORLDS.computeIfAbsent(dimension, k -> {
