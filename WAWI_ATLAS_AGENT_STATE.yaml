@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 6
-last_updated_utc: "2026-08-26T23:14:51Z"
+state_revision: 8
+last_updated_utc: "2026-08-26T23:26:38Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P0_ACTIVE"
+project_status: "P0_ACTIVE_STABILIZATION"
 current_phase: "P0"
-current_task: "P0-T07_CAPTURE_HUMAN_BASELINE"
+current_task: "P0-T06_FIX_REPEAT_JOIN_RACE"
 
 authority:
   precedence:
@@ -54,6 +54,18 @@ approvals:
       - "No mappings, API, rendering, Surveyor-integration, identity, feature, or art changes."
       - "No push, release, upload, or publication."
       - "No P1 or later work without a new explicit approval."
+  - id: "APPROVAL-P0-002"
+    recorded_date: "2026-08-26"
+    source: "Human project owner in the Codex task"
+    status: "APPROVED"
+    scope: >-
+      Continue P0 independently while the owner is away; troubleshoot the intermittent baseline crash,
+      implement and test any fixes deemed necessary, and proceed until P0 completion or further human
+      testing is required.
+    exclusions:
+      - "No 26.1.2 production uplift or P1 work."
+      - "No push, release, upload, or publication."
+      - "Stop when further progress requires human-observed testing or a new phase approval."
 
 project:
   working_name: "WAWI Antique Atlas Port"
@@ -411,7 +423,7 @@ p0_tasks:
       - "Nested Surveyor jar is byte-identical to the locally published artifact."
   - id: "P0-T06"
     name: "Dedicated server and client/integrated-world launch smokes"
-    status: "COMPLETE"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Terra High"
     evidence:
       - "Loopback-only dedicated server reached Done on 127.0.0.1:25575, loaded Surveyor data for all three dimensions, then stopped and saved cleanly."
@@ -423,6 +435,14 @@ p0_tasks:
       - "Atlas initially restored 25 overworld tiles; after a clean save/exit and world reload it restored 1127 overworld tiles."
       - "The human owner confirmed the integrated-world map opened and the requested save-and-quit flow worked."
       - "Both integrated-world exits stopped the singleplayer server and reported all dimensions saved; final cleanup left zero Java/javaw processes and no TCP 25575 listener."
+      - "A later untouched-baseline repeat launch failed during GameJoinS2CPacket handling with ConcurrentModificationException at WorldAtlasData.getOrCreate(WorldAtlasData.java:47), then disconnected with Network Protocol Error."
+      - "The failed repeat launch still stopped its singleplayer server and saved all dimensions; final cleanup left zero Java/javaw processes."
+      - "The rotated failing runtime log is 2026-08-26-2.log.gz with SHA-256 4F38570DCEA57327DB2894BD6F8F369265BC984720062CC3A136A1769A3A73CE."
+      - "An immediate same-runtime relaunch succeeded and restored 1127 overworld tiles, bounding the failure as intermittent rather than persistent data corruption."
+      - "JDK 25 HashMap source proves this exception is emitted when modCount changes while computeIfAbsent's mapping function runs. Atlas' mapping function does not mutate WORLDS; known structural writes are computeIfAbsent and disconnect-time clear, establishing an overlapping lifecycle mutation."
+      - "Production source remained byte-for-byte equivalent to v1.1.2+1.21.11 throughout failure capture and diagnosis."
+    pending:
+      - "Implement the smallest concurrency-safe WORLDS change, build, and run repeated join stress before resuming feature-matrix work."
   - id: "P0-T07"
     name: "Human-observed baseline matrix"
     status: "IN_PROGRESS"
@@ -501,6 +521,11 @@ known_risks:
     status: "OPEN_HARNESS_LIMITATION"
     risk: "The source quick-play convenience did not auto-enter the copied world, and Minecraft 1.21.11 ignores legacy server/port startup flags."
     mitigation: "Use the ignored Loom run-config override plus explicit human UI navigation; do not alter production build behavior during P0."
+  - id: "RISK-010"
+    severity: "S2"
+    status: "OPEN_BASELINE_DEFECT_FIX_AUTHORIZED"
+    risk: "An untouched-baseline repeat integrated join threw ConcurrentModificationException in WorldAtlasData.WORLDS.computeIfAbsent and disconnected the client with Network Protocol Error."
+    mitigation: "Use GPT-5.6 Sol High methodology for the concurrency-critical fix; make the smallest map-safety change, then clean-build and stress repeated joins before resuming the matrix."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
@@ -521,7 +546,7 @@ test_evidence:
     clean_build: "PASS: 8 actionable tasks executed; tests NO-SOURCE"
     artifact_audit: "PASS_WITH_RECORDED_BASELINE_PACKAGING_DEFECTS"
     dedicated_server_smoke: "PASS: three dimensions loaded; Done; clean Surveyor/world save and stop"
-    development_client_smoke: "PASS: dedicated login plus isolated integrated-singleplayer launch, map-open confirmation, save/reload, and clean world exits"
+    development_client_smoke: "BLOCKED_S2: earlier dedicated and integrated controls passed, but a later repeat integrated join failed in WorldAtlasData.getOrCreate with ConcurrentModificationException"
     manual_baseline_matrix: "IN_PROGRESS: map-mode cycle, pan, and zoom PASS; player-centered circle observed; remaining rows pending"
     runtime_cleanup: "PASS: zero Java/javaw processes; TCP 25575 free"
     persisted_client_control_data: "PASS: 5 files / 49051 bytes retained under ignored run/p0-client/data/surveyor"
@@ -540,12 +565,15 @@ latest_session:
     - "Captured the human-observed handheld/fullscreen/closed map-mode cycle as passing."
     - "Captured the human-observed pan/zoom pass and player-centered rendered circle without assigning unverified semantics to the circle."
     - "Ran the isolated integrated-singleplayer control twice; the human owner confirmed map open/save-and-quit, and logs proved clean all-dimension saves plus persisted Atlas terrain reload."
+    - "A subsequent untouched-baseline repeat join failed with ConcurrentModificationException in WorldAtlasData.getOrCreate and a Network Protocol Error; feature testing was stopped under the S2 gate policy."
+    - "Bound the mechanism to an overlapping structural mutation of the static HashMap during computeIfAbsent; an immediate relaunch passed, and the owner authorized an independent P0 fix and tests."
     - "Disconnected the client, stopped/saved the server, and verified zero remaining Java processes and a free test port."
     - "Committed design-doc.txt and durable state revision 3 as local checkpoint 1ef024974390748cafc7b43c3b41d6cb638f3c2b; no tag or push was created."
-  blockers: []
+  blockers:
+    - "S2 baseline defect under active repair: intermittent repeat integrated join failure in WorldAtlasData.WORLDS.computeIfAbsent."
   next_action: >-
-    Continue the remaining P0 human baseline matrix: resize/GUI-scale/resource reload; annotations and
-    sharing/export; dimension/portal/reconnect/restart; and dedicated multiplayer isolation/restart.
+    Replace the shared WORLDS HashMap with the smallest concurrency-safe implementation, then clean-build
+    and run repeated integrated-join stress before resuming the remaining P0 matrix.
 
 agent_first_prompt:
   text: >-
