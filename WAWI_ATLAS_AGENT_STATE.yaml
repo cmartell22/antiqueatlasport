@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 4
-last_updated_utc: "2026-08-26T22:54:30Z"
+state_revision: 6
+last_updated_utc: "2026-08-26T23:14:51Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P0_ACTIVE"
 current_phase: "P0"
@@ -132,8 +132,9 @@ source_pins:
     branch_observed: "1.21.11"
     commit: "39847c28f925900ac65f12a0a22032a3150a139f"
     expected_coordinate: "folk.sisby:surveyor:1.2.1+1.21.11-ra.1"
+    reconstructed_main_jar_sha256: "7D4A643B1CF1B5B67808FC04487D1C30C149C4550C21FCDAFF22CF33BD85F392"
     local_remote: "legacy-surveyor"
-    status: "PINNED_NOT_YET_RECONSTRUCTED"
+    status: "PINNED_RECONSTRUCTED_AND_PUBLISHED_TO_MAVEN_LOCAL"
   target_surveyor_26_1:
     purpose: "Target map-data backend; API diff and dependency lock begin only after P1 approval"
     fetch_url: "https://github.com/sleepingdragoninn/surveyor.git"
@@ -375,8 +376,8 @@ p0_tasks:
     status: "COMPLETE"
     model: "GPT-5.6 Terra Medium"
     evidence:
-      - "port/26.1.2 HEAD is dab58dae0db912e91df8fbc2f6c52768e16dc742."
-      - "HEAD is exactly tagged v1.1.2+1.21.11."
+      - "The imported source baseline for port/26.1.2 is dab58dae0db912e91df8fbc2f6c52768e16dc742."
+      - "The imported source baseline is exactly tagged v1.1.2+1.21.11."
       - "source-roleplayers, upstream-aa4, upstream-surveyor, and legacy-surveyor remotes are recorded."
   - id: "P0-T03"
     name: "Create and validate durable context"
@@ -410,7 +411,7 @@ p0_tasks:
       - "Nested Surveyor jar is byte-identical to the locally published artifact."
   - id: "P0-T06"
     name: "Dedicated server and client/integrated-world launch smokes"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
     evidence:
       - "Loopback-only dedicated server reached Done on 127.0.0.1:25575, loaded Surveyor data for all three dimensions, then stopped and saved cleanly."
@@ -418,16 +419,21 @@ p0_tasks:
       - "Surveyor synchronized 20 missing chunks over 4 regions; Atlas loaded 25 overworld tiles."
       - "Client autosave wrote four Surveyor overworld region files."
       - "Client disconnected; server saved all dimensions and stopped; no Java process or TCP 25575 listener remained."
-    pending:
-      - "Clean integrated-singleplayer world launch and exit evidence."
+      - "An isolated quick-play runtime launched the existing clean 1.21.11 control world; all three dimensions loaded and the local player joined."
+      - "Atlas initially restored 25 overworld tiles; after a clean save/exit and world reload it restored 1127 overworld tiles."
+      - "The human owner confirmed the integrated-world map opened and the requested save-and-quit flow worked."
+      - "Both integrated-world exits stopped the singleplayer server and reported all dimensions saved; final cleanup left zero Java/javaw processes and no TCP 25575 listener."
   - id: "P0-T07"
     name: "Human-observed baseline matrix"
     status: "IN_PROGRESS"
     model: "GPT-5.6 Terra Medium"
     evidence:
       - "Human owner observed M cycling handheld -> fullscreen -> closed successfully on the dedicated connection."
+      - "Human owner observed fullscreen pan and zoom working."
+      - "Human owner observed a circle centered around the player rendered on the map; its semantic role is intentionally unclassified pending source archaeology or a focused control check."
+      - "Human owner confirmed the map opened in the isolated integrated-singleplayer control and save-and-quit worked."
+      - "Integrated lifecycle logs recorded a clean save/reload with persisted Atlas terrain, but this does not close the broader exploration/dimension/restart matrix row."
     pending:
-      - "Pan, zoom, and visible antique terrain observation."
       - "Remaining baseline_manual_matrix rows."
   - id: "P0-T08"
     name: "P0 review, commit, immutable local tag, and approval stop"
@@ -515,8 +521,8 @@ test_evidence:
     clean_build: "PASS: 8 actionable tasks executed; tests NO-SOURCE"
     artifact_audit: "PASS_WITH_RECORDED_BASELINE_PACKAGING_DEFECTS"
     dedicated_server_smoke: "PASS: three dimensions loaded; Done; clean Surveyor/world save and stop"
-    development_client_smoke: "PASS_DEDICATED_LOGIN; INTEGRATED_SINGLEPLAYER_PENDING"
-    manual_baseline_matrix: "IN_PROGRESS: map-mode cycle PASS; remaining rows pending"
+    development_client_smoke: "PASS: dedicated login plus isolated integrated-singleplayer launch, map-open confirmation, save/reload, and clean world exits"
+    manual_baseline_matrix: "IN_PROGRESS: map-mode cycle, pan, and zoom PASS; player-centered circle observed; remaining rows pending"
     runtime_cleanup: "PASS: zero Java/javaw processes; TCP 25575 free"
     persisted_client_control_data: "PASS: 5 files / 49051 bytes retained under ignored run/p0-client/data/surveyor"
 
@@ -532,12 +538,14 @@ latest_session:
     - "Reconstructed and published exact legacy Surveyor, then clean-built and audited the untouched Atlas artifact."
     - "Ran a clean dedicated-server startup/save/stop smoke and a real client login/synchronization/autosave smoke."
     - "Captured the human-observed handheld/fullscreen/closed map-mode cycle as passing."
+    - "Captured the human-observed pan/zoom pass and player-centered rendered circle without assigning unverified semantics to the circle."
+    - "Ran the isolated integrated-singleplayer control twice; the human owner confirmed map open/save-and-quit, and logs proved clean all-dimension saves plus persisted Atlas terrain reload."
     - "Disconnected the client, stopped/saved the server, and verified zero remaining Java processes and a free test port."
     - "Committed design-doc.txt and durable state revision 3 as local checkpoint 1ef024974390748cafc7b43c3b41d6cb638f3c2b; no tag or push was created."
   blockers: []
   next_action: >-
-    Capture the pending human pan/zoom/terrain observation, disconnect the client and stop the server cleanly,
-    then run the clean integrated-singleplayer smoke and continue the remaining P0 baseline matrix without crossing into P1.
+    Continue the remaining P0 human baseline matrix: resize/GUI-scale/resource reload; annotations and
+    sharing/export; dimension/portal/reconnect/restart; and dedicated multiplayer isolation/restart.
 
 agent_first_prompt:
   text: >-
