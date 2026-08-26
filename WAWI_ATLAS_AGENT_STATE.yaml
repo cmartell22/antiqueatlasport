@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 3
-last_updated_utc: "2026-08-26T22:53:05Z"
+state_revision: 4
+last_updated_utc: "2026-08-26T22:54:30Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P0_ACTIVE"
 current_phase: "P0"
@@ -497,13 +497,13 @@ known_risks:
     mitigation: "Use the ignored Loom run-config override plus explicit human UI navigation; do not alter production build behavior during P0."
 
 repository_state:
-  head: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
-  head_tag: "v1.1.2+1.21.11"
+  source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
+  source_import_tag: "v1.1.2+1.21.11"
+  governance_checkpoint_commit: "1ef024974390748cafc7b43c3b41d6cb638f3c2b"
+  state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: false
-  governance_files_uncommitted:
-    - "design-doc.txt"
-    - "WAWI_ATLAS_AGENT_STATE.yaml"
+  governance_files_status: "COMMITTED"
   local_p0_baseline_tag: null
   pushes_performed: false
 
@@ -533,6 +533,7 @@ latest_session:
     - "Ran a clean dedicated-server startup/save/stop smoke and a real client login/synchronization/autosave smoke."
     - "Captured the human-observed handheld/fullscreen/closed map-mode cycle as passing."
     - "Disconnected the client, stopped/saved the server, and verified zero remaining Java processes and a free test port."
+    - "Committed design-doc.txt and durable state revision 3 as local checkpoint 1ef024974390748cafc7b43c3b41d6cb638f3c2b; no tag or push was created."
   blockers: []
   next_action: >-
     Capture the pending human pan/zoom/terrain observation, disconnect the client and stop the server cleanly,
