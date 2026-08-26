@@ -1,0 +1,354 @@
+WAWI Antique Atlas Port: Design Intent
+
+The goal is to port Antique Atlas 4 to Fabric 26.1.2, using the already-ported Surveyor Framework as the map-data backend.
+
+This is not primarily a “get another minimap working” project. The purpose is to preserve Antique Atlas’s distinct role as an exploration journal and cartographic abstraction, because that fits the WAWI Minecraft 2.0 modpack much better than conventional GPS-like maps.
+
+The port should initially be as faithful and technically conservative as possible. Once the core AA4 experience works correctly on 26.1.2, WAWI-specific refinements can be layered on separately.
+
+Core design philosophy
+
+WAWI treats geography as something the player should learn, remember, and navigate through, not merely read from a perfect overhead map.
+
+The mapping system should reinforce:
+
+exploration over omniscience
+landmarks and terrain memory over coordinates
+broad geographic understanding over exact block-level information
+immersion over utility UI
+discovery over database completion
+physical-world logic over always-available GPS
+
+The desired feeling is:
+
+“I explored this valley and now I have a hand-drawn record of it.”
+
+not:
+
+“I have a live satellite map of every block around me.”
+
+Antique Atlas is attractive because its stylized biome/terrain tiles preserve the shape and memory of a place without revealing precise block layouts.
+
+Why Antique Atlas instead of other atlas/map-book mods
+
+Most modern atlas mods improve vanilla maps by collecting, extending, or organizing them. That is useful, but their underlying philosophy is still:
+
+vanilla overhead mapping made more convenient.
+
+Antique Atlas instead changes the language of navigation.
+
+It represents:
+
+forests as forests
+mountains as mountains
+rivers and coastlines as geographic features
+discovered structures as landmarks
+visited terrain as remembered cartography
+
+That abstraction is especially valuable in WAWI because the world generation itself is one of the modpack’s central features.
+
+WAWI uses large-scale terrain and biome systems such as WWOO and Tectonic. The map should encourage the player to think in terms of:
+
+mountain range → valley → river → forest → settlement
+
+rather than:
+
+X/Z coordinate → exact pixel → destination.
+
+Core goals
+1. Faithful AA4 port first
+
+The first implementation phase should concentrate on making Antique Atlas 4 function correctly on Fabric 26.1.2.
+
+Initial success criteria:
+
+builds and launches cleanly on Fabric 26.1.2
+integrates with current Surveyor Framework
+map data records exploration correctly
+Antique Atlas terrain rendering works
+map screen opens/closes reliably
+pan and zoom work
+biome tiles render correctly
+markers/waypoints function
+structure discovery behaves correctly
+dimensions behave correctly
+no reliance on obsolete 1.21.1 APIs
+no major regression in multiplayer or server compatibility inherited from Surveyor
+
+Do not redesign AA4 while doing the compatibility port unless a redesign is required by modern APIs.
+
+Keep the first milestone easy to diff against upstream.
+
+2. Use Surveyor as the backend, not a new mapping engine
+
+Surveyor Framework is already officially available for the target Minecraft version.
+
+The architecture should therefore remain roughly:
+
+Minecraft world/exploration
+        ↓
+Surveyor Framework
+        ↓
+stored exploration + landmark data
+        ↓
+Antique Atlas rendering/UI
+
+Avoid recreating:
+
+map-data storage
+exploration tracking
+synchronization
+visibility/share systems
+landmark backend functionality
+
+unless current Surveyor APIs make a specific AA4 assumption impossible.
+
+The port should adapt AA4 to current Surveyor rather than fork Surveyor unnecessarily.
+
+3. Preserve Antique Atlas's abstraction
+
+Do not convert Antique Atlas into a high-resolution conventional map.
+
+The atlas should deliberately remain less exact than the world itself.
+
+Important qualities to preserve:
+
+tile-based antique rendering
+recognizable biome/geographic representation
+coarse rather than block-perfect positioning
+hand-drawn aesthetic
+discovered-information model
+limited ability to infer unseen details
+
+The player should still need to look at the world.
+
+4. No minimap-first design
+
+The atlas should not become a permanent HUD element.
+
+WAWI generally avoids persistent UI clutter.
+
+The map should be something the player consults, not something they constantly stare at while moving.
+
+Avoid introducing by default:
+
+always-on minimap
+waypoint beams
+giant floating destination labels
+exact navigation arrows
+distance-to-target HUD
+breadcrumb trails
+cave radar
+mob radar
+ore/entity detection
+
+The map should assist navigation without replacing navigation.
+
+5. Eventually make the atlas a physical progression item
+
+Stock/current AA4 can function as an always-available map interface.
+
+For WAWI, the preferred eventual design is a real craftable atlas item.
+
+Desired behavior:
+
+early game
+↓
+no atlas
+
+player obtains appropriate materials
+↓
+crafts atlas
+
+atlas carried in inventory
+↓
+map becomes accessible
+
+explored terrain
+↓
+recorded into atlas
+
+Important: the goal is not to recreate tedious vanilla map-sheet management.
+
+Avoid requiring the player to continuously feed empty maps or paper into the atlas merely to reveal adjacent areas.
+
+The physical item exists because:
+
+cartography should have a place in progression
+the atlas should feel like an object belonging to the world
+navigation should not be a free UI entitlement from minute one
+
+The item should unlock the system, not turn it into accounting.
+
+A reasonable recipe can be designed later.
+
+6. Keep navigation useful but imperfect
+
+The atlas should be powerful enough that the player genuinely wants to use it.
+
+But it should not eliminate:
+
+getting temporarily lost
+remembering landmarks
+recognizing terrain
+route planning
+scouting
+uncertainty
+
+Coordinates may still exist in Minecraft, but the atlas should not be designed around them.
+
+If AA4 currently exposes exact coordinates heavily, WAWI-specific configuration or later changes may reduce their prominence.
+
+7. WWOO and Tectonic integration is an important second-phase goal
+
+WAWI uses custom large-scale world generation, including:
+
+William Wythers Overhauled Overworld
+Tectonic
+custom destination biomes
+custom geographic/worldgen additions
+
+Antique Atlas's data-driven tile system should eventually be tuned specifically for these.
+
+The ideal result is that the atlas visually understands the WAWI world rather than treating every unknown biome as a generic fallback.
+
+Potential later work:
+
+map WWOO biomes to appropriate AA tiles
+add custom tiles where worthwhile
+distinguish major climate families clearly
+represent salt flats appropriately
+ensure arid/transitional biomes look coherent
+ensure large rivers/coasts remain legible
+improve mountain/terrain representation where AA4 permits
+support custom destination biomes
+
+Do this through resource/data configuration where possible.
+
+Avoid hard-coding individual WAWI biomes into Java unless necessary.
+
+8. Respect discovery
+
+Structure and landmark markers should generally represent things the player has actually encountered.
+
+Do not make the atlas an automatic structure locator.
+
+Preferred rule:
+
+The map records discovery. It does not predict discovery.
+
+A landmark should appear because the player:
+
+visited it
+saw it
+discovered it through whatever mechanism Surveyor/AA4 normally uses
+
+not because the structure exists somewhere in unexplored worldgen.
+
+9. Waypoints should feel like annotations, not GPS beacons
+
+Waypoints are desirable, but their presentation matters.
+
+Preferred mental model:
+
+“I marked this place in my atlas.”
+
+rather than:
+
+“The HUD is directing me to waypoint 7.”
+
+The map can support named markers and notes.
+
+Avoid intrusive in-world navigation aids unless they are optional.
+
+10. Maintainability matters
+
+This should not become an unmaintainable WAWI fork unless necessary.
+
+Preferred approach:
+
+retain upstream package/layout conventions where practical
+isolate version-port changes
+isolate WAWI-specific changes
+document every behavioral deviation from upstream
+avoid gratuitous refactors during the initial port
+keep commits logically separated
+
+Suggested development branches/commit groups:
+
+1. build/version migration
+2. mappings/API migration
+3. Surveyor integration migration
+4. screen/input migration
+5. renderer fixes
+6. resource/data compatibility
+7. runtime bug fixes
+8. WAWI-specific features
+
+This makes future upstream merging or Minecraft version migration substantially easier.
+
+Technical implementation priorities
+
+The implementing agent should investigate at least these areas before modifying code:
+
+latest AA4 source and license
+exact last working AA4 Minecraft version
+current Surveyor 26.1.2 API
+changes in Surveyor API since AA4's supported version
+official mappings/name changes between 1.21.1 and 26.1.2
+Fabric API changes
+screen/input API changes
+rendering API changes
+resource-location / identifier changes
+networking changes if AA4 has custom packets
+config library compatibility
+serialization/codecs
+registry access
+resource reload behavior
+multiplayer behavior
+dimension handling
+
+Prefer adapting current API usage over compatibility shims where practical.
+
+Scope boundaries for Phase 1
+
+Do not spend time initially on:
+
+custom WAWI art
+new atlas tiles
+complicated crafting progression
+redesigned marker UI
+new navigation mechanics
+minimap functionality
+route planning
+map sharing redesign
+additional map overlays
+cave mapping
+biome color overhaul
+unrelated Surveyor changes
+
+Phase 1 is successful when Antique Atlas works again.
+
+Phase 2: WAWI integration
+
+After the compatibility port is stable:
+
+Add or integrate a proper atlas item.
+Require possession of the atlas for access, if practical.
+Choose an appropriate WAWI recipe.
+Tune marker behavior.
+Decide treatment of death markers.
+Audit exact-coordinate presentation.
+Build WWOO biome/tile mappings.
+Test Tectonic geography at multiple scales.
+Add WAWI custom-biome mappings.
+Remove or disable any feature that feels too GPS-like.
+UX target
+
+A successful implementation should make the player periodically do this:
+
+stop on a hill, open the atlas, recognize the river they followed, see the forest and mountain range they crossed, notice a settlement they marked earlier, decide where to travel next, close the atlas, and continue navigating primarily through the world itself.
+
+That is the north star.
+
+The atlas should make the world more memorable, not make navigation irrelevant.

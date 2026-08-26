@@ -1,0 +1,549 @@
+# WAWI_ATLAS_AGENT_STATE.yaml
+# Durable project memory and execution authority for all human and AI contributors.
+# RULE: Read this entire file before inspecting or changing project code.
+# RULE: This file and committed evidence outrank volatile chat context. Chat decisions become
+#       authoritative only after they are transcribed here with their scope and provenance.
+# RULE: Update state_revision, last_updated_utc, latest_session, tests, risks, decisions, and
+#       next_action at every completed task or interrupted work session.
+# RULE: Never mark a task or phase complete until every listed exit criterion has evidence.
+# RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
+
+schema_version: 1
+state_revision: 3
+last_updated_utc: "2026-08-26T22:53:05Z"
+state_owner: "Human project owner; maintained by the active implementation agent"
+project_status: "P0_ACTIVE"
+current_phase: "P0"
+current_task: "P0-T07_CAPTURE_HUMAN_BASELINE"
+
+authority:
+  precedence:
+    - "The human project owner's explicit decisions recorded under approvals and decisions."
+    - "This complete file, including gates, invariants, evidence, and the single next_action."
+    - "Committed design and evidence documents referenced by this file."
+    - "The checked-out source and dependency source at their recorded immutable SHAs."
+    - "Volatile chat context, which is never durable authority by itself."
+  required_session_protocol:
+    start:
+      - "Read this entire file before changing code or project configuration."
+      - "Verify repository HEAD, working-tree status, current_phase, current_task, and approval scope."
+      - "Read design-doc.txt when work could affect behavior or scope."
+      - "Re-verify any external version or API fact that is marked volatile or unverified."
+    during:
+      - "Work only inside the approved phase and current task, including only necessary prerequisites."
+      - "Keep changes small, reviewable, and attributable to one phase purpose."
+      - "Record unexpected behavior as a risk or bug before attempting broad fixes."
+      - "Do not silently weaken an acceptance criterion to make a gate pass."
+    end:
+      - "Run the acceptance checks proportional to the change and capture exact commands/results."
+      - "Update this file even when work is incomplete or blocked."
+      - "Leave exactly one concrete next_action and identify any required human observation."
+      - "Record the resulting commit SHA and immutable tag when the gate permits them."
+
+approvals:
+  - id: "APPROVAL-P0-001"
+    recorded_date: "2026-08-26"
+    source: "Human project owner in the Codex task"
+    status: "APPROVED"
+    scope: >-
+      Execute P0 only: prepare the local repository and project files, reuse the Java SDK,
+      Gradle/Minecraft caches, and launch prerequisites from JavaBackport where compatible,
+      reconstruct the untouched 1.21.11 baseline, and test build/client/server launchability.
+    exclusions:
+      - "No 26.1.2 production source uplift."
+      - "No mappings, API, rendering, Surveyor-integration, identity, feature, or art changes."
+      - "No push, release, upload, or publication."
+      - "No P1 or later work without a new explicit approval."
+
+project:
+  working_name: "WAWI Antique Atlas Port"
+  public_name: "UNDECIDED"
+  repository_root: "C:/CodexLocalProjects/Map Port"
+  working_branch: "port/26.1.2"
+  target_platform: "Fabric"
+  target_minecraft_version: "26.1.2"
+  target_java_version: 25
+  source_baseline_minecraft_version: "1.21.11"
+  source_baseline_java_release: 21
+  mod_identity_policy: >-
+    Preserve Roleplayer's Atlas identifiers during the faithful compatibility uplift unless the
+    human owner separately approves an identity change and migration policy.
+  release_goal: >-
+    A stable Fabric 26.1.2 port of the Antique Atlas 4 experience, backed by current Surveyor,
+    followed only after compatibility acceptance by separately reviewable WAWI refinements.
+
+design_authority:
+  file: "design-doc.txt"
+  sha256: "1FC133AE82AECD1CA5728B80015C66A4D32A0C1C30F107EE73EC990520B24079"
+  status: "LOCKED_INPUT"
+  north_star: >-
+    The atlas should make the world more memorable, not make navigation irrelevant: a player
+    should recognize explored valleys, rivers, forests, mountains, and marked settlements from a
+    hand-drawn record, then return to navigating primarily through the world itself.
+  phase_1_principle: "Faithful and technically conservative AA4 compatibility port first."
+  backend_principle: "Adapt AA4/Roleplayer's Atlas to current Surveyor; do not recreate or fork the mapping backend."
+  abstraction_principle: "Preserve tile-based antique cartography and discovered knowledge, not a live high-resolution GPS."
+
+success_definition:
+  compatibility_milestone:
+    - "Builds and launches cleanly on Fabric 26.1.2 with Java 25."
+    - "Integrates with the pinned current Surveyor Framework without an unnecessary Surveyor fork."
+    - "Exploration is recorded and persists correctly."
+    - "Terrain, biome, structure, marker, territory, route, text, and atlas UI behavior remain faithful."
+    - "Open/close, two-stage held/fullscreen behavior, pan, zoom, input, and resource reload are reliable."
+    - "Overworld, Nether, End, reconnect, restart, and multiplayer behavior meet the gated matrix."
+    - "No reliance on obsolete mappings or 1.21.11 APIs remains in the target build."
+    - "No major dedicated-server or multiplayer regression is inherited or introduced."
+    - "A clean checkout can build from documented prerequisites and locked inputs."
+  later_wawi_milestone:
+    - "Atlas access/item progression, coordinate presentation, markers, and recipes fit WAWI's design."
+    - "WWOO, Tectonic, destination biomes, and other WAWI geography receive data-driven mappings where practical."
+    - "WAWI additions remain isolated from the faithful-port commit sequence."
+
+non_goals_until_compatibility_release_candidate:
+  - "Custom WAWI art or atlas tiles."
+  - "Crafting progression or a redesigned atlas item system."
+  - "Redesigned marker UI, route planning, minimap, cave map, overlays, or map sharing."
+  - "Biome color overhaul or hard-coded WAWI biome lists."
+  - "GPS-like HUD guidance or automatic undiscovered structure location."
+  - "Unrelated Surveyor changes or a new mapping/storage engine."
+  - "Gratuitous package moves, renames, formatting passes, or refactors during the compatibility uplift."
+
+source_pins:
+  roleplayers_atlas:
+    purpose: "Working 1.21.11 control implementation and primary port source"
+    fetch_url: "https://codeberg.org/Glam_Ardor/roleplayers-atlas.git"
+    branch_observed: "main"
+    tag: "v1.1.2+1.21.11"
+    commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
+    local_remote: "source-roleplayers"
+    license_code: "LGPL-3.0-or-later"
+    license_assets: "Mixed attribution; preserve CREDITS and existing notices"
+    status: "CHECKED_OUT_AND_VERIFIED"
+  antique_atlas_upstream:
+    purpose: "Lineage and upstream behavioral reference"
+    fetch_url: "https://github.com/sleepingdragoninn/antique-atlas.git"
+    local_remote: "upstream-aa4"
+    commit: "UNPINNED_PENDING_P1_HISTORY_AUDIT"
+    status: "REFERENCE_ONLY_NOT_YET_FETCHED"
+  legacy_surveyor_1_21_11:
+    purpose: "Exact local Maven dependency needed to reproduce the untouched source build"
+    fetch_url: "https://codeberg.org/Glam_Ardor/surveyor-1.21.11.git"
+    branch_observed: "1.21.11"
+    commit: "39847c28f925900ac65f12a0a22032a3150a139f"
+    expected_coordinate: "folk.sisby:surveyor:1.2.1+1.21.11-ra.1"
+    local_remote: "legacy-surveyor"
+    status: "PINNED_NOT_YET_RECONSTRUCTED"
+  target_surveyor_26_1:
+    purpose: "Target map-data backend; API diff and dependency lock begin only after P1 approval"
+    fetch_url: "https://github.com/sleepingdragoninn/surveyor.git"
+    local_remote: "upstream-surveyor"
+    reference_commit: "4b500855"
+    reference_commit_status: "PLANNING_SNAPSHOT_REVERIFY_AND_EXPAND_TO_FULL_SHA_IN_P1"
+    status: "REFERENCE_ONLY_NOT_YET_FETCHED"
+
+baseline_dependency_lock:
+  source_file: "libs.versions.toml"
+  minecraft: "1.21.11"
+  fabric_loader: "0.19.3"
+  yarn: "1.21.11+build.6"
+  fabric_api: "0.141.6+1.21.11"
+  fabric_loom_selector: "1.13.+"
+  surveyor: "1.2.1+1.21.11-ra.1"
+  kaleido_config: "0.3.3+1.3.2"
+  cloth_config: "21.11.153"
+  modmenu_dev_runtime: "17.0.0"
+  gradle_wrapper: "9.2.0"
+  lock_policy: >-
+    Do not change these values during P0. Dynamic plugin selectors are facts of the untouched
+    source, not approved target choices; resolve and pin target versions in the approved build-migration phase.
+
+target_reference_snapshot:
+  provenance: "Existing JavaBackport 26.1.2 project and its already-tested local toolchain"
+  snapshot_date: "2026-08-26"
+  minecraft: "26.1.2"
+  java: "Microsoft OpenJDK 25.0.4+7"
+  java_home: "C:/Program Files/Microsoft/jdk-25.0.4.7-hotspot"
+  fabric_loader: "0.19.3"
+  fabric_loom: "1.17-SNAPSHOT"
+  fabric_api: "0.155.2+26.1.2"
+  gradle_cached_distribution: "9.5.1"
+  status: "REFERENCE_ONLY_REVERIFY_DURING_TARGET_BUILD_LOCK"
+  reuse_boundary:
+    allowed:
+      - "Installed Java 25 SDK."
+      - "Global Gradle wrapper, module, Loom, Minecraft, Fabric, and asset caches."
+      - "Known launch command patterns and loopback-only test practices."
+      - "A previously authorized EULA acceptance when a new dedicated development runtime needs eula.txt."
+    prohibited:
+      - "Do not copy JavaBackport's 26.1.2 worlds, configs, logs, player data, or generated run state into the 1.21.11 control runtime."
+      - "Do not treat JavaBackport dependencies as the Atlas target lock without Atlas-specific verification."
+
+architecture_baseline:
+  source_shape:
+    java_files: 92
+    resource_files: 1366
+    automated_test_sources: 0
+    fabric_entrypoint: "client -> glam.ardor.roleplayers_atlas.RoleplayersAtlas"
+    mixin_config: "src/main/resources/roleplayers_atlas.mixins.json"
+    mixin_count: 7
+    mixin_side: "client"
+  major_areas:
+    - "Surveyor-backed exploration summaries, landmarks, region structures, and client persistence."
+    - "Atlas held renderer, fullscreen screen, tile renderer, batched GUI drawing, pan/zoom/input."
+    - "Data-driven biome, terrain, structure, marker, and texture reloaders."
+    - "Markers, layers, territories/city paint, routes, inscriptions, dates, spawn/death marks."
+    - "Local atlas state, corrections, tracking, autosave, PNG export, and .atlas share/import."
+    - "Optional Cloth Config and Mod Menu integration."
+  backend_boundary: >-
+    Surveyor owns exploration/map summaries, landmarks, synchronization, and backend persistence.
+    Atlas owns antique presentation and Roleplayer's Atlas annotations/interactions. Preserve this boundary.
+
+invariants:
+  - id: "INV-001"
+    rule: "Surveyor remains the authoritative map-data backend; Atlas must not grow a replacement backend."
+  - id: "INV-002"
+    rule: "The faithful port preserves observable AA4/Roleplayer's Atlas behavior unless a version API makes it impossible."
+  - id: "INV-003"
+    rule: "Porting commits remain easy to diff: no unrelated refactors, renames, formatting, art, or WAWI feature work."
+  - id: "INV-004"
+    rule: "Discovered terrain and structures are recorded; unexplored structures are not predicted or exposed."
+  - id: "INV-005"
+    rule: "Atlas cartography remains deliberately abstract and tile-based, never a precise live overhead map."
+  - id: "INV-006"
+    rule: "Existing player map and annotation data must not be silently lost, reset, cross-contaminated, or corrupted."
+  - id: "INV-007"
+    rule: "Every serialization or .atlas-format change requires compatibility fixtures, round-trip tests, and an explicit decision."
+  - id: "INV-008"
+    rule: "Client-only Atlas code must not cause dedicated-server classloading, mixin, or startup failures."
+  - id: "INV-009"
+    rule: "Multiplayer synchronization and visibility remain owned and validated through current Surveyor behavior."
+  - id: "INV-010"
+    rule: "Overworld, Nether, End, reconnect, restart, resource reload, and GUI-scale behavior are release gates."
+  - id: "INV-011"
+    rule: "WAWI-specific progression, biome mappings, presentation, and mechanics begin only after the compatibility gate and stay isolated."
+  - id: "INV-012"
+    rule: "Code and assets retain all applicable licenses, notices, attribution, and copied-code provenance."
+  - id: "INV-013"
+    rule: "No phase completion, version lock, or API claim is accepted without exact evidence recorded here."
+  - id: "INV-014"
+    rule: "No external push, release, upload, or publication occurs without separate explicit human approval."
+
+test_strategy:
+  severity:
+    S0: "Cosmetic only; does not impair use or obscure required information."
+    S1: "Minor usability defect with safe workaround and no data/persistence impact."
+    S2: "Major feature failure, crash, severe visual/input defect, or compatibility regression."
+    S3: "Data loss/corruption, cross-player leak, security issue, reproducible server failure, or unrecoverable world/map damage."
+  gate_policy:
+    - "Any S3 blocks immediately and requires root-cause evidence before further feature work."
+    - "Any unexplained S2 blocks the current phase."
+    - "Every fixed bug receives the smallest practical automated regression plus the original manual reproduction."
+    - "A clean build is necessary but never sufficient for a runtime phase gate."
+  automated_layers:
+    - "Gradle clean build and all available unit/integration tests."
+    - "Static audits for forbidden APIs, stale mappings, mixin targets, client/common boundaries, and resource validity."
+    - "Serialization fixtures and round trips for persisted Atlas and Surveyor-facing data."
+    - "Artifact audit for metadata, nested dependencies, licenses, resources, and absence of test/diagnostic code."
+  runtime_layers:
+    - "Development client startup and integrated singleplayer smoke."
+    - "Loopback dedicated-server startup/stop and client connection smoke where the phase requires it."
+    - "Explicit human-observed feature matrix for rendering, input, interaction, and visual acceptance."
+    - "Restart/rejoin, cross-dimension, resource-reload, GUI-scale, and multiplayer isolation checks."
+  baseline_manual_matrix:
+    - "M key: closed -> handheld -> fullscreen -> closed; ordinary movement/look remains correct."
+    - "Fullscreen pan, scroll zoom, resize, GUI scale, pause/resume, and F3+T resource reload."
+    - "New exploration populates antique terrain/biome tiles and persists across save/reload."
+    - "Markers/layers, death/spawn marks, inscriptions, territories/city paint, and routes."
+    - "PNG export plus .atlas export/import/signature/hearsay behavior without source data mutation."
+    - "Overworld, Nether, End, portal transition, disconnect/reconnect, and client restart."
+    - "Dedicated multiplayer connection, independent player knowledge, and clean server restart."
+
+phase_plan:
+  - id: "P0"
+    name: "Control plane and untouched 1.21.11 baseline"
+    status: "ACTIVE"
+    model: "GPT-5.6 Terra High"
+    thinking: "high"
+    escalation: "GPT-5.6 Sol High for unexplained build/runtime or data-baseline failures"
+    purpose: "Establish durable authority, immutable inputs, reproducible toolchain, and working control behavior."
+    exit_criteria:
+      - "Pinned source is checked out with history and remotes recorded."
+      - "This YAML parses and contains approvals, pins, invariants, plan, evidence, and one next action."
+      - "Exact legacy Surveyor pin publishes locally and the untouched Atlas clean build succeeds."
+      - "Built jar/metadata/dependency embedding are audited."
+      - "Dedicated server and development client/integrated world launch without project-caused fatal error."
+      - "Baseline manual matrix is captured, or each unobserved row remains explicitly pending and P0 stays open."
+      - "A reviewed P0 commit and immutable local baseline tag exist only after all exit criteria pass."
+  - id: "P1"
+    name: "Source archaeology and API-delta dossier"
+    status: "BLOCKED_PENDING_APPROVAL"
+    model: "GPT-5.6 Sol High"
+    thinking: "high"
+    purpose: "Inventory every Atlas-to-Minecraft/Fabric/Surveyor touchpoint and produce a sourced port map before edits."
+  - id: "P2"
+    name: "26.1.2 build-system and dependency lock"
+    status: "BLOCKED_PENDING_P1_ACCEPTANCE_AND_APPROVAL"
+    model: "GPT-5.6 Sol High"
+    thinking: "high"
+    purpose: "Adopt Java 25, current Fabric Loom/build conventions, and exact verified dependencies with zero production behavior edits."
+  - id: "P3"
+    name: "Mechanical mappings and Minecraft/Fabric API uplift"
+    status: "BLOCKED"
+    model: "GPT-5.6 Terra High"
+    thinking: "high"
+    escalation: "GPT-5.6 Sol High when a signature change carries behavioral or serialization meaning"
+    purpose: "Restore compilation in small categorized batches while preserving behavior and reviewing each diff."
+  - id: "P4"
+    name: "Current Surveyor integration migration"
+    status: "BLOCKED"
+    model: "GPT-5.6 Sol High"
+    thinking: "high"
+    purpose: "Adapt exploration, summaries, landmarks, components, storage, synchronization, and visibility to current Surveyor."
+  - id: "P5"
+    name: "Rendering, screen, input, and mixin migration"
+    status: "BLOCKED"
+    model: "GPT-5.6 Sol High"
+    thinking: "high"
+    purpose: "Migrate render state, GUI, handheld atlas, input, and version-sensitive mixins with visual checkpoints."
+  - id: "P6"
+    name: "Resources, reloaders, identifiers, registries, and serialization"
+    status: "BLOCKED"
+    model: "GPT-5.6 Sol High"
+    thinking: "high"
+    purpose: "Migrate data/resource APIs and prove data/file compatibility with fixtures and reload testing."
+  - id: "P7"
+    name: "Feature-parity reconstruction"
+    status: "BLOCKED"
+    model: "GPT-5.6 Terra High"
+    thinking: "high"
+    escalation: "GPT-5.6 Sol High for persistence, sharing, visibility, or unexplained regressions"
+    purpose: "Recover baseline behaviors one tested slice at a time against the P0 control evidence."
+  - id: "P8"
+    name: "Persistence, lifecycle, dimensions, and multiplayer hardening"
+    status: "BLOCKED"
+    model: "GPT-5.6 Sol High"
+    thinking: "high"
+    purpose: "Adversarially test save/reload, imports, restarts, dimensions, disconnects, and player/server isolation."
+  - id: "P9"
+    name: "Faithful compatibility release candidate"
+    status: "BLOCKED"
+    model: "GPT-5.6 Terra High"
+    thinking: "high"
+    escalation: "GPT-5.6 Sol High for any unexplained S2/S3 release-gate result"
+    purpose: "Exhaustive regression matrix, artifact/legal audit, clean-checkout build, and local RC tag."
+  - id: "P10"
+    name: "Separately approved WAWI integration"
+    status: "BLOCKED_OUT_OF_CURRENT_SCOPE"
+    model: "GPT-5.6 Sol High"
+    thinking: "high"
+    purpose: "Design atlas possession/access, recipe, marker/coordinate policy, and data-driven WWOO/Tectonic/custom-biome integration."
+  - id: "P11"
+    name: "WAWI release candidate and handoff"
+    status: "BLOCKED"
+    model: "GPT-5.6 Terra High"
+    thinking: "high"
+    escalation: "GPT-5.6 Sol High for regressions involving data, multiplayer, or architecture"
+    purpose: "Run the full compatibility plus WAWI matrix, document support, audit artifacts, and create a local release candidate."
+
+model_selection_policy:
+  default: "GPT-5.6 Terra High"
+  routine_mechanical: "GPT-5.6 Terra Medium"
+  api_research_and_integration: "GPT-5.6 Sol High"
+  correctness_critical: "GPT-5.6 Sol High"
+  downshift_rule: >-
+    Downshift to Terra only after exact API usage, invariants, and acceptance tests are established;
+    return to Sol when architecture, persistence, synchronization, mixins, or unexplained regressions are involved.
+  escalation_rules:
+    - "Use Sol High for any possible data loss/corruption, cross-player leak, persistence failure, or serialization incompatibility."
+    - "Use Sol High if a blocker survives two serious evidence-driven attempts."
+    - "Use at least Terra High for render/mixin work even after architecture is known."
+    - "Use Terra Medium only for bounded mechanical edits and bookkeeping with known validation."
+
+p0_tasks:
+  - id: "P0-T01"
+    name: "Preflight and JavaBackport reuse audit"
+    status: "COMPLETE"
+    model: "GPT-5.6 Terra Medium"
+    evidence:
+      - "Microsoft OpenJDK 25.0.4+7 found at C:/Program Files/Microsoft/jdk-25.0.4.7-hotspot."
+      - "JavaBackport target lock and run capability inspected read-only."
+      - "Global Gradle wrapper cache initially contained JavaBackport's 9.5.1; Atlas/Surveyor Gradle 9.2.0 is now cached."
+      - "No matching legacy Surveyor artifact was present in the local Maven repository."
+  - id: "P0-T02"
+    name: "Materialize pinned source and history"
+    status: "COMPLETE"
+    model: "GPT-5.6 Terra Medium"
+    evidence:
+      - "port/26.1.2 HEAD is dab58dae0db912e91df8fbc2f6c52768e16dc742."
+      - "HEAD is exactly tagged v1.1.2+1.21.11."
+      - "source-roleplayers, upstream-aa4, upstream-surveyor, and legacy-surveyor remotes are recorded."
+  - id: "P0-T03"
+    name: "Create and validate durable context"
+    status: "COMPLETE"
+    model: "GPT-5.6 Terra High"
+    evidence:
+      - "Pinned PyYAML 6.0.2 safe_load accepted revision 1 with 12 phases, 14 invariants, and 8 P0 tasks."
+      - "git diff --check passed."
+      - "Known facts, planning snapshots, pending research, approval scope, and source pins are explicitly distinguished."
+  - id: "P0-T04"
+    name: "Reconstruct legacy Surveyor dependency"
+    status: "COMPLETE"
+    model: "GPT-5.6 Terra High"
+    escalation: "GPT-5.6 Sol High after two unexplained failures"
+    evidence:
+      - "Source checkout HEAD: 39847c28f925900ac65f12a0a22032a3150a139f; working tree clean."
+      - ".\\gradlew.bat clean publishToMavenLocal --no-daemon --console=plain --stacktrace passed in 4m29s; 11/11 tasks executed."
+      - "Resolved Fabric Loom: 1.13.6."
+      - "Published main jar SHA-256: 7D4A643B1CF1B5B67808FC04487D1C30C149C4550C21FCDAFF22CF33BD85F392."
+      - "Published sources jar SHA-256: E7096CC231E474F8DAD924BC13CA778FD40B4F3B07BB2522B269CE225A25F517."
+  - id: "P0-T05"
+    name: "Clean build and artifact audit of untouched Atlas"
+    status: "COMPLETE"
+    model: "GPT-5.6 Terra High"
+    evidence:
+      - ".\\gradlew.bat clean build --no-daemon --console=plain --stacktrace passed in 2m24s; 8/8 actionable tasks executed."
+      - "compileTestJava/test reported NO-SOURCE, matching the source audit."
+      - "Final main jar SHA-256: AE5FC56CB82F41C2D4E74BFA86D8943B2E3428F56C2F357FC1BAB639F87E1E8D."
+      - "Final sources jar SHA-256: FBAAEB102A503D7C668E76FCBDE0402EE4F6CC0A61FC580AC43B465FA3B1E579."
+      - "Expanded fabric.mod.json identifies Roleplayer's Atlas 1.1.2+1.21.11 and the locked Minecraft/Loader/FAPI/Surveyor dependencies."
+      - "Nested Surveyor jar is byte-identical to the locally published artifact."
+  - id: "P0-T06"
+    name: "Dedicated server and client/integrated-world launch smokes"
+    status: "IN_PROGRESS"
+    model: "GPT-5.6 Terra High"
+    evidence:
+      - "Loopback-only dedicated server reached Done on 127.0.0.1:25575, loaded Surveyor data for all three dimensions, then stopped and saved cleanly."
+      - "A separate client runtime loaded Atlas/Surveyor/resources and Player388 joined the dedicated server successfully."
+      - "Surveyor synchronized 20 missing chunks over 4 regions; Atlas loaded 25 overworld tiles."
+      - "Client autosave wrote four Surveyor overworld region files."
+      - "Client disconnected; server saved all dimensions and stopped; no Java process or TCP 25575 listener remained."
+    pending:
+      - "Clean integrated-singleplayer world launch and exit evidence."
+  - id: "P0-T07"
+    name: "Human-observed baseline matrix"
+    status: "IN_PROGRESS"
+    model: "GPT-5.6 Terra Medium"
+    evidence:
+      - "Human owner observed M cycling handheld -> fullscreen -> closed successfully on the dedicated connection."
+    pending:
+      - "Pan, zoom, and visible antique terrain observation."
+      - "Remaining baseline_manual_matrix rows."
+  - id: "P0-T08"
+    name: "P0 review, commit, immutable local tag, and approval stop"
+    status: "PENDING"
+    model: "GPT-5.6 Terra Medium"
+
+decisions:
+  - id: "DEC-001"
+    date: "2026-08-26"
+    decision: "Start from the known-working Roleplayer's Atlas 1.21.11 base, then perform one controlled uplift to 26.1.2."
+    source: "Human project owner"
+    rationale: "Preserves a functioning control and avoids repeatedly reinventing already-working AA4 behavior."
+  - id: "DEC-002"
+    date: "2026-08-26"
+    decision: "Use this YAML as durable project authority; volatile chat is not the context source of truth."
+    source: "Human project owner"
+  - id: "DEC-003"
+    date: "2026-08-26"
+    decision: "Reuse compatible JavaBackport SDK/caches/launch prerequisites, but maintain a clean 1.21.11 runtime boundary."
+    source: "Human project owner plus P0 implementation safety boundary"
+
+known_risks:
+  - id: "RISK-001"
+    severity: "S2"
+    status: "OPEN"
+    risk: "The source has no automated test suite; baseline behavior could regress despite successful compilation."
+    mitigation: "Capture manual control behavior, then add focused tests/fixtures before or with risky target changes."
+  - id: "RISK-002"
+    severity: "S2"
+    status: "OPEN"
+    risk: "The untouched build depends on a private/local legacy Surveyor Maven artifact."
+    mitigation: "Rebuild the exact pinned source, hash the artifact, and document reproduction; do not silently substitute versions."
+  - id: "RISK-003"
+    severity: "S3"
+    status: "OPEN"
+    risk: "Surveyor storage/component/packet or .atlas serialization changes may corrupt or strand existing map data."
+    mitigation: "Freeze fixtures before migration; require old-read/new-round-trip and failure-path tests before acceptance."
+  - id: "RISK-004"
+    severity: "S2"
+    status: "OPEN"
+    risk: "Minecraft 26.1 render/input/resource APIs and mixin targets are version-sensitive and visually test-heavy."
+    mitigation: "Use exact target source, small categorized commits, structural audits, and human visual checkpoints."
+  - id: "RISK-005"
+    severity: "S2"
+    status: "OPEN"
+    risk: "Client-only implementation or embedded Surveyor may still produce dedicated-server classloading regressions."
+    mitigation: "Run dedicated-server smoke gates at build migration, integration, hardening, and release-candidate phases."
+  - id: "RISK-006"
+    severity: "S1"
+    status: "OPEN"
+    risk: "Windows path length and large generated Minecraft paths may break Gradle/Loom operations."
+    mitigation: "core.longpaths is enabled and disposable dependency worktrees must use short absolute paths."
+  - id: "RISK-007"
+    severity: "S2"
+    status: "OPEN_BASELINE_DEFECT"
+    risk: "The untouched Atlas release jar omits CREDITS, and the reconstructed Surveyor jar contains its license under an inherited malformed filename."
+    mitigation: "Preserve repository notices now; correct and audit release packaging in an approved build/release phase before distribution."
+  - id: "RISK-008"
+    severity: "S1"
+    status: "OPEN_BASELINE_WARNING"
+    risk: "Client startup warns that optional punchy/config/PunchyConfig is absent."
+    mitigation: "Confirm the optional Mixin fails soft by design during P1 archaeology and retain a startup regression check."
+  - id: "RISK-009"
+    severity: "S1"
+    status: "OPEN_HARNESS_LIMITATION"
+    risk: "The source quick-play convenience did not auto-enter the copied world, and Minecraft 1.21.11 ignores legacy server/port startup flags."
+    mitigation: "Use the ignored Loom run-config override plus explicit human UI navigation; do not alter production build behavior during P0."
+
+repository_state:
+  head: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
+  head_tag: "v1.1.2+1.21.11"
+  working_branch: "port/26.1.2"
+  source_tree_modified: false
+  governance_files_uncommitted:
+    - "design-doc.txt"
+    - "WAWI_ATLAS_AGENT_STATE.yaml"
+  local_p0_baseline_tag: null
+  pushes_performed: false
+
+test_evidence:
+  p0:
+    context_yaml_parse: "PASS: PyYAML 6.0.2 safe_load plus structural assertions"
+    diff_check: "PASS"
+    legacy_surveyor_publish: "PASS: 11 tasks executed"
+    clean_build: "PASS: 8 actionable tasks executed; tests NO-SOURCE"
+    artifact_audit: "PASS_WITH_RECORDED_BASELINE_PACKAGING_DEFECTS"
+    dedicated_server_smoke: "PASS: three dimensions loaded; Done; clean Surveyor/world save and stop"
+    development_client_smoke: "PASS_DEDICATED_LOGIN; INTEGRATED_SINGLEPLAYER_PENDING"
+    manual_baseline_matrix: "IN_PROGRESS: map-mode cycle PASS; remaining rows pending"
+    runtime_cleanup: "PASS: zero Java/javaw processes; TCP 25575 free"
+    persisted_client_control_data: "PASS: 5 files / 49051 bytes retained under ignored run/p0-client/data/surveyor"
+
+latest_session:
+  date_utc: "2026-08-26"
+  phase: "P0"
+  summary:
+    - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
+    - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
+    - "Checked out exact v1.1.2+1.21.11 source at dab58dae0db912e91df8fbc2f6c52768e16dc742 on port/26.1.2."
+    - "Recorded four named source/reference remotes."
+    - "Created and machine-validated the durable authority without changing production source or build configuration."
+    - "Reconstructed and published exact legacy Surveyor, then clean-built and audited the untouched Atlas artifact."
+    - "Ran a clean dedicated-server startup/save/stop smoke and a real client login/synchronization/autosave smoke."
+    - "Captured the human-observed handheld/fullscreen/closed map-mode cycle as passing."
+    - "Disconnected the client, stopped/saved the server, and verified zero remaining Java processes and a free test port."
+  blockers: []
+  next_action: >-
+    Capture the pending human pan/zoom/terrain observation, disconnect the client and stop the server cleanly,
+    then run the clean integrated-singleplayer smoke and continue the remaining P0 baseline matrix without crossing into P1.
+
+agent_first_prompt:
+  text: >-
+    Continue the WAWI Antique Atlas Port. Read WAWI_ATLAS_AGENT_STATE.yaml completely before acting;
+    it is the durable source of truth and volatile chat is not. Verify HEAD, status, current_phase,
+    current_task, approval scope, and the single next_action. Read design-doc.txt for behavioral or
+    scope decisions. Work only inside the approved phase, preserve every invariant, use immutable
+    source/API evidence rather than guessed signatures, make small reviewable changes, run the exact
+    gate checks, and update this file with commands, outcomes, SHAs, decisions, risks, and one new
+    next_action. Never cross a phase gate or push/publish externally without explicit human approval.
