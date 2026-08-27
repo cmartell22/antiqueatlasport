@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 50
-last_updated_utc: "2026-08-27T18:54:55Z"
+state_revision: 51
+last_updated_utc: "2026-08-27T19:18:11Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P4_COMPLETE_AWAITING_P5_APPROVAL"
-current_phase: "P4"
-current_task: "APPROVAL_STOP_BEFORE_P5"
+project_status: "P5_IN_PROGRESS"
+current_phase: "P5"
+current_task: "P5-T02_RENDERING_COMPILE_BOUNDARY"
 
 authority:
   precedence:
@@ -123,6 +123,22 @@ approvals:
       - "No P6 resource-loader migration or unrelated serialization redesign."
       - "Do not change the exact P2 dependency lock unless a proven defect is recorded and work stops for approval."
       - "No broad refactor, package rename, identity, WAWI feature, gameplay, or art change."
+      - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "Do not fix RISK-007 packaging."
+      - "No push, release, upload, or publication."
+  - id: "APPROVAL-P5-001"
+    recorded_date: "2026-08-27"
+    source: "Human project owner in the Codex task: 'I approve proceeding with P5 see pasted instructions here.'"
+    status: "APPROVED"
+    scope: >-
+      Execute P5 only under GPT-5.6 Sol High methodology: migrate rendering, screen, input, and
+      version-sensitive mixins against the exact P2 dependency lock, beginning with the four
+      established BufferAllocator and RenderLayers compile errors and preserving P0-observable behavior.
+    exclusions:
+      - "No P6 resource-loader, reloader, identifier, registry, or serialization migration."
+      - "No Surveyor persistence, codec, packet, landmark, ownership, synchronization, map-data, fixture, or globalSharing behavior change."
+      - "No dependency-lock change; a proven lock defect must be recorded and work stopped for separate approval."
+      - "No P7 feature reconstruction, P8 multiplayer/lifecycle hardening, broad refactor, package rename, identity, gameplay, feature, or art change."
       - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
       - "Do not fix RISK-007 packaging."
       - "No push, release, upload, or publication."
@@ -438,7 +454,7 @@ phase_plan:
     purpose: "Adapt exploration, summaries, landmarks, components, storage, synchronization, and visibility to current Surveyor."
   - id: "P5"
     name: "Rendering, screen, input, and mixin migration"
-    status: "BLOCKED_PENDING_P5_APPROVAL"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Migrate render state, GUI, handheld atlas, input, and version-sensitive mixins with visual checkpoints."
@@ -807,6 +823,34 @@ p4_tasks:
       - "git diff --check passes; branch port/26.1.2 is clean at 3a598667c400be596f2f7fb8f907592c722edba1 before this state-only closeout."
       - "Annotated p0-baseline-1.21.11 remains an annotated tag peeling to 7099b4df2420d5441e3b2b02e53201a0b249c8f9; no branch upstream, push, release, upload, or publication exists."
 
+p5_tasks:
+  - id: "P5-T01"
+    name: "Record P5 approval and verify entry invariants"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "APPROVAL-P5-001 records rendering, screen, input, and version-sensitive mixin scope with P6 and later phases excluded."
+      - "Verified clean branch port/26.1.2 at f9a2946570d4adb610efd4bb9e3d474294e05118 before any P5 production edit."
+      - "Verified annotated p0-baseline-1.21.11 remains an annotated tag peeling to 7099b4df2420d5441e3b2b02e53201a0b249c8f9."
+      - "Verified state revision 50 recorded P0-P4 COMPLETE, P5 blocked only on this approval, and the single P5 approval next action."
+      - "Verified the locked design SHA-256, no post-P2 dependency-lock diff, no P4 production Java/resource/lock diff, no configured branch upstream, and no publication record."
+  - id: "P5-T02"
+    name: "Resolve BufferAllocator and render-layer compile boundary"
+    status: "IN_PROGRESS"
+    model: "GPT-5.6 Sol High"
+  - id: "P5-T03"
+    name: "Migrate held custom geometry, screens, input, and version-sensitive mixins"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+  - id: "P5-T04"
+    name: "Validate compilation, mixin application, client/server startup, and human visual/input behavior"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+  - id: "P5-T05"
+    name: "Audit P5 scope and close at the P6 approval gate"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+
 decisions:
   - id: "DEC-001"
     date: "2026-08-26"
@@ -1029,10 +1073,12 @@ test_evidence:
     compile_boundary: "EXPECTED_P5_FAILURE: exactly four errors remain, comprising three HandheldAtlasRenderer BufferAllocator symbols and one DrawBatcher RenderLayers.entityNoOutline symbol"
     final_scope_audit: "PASS: approval-to-HEAD range has no src/main Java/resource or dependency-lock change; 49/49 binary fixtures match committed blobs; git diff --check passes"
     final_gate_audit: "PASS: clean port/26.1.2; annotated P0 tag still peels to 7099b4df2420d5441e3b2b02e53201a0b249c8f9; no upstream or publication; stopped before P5"
+  p5:
+    approval_preflight: "PASS: exact branch, HEAD, clean status, annotated P0 tag target, design hash, P0-P4 completion, unchanged P2 lock, P4 production-scope boundary, and no-publication record verified before the approval checkpoint"
 
 latest_session:
   date_utc: "2026-08-27"
-  phase: "P4"
+  phase: "P5"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
     - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
@@ -1144,14 +1190,16 @@ latest_session:
     - "Final offline dependency and resource checks passed; final compileJava reproduced only the four already-classified P5 rendering errors."
     - "Final scope and fixture audits passed: no P4 production or dependency-lock diff, all 49 frozen binary blobs unchanged, clean diff check, unchanged annotated P0 tag, and no external publication."
     - "P4 is complete without a production migration and stops at the P5 approval gate; P5, P6, and later phases remain unauthorized."
+    - "Human project owner explicitly approved P5 rendering, screen, input, and mixin migration; APPROVAL-P5-001 records the exact P5-only scope and P6/later exclusions before production edits."
+    - "Reverified clean port/26.1.2 at f9a2946570d4adb610efd4bb9e3d474294e05118, locked design hash, unchanged annotated P0 tag target, P0-P4 completion, exact unchanged P2 lock, P4 production-scope boundary, and no-publication record."
   blockers:
-    - "Four P5 rendering-owned compile errors remain deliberately deferred: three BufferAllocator references and one RenderLayers.entityNoOutline call."
+    - "P5 begins at exactly four rendering-owned compile errors: three BufferAllocator references and one RenderLayers.entityNoOutline call."
+    - "Human visual and input observation will be required before P5 can be marked complete; no such target-runtime result is claimed yet."
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
-    - "P5 is blocked pending explicit P5-only approval; P6 and later work remain independently blocked."
+    - "P6 and later phases remain independently blocked."
   next_action: >-
-    Request explicit human approval for P5 only under GPT-5.6 Sol High: rendering, screen, input, and mixin
-    migration, beginning with the four deferred BufferAllocator/render-layer compile errors and using exact target
-    rendering/mixin source plus visual checkpoints, while P6 resources/serialization and later phases remain excluded.
+    Research the exact Minecraft 26.1.2 BufferAllocator ownership and RenderLayers replacement from pinned
+    source and bytecode, apply only that bounded rendering compile-boundary category, and rerun compileJava.
 
 agent_first_prompt:
   text: >-
