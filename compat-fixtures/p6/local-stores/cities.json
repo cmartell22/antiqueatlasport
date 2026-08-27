@@ -1,0 +1,13 @@
+{
+  "sp:P0 Dedicated Baseline": {
+    "chunks": {
+      "minecraft:overworld": {
+        "-4,-13": "roleplayers_atlas:structure/village/taiga/large_house",
+        "-5,-13": "roleplayers_atlas:structure/village/path_corners",
+        "-6,-13": "roleplayers_atlas:structure/village/desert/well_covered",
+        "-4,-14": "roleplayers_atlas:structure/village/taiga/small_house",
+        "-5,-14": "roleplayers_atlas:structure/village/plains/small_farm"
+      }
+    }
+  }
+}

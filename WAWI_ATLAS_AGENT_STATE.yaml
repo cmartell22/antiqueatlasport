@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 59
-last_updated_utc: "2026-08-27T21:36:05Z"
+state_revision: 60
+last_updated_utc: "2026-08-27T21:42:35Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P6_IN_PROGRESS"
 current_phase: "P6"
-current_task: "P6-T02_EXACT_RESOURCE_SERIALIZATION_INVENTORY"
+current_task: "P6-T03_BOUNDED_RESOURCE_API_MIGRATION"
 
 authority:
   precedence:
@@ -918,11 +918,17 @@ p6_tasks:
       - "Verified the locked design SHA-256, unchanged P2 build/dependency lock, unchanged annotated P0 tag target, no configured upstream, and no publication record."
   - id: "P6-T02"
     name: "Inventory exact resource, reloader, identifier, registry, and serialization deltas"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "Exact Fabric v0 source proves ResourceManagerHelper is only an adapter over v1 ResourceLoader listener registration and dependency ordering; the v0/v1 source-jar hashes are recorded in docs/P6_RESOURCE_SERIALIZATION.md."
+      - "Inventoried all 1,366 production resources: 550 JSON, 457 PNG, 358 metadata files, and one TOML; all 550 JSON files pass strict syntax parsing."
+      - "Recorded the four stable reloader IDs and three required ordering edges; exact target Minecraft source preserves every Atlas-used ResourceManager, ResourceFinder, metadata, Identifier, registry, and NBT signature."
+      - "Frozen semantic P0 fixtures for all five Atlas-owned JSON stores and retained the immutable P4 binary/.atlas fixtures without duplication or mutation."
+      - "No resource-content, identifier, registry, or serialization-format migration is justified; the bounded production delta is the deprecated Fabric resource-loader wrapper and listener identity interface only."
   - id: "P6-T03"
     name: "Apply bounded P6 migrations with resource and compile checks"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
   - id: "P6-T04"
     name: "Prove serialization and immutable-fixture compatibility"
@@ -1331,13 +1337,15 @@ latest_session:
     - "Final P5 scope and invariant audits pass; P5 is complete and stops before P6 with no push, release, upload, or publication."
     - "Human project owner explicitly approved P6 resources, reloaders, identifiers, registries, and serialization; APPROVAL-P6-001 records the exact P6-only scope with P7 and later work excluded."
     - "Reverified clean port/26.1.2 at P5 completion commit 98821bf500e514e1ac36b253a84abeaf003ca465, locked design hash, unchanged annotated P0 tag target, P0-P5 completion, exact unchanged P2 lock, no upstream, and no-publication record before P6 work."
+    - "Completed the pre-edit P6 inventory from exact pinned Fabric/Minecraft source: only the deprecated Fabric v0 reloader adapter requires migration; used identifier, registry, metadata, resource-finder, and NBT surfaces remain compatible."
+    - "Inventoried all 1,366 resources, strictly parsed all 550 JSON files, documented the four listener IDs and ordering graph, and froze normalized P0 fixtures for all five Atlas-owned JSON stores before production edits."
   blockers:
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks remain assigned to the later P7/P8 matrix."
     - "P7 and later phases remain independently blocked."
   next_action: >-
-    Inventory every Atlas resource reloader, identifier/registry lookup, and Atlas-owned serialization surface;
-    compare the exact 1.21.11 baseline with pinned 26.1.2 Minecraft/Fabric sources and the immutable P4 fixtures,
-    then record whether each surface is compatible, deprecated, or requires a bounded P6 migration before editing.
+    Replace only the deprecated Fabric resource-loader v0 adapter with exact v1 listener and built-in-pack
+    registration, preserve all four IDs and three ordering edges, remove the now-redundant listener identity
+    methods/interfaces, then compile and audit resources under the unchanged P2 lock before serialization probes.
 
 agent_first_prompt:
   text: >-
