@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 23
-last_updated_utc: "2026-08-27T05:46:41Z"
+state_revision: 33
+last_updated_utc: "2026-08-27T06:23:13Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P0_AWAITING_HUMAN_MATRIX"
+project_status: "P0_COMPLETE_AWAITING_P1_APPROVAL"
 current_phase: "P0"
-current_task: "P0-T07_CAPTURE_HUMAN_BASELINE"
+current_task: "APPROVAL_STOP_BEFORE_P1"
 
 authority:
   precedence:
@@ -275,7 +275,7 @@ test_strategy:
 phase_plan:
   - id: "P0"
     name: "Control plane and untouched 1.21.11 baseline"
-    status: "ACTIVE"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
     thinking: "high"
     escalation: "GPT-5.6 Sol High for unexplained build/runtime or data-baseline failures"
@@ -452,7 +452,7 @@ p0_tasks:
       - "Nested Surveyor remains byte-identical: SHA-256 7D4A643B1CF1B5B67808FC04487D1C30C149C4550C21FCDAFF22CF33BD85F392."
   - id: "P0-T07"
     name: "Human-observed baseline matrix"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra Medium"
     evidence:
       - "Human owner observed M cycling handheld -> fullscreen -> closed successfully on the dedicated connection."
@@ -485,13 +485,33 @@ p0_tasks:
       - "The human owner reported all remaining listed singleplayer baseline categories passed: territory painting, map .atlas export/import, PNG view save, and mapping plus marker behavior across Overworld, Nether, and End."
       - "Live logs corroborated two .atlas saves, one PNG save, an import of 6 terrain regions and 6 corrections, transitions into Nether and End, and clean Surveyor saves containing 4 Overworld, 3 Nether, and 8 End terrain regions."
       - "The integrated client closed normally after the expanded baseline: all dimensions and Surveyor data saved and Gradle returned BUILD SUCCESSFUL."
-    pending:
-      - ".atlas signature/hearsay and independent-player knowledge behavior that requires the multiplayer fixture."
-      - "Dedicated multiplayer connection, independent player knowledge, and clean server restart."
+      - "The isolated dedicated server started successfully on 127.0.0.1:25575 with its existing offline-mode Creative fixture. Fresh client identity Player271 launched; Minecraft 1.21.11 ignored the legacy --server/--port launch arguments, so the bounded test requires manual Direct Connection from the main menu."
+      - "Client A / Player271 passed manual Direct Connection, normal 31-tile initial Atlas population, additional terrain exploration, Personal-layer marker creation, and authored terrain-plus-marker scroll export."
+      - "Client/server logs corroborated the connection, player-owned landmark add/update synchronization, client Surveyor saves, and exports. The final p0 player a.atlas is 131955 bytes with SHA-256 FA711A577D70FB6D2CD577855CF6FDBA0BF09471145BA7BCCB5A72CCE78D34DE."
+      - "Client A closed normally with Gradle BUILD SUCCESSFUL; the dedicated server recorded a clean disconnect and remains running for fresh-identity client B."
+      - "Client B launched as distinct identity Player777 from a clean run directory containing only the byte-identical Player271 scroll; no client-A map cache or configuration was copied. It is at the menu awaiting manual Direct Connection."
+      - "Client B / Player777 passed the full isolation and hearsay slice: before import Player271's extended knowledge and marker were absent; the preview attributed the scroll to Player271; import added its terrain and marker without removing Player777's own terrain/marker; tooltip attribution, Map of Player271 layer, and layer hide/show separation all worked."
+      - "Logs corroborated Player777's distinct dedicated-server login, initial independent Surveyor synchronization, Player777-owned marker creation, import of 1 landmark and 4 terrain regions, source-component transfer, and persistence saves containing both landmarks."
+      - "Player777 passed same-process disconnect/reconnect persistence: the owner confirmed both personal and imported terrain, both markers, the Map of Player271 layer, attribution, and visibility state remained functional. Client logs restored 366 Overworld tiles and both landmarks; server logs recorded clean leave/rejoin/leave events."
+      - "The first out-of-band console signal used CTRL_BREAK; Windows Java correctly treated it as a thread-dump request, so the server remained healthy and no shutdown result was scored. The retry must use CTRL_C, Java's graceful console-termination signal."
+      - "CTRL_C ended the non-TTY server JVM with exit 130 but emitted no Minecraft stop/save sequence, so it is not accepted as the clean-stop gate. The listener and server PID are gone; 8 persisted Surveyor/landmark files totaling 201373 bytes remain in the dedicated fixture."
+      - "The same fixture then started with a retained TTY, loaded Surveyor data for all three dimensions, reached Done, accepted Minecraft's literal stop command, saved Overworld/Nether/End with every chunk store clean, and returned Gradle BUILD SUCCESSFUL."
+      - "The post-clean-stop server restart again loaded Surveyor data for Overworld/Nether/End and reached Done on 127.0.0.1:25575; Player777 remains at the multiplayer menu for the final persisted-state observation."
+      - "After the clean server restart, the human owner confirmed Player777's personal terrain/marker, imported Player271 terrain/marker, As told by Player271 attribution, separate Map of Player271 layer, and its visibility toggle all persisted; P0-T07 is complete."
+      - "Final client close saved two landmarks and returned Gradle BUILD SUCCESSFUL. The literal server stop saved dirty Surveyor Overworld data, all three Minecraft dimensions, and every chunk store, then returned Gradle BUILD SUCCESSFUL; zero test runtimes and no port listener remained."
+    pending: []
   - id: "P0-T08"
     name: "P0 review, commit, immutable local tag, and approval stop"
-    status: "PENDING"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra Medium"
+    evidence:
+      - "P0-T07 completed with every baseline matrix row captured and no unresolved S2/S3 result."
+      - "Final client and dedicated server shutdowns were normal and left zero Java/javaw processes and no listener on TCP 25575."
+      - "Final .\\gradlew.bat clean build --no-daemon --console=plain passed in 34s: 7 tasks executed, compileJava restored from cache, tests NO-SOURCE."
+      - "Final main jar SHA-256 is 9C8ED1D33AA29DF83C378532FDB9E38E548897FB5D5F9F3E84879F0EC2AD8634; sources jar is 41E95F809D8CB2B439A6DBA103F1CBCF84B8759709D92C48E463B9040CD1CE14; nested Surveyor remains 7D4A643B1CF1B5B67808FC04487D1C30C149C4550C21FCDAFF22CF33BD85F392."
+      - "Complete diff from v1.1.2+1.21.11 contains only design-doc.txt, this durable state, the two-line ConcurrentHashMap lifecycle fix, and the bounded adaptive MarkerModal fix; build metadata, dependency locks, resources, and mod identity are unchanged."
+      - "Final artifact/legal audit reconfirmed fabric.mod.json and embedded Surveyor. RISK-007 remains an explicit inherited baseline defect: LICENSE/CREDITS are present in the repository but omitted from the upstream jar, and distribution remains prohibited until corrected in an approved later phase."
+      - "Every P0 exit criterion has evidence; the reviewed gate commit and annotated local tag p0-baseline-1.21.11 finalize P0 without any push, release, or P1 work."
 
 decisions:
   - id: "DEC-001"
@@ -577,9 +597,9 @@ repository_state:
   marker_modal_stabilization_commit: "61c38e294f4db6a3cfcf843833126364882c6232"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
-  source_tree_modified: false
-  governance_files_status: "COMMITTED"
-  local_p0_baseline_tag: null
+  source_tree_modified: true
+  governance_files_status: "COMMITTED_AT_P0_BASELINE_TAG"
+  local_p0_baseline_tag: "p0-baseline-1.21.11"
   pushes_performed: false
 
 test_evidence:
@@ -587,12 +607,12 @@ test_evidence:
     context_yaml_parse: "PASS: PyYAML 6.0.2 safe_load plus structural assertions"
     diff_check: "PASS"
     legacy_surveyor_publish: "PASS: 11 tasks executed"
-    clean_build: "PASS_AFTER_MARKER_LAYOUT_FIX: compileJava passed, then clean build passed in 33s; all packaging tasks completed; tests remain NO-SOURCE"
-    artifact_audit: "PASS_AFTER_MARKER_LAYOUT_FIX_WITH_RECORDED_BASELINE_PACKAGING_DEFECTS: main jar 9C8ED1D33AA29DF83C378532FDB9E38E548897FB5D5F9F3E84879F0EC2AD8634; sources 41E95F809D8CB2B439A6DBA103F1CBCF84B8759709D92C48E463B9040CD1CE14; nested Surveyor unchanged"
+    clean_build: "PASS_FINAL_P0: clean build passed in 34s; 7 tasks executed, compileJava from cache, tests NO-SOURCE"
+    artifact_audit: "PASS_FINAL_P0_WITH_RECORDED_BASELINE_PACKAGING_DEFECTS: main jar 9C8ED1D33AA29DF83C378532FDB9E38E548897FB5D5F9F3E84879F0EC2AD8634; sources 41E95F809D8CB2B439A6DBA103F1CBCF84B8759709D92C48E463B9040CD1CE14; nested Surveyor 7D4A643B1CF1B5B67808FC04487D1C30C149C4550C21FCDAFF22CF33BD85F392; fabric.mod.json present; inherited LICENSE/CREDITS omission remains RISK-007 and blocks distribution, not the local control tag"
     dedicated_server_smoke: "PASS_PRE_AND_POST_FIX: three dimensions loaded; Done; clean Surveyor/world save and stop"
     development_client_smoke: "PASS_AFTER_FIX: dedicated and integrated controls plus 5/5 fresh-JVM repeat joins and clean all-dimension exits; zero recurrence of the original CME/protocol failure"
-    manual_baseline_matrix: "IN_PROGRESS: map/UI transitions, exploration persistence, and marker/layer lifecycle PASS; player-centered circle observed; remaining annotation, sharing, dimension/lifecycle, and multiplayer rows are pending"
-    runtime_cleanup: "PASS_AFTER_MARKER_LAYOUT_FIX: normal close saved all dimensions, Gradle returned exit 0, zero Java/javaw processes, and test ports are free"
+    manual_baseline_matrix: "PASS: full map/UI, exploration/persistence, annotation, sharing, all-dimension, reconnect/restart, and independent-player multiplayer/hearsay matrix captured; player-centered circle observed without unverified semantic classification"
+    runtime_cleanup: "PASS_FINAL_P0: normal client close saved two landmarks and exited 0; literal dedicated-server stop saved Surveyor plus all dimensions and exited 0; zero Java/javaw processes and test ports are free"
     persisted_client_control_data: "PASS: 5 files / 49051 bytes retained under ignored run/p0-client/data/surveyor"
 
 latest_session:
@@ -635,12 +655,23 @@ latest_session:
     - "Human owner passed the full source-derived inscription lifecycle at Auto scale and separately reported routes, towns, and biome replacement tools functional."
     - "Human owner reported territory painting, .atlas import/export, PNG save, and mapping/markers across all three vanilla dimensions passed; only multiplayer was not tested."
     - "Corroborated exports/import and dimension activity in the live log, then closed normally with Surveyor data saved for Overworld, Nether, and End and Gradle BUILD SUCCESSFUL."
+    - "Committed revision-23 completed-singleplayer evidence locally as 2edb17f2b251f49838783fe544eab84940ec1830; no tag or push was created."
+    - "Started the dedicated P0 server at 127.0.0.1:25575 and fresh client A as Player271; the legacy quick-connect arguments were ignored by Minecraft 1.21.11, leaving the client at the menu for manual Direct Connection."
+    - "Human owner passed client A's dedicated connection, map population/exploration, marker creation, and authored scroll export; logs and the 131955-byte exported file corroborate the result."
+    - "Closed client A normally with BUILD SUCCESSFUL while leaving the dedicated server running for a clean-profile client B isolation test."
+    - "Created an ignored clean client-B run fixture, copied only the verified Player271 scroll into it, and launched distinct identity Player777 while the dedicated server remained running."
+    - "Human owner passed client B's pre-import knowledge isolation and post-import authorship/hearsay behavior, including additive data, tooltip attribution, separate Map of Player271 layer, and independent layer visibility."
+    - "Human owner passed Player777 same-process disconnect/reconnect persistence; client/server logs corroborated rejoin, 366 restored tiles, two synchronized landmarks, and a second clean disconnect."
+    - "Recovered the lifecycle gate from the non-TTY launch by running a retained-TTY cycle: literal stop saved every vanilla dimension and returned BUILD SUCCESSFUL, followed by another successful all-dimension Surveyor load and server Done state."
+    - "Human owner passed the final post-clean-restart Player777 persistence check; client restored 366 tiles and both landmarks with imported attribution/layer behavior intact."
+    - "Closed Player777 normally, then stopped the server with its literal command; both Gradle runs succeeded, Surveyor and all dimensions saved, and no test runtime or listener remained. P0-T07 is complete."
+    - "Final clean build reproduced the established stabilized artifact hashes; the complete source-pin diff and artifact/legal audits found no unapproved change and reconfirmed the inherited RISK-007 packaging defect."
+    - "Completed P0-T08 locally with the reviewed gate commit and annotated p0-baseline-1.21.11 tag; no push, release, upload, publication, or 26.1.2 uplift occurred."
   blockers:
-    - "Further P0 progress requires the human-observed visual and interaction matrix."
+    - "P1 requires a new explicit approval from the human project owner."
   next_action: >-
-    Prepare the final P0-T07 dedicated-multiplayer fixture and bounded human checks for connection, map population,
-    marker sharing versus independent knowledge, disconnect/reconnect, .atlas authorship/hearsay behavior, and clean
-    server restart; do not enter P0-T08 until those observations are captured.
+    Stop at the P0 approval gate. Wait for the human project owner's explicit approval before beginning P1 source
+    archaeology or any 26.1.2 uplift work; do not push, release, upload, publish, or move the local baseline tag.
 
 agent_first_prompt:
   text: >-
