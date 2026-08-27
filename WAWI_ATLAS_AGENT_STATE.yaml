@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 54
-last_updated_utc: "2026-08-27T19:33:51Z"
+state_revision: 55
+last_updated_utc: "2026-08-27T21:05:04Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P5_IN_PROGRESS"
 current_phase: "P5"
@@ -860,6 +860,12 @@ p5_tasks:
     name: "Validate compilation, mixin application, client/server startup, and human visual/input behavior"
     status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "Two discarded isolated-run init-script variants failed during Gradle configuration before Minecraft started: one attempted to clear a finalized program-argument list and one attempted to replace a finalized run directory. Neither result is an Atlas runtime failure."
+      - "The corrected early Loom run configuration launched the exact locked 26.1.2 client from ignored run/p5-client and reached the render thread with Java 25, Loader 0.19.3, Fabric API 0.155.2+26.1.2, Surveyor 1.2.4+26.1, and Atlas 1.1.2+26.1.2."
+      - "Mixin initialization reached Java 25 compatibility with no application error. The absent optional Punchy class produced the expected fail-soft class-not-found warning; offline development authentication and Realms requests produced unrelated expected 401 errors."
+      - "LWJGL/OpenGL, Indigo, audio, Minecraft texture atlases, and Atlas's marker, tile, structure-provider, and biome-provider resource reloaders initialized without a project exception."
+      - "The human owner closed the unexpected client window while working; Minecraft logged Stopping and Gradle returned BUILD SUCCESSFUL. This records partial startup evidence only: title-screen observation and all human visual/input checks remain unscored."
   - id: "P5-T05"
     name: "Audit P5 scope and close at the P6 approval gate"
     status: "PENDING"
@@ -1038,6 +1044,7 @@ repository_state:
   p5_approval_commit: "093e3e7740893063b26b197c3979ad7b4b368b02"
   p5_renderer_compile_commit: "4279b9863"
   p5_game_renderer_mixin_commit: "33954cc68"
+  p5_allocator_lifecycle_commit: "1e8c8bb017b9f9beafebae96030c8fefa6e8b6bd"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1106,6 +1113,7 @@ test_evidence:
     renderer_compile_category: "PASS: allocator package and supported no-outline translucent-layer substitutions eliminate all four errors; compileJava BUILD SUCCESSFUL in 14s with zero errors"
     mixin_descriptor_compile: "PASS_AT_COMPILE_BOUNDARY: exact GameRenderer bobView descriptor and WrapOperation handler migrated; all seven declared mixin surfaces structurally audited; compileJava BUILD SUCCESSFUL in 13s"
     allocator_lifetime_compile: "PASS: one client-owned allocator remains reused across frames and is closed on CLIENT_STOPPING; compileJava BUILD SUCCESSFUL in 16s"
+    isolated_client_startup: "PARTIAL_PASS_USER_TERMINATED: exact locked client reached render-thread, mixin, LWJGL/OpenGL, Indigo, audio, vanilla texture-atlas, and all four Atlas resource-reloader initialization with no project exception; owner closed the unexpected window, Minecraft logged Stopping, and Gradle returned BUILD SUCCESSFUL; title-screen observation and visual/input behavior remain unscored"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1231,13 +1239,18 @@ latest_session:
     - "Committed the bounded GameRenderer descriptor migration and revision-53 evidence locally as 33954cc68."
     - "Exact target queue/feature source confirms the mapped submitCustom call is the target custom-geometry descriptor and executes Atlas's single translucent callback in the correct phase; retained the multi-texture Immediate-provider flush without a rewrite."
     - "Registered exact Fabric CLIENT_STOPPING cleanup so the frame-reused native BufferAllocator is closed once; compileJava remained successful with zero errors."
+    - "Committed the allocator-lifecycle category and revision-54 evidence locally as 1e8c8bb017b9f9beafebae96030c8fefa6e8b6bd."
+    - "Two initial isolated-run init-script variants failed during Gradle configuration before Minecraft; correcting the Loom run configuration to set the isolated directory before finalization produced a real exact-lock client launch."
+    - "The client reached the render thread, initialized mixins and rendering, and ran all four Atlas resource reloaders without a project exception. The owner closed the unexpected window while working; Minecraft logged Stopping and Gradle returned BUILD SUCCESSFUL."
+    - "The interrupted run is recorded only as partial startup evidence; title-screen observation and every human visual/input result remain unscored."
   blockers:
     - "Human visual and input observation will be required before P5 can be marked complete; no such target-runtime result is claimed yet."
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
     - "P6 and later phases remain independently blocked."
   next_action: >-
-    Launch the exact locked development client to the title screen, inspect logs for all mixin application and
-    renderer/resource startup failures, then close normally and record the startup result without claiming visual input acceptance.
+    Inspect the exact Loom 1.17.19 run-configuration API and prepare an ignored isolated client launch that
+    removes inherited quick-play arguments before finalization; then launch to the title screen at a coordinated
+    human checkpoint and record startup separately from visual/input acceptance.
 
 agent_first_prompt:
   text: >-
