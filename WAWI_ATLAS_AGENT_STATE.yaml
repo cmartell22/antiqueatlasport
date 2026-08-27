@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 9
-last_updated_utc: "2026-08-26T23:38:54Z"
+state_revision: 17
+last_updated_utc: "2026-08-27T03:18:49Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P0_AWAITING_HUMAN_MATRIX"
 current_phase: "P0"
@@ -460,8 +460,27 @@ p0_tasks:
       - "Human owner observed a circle centered around the player rendered on the map; its semantic role is intentionally unclassified pending source archaeology or a focused control check."
       - "Human owner confirmed the map opened in the isolated integrated-singleplayer control and save-and-quit worked."
       - "Integrated lifecycle logs recorded a clean save/reload with persisted Atlas terrain, but this does not close the broader exploration/dimension/restart matrix row."
+      - "The 2026-08-27 transition-matrix attempt was invalidated before scoring because the remote-control session produced uncontrolled rapid camera rotation; the owner verified normal controls at the physical PC, and the client had no Atlas, Minecraft, or JVM exception."
+      - "A temporary isolated-profile raw-input change was reverted by the owner; rawMouseInput=true is restored and verified. The anomaly is external to Atlas and the physical-PC matrix may proceed."
+      - "Human owner confirmed the fullscreen atlas reflowed correctly through smaller and larger window sizes, with pan and zoom still working."
+      - "Human owner confirmed the atlas rendered correctly and pan/zoom remained functional after changing Minecraft GUI scale."
+      - "Human owner confirmed pause/resume followed by reopening the atlas remained functional."
+      - "Human owner confirmed the atlas rendered correctly and pan/zoom remained functional after F3+T; the live log independently recorded resource-pack reload plus all four Atlas reloaders (marker textures, tile textures, structure providers, and biome providers) with no error."
+      - "For the exploration-persistence row, the human owner traveled west beyond the prior mapped edge and confirmed newly visited terrain produced visible new atlas tiles."
+      - "A normal close then saved all dimensions and Surveyor state with Gradle exit 0. The server-side Surveyor footprint expanded from 9 files / 653988 bytes to 13 files / 1144000 bytes, including new western c.-2.-1, c.-2.0, s.-2.-1, and s.-2.0 region files; final visual reload confirmation remains pending."
+      - "On restart Atlas restored 1960 Overworld tiles versus the pre-exploration 1127, and the human owner confirmed the newly mapped western extension remained visible. The new-exploration population and persistence row is PASS."
+      - "The marker/layer slice partially passed on the Personal layer: marker creation and the attempted Personal-layer actions worked, but the full marker modal extended below the bottom of the Auto-scale GUI and made the layer/confirmation controls inaccessible."
+      - "The active Minecraft window measured 1073x663 physical pixels with guiScale=0 (Auto). Source inspection showed the full marker dialog fixed at center-relative positions from about -80 through +202 logical pixels, reproducing the observed overflow at the resulting constrained logical height."
+      - "As a control, the human owner temporarily selected GUI Scale 1 and completed the prescribed custom-layer and marker lifecycle exactly: layer creation, marker creation/assignment, hide/show, edit, marker deletion, and empty-layer deletion all passed. This isolates the failure to Auto-scale layout rather than marker/layer logic."
+      - "The P0 layout fix made MarkerModal compute a vertically clamped content center and shrink only its note box at constrained GUI heights; its drawing and note hit-testing share the same calculated geometry."
+      - "Layout arithmetic verified full-marker, simple inscription/route, and spawn dialogs remain within logical heights 240, 270, 312, 360, and 480; the full note remains 60px when room permits and contracts to 18px at the minimum 240px case."
+      - "After a successful compile and clean build, the exact Auto-scale reproduction was rerun in an even smaller 870x519 physical window. The human owner confirmed every marker control was visible/clickable, completed the temporary layer/marker lifecycle, and observed the larger note field returning at GUI Scale 1."
+      - "The verified marker/layer lifecycle is PASS: create custom layer, create and assign marker, hide/show layer, edit marker, delete marker, and delete empty layer."
     pending:
-      - "Remaining baseline_manual_matrix rows."
+      - "Death/spawn marks, inscriptions, territories/city paint, and routes."
+      - "PNG export plus .atlas export/import/signature/hearsay behavior without source data mutation."
+      - "Overworld, Nether, End, portal transition, disconnect/reconnect, and client restart."
+      - "Dedicated multiplayer connection, independent player knowledge, and clean server restart."
   - id: "P0-T08"
     name: "P0 review, commit, immutable local tag, and approval stop"
     status: "PENDING"
@@ -533,6 +552,16 @@ known_risks:
     status: "MITIGATED_AND_VERIFIED_5X"
     risk: "An untouched-baseline repeat integrated join threw ConcurrentModificationException in WorldAtlasData.WORLDS.computeIfAbsent and disconnected the client with Network Protocol Error."
     mitigation: "WORLDS now uses ConcurrentHashMap; clean build, five fresh-JVM join/save/exit repetitions, bytecode/null-key audits, and a dedicated-server regression all passed. Retain repeat-join coverage in later runtime gates."
+  - id: "RISK-011"
+    severity: "S1"
+    status: "CLOSED_EXTERNAL_REMOTE_SESSION"
+    risk: "One isolated integrated-client manual-matrix attempt exhibited uncontrolled rapid camera rotation without a logged crash or exception, invalidating that attempt's human observations."
+    mitigation: "The owner reproduced the distinction and confirmed controls are normal at the physical PC; the problem was the remote-control session. Raw input is restored, no Atlas change was made, and human UI testing will be performed physically."
+  - id: "RISK-012"
+    severity: "S1"
+    status: "MITIGATED_AND_HUMAN_VERIFIED"
+    risk: "At Auto GUI scale in the measured 1073x663 client window, the fixed-height marker modal runs below the screen and makes controls below the note field inaccessible."
+    mitigation: "MarkerModal now recenters its complete content and contracts only the note area when needed. Geometry checks cover logical heights 240-480; clean build passed; the owner completed the exact workflow at Auto scale in an even smaller 870x519 window and confirmed the roomy note returns at scale 1."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
@@ -550,12 +579,12 @@ test_evidence:
     context_yaml_parse: "PASS: PyYAML 6.0.2 safe_load plus structural assertions"
     diff_check: "PASS"
     legacy_surveyor_publish: "PASS: 11 tasks executed"
-    clean_build: "PASS_AFTER_FIX: final clean build in 35s; 8 actionable tasks executed; tests NO-SOURCE"
-    artifact_audit: "PASS_AFTER_FIX_WITH_RECORDED_BASELINE_PACKAGING_DEFECTS: bytecode and nested Surveyor verified"
+    clean_build: "PASS_AFTER_MARKER_LAYOUT_FIX: compileJava passed, then clean build passed in 33s; all packaging tasks completed; tests remain NO-SOURCE"
+    artifact_audit: "PASS_AFTER_MARKER_LAYOUT_FIX_WITH_RECORDED_BASELINE_PACKAGING_DEFECTS: main jar 9C8ED1D33AA29DF83C378532FDB9E38E548897FB5D5F9F3E84879F0EC2AD8634; sources 41E95F809D8CB2B439A6DBA103F1CBCF84B8759709D92C48E463B9040CD1CE14; nested Surveyor unchanged"
     dedicated_server_smoke: "PASS_PRE_AND_POST_FIX: three dimensions loaded; Done; clean Surveyor/world save and stop"
     development_client_smoke: "PASS_AFTER_FIX: dedicated and integrated controls plus 5/5 fresh-JVM repeat joins and clean all-dimension exits; zero recurrence of the original CME/protocol failure"
-    manual_baseline_matrix: "IN_PROGRESS: map-mode cycle, pan, and zoom PASS; player-centered circle observed; remaining rows pending"
-    runtime_cleanup: "PASS: zero Java/javaw processes; TCP 25575 free"
+    manual_baseline_matrix: "IN_PROGRESS: map/UI transitions, exploration persistence, and marker/layer lifecycle PASS; player-centered circle observed; remaining annotation, sharing, dimension/lifecycle, and multiplayer rows are pending"
+    runtime_cleanup: "PASS_AFTER_MARKER_LAYOUT_FIX: normal close saved all dimensions, Gradle returned exit 0, zero Java/javaw processes, and test ports are free"
     persisted_client_control_data: "PASS: 5 files / 49051 bytes retained under ignored run/p0-client/data/surveyor"
 
 latest_session:
@@ -577,11 +606,23 @@ latest_session:
     - "Replaced only WORLDS' backing map with ConcurrentHashMap, then passed two clean builds, five fresh-JVM integrated join/save/exit repetitions, a dedicated-server regression, bytecode/null-key audits, and artifact verification."
     - "Disconnected the client, stopped/saved the server, and verified zero remaining Java processes and a free test port."
     - "Committed design-doc.txt and durable state revision 3 as local checkpoint 1ef024974390748cafc7b43c3b41d6cb638f3c2b; no tag or push was created."
+    - "Invalidated a resumed transition-matrix attempt when the owner observed uncontrolled rapid camera rotation; the client log showed normal lifecycle saves and a clean Gradle exit with no corresponding exception."
+    - "Confirmed the isolated profile had vanilla sensitivity/inversion/bindings and raw mouse input enabled, then disabled raw mouse input only in that ignored profile for a controlled recheck."
+    - "Human owner identified the uncontrolled-camera cause as the remote-control session, verified controls are normal at the physical PC, and restored rawMouseInput=true; the anomaly is closed as external and no Atlas result was scored from it."
+    - "Human owner passed all four bounded UI-transition checks: window resize, GUI-scale change, pause/resume, and F3+T, including post-transition atlas rendering and pan/zoom."
+    - "Corroborated F3+T in the live log: Minecraft reloaded resource packs and Atlas ran its marker, tile, structure-provider, and biome-provider reloaders without error."
+    - "Closed the isolated client normally; all three dimensions saved, Gradle exited 0, no Java process remained, and the test ports were free."
+    - "Human owner confirmed newly explored western terrain populated visible atlas tiles. A normal save/close expanded server-side Surveyor data from 9 files / 653988 bytes to 13 files / 1144000 bytes, including four new -2 western region files."
+    - "Restart restored 1960 Overworld atlas tiles compared with the pre-exploration 1127, and the human owner confirmed the western extension remained visible; the exploration-persistence row is complete."
+    - "The marker/layer slice exposed a marker-modal overflow at Auto scale: the owner could use Personal-layer marker actions but could not reach controls below the note field. The 1073x663 physical window and fixed center-relative source layout bound this as a reproducible S1 layout defect with a safe scale/window workaround."
+    - "At temporary GUI Scale 1 the owner completed the full custom-layer/marker create, assign, visibility, edit, delete, and layer-delete lifecycle, isolating the defect to Auto-scale layout. The client then closed cleanly with all dimensions saved and Gradle exit 0."
+    - "Implemented adaptive MarkerModal vertical geometry; layout arithmetic passed across logical heights 240-480, compile and clean build passed, and bytecode/artifact audits confirmed the new methods plus unchanged embedded Surveyor."
+    - "In the exact Auto-scale reproduction, now at an even smaller 870x519 window, the owner confirmed all controls were visible/clickable and completed the temporary marker/layer lifecycle; the larger note box returned at scale 1. The client then closed and saved cleanly with Gradle exit 0."
   blockers:
     - "Further P0 progress requires the human-observed visual and interaction matrix."
   next_action: >-
-    When the human owner returns, run the next bounded manual matrix slice: window resize, GUI-scale change,
-    pause/resume, and F3+T resource reload with the atlas open before and after each transition.
+    Commit the isolated, reviewed MarkerModal stabilization and durable evidence locally, then prepare the next
+    bounded annotation slice for hearth/spawn and death-marker behavior; do not begin P1 or create the P0 tag.
 
 agent_first_prompt:
   text: >-
