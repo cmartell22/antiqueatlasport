@@ -38,3 +38,25 @@ separate Player777 client state used to verify independent knowledge plus import
 Never run a migration or round trip in place. Verify the recorded digest first, copy the selected
 fixture into a disposable test directory, operate only on that copy, and verify the tracked fixture
 is unchanged afterward.
+
+## Exact target-runtime probe
+
+`probe-project` is a dedicated-server Fabric/Loom harness pinned independently to the exact P2
+lock. It copies this complete fixture tree to an operating-system temporary directory before any
+decode or write, starts Minecraft 26.1.2 with Fabric Loader transformations active, and loads the
+unchanged production `MixinRegionStructureSummary` compatibility shim. It does not compile or load
+the rest of Atlas, whose P5 renderer is deliberately still outside the P4 boundary.
+
+Run from the repository root with the host's documented Java socket fallback:
+
+```powershell
+$fallback='C:\wawi-gradle-uds-nonexistent'
+$env:JAVA_TOOL_OPTIONS="-Djdk.net.unixdomain.tmpdir=$fallback"
+.\gradlew.bat -p compat-fixtures\p4\probe-project runP4Probe --offline --no-daemon --console=plain --no-problems-report
+```
+
+The passing probe requires the `P4_COMPATIBILITY_PROBE_PASS` sentinel and Gradle exit zero. It
+target-decodes and exactly re-encodes landmark NBT and every frozen region packet, performs target
+NBT read/write content round trips, exercises `WorldLandmarks.CODEC`, all persisted
+`ChunkSummary` values, `RegionStructureSummary` with Atlas's existing jigsaw fix, and client
+personal/shared `SurveyorExploration` state.

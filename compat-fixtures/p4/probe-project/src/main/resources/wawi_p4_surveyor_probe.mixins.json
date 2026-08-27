@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "glam.ardor.roleplayers_atlas.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "MixinRegionStructureSummary"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

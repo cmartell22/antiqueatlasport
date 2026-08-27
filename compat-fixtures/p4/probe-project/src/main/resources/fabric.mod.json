@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "wawi_p4_surveyor_probe",
+  "version": "1.0.0",
+  "name": "WAWI P4 Surveyor Compatibility Probe",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "folk.sisby.surveyor.structure.P4SurveyorCompatibilityProbe"
+    ]
+  },
+  "mixins": [
+    "wawi_p4_surveyor_probe.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "0.19.3",
+    "minecraft": "26.1.2",
+    "surveyor": "1.2.4+26.1"
+  }
+}

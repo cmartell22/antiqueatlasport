@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 48
-last_updated_utc: "2026-08-27T18:18:40Z"
+state_revision: 49
+last_updated_utc: "2026-08-27T18:50:08Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P4_IN_PROGRESS"
 current_phase: "P4"
-current_task: "P4-T03_COMPARE_SURVEYOR_SEMANTICS"
+current_task: "P4-T05_VALIDATE_AND_CLOSE_GATE"
 
 authority:
   precedence:
@@ -775,19 +775,32 @@ p4_tasks:
       - "All 49 tracked binary fixture blobs match their worktree bytes; .gitattributes marks compat-fixtures/p4/** -text so future checkouts cannot normalize fixture content."
   - id: "P4-T03"
     name: "Compare exact legacy and target Surveyor integration semantics"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
-    evidence: []
+    evidence:
+      - "Compared exact legacy 39847c28f925900ac65f12a0a22032a3150a139f and target 4b500855ea2e316480c1f3fb9e175ec6dc3060db source: all 21 Atlas-imported types survive; 12 are blob-identical and nine have classified deltas."
+      - "The complete Surveyor production-Java diff is 23 files / 105 insertions / 93 deletions; Atlas-used codec and persistence changes are source-identical or mechanical except current backend ownership/default semantics."
+      - "S2CUpdateRegionPacket.CODEC is source-identical; its only file delta is a ChunkPos log accessor. RegionStructureSummary persistence changes only ChunkPos accessors."
+      - "Target BitSetUtil.half correctly splits by cardinality; target canModify adds SERVER-mode behavior and excludes global landmarks from ordinary ownership."
+      - "Target networking.globalSharing defaults true instead of the legacy false; every generated P0 server config explicitly records false, preserving config-carrying upgrades."
+      - "docs/P4_SURVEYOR_COMPATIBILITY.md records the full semantic classification and phase ownership."
   - id: "P4-T04"
     name: "Apply bounded Surveyor integration migration and compatibility probes"
-    status: "PENDING"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
-    evidence: []
+    evidence:
+      - "Exact target source and the four-error P5 compile boundary prove that no Atlas Surveyor call-site migration is required in P4; no production Java or resource was changed."
+      - "Added an isolated exact-lock Fabric dedicated-server probe that copies the immutable fixtures to a temporary tree and loads the existing production MixinRegionStructureSummary unchanged."
+      - "The target-runtime probe passed: two .atlas files, 10 region packets / 3,154,916 packet bytes, one authored multiplayer landmark, 46 Surveyor data files, five persisted landmarks, 8,479 chunk summaries, 12 structure regions, and one personal/shared exploration file."
+      - "Target Landmark and WorldLandmarks codecs, S2CUpdateRegionPacket bytes, compressed NBT, ChunkSummary, RegionStructureSummary, and SurveyorExploration personal/shared state all round-tripped exactly."
+      - "The probe reached a target dedicated server Done state and loaded Surveyor for Overworld, Nether, and End under Java 25 / Loader 0.19.3 / Fabric API 0.155.2+26.1.2 / Surveyor 1.2.4+26.1."
   - id: "P4-T05"
     name: "Validate persistence, ownership, synchronization, and close the P4 gate"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
-    evidence: []
+    evidence:
+      - "Frozen Atlas packets and Surveyor persistence pass exact target-runtime decode/re-encode with the existing Atlas jigsaw compatibility shim."
+      - "Full Atlas client synchronization remains unlaunchable until the four explicitly P5-owned renderer errors are migrated; P4 assigns later live multiplayer regression to P7/P8 without entering P5."
 
 decisions:
   - id: "DEC-001"
@@ -823,6 +836,16 @@ decisions:
     decision: "Use Cloth Config 26.1.154 and Mod Menu 18.0.0 as optional target integrations; retain Kaleido Config 0.3.3+1.3.2."
     source: "P2 artifact metadata inspection"
     rationale: "Their declared Minecraft ranges match 26.1.2, while newer Mod Menu 20 explicitly targets 26.2."
+  - id: "DEC-008"
+    date: "2026-08-27"
+    decision: "Make no P4 production edit because exact target source and the runtime fixture probe demonstrate compatibility at every currently reachable Surveyor integration surface."
+    source: "P4 exact-source comparison and frozen-fixture runtime probe"
+    rationale: "The one known jigsaw persistence defect remains covered by Atlas's pre-existing mixin; inventing an additional shim or forking Surveyor would increase risk without repairing a demonstrated failure."
+  - id: "DEC-009"
+    date: "2026-08-27"
+    decision: "Do not silently override current Surveyor's globalSharing operator configuration from Atlas; faithful isolation tests and deployments explicitly select false."
+    source: "P4 ownership and synchronization source comparison"
+    rationale: "P0 config-preserving upgrades already retain false, while forcing a backend setting would violate operator intent and the Surveyor ownership boundary. The clean-install default difference remains visible for hardening policy."
 
 known_risks:
   - id: "RISK-001"
@@ -887,9 +910,9 @@ known_risks:
     mitigation: "MarkerModal now recenters its complete content and contracts only the note area when needed. Geometry checks cover logical heights 240-480; clean build passed; the owner completed the exact workflow at Auto scale in an even smaller 870x519 window and confirmed the roomy note returns at scale 1."
   - id: "RISK-013"
     severity: "S2"
-    status: "MITIGATED_BY_EXACT_BUILD_PROOF_PENDING_P4_RUNTIME"
+    status: "MITIGATED_BY_EXACT_BUILD_AND_TARGET_RUNTIME_FIXTURE_PROOF_PENDING_FULL_ATLAS_RUNTIME"
     risk: "Pinned Surveyor head declares 26.1 compatibility but is not an exact published 26.1.2 lock."
-    mitigation: "The exact source pin clean-built against the P2 lock; P4 must still prove client/dedicated runtime, data, ownership, and synchronization compatibility."
+    mitigation: "The exact source pin clean-built against the P2 lock and P4's exact target dedicated-server fixture probe passed all reachable codecs/persistence; repeat full Atlas client/dedicated synchronization after P5 compilation in P7/P8."
   - id: "RISK-014"
     severity: "S2"
     status: "OPEN"
@@ -915,6 +938,11 @@ known_risks:
     status: "OPEN_DEFERRED_TO_P5"
     risk: "The target removed DrawBatcher's RenderLayers.entityNoOutline texture factory; choosing a replacement can affect blending, depth, outlines, and map appearance."
     mitigation: "Leave the call untouched in P3 and migrate it in P5 with exact render-layer source evidence and visual regression checks."
+  - id: "RISK-019"
+    severity: "S1"
+    status: "OPEN_ASSIGNED_TO_P7_P8_POLICY_AND_RUNTIME_MATRIX"
+    risk: "Current Surveyor defaults networking.globalSharing to true, while the legacy P0 default was false; a clean server can therefore begin with broader sharing than the independent-knowledge P0 control."
+    mitigation: "Config-preserving upgrades retain the explicit P0 false value. Do not override operator configuration in Atlas; document and exercise globalSharing=false in faithful isolation tests, then make the clean-install deployment policy explicit before the release candidate."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
@@ -986,6 +1014,9 @@ test_evidence:
     approval_preflight: "PASS: exact branch, HEAD, clean status, annotated P0 tag target, design hash, P0-P3 phase completion, single P4 next action, and no-publication record verified before the approval checkpoint"
     fixture_freeze: "PASS: 49 files / 3,494,735 bytes copied from verified ignored P0 controls; two file hashes and five deterministic Surveyor tree digests match source to destination"
     fixture_git_integrity: "PASS: all 49 tracked binary fixture worktree blobs match the committed index; compat-fixtures/p4/** is marked -text to prohibit line-ending conversion"
+    exact_source_semantics: "PASS: all 21 Atlas-imported Surveyor types survive; 12 are blob-identical; nine deltas are classified; packet and persistence codecs needed by Atlas are unchanged or mechanically accessor-adapted"
+    target_runtime_fixture_probe: "PASS: exact-lock Fabric server harness reached Done and emitted P4_COMPATIBILITY_PROBE_PASS after exact round trips for 10 Atlas region packets, one authored landmark, 46 Surveyor data files, five persisted landmarks, 8479 chunk summaries, 12 structure regions, and personal/shared exploration state"
+    production_migration: "PASS_NO_CHANGE_REQUIRED: target Surveyor APIs already compile at the established boundary and the pre-existing Atlas jigsaw mixin remains necessary and sufficient; no P4 production Java/resource edit was made"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1090,12 +1121,20 @@ latest_session:
     - "Verified every copied .atlas hash and deterministic Surveyor tree digest matches its ignored P0 source; the tracked fixture set is 49 files totaling 3,494,735 bytes and carries provenance plus no-in-place-migration instructions."
     - "Committed the immutable compatibility fixture set as a1b239007e6f496d5fe44d38d1be759f30082964."
     - "Added a fixture-only -text attribute after Git warned about possible future line-ending conversion; all 49 binary fixture blobs already matched the committed index and the attribute prevents later checkout normalization."
+    - "Compared the exact legacy and target Surveyor commits across every Atlas-imported type: 12 of 21 used files are blob-identical and the nine changed files are classified in docs/P4_SURVEYOR_COMPATIBILITY.md."
+    - "Confirmed S2CUpdateRegionPacket.CODEC is source-identical and Atlas-used persistence/codecs have no semantic format change; current Surveyor adds a correct packet-split fix and broader SERVER-mode ownership semantics."
+    - "Identified the current Surveyor clean-config globalSharing=true default versus P0 false; P0 generated configs explicitly retain false, Atlas will not override operator backend configuration, and clean-install policy remains an explicit P7/P8 risk."
+    - "Built an isolated exact-P2-lock Fabric dedicated-server probe that copies all frozen data to a temporary tree and loads Atlas's existing jigsaw compatibility mixin unchanged."
+    - "The exact target runtime reached Done for all three dimensions and passed byte/content-exact .atlas packet, landmark, WorldLandmarks, compressed NBT, ChunkSummary, RegionStructureSummary, and personal/shared exploration round trips."
+    - "The passing probe covered 10 Atlas region packets / 3,154,916 bytes, one authored multiplayer landmark, 46 Surveyor data files, five persisted landmarks, 8,479 chunk summaries, 12 structure regions, and one client personal/shared exploration file."
+    - "Exact source, compile-boundary, and runtime evidence establish that P4 requires no production migration; no production Java, resource, dependency, serialization, identity, feature, art, packaging, or publication change was made."
   blockers:
     - "Four P5 rendering-owned compile errors remain deliberately deferred: three BufferAllocator references and one RenderLayers.entityNoOutline call."
+    - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
     - "P5, P6, and later work remain blocked without their own explicit approvals."
   next_action: >-
-    Commit the immutable P4 compatibility fixtures, then compare exact legacy and target Surveyor source for every
-    Atlas-used summary, terrain, region-packet codec, landmark component, ownership, and synchronization surface before editing production code.
+    Commit the P4 source-comparison dossier and exact-lock compatibility probe, then run final dependency,
+    resource, compile-boundary, fixture-integrity, diff, tag, and no-publication audits before closing P4 at the P5 approval gate.
 
 agent_first_prompt:
   text: >-
