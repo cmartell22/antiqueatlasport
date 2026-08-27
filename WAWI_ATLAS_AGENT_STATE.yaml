@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 34
-last_updated_utc: "2026-08-27T15:59:04Z"
+state_revision: 36
+last_updated_utc: "2026-08-27T16:25:08Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P1_IN_PROGRESS"
+project_status: "P1_COMPLETE_AWAITING_P2_APPROVAL"
 current_phase: "P1"
-current_task: "P1_SOURCE_ARCHAEOLOGY_AND_API_DELTA_DOSSIER"
+current_task: "APPROVAL_STOP_BEFORE_P2"
 
 authority:
   precedence:
@@ -150,8 +150,10 @@ source_pins:
     purpose: "Lineage and upstream behavioral reference"
     fetch_url: "https://github.com/sleepingdragoninn/antique-atlas.git"
     local_remote: "upstream-aa4"
-    commit: "UNPINNED_PENDING_P1_HISTORY_AUDIT"
-    status: "REFERENCE_ONLY_NOT_YET_FETCHED"
+    branch_1_21_commit: "1821a06b0ad40b12fc1bf9943baf307fc9ed9fc3"
+    branch_1_22_commit: "079557da2048ca75f206664805cc43ddfb9273b9"
+    roleplayers_merge_base: "1821a06b0ad40b12fc1bf9943baf307fc9ed9fc3"
+    status: "PINNED_REFERENCE_HISTORY_FETCHED"
   legacy_surveyor_1_21_11:
     purpose: "Exact local Maven dependency needed to reproduce the untouched source build"
     fetch_url: "https://codeberg.org/Glam_Ardor/surveyor-1.21.11.git"
@@ -165,9 +167,38 @@ source_pins:
     purpose: "Target map-data backend; API diff and dependency lock begin only after P1 approval"
     fetch_url: "https://github.com/sleepingdragoninn/surveyor.git"
     local_remote: "upstream-surveyor"
-    reference_commit: "4b500855"
-    reference_commit_status: "PLANNING_SNAPSHOT_REVERIFY_AND_EXPAND_TO_FULL_SHA_IN_P1"
-    status: "REFERENCE_ONLY_NOT_YET_FETCHED"
+    reference_commit: "4b500855ea2e316480c1f3fb9e175ec6dc3060db"
+    reference_commit_status: "FULL_SHA_VERIFIED_AT_FETCHED_26_1_BRANCH_HEAD"
+    upstream_1_21_commit: "22e24e092b22249b3601746bfaf29c838ad78a1d"
+    legacy_merge_base: "ff1c965c393495ccbfd226c72516644037d2331b"
+    status: "PINNED_REFERENCE_HISTORY_FETCHED; EXACT_26.1.2_BUILD_NOT_YET_PROVEN"
+
+p1_research_pins:
+  dossier: "docs/P1_API_DELTA_DOSSIER.md"
+  fabric_api:
+    version: "0.155.2+26.1.2"
+    source_commit: "f9468776b662dd2ab7875e9cdcdf2b653171309d"
+    binary_sha256: "7196F2D8700CF906676DB98CC13CD4B98267C4CA4BA3E8C516E62070B21A5A3A"
+  fabric_loader:
+    version: "0.19.3"
+    source_commit: "35b0b1c0268eb5f9d377322db491b0bb436541a8"
+    binary_sha256: "73EED8C34BBAD0320A2A3CBA5346351E822F74F82B3F3C060574068474132958"
+  modern_yarn:
+    version: "26.1.2+build.4"
+    v2_jar_sha256: "B1CCDDD70ED300644F1637EB19CF9041D7854F2EE2CC285A7E0DFE906C59BA7E"
+    status: "RESEARCH_PIN_ONLY; PRODUCTION_MAPPING_DECISION_DEFERRED_TO_P2"
+  fabric_loom_reference:
+    resolved_version: "1.17.19"
+    binary_sha256: "AD331736D7EE6CD5F21C45B19584B951C716BA5DE8ACE8662B42813D110452B8"
+    status: "REFERENCE_ONLY; PRODUCTION_LOCK_DEFERRED_TO_P2"
+  minecraft_26_1_2:
+    release_date: "2026-04-09"
+    client_sha1: "4e618f09a0c649dde3fdf829df443ce0b8831e65"
+    server_sha1: "97ccd4c0ed3f81bbb7bfacddd1090b0c56f9bc51"
+    common_deobfuscated_sha256: "43DD08265C7361A8203DAF2C0A95F41B2355FFCA0C48B677637E0F66DBE12558"
+    client_only_deobfuscated_sha256: "56943FC9456558BC252753AE6E4CC22C714FF78B0356C2097331E98C28185366"
+    common_sources_sha256: "9C97F8A43C728BC3C0C02C8C684AB5F192157C29A2CD544D403591CDAC4C0145"
+    client_only_sources_sha256: "AE7EBDDB71E1FEEBF69EF52DF2D3E3A40B0B1C16B59880EEE43912F0F7156469"
 
 baseline_dependency_lock:
   source_file: "libs.versions.toml"
@@ -304,13 +335,13 @@ phase_plan:
       - "A reviewed P0 commit and immutable local baseline tag exist only after all exit criteria pass."
   - id: "P1"
     name: "Source archaeology and API-delta dossier"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Inventory every Atlas-to-Minecraft/Fabric/Surveyor touchpoint and produce a sourced port map before edits."
   - id: "P2"
     name: "26.1.2 build-system and dependency lock"
-    status: "BLOCKED_PENDING_P1_ACCEPTANCE_AND_APPROVAL"
+    status: "BLOCKED_PENDING_P2_APPROVAL"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Adopt Java 25, current Fabric Loom/build conventions, and exact verified dependencies with zero production behavior edits."
@@ -527,6 +558,45 @@ p0_tasks:
       - "Final artifact/legal audit reconfirmed fabric.mod.json and embedded Surveyor. RISK-007 remains an explicit inherited baseline defect: LICENSE/CREDITS are present in the repository but omitted from the upstream jar, and distribution remains prohibited until corrected in an approved later phase."
       - "Every P0 exit criterion has evidence; the reviewed gate commit and annotated local tag p0-baseline-1.21.11 finalize P0 without any push, release, or P1 work."
 
+p1_tasks:
+  - id: "P1-T01"
+    name: "Record approval and pin exact source evidence"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "APPROVAL-P1-001 was recorded before archaeology began and committed locally as 37d253d1d."
+      - "Fetched AA4 1.21/1.22 and Surveyor legacy/1.21/26.1 histories; recorded all relevant full commit SHAs."
+      - "Fetched Fabric API 0.155.2+26.1.2 and Fabric Loader 0.19.3 exact tag commits into local reference namespaces."
+      - "Pinned exact cached Minecraft 26.1.2 artifacts/sources, Modern Yarn 26.1.2+build.4 research mappings, Fabric binaries, and Loom resolution by cryptographic hash."
+  - id: "P1-T02"
+    name: "Establish Atlas and Surveyor lineage"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "Roleplayer's Atlas is 17 commits ahead and zero behind AA4 upstream 1.21 at merge base 1821a06b0ad40b12fc1bf9943baf307fc9ed9fc3."
+      - "Legacy Surveyor and target 26.1 have merge base ff1c965c393495ccbfd226c72516644037d2331b with respective ahead counts 2 and 19."
+      - "Target Surveyor head is a 26.1 branch pin rather than an exact 26.1.2 compatibility claim; that uncertainty is retained for P2 proof."
+  - id: "P1-T03"
+    name: "Inventory integration touchpoints and exact API deltas"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "Inventory covers 92 Java files, 1,366 resources, 78 Minecraft-importing files, 24 Surveyor-importing files, 15 Fabric/Loader-importing files, and seven client mixins."
+      - "All 21 unique Atlas-imported Surveyor types exist in the pinned target source; used terrain/landmark API and codec deltas are documented without assuming compatibility."
+      - "Exact target source confirms Fabric key-mapping, end-level tick, and convention-tag changes plus deprecated resource registration."
+      - "Exact target mappings contain 99 of 100 imported Minecraft classes; BufferAllocator is the sole package move."
+      - "Exact render/mixin source confirms removed ordered submitCustom, replacement custom-geometry submission, and changed GameRenderer bobView/renderHand descriptors."
+      - "Atlas has no direct Fabric networking channel; sharing and synchronized map state remain behind Surveyor codecs and APIs."
+  - id: "P1-T04"
+    name: "Produce and review the evidence-backed API-delta dossier"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "docs/P1_API_DELTA_DOSSIER.md separates verified compatibility, hard breaks, deprecations, uncertainty, phase ownership, and required tests."
+      - "The dossier retains Surveyor as the authoritative backend and explicitly requires frozen persistence/.atlas fixtures before integration acceptance."
+      - "No production source, resource, dependency, Java release, or build configuration was changed during P1."
+      - "P1 ends at the explicit P2 approval stop; no implementation uplift has begun."
+
 decisions:
   - id: "DEC-001"
     date: "2026-08-26"
@@ -541,6 +611,11 @@ decisions:
     date: "2026-08-26"
     decision: "Reuse compatible JavaBackport SDK/caches/launch prerequisites, but maintain a clean 1.21.11 runtime boundary."
     source: "Human project owner plus P0 implementation safety boundary"
+  - id: "DEC-004"
+    date: "2026-08-27"
+    decision: "Use Modern Yarn 26.1.2+build.4 only as an immutable P1 research mapping; choose and lock the production mapping/toolchain in P2."
+    source: "P1 source archaeology"
+    rationale: "Exact API evidence is needed now, while dependency selection remains a separately reviewable build-system decision."
 
 known_risks:
   - id: "RISK-001"
@@ -580,9 +655,9 @@ known_risks:
     mitigation: "Preserve repository notices now; correct and audit release packaging in an approved build/release phase before distribution."
   - id: "RISK-008"
     severity: "S1"
-    status: "OPEN_BASELINE_WARNING"
+    status: "MITIGATED_BY_SOURCE_ARCHAEOLOGY_PENDING_RUNTIME_REGRESSION"
     risk: "Client startup warns that optional punchy/config/PunchyConfig is absent."
-    mitigation: "Confirm the optional Mixin fails soft by design during P1 archaeology and retain a startup regression check."
+    mitigation: "P1 confirmed @Pseudo, remap=false, and require=0 fail-soft intent; retain a target startup regression check."
   - id: "RISK-009"
     severity: "S1"
     status: "OPEN_HARNESS_LIMITATION"
@@ -603,17 +678,39 @@ known_risks:
     status: "MITIGATED_AND_HUMAN_VERIFIED"
     risk: "At Auto GUI scale in the measured 1073x663 client window, the fixed-height marker modal runs below the screen and makes controls below the note field inaccessible."
     mitigation: "MarkerModal now recenters its complete content and contracts only the note area when needed. Geometry checks cover logical heights 240-480; clean build passed; the owner completed the exact workflow at Auto scale in an even smaller 870x519 window and confirmed the roomy note returns at scale 1."
+  - id: "RISK-013"
+    severity: "S2"
+    status: "OPEN"
+    risk: "Pinned Surveyor head declares 26.1 compatibility but is not an exact published 26.1.2 lock."
+    mitigation: "Build the exact pin against the P2 lock, inspect its artifact, and require client/dedicated runtime proof before integration acceptance."
+  - id: "RISK-014"
+    severity: "S2"
+    status: "OPEN"
+    risk: "Minecraft 26.1.2 removed the held renderer's old ordered submitCustom API and changed the GameRenderer bobView/renderHand descriptors."
+    mitigation: "Migrate only in P5 using exact source, preserve ordering/translucency, audit mixin application, and repeat handheld/fullscreen visual checks."
+  - id: "RISK-015"
+    severity: "S2"
+    status: "OPEN"
+    risk: "Fabric 26.1.2 has confirmed compile breaks in key mapping, end-level tick, and convention-tag APIs; resource registration is deprecated."
+    mitigation: "Apply categorized P3/P6 changes with compile, lifecycle, biome fallback, and F3+T reload regressions."
+  - id: "RISK-016"
+    severity: "S2"
+    status: "OPEN"
+    risk: "Changing mapping namespace or toolchain while uplifting APIs can hide semantic changes or create an unreviewable mixed diff."
+    mitigation: "P2 must choose exact mappings and versions in a build-only commit; P3 begins only after that lock is reviewed and accepted."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
   source_import_tag: "v1.1.2+1.21.11"
   governance_checkpoint_commit: "1ef024974390748cafc7b43c3b41d6cb638f3c2b"
   marker_modal_stabilization_commit: "61c38e294f4db6a3cfcf843833126364882c6232"
+  p1_approval_commit: "37d253d1d"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
   governance_files_status: "COMMITTED_AT_P0_BASELINE_TAG"
   local_p0_baseline_tag: "p0-baseline-1.21.11"
+  local_p0_baseline_tag_target: "7099b4df2420d5441e3b2b02e53201a0b249c8f9"
   pushes_performed: false
 
 test_evidence:
@@ -628,6 +725,14 @@ test_evidence:
     manual_baseline_matrix: "PASS: full map/UI, exploration/persistence, annotation, sharing, all-dimension, reconnect/restart, and independent-player multiplayer/hearsay matrix captured; player-centered circle observed without unverified semantic classification"
     runtime_cleanup: "PASS_FINAL_P0: normal client close saved two landmarks and exited 0; literal dedicated-server stop saved Surveyor plus all dimensions and exited 0; zero Java/javaw processes and test ports are free"
     persisted_client_control_data: "PASS: 5 files / 49051 bytes retained under ignored run/p0-client/data/surveyor"
+  p1:
+    source_pins: "PASS: full SHAs recorded for AA4 1.21/1.22, legacy/1.21/26.1 Surveyor, Fabric API, and Fabric Loader; target binary/source/mapping hashes recorded"
+    lineage: "PASS: merge bases and ahead/behind counts recorded from fetched histories"
+    touchpoint_inventory: "PASS: Minecraft, Fabric, Surveyor, rendering, input, mixin, resource, config, networking, and serialization surfaces covered"
+    dossier: "PASS: docs/P1_API_DELTA_DOSSIER.md"
+    production_uplift_audit: "PASS: no production Java, resource, dependency, Java release, or build configuration change"
+    diff_check: "PASS: git diff --check"
+    yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions; revision 36 differs only by recording this completed validation"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -683,10 +788,19 @@ latest_session:
     - "Completed P0-T08 locally with the reviewed gate commit and annotated p0-baseline-1.21.11 tag; no push, release, upload, publication, or 26.1.2 uplift occurred."
     - "Human project owner explicitly approved P1 in the Codex task; APPROVAL-P1-001 records the exact scope and exclusions before archaeology begins."
     - "Reverified clean branch port/26.1.2 at P0 tag target 7099b4df2420d5441e3b2b02e53201a0b249c8f9 and validated the locked design-doc.txt SHA-256 before entering P1."
-  blockers: []
+    - "Committed the P1 approval checkpoint locally as 37d253d1d before fetching or analyzing target sources."
+    - "Fetched and pinned full AA4, Surveyor, Fabric API, and Fabric Loader source SHAs plus exact Minecraft, Modern Yarn, Fabric, and Loom artifact hashes."
+    - "Established the exact Atlas/AA4 and legacy/target-Surveyor lineage relationships rather than inferring compatibility from version labels."
+    - "Inventoried all Atlas integration surfaces and confirmed all 21 imported Surveyor types survive at the target pin."
+    - "Confirmed hard target deltas in Fabric key/tick/tag APIs, BufferAllocator packaging, held custom-geometry submission, and GameRenderer mixin descriptors."
+    - "Confirmed Atlas defines no custom Fabric networking surface and retains Surveyor as the synchronized mapping backend."
+    - "Produced docs/P1_API_DELTA_DOSSIER.md with evidence pins, categorized phase ownership, risks, and required compatibility probes."
+    - "Completed P1 without changing production source, resources, dependencies, Java release, or build configuration and without moving the P0 tag or performing any push/publication."
+  blockers:
+    - "P2 requires separate explicit human approval; P1 approval does not authorize build/dependency changes."
   next_action: >-
-    Fetch and pin the exact upstream Antique Atlas and target Surveyor sources, then inventory the
-    Atlas-to-Minecraft, Fabric, and Surveyor API touchpoints for the P1 evidence dossier; do not begin P2.
+    Stop and request explicit P2 approval before changing Java 25/build settings, mappings, Fabric,
+    Surveyor, optional configuration dependencies, or any other production dependency; do not begin P3.
 
 agent_first_prompt:
   text: >-
