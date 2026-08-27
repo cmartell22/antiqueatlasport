@@ -60,10 +60,18 @@ public record HandheldAtlasRenderer(int bookX, int bookY, int bookWidth, int boo
 	 * command is not needed.
 	 * <p>
 	 * The allocator is kept between frames rather than rebuilt, since it holds
-	 * native memory.
+	 * native memory, and is closed by the client-stopping lifecycle hook.
 	 */
 	private static BufferAllocator bookAllocator;
 	private static VertexConsumerProvider.Immediate bookBuffers;
+
+	public static void closeBuffers() {
+		bookBuffers = null;
+		if (bookAllocator != null) {
+			bookAllocator.close();
+			bookAllocator = null;
+		}
+	}
 
 	public void renderHandheldAtlas(MatrixStack matrices, OrderedRenderCommandQueue queue, int light) {
 		if (bookBuffers == null) {

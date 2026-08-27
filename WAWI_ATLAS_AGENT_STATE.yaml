@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 53
-last_updated_utc: "2026-08-27T19:32:06Z"
+state_revision: 54
+last_updated_utc: "2026-08-27T19:33:51Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P5_IN_PROGRESS"
 current_phase: "P5"
-current_task: "P5-T03_ALLOCATOR_LIFETIME"
+current_task: "P5-T04_RUNTIME_MIXIN_STARTUP"
 
 authority:
   precedence:
@@ -846,15 +846,19 @@ p5_tasks:
       - "Changed only the allocator import and transparent shader-layer factory; exact locked compileJava then passed in 14 seconds with zero errors."
   - id: "P5-T03"
     name: "Migrate held custom geometry, screens, input, and version-sensitive mixins"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "Exact target source and Modern Yarn bytecode prove GameRenderer.renderHand now has (CameraRenderState, float, Matrix4fc) and invokes bobView(CameraRenderState, MatrixStack)."
       - "Retargeted only MixinGameRenderer's WrapOperation descriptor, handler parameters, and original.call argument order to the exact target invocation; compileJava passed in 13 seconds."
       - "Audited the six other declared mixins against exact target descriptors: DrawContext.state, MinecraftClient.openGameMenu(boolean), Screen.applyBlur/renderDarkening, all HeldItemRenderer fields/methods, the P4-proven Surveyor shim, and optional require=0 Punchy target remain structurally valid."
+      - "Exact target SubmitNodeCollection and CustomFeatureRenderer source copies the matrix entry, classifies the outer RenderLayer by blending, and invokes custom geometry in that render phase; Modern Yarn build 4 retains the submitCustom name for the target submitCustomGeometry descriptor."
+      - "The existing single translucent custom command remains necessary to flush Atlas's multi-texture Immediate provider at one ordered point; no queue or geometry rewrite was invented after the exact mapped target path compiled unchanged."
+      - "The renderer owns one native BufferAllocator across frames, Immediate.draw releases its per-frame batches, and CLIENT_STOPPING now closes the allocator exactly once and clears both retained references."
+      - "compileJava passed in 16 seconds after the allocator-lifetime hook; no screen or input compile repair beyond the exact descriptor migration was exposed."
   - id: "P5-T04"
     name: "Validate compilation, mixin application, client/server startup, and human visual/input behavior"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
   - id: "P5-T05"
     name: "Audit P5 scope and close at the P6 approval gate"
@@ -910,6 +914,11 @@ decisions:
     decision: "Replace removed RenderLayers.entityNoOutline(texture) with the target-supported RenderLayers.entityTranslucent(texture, false) and require a handheld transparency/depth visual checkpoint."
     source: "P5 exact 1.21.11 bytecode and exact Minecraft 26.1.2 RenderTypes/RenderPipelines source comparison"
     rationale: "The target factory preserves textured lightmapped entity translucency, blending, no-cull behavior, sorting, and disables outlines. No exact non-emissive target factory preserves the legacy depth-write-off pipeline, so inventing a custom pipeline would be a broader and more brittle behavioral rewrite than adopting the supported target analogue with explicit visual acceptance."
+  - id: "DEC-011"
+    date: "2026-08-27"
+    decision: "Retain one renderer-owned BufferAllocator and Immediate provider across frames, flush inside the target custom-geometry phase, and close the native allocator on CLIENT_STOPPING."
+    source: "P5 exact BufferAllocator, VertexConsumerProvider, SubmitNodeCollection, CustomFeatureRenderer, and Fabric ClientLifecycleEvents source/bytecode"
+    rationale: "Atlas needs multiple texture-specific layers to land at one ordered handheld-render point. Per-frame allocator construction would churn native memory, while never closing the retained allocator would leave ownership implicit; the lifecycle hook makes the existing multi-layer submission model explicit and bounded."
 
 known_risks:
   - id: "RISK-001"
@@ -1028,6 +1037,7 @@ repository_state:
   p4_compatibility_commit: "3a598667c400be596f2f7fb8f907592c722edba1"
   p5_approval_commit: "093e3e7740893063b26b197c3979ad7b4b368b02"
   p5_renderer_compile_commit: "4279b9863"
+  p5_game_renderer_mixin_commit: "33954cc68"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1095,6 +1105,7 @@ test_evidence:
     entry_compile_boundary: "EXPECTED_P5_FAILURE_REPRODUCED: exactly four errors, comprising three BufferAllocator symbols and one RenderLayers.entityNoOutline symbol"
     renderer_compile_category: "PASS: allocator package and supported no-outline translucent-layer substitutions eliminate all four errors; compileJava BUILD SUCCESSFUL in 14s with zero errors"
     mixin_descriptor_compile: "PASS_AT_COMPILE_BOUNDARY: exact GameRenderer bobView descriptor and WrapOperation handler migrated; all seven declared mixin surfaces structurally audited; compileJava BUILD SUCCESSFUL in 13s"
+    allocator_lifetime_compile: "PASS: one client-owned allocator remains reused across frames and is closed on CLIENT_STOPPING; compileJava BUILD SUCCESSFUL in 16s"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1217,13 +1228,16 @@ latest_session:
     - "Moved only the BufferAllocator import and replaced the removed entityNoOutline call with entityTranslucent(texture, false); compileJava then passed with zero errors under the unchanged P2 lock."
     - "Committed the bounded renderer compile category and revision-52 evidence locally as 4279b9863."
     - "Exact target GameRenderer source/bytecode proved bobView now receives CameraRenderState plus MatrixStack; retargeted the one stale WrapOperation descriptor and audited all six other declared mixins without speculative edits."
+    - "Committed the bounded GameRenderer descriptor migration and revision-53 evidence locally as 33954cc68."
+    - "Exact target queue/feature source confirms the mapped submitCustom call is the target custom-geometry descriptor and executes Atlas's single translucent callback in the correct phase; retained the multi-texture Immediate-provider flush without a rewrite."
+    - "Registered exact Fabric CLIENT_STOPPING cleanup so the frame-reused native BufferAllocator is closed once; compileJava remained successful with zero errors."
   blockers:
     - "Human visual and input observation will be required before P5 can be marked complete; no such target-runtime result is claimed yet."
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
     - "P6 and later phases remain independently blocked."
   next_action: >-
-    Close the renderer-owned native BufferAllocator at the exact client-stopping lifecycle, then rerun compileJava
-    and launch the development client to validate actual mixin application and rendering startup.
+    Launch the exact locked development client to the title screen, inspect logs for all mixin application and
+    renderer/resource startup failures, then close normally and record the startup result without claiming visual input acceptance.
 
 agent_first_prompt:
   text: >-

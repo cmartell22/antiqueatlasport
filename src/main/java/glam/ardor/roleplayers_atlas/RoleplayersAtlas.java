@@ -1,6 +1,7 @@
 package glam.ardor.roleplayers_atlas;
 
 import glam.ardor.roleplayers_atlas.gui.AtlasScreen;
+import glam.ardor.roleplayers_atlas.gui.HandheldAtlasRenderer;
 import glam.ardor.roleplayers_atlas.gui.core.ScreenState;
 import glam.ardor.roleplayers_atlas.reloader.BiomeTileProviders;
 import glam.ardor.roleplayers_atlas.reloader.MarkerTextures;
@@ -11,6 +12,7 @@ import folk.sisby.surveyor.WorldSummary;
 import folk.sisby.surveyor.client.SurveyorClient;
 import folk.sisby.surveyor.client.SurveyorClientEvents;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
@@ -111,6 +113,7 @@ public class RoleplayersAtlas implements ClientModInitializer {
 		AtlasComponents.init();
 		AtlasKeybindings.init();
 		ZoneTitles.init();
+		ClientLifecycleEvents.CLIENT_STOPPING.register(client -> HandheldAtlasRenderer.closeBuffers());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(TileTextures.getInstance());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(StructureTileProviders.getInstance());
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(BiomeTileProviders.getInstance());
