@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 38
-last_updated_utc: "2026-08-27T16:51:49Z"
+state_revision: 39
+last_updated_utc: "2026-08-27T17:36:05Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P2_COMPLETE_AWAITING_P3_APPROVAL"
-current_phase: "P2"
-current_task: "APPROVAL_STOP_BEFORE_P3"
+project_status: "P3_IN_PROGRESS"
+current_phase: "P3"
+current_task: "P3-T02_BASELINE_COMPILE_CATEGORIZATION"
 
 authority:
   precedence:
@@ -93,6 +93,22 @@ approvals:
       - "No P3 or later phase work without a new explicit approval."
       - "No production Java API, rendering, input, mixin, resource, serialization, identity, feature, or art edits."
       - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "No push, release, upload, or publication."
+  - id: "APPROVAL-P3-001"
+    recorded_date: "2026-08-27"
+    source: "Human project owner in the Codex task: 'I approve proceeding with work on P3.'"
+    status: "APPROVED"
+    scope: >-
+      Execute P3 only: perform mechanical mappings and Minecraft/Fabric API uplift against the exact
+      P2 dependency lock, resolve P3-owned compile failures in small categorized commits, preserve
+      observable P0 behavior, and classify remaining failures by their later owning phase.
+    exclusions:
+      - "No P4 Surveyor persistence, codec, packet, landmark, ownership, synchronization, or map-data behavior work."
+      - "No P5 behavioral rendering, input, or mixin migration, including held custom geometry or GameRenderer descriptors."
+      - "No P6 resource-loader or serialization migration beyond minimum compile-safe symbol changes."
+      - "No dependency-lock change, broad refactor, package rename, identity, feature, gameplay, or art change."
+      - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "Do not fix RISK-007 packaging."
       - "No push, release, upload, or publication."
 
 project:
@@ -393,7 +409,7 @@ phase_plan:
     purpose: "Adopt Java 25, current Fabric Loom/build conventions, and exact verified dependencies with zero production behavior edits."
   - id: "P3"
     name: "Mechanical mappings and Minecraft/Fabric API uplift"
-    status: "BLOCKED_PENDING_P3_APPROVAL"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Terra High"
     thinking: "high"
     escalation: "GPT-5.6 Sol High when a signature change carries behavioral or serialization meaning"
@@ -682,6 +698,34 @@ p2_tasks:
       - "The categorized build lock and evidence were committed as f8db0a4fe309a7a409122509f112c2f55a01765a."
       - "No production Java, mixin, resource, serialization, identity, feature, or art implementation changed."
 
+p3_tasks:
+  - id: "P3-T01"
+    name: "Record P3 approval and verify entry invariants"
+    status: "COMPLETE"
+    model: "GPT-5.6 Terra High"
+    evidence:
+      - "APPROVAL-P3-001 records the owner's mechanical Minecraft/Fabric uplift scope and all later-phase exclusions."
+      - "Verified clean branch port/26.1.2 at 50f27067eab1ad886fe4fb5800bcee62b138f3f5 before any P3 production edit."
+      - "Verified annotated p0-baseline-1.21.11 still peels to 7099b4df2420d5441e3b2b02e53201a0b249c8f9."
+      - "Verified the locked design SHA-256 and that the P2 range changed no production Java, mixin, or resource file."
+      - "Durable state records P0, P1, and P2 COMPLETE, P3 previously BLOCKED_PENDING_P3_APPROVAL, and no push/publication."
+  - id: "P3-T02"
+    name: "Capture and categorize the target compile baseline"
+    status: "IN_PROGRESS"
+    model: "GPT-5.6 Terra High"
+    evidence: []
+  - id: "P3-T03"
+    name: "Apply bounded mechanical Minecraft and Fabric API repair categories"
+    status: "PENDING"
+    model: "GPT-5.6 Terra High"
+    escalation: "GPT-5.6 Sol High for behavioral, persistence, synchronization, rendering, input, or serialization meaning"
+    evidence: []
+  - id: "P3-T04"
+    name: "Classify later-phase failures and close the P3 approval gate"
+    status: "PENDING"
+    model: "GPT-5.6 Terra High"
+    evidence: []
+
 decisions:
   - id: "DEC-001"
     date: "2026-08-26"
@@ -849,10 +893,12 @@ test_evidence:
     production_implementation_diff: "PASS: no src/main Java, mixin, resource, serialization, identity, feature, or art change"
     diff_check: "PASS: git diff --check and staged scope audit"
     yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions for revision 38"
+  p3:
+    approval_preflight: "PASS: exact branch, HEAD, clean status, annotated P0 tag target, phase states, design hash, P2 production-scope audit, and no-publication record verified before approval checkpoint"
 
 latest_session:
   date_utc: "2026-08-27"
-  phase: "P2"
+  phase: "P3"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
     - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
@@ -924,11 +970,13 @@ latest_session:
     - "Committed the isolated build/dependency lock and docs/P2_BUILD_LOCK.md as f8db0a4fe309a7a409122509f112c2f55a01765a with no production implementation edits."
     - "The Codex host's JDK Unix-domain selector defect was contained by an uncommitted TCP-loopback fallback setting; it caused no project configuration change."
     - "P2 is complete with the P0 tag unchanged and no push, release, upload, publication, P3 edit, or later-phase work."
+    - "Human project owner explicitly approved P3 mechanical mappings and Minecraft/Fabric API uplift; APPROVAL-P3-001 records the exact scope and P4/P5/P6 exclusions before production edits."
+    - "Reverified clean port/26.1.2 at 50f27067eab1ad886fe4fb5800bcee62b138f3f5, locked design SHA-256, unchanged annotated P0 tag target, completed P0-P2 phase states, P3's prior approval gate, P2 production-scope boundary, and the no-publication record."
   blockers:
-    - "P3 requires separate explicit human approval; P2 approval does not authorize production Minecraft/Fabric API edits."
+    - "P4, P5, P6, and later work remain blocked without separate explicit approval."
   next_action: >-
-    Stop and request explicit P3 approval before changing any production Java for mechanical mappings
-    or Minecraft/Fabric API uplift; do not begin Surveyor integration, rendering/mixins, or later phases.
+    Commit the APPROVAL-P3-001 durable checkpoint, then capture and categorize the exact target
+    compileJava failure baseline before the first bounded mechanical production edit.
 
 agent_first_prompt:
   text: >-
