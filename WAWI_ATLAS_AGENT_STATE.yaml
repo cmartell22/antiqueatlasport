@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 60
-last_updated_utc: "2026-08-27T21:42:35Z"
+state_revision: 61
+last_updated_utc: "2026-08-27T21:47:28Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P6_IN_PROGRESS"
 current_phase: "P6"
-current_task: "P6-T03_BOUNDED_RESOURCE_API_MIGRATION"
+current_task: "P6-T04_SERIALIZATION_FIXTURE_PROOFS"
 
 authority:
   precedence:
@@ -928,11 +928,16 @@ p6_tasks:
       - "No resource-content, identifier, registry, or serialization-format migration is justified; the bounded production delta is the deprecated Fabric resource-loader wrapper and listener identity interface only."
   - id: "P6-T03"
     name: "Apply bounded P6 migrations with resource and compile checks"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "Replaced only ResourceManagerHelper/ResourcePackActivationType v0 calls with exact ResourceLoader/PackActivationType v1 calls; all four listener IDs, registration order, three dependency edges, and built-in-pack parameters are explicit and preserved."
+      - "Removed only the redundant IdentifiableResourceReloadListener implementations and their ID/dependency adapter methods; no reloader prepare/apply logic, resource, serialization, registry, identifier, or dependency lock changed."
+      - "The first compile identified a still-used java.util.Collection resolver parameter after import cleanup; restoring that unrelated import produced a successful exact-lock compileJava plus processResources run."
+      - "Static audit reports zero v0 resource helper/listener imports and zero getFabricId/getFabricDependencies methods in production source; git diff --check passes."
   - id: "P6-T04"
     name: "Prove serialization and immutable-fixture compatibility"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
   - id: "P6-T05"
     name: "Validate reload/runtime behavior and close at the P7 approval gate"
@@ -993,6 +998,11 @@ decisions:
     decision: "Retain one renderer-owned BufferAllocator and Immediate provider across frames, flush inside the target custom-geometry phase, and close the native allocator on CLIENT_STOPPING."
     source: "P5 exact BufferAllocator, VertexConsumerProvider, SubmitNodeCollection, CustomFeatureRenderer, and Fabric ClientLifecycleEvents source/bytecode"
     rationale: "Atlas needs multiple texture-specific layers to land at one ordered handheld-render point. Per-frame allocator construction would churn native memory, while never closing the retained allocator would leave ownership implicit; the lifecycle hook makes the existing multi-layer submission model explicit and bounded."
+  - id: "DEC-012"
+    date: "2026-08-27"
+    decision: "Translate the deprecated Fabric v0 resource helper directly to v1 ResourceLoader registration while retaining Minecraft SinglePreparationResourceReloader implementations."
+    source: "P6 exact Fabric resource-loader v0/v1 source comparison"
+    rationale: "The exact v0 helper is only an adapter that forwards listener IDs and dependency ordering to v1. Direct registration preserves behavior and removes deprecated identity interfaces without changing preparation, apply, resource, or serialization logic."
 
 known_risks:
   - id: "RISK-001"
@@ -1339,13 +1349,15 @@ latest_session:
     - "Reverified clean port/26.1.2 at P5 completion commit 98821bf500e514e1ac36b253a84abeaf003ca465, locked design hash, unchanged annotated P0 tag target, P0-P5 completion, exact unchanged P2 lock, no upstream, and no-publication record before P6 work."
     - "Completed the pre-edit P6 inventory from exact pinned Fabric/Minecraft source: only the deprecated Fabric v0 reloader adapter requires migration; used identifier, registry, metadata, resource-finder, and NBT surfaces remain compatible."
     - "Inventoried all 1,366 resources, strictly parsed all 550 JSON files, documented the four listener IDs and ordering graph, and froze normalized P0 fixtures for all five Atlas-owned JSON stores before production edits."
+    - "Migrated the four Atlas reloaders and optional built-in-pack registration directly from deprecated Fabric v0 helpers to v1 ResourceLoader while preserving every ID, registration, ordering edge, and parameter."
+    - "After restoring one still-required Collection import found by the first compile, exact-lock compileJava and processResources passed; static audit reports zero legacy resource-helper/listener imports or adapter methods."
   blockers:
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks remain assigned to the later P7/P8 matrix."
     - "P7 and later phases remain independently blocked."
   next_action: >-
-    Replace only the deprecated Fabric resource-loader v0 adapter with exact v1 listener and built-in-pack
-    registration, preserve all four IDs and three ordering edges, remove the now-redundant listener identity
-    methods/interfaces, then compile and audit resources under the unchanged P2 lock before serialization probes.
+    Run the immutable P4 .atlas target probe from disposable copies, add and execute bounded malformed-input
+    and frozen local-store compatibility probes, verify every tracked fixture hash remains unchanged, then
+    prepare the full target client resource-reload checkpoint without entering P7 synchronization work.
 
 agent_first_prompt:
   text: >-

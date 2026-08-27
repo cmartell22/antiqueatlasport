@@ -14,7 +14,6 @@ import glam.ardor.roleplayers_atlas.TerrainTileProvider;
 import glam.ardor.roleplayers_atlas.TileElevation;
 import glam.ardor.roleplayers_atlas.TileTexture;
 import glam.ardor.roleplayers_atlas.util.ForgeTags;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -27,14 +26,13 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class BiomeTileProviders extends LegacyJsonDataLoader implements IdentifiableResourceReloadListener {
+public class BiomeTileProviders extends LegacyJsonDataLoader {
 	public static final BiomeTileProviders INSTANCE = new BiomeTileProviders();
 	public static final Identifier ID = RoleplayersAtlas.id("tile_provider/biome");
 
@@ -312,15 +310,5 @@ public class BiomeTileProviders extends LegacyJsonDataLoader implements Identifi
 			if (texture.displayId().startsWith("test") || texture.displayId().startsWith("base")) continue;
 			RoleplayersAtlas.LOGGER.warn("[Roleplayer's Atlas] Tile texture {} isn't referenced by any biome tile provider!", texture.displayId());
 		}
-	}
-
-	@Override
-	public Identifier getFabricId() {
-		return ID;
-	}
-
-	@Override
-	public Collection<Identifier> getFabricDependencies() {
-		return List.of(TileTextures.ID);
 	}
 }

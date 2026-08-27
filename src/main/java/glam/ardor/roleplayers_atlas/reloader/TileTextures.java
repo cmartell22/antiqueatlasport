@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import glam.ardor.roleplayers_atlas.RoleplayersAtlas;
 import glam.ardor.roleplayers_atlas.TileTexture;
 import glam.ardor.roleplayers_atlas.util.CodecUtil;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SinglePreparationResourceReloader;
@@ -24,7 +23,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TileTextures extends SinglePreparationResourceReloader<Map<Identifier, TileTextures.TileTextureMeta>> implements IdentifiableResourceReloadListener {
+public class TileTextures extends SinglePreparationResourceReloader<Map<Identifier, TileTextures.TileTextureMeta>> {
 	public static final TileTextures INSTANCE = new TileTextures();
 	public static final Identifier ID = RoleplayersAtlas.id("tile_textures");
 
@@ -102,11 +101,6 @@ public class TileTextures extends SinglePreparationResourceReloader<Map<Identifi
 
 		// Build Textures
 		textureBuilders.forEach((id, builder) -> builder.build(textures));
-	}
-
-	@Override
-	public Identifier getFabricId() {
-		return ID;
 	}
 
 	public static class TileTextureMeta {

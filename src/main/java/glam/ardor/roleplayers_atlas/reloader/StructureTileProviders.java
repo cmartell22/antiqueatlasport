@@ -15,7 +15,6 @@ import folk.sisby.surveyor.structure.JigsawPieceSummary;
 import folk.sisby.surveyor.structure.StructurePieceSummary;
 import folk.sisby.surveyor.structure.StructureStartSummary;
 import it.unimi.dsi.fastutil.Pair;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -39,7 +38,7 @@ import java.util.Set;
 
 import static glam.ardor.roleplayers_atlas.reloader.BiomeTileProviders.resolveTextureJson;
 
-public class StructureTileProviders extends LegacyJsonDataLoader implements IdentifiableResourceReloadListener {
+public class StructureTileProviders extends LegacyJsonDataLoader {
 	public static final StructureTileProviders INSTANCE = new StructureTileProviders();
 
 	public static final Identifier ID = RoleplayersAtlas.id("structures");
@@ -234,15 +233,5 @@ public class StructureTileProviders extends LegacyJsonDataLoader implements Iden
 		for (TileTexture texture : unusedTextures) {
 			RoleplayersAtlas.LOGGER.warn("[Roleplayer's Atlas] Tile texture {} isn't referenced by any structure tile provider!", texture.displayId());
 		}
-	}
-
-	@Override
-	public Identifier getFabricId() {
-		return ID;
-	}
-
-	@Override
-	public Collection<Identifier> getFabricDependencies() {
-		return List.of(TileTextures.ID, MarkerTextures.ID);
 	}
 }

@@ -55,7 +55,7 @@ existing Minecraft reloaders directly through v1 while preserving these identifi
 | --- | --- | --- |
 | `TileTextures` | `roleplayers_atlas:tile_textures` | none |
 | `MarkerTextures` | `roleplayers_atlas:marker_textures` | none |
-| `StructureTileProviders` | `roleplayers_atlas:tile_provider/structure` | tile textures, marker textures |
+| `StructureTileProviders` | `roleplayers_atlas:structures` | tile textures, marker textures |
 | `BiomeTileProviders` | `roleplayers_atlas:tile_provider/biome` | tile textures |
 
 The four listeners remain `SinglePreparationResourceReloader` implementations. Replacing them with

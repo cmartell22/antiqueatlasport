@@ -16,8 +16,8 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.DataComponentTypes;
@@ -114,10 +114,14 @@ public class RoleplayersAtlas implements ClientModInitializer {
 		AtlasKeybindings.init();
 		ZoneTitles.init();
 		ClientLifecycleEvents.CLIENT_STOPPING.register(client -> HandheldAtlasRenderer.closeBuffers());
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(TileTextures.getInstance());
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(StructureTileProviders.getInstance());
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(BiomeTileProviders.getInstance());
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(MarkerTextures.getInstance());
+		ResourceLoader resourceLoader = ResourceLoader.get(ResourceType.CLIENT_RESOURCES);
+		resourceLoader.registerReloadListener(TileTextures.ID, TileTextures.getInstance());
+		resourceLoader.registerReloadListener(StructureTileProviders.ID, StructureTileProviders.getInstance());
+		resourceLoader.registerReloadListener(BiomeTileProviders.ID, BiomeTileProviders.getInstance());
+		resourceLoader.registerReloadListener(MarkerTextures.ID, MarkerTextures.getInstance());
+		resourceLoader.addListenerOrdering(TileTextures.ID, StructureTileProviders.ID);
+		resourceLoader.addListenerOrdering(MarkerTextures.ID, StructureTileProviders.ID);
+		resourceLoader.addListenerOrdering(TileTextures.ID, BiomeTileProviders.ID);
 
 		// getOrCreate(summary), not the dimension: a proxy can put a different
 		// world behind the same dimension without the client ever disconnecting.
@@ -165,6 +169,6 @@ public class RoleplayersAtlas implements ClientModInitializer {
 		WorldSummary.enableStructures();
 		WorldSummary.enableLandmarks();
 
-		FabricLoader.getInstance().getModContainer(ID).ifPresent(c -> ResourceManagerHelper.registerBuiltinResourcePack(id("shader_patch"), c, Text.of("Shader Patch"), ResourcePackActivationType.NORMAL));
+		FabricLoader.getInstance().getModContainer(ID).ifPresent(c -> ResourceLoader.registerBuiltinPack(id("shader_patch"), c, Text.of("Shader Patch"), PackActivationType.NORMAL));
 	}
 }

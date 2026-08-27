@@ -6,7 +6,6 @@ import glam.ardor.roleplayers_atlas.RoleplayersAtlas;
 import glam.ardor.roleplayers_atlas.MarkerTexture;
 import glam.ardor.roleplayers_atlas.util.CodecUtil;
 import folk.sisby.surveyor.landmark.Landmark;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SinglePreparationResourceReloader;
@@ -20,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class MarkerTextures extends SinglePreparationResourceReloader<Map<Identifier, MarkerTextures.MarkerTextureMeta>> implements IdentifiableResourceReloadListener {
+public class MarkerTextures extends SinglePreparationResourceReloader<Map<Identifier, MarkerTextures.MarkerTextureMeta>> {
 	public static final MarkerTextures INSTANCE = new MarkerTextures();
 	public static final Identifier ID = RoleplayersAtlas.id("marker_textures");
 
@@ -98,11 +97,6 @@ public class MarkerTextures extends SinglePreparationResourceReloader<Map<Identi
 				textures.put(id, meta.build(id, false));
 			}
 		});
-	}
-
-	@Override
-	public Identifier getFabricId() {
-		return ID;
 	}
 
 	public record MarkerTextureMeta(Optional<Identifier> item, Optional<Integer> textureWidth, Optional<Integer> textureHeight, Optional<Integer> mipLevels, Optional<Integer> offsetX, Optional<Integer> offsetY, Optional<Integer> nearClip, Optional<Integer> farClip) {
