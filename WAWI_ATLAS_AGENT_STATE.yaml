@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 62
-last_updated_utc: "2026-08-27T21:56:22Z"
+state_revision: 63
+last_updated_utc: "2026-08-27T22:04:33Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P6_IN_PROGRESS"
 current_phase: "P6"
-current_task: "P6-T05_RELOAD_RUNTIME_AND_FINAL_GATE"
+current_task: "P6-T05_FINAL_BUILD_SERVER_SCOPE_AUDIT"
 
 authority:
   precedence:
@@ -944,11 +944,18 @@ p6_tasks:
       - "Added a separately pinned P6 Fabric server harness that calls the already-compiled production MapShare.peek, validates the frozen singleplayer scroll/version/dimension/counts, and exercises garbage, truncated, and dimensionless scroll previews only in temporary files."
       - "The first P6 harness attempt deliberately found that MapShare.importFile is client-coupled through its undo/screen verification path; the server harness was corrected to stay on peek, while import error-result checks remain assigned to the full client checkpoint."
       - "The corrected P6 probe passed one frozen .atlas file, all five P0 local-store schemas and semantic JSON round trips, three malformed .atlas previews, one malformed JSON rejection, and before/after tracked-fixture digest equality."
+      - "A minimal exact-target client probe then exercised production MapShare.importFile in the correct environment and passed two read_failed cases (garbage/truncated) plus one wrong_dimension case using only temporary files."
       - "Resource audit passes: all 550 JSON and 358 metadata documents parse, every metadata sidecar has its PNG, and all 457 PNG signatures are valid. Both P4 .atlas hashes and all five recorded P6 fixture hashes remain exact."
   - id: "P6-T05"
     name: "Validate reload/runtime behavior and close at the P7 approval gate"
     status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "The ignored menu-only harness resolved runDirectory=run/p6-client and programArguments=[] before launch; the directory was seeded with disposable copies of all five P0 local stores."
+      - "The full exact target client started and all four v1-registered Atlas reloaders completed with no project exception; Player324 created/joined P6test and Atlas restored 24 Overworld tiles."
+      - "Owner-triggered F3+T logged resource-pack reload plus Marker Textures, Tile Textures, Structure Tile / Marker Providers, and Biome Tile Providers completion; the owner confirmed the Atlas rendered normally with no missing/magenta textures."
+      - "After normal Save and Quit plus Quit Game, all dimensions saved, Minecraft logged Stopping, Gradle returned BUILD SUCCESSFUL, and no test listener remained."
+      - "The four unchanged P0 store files remained byte-exact; tracked_markers.json semantically preserved the P0 entry and added only the expected empty sp:P6test entry on disconnect."
 
 decisions:
   - id: "DEC-001"
@@ -1212,6 +1219,15 @@ test_evidence:
     final_scope_audit: "PASS: exactly four P5-owned Java files plus durable state; no build lock, production resource, P4 fixture, Surveyor interface, serialization, identity, feature, art, packaging, upstream, or publication change; P6 remains blocked"
   p6:
     approval_preflight: "PASS: exact branch, clean P5-completion HEAD, annotated P0 tag target, design hash, P0-P5 completion, unchanged P2 lock, no upstream, and no-publication record verified before the P6 approval checkpoint"
+    exact_source_inventory: "PASS: 1,366 resources and every reloader/identifier/registry/serialization surface classified from exact target source; only the deprecated Fabric v0 resource adapter required migration"
+    resource_api_compile: "PASS: exact v1 ResourceLoader registration preserves four IDs and three ordering edges; compileJava and processResources succeed with zero legacy resource-helper/listener imports"
+    p4_binary_probe: "PASS: exact-target immutable P4 probe repeated all .atlas and Surveyor packet/persistence round trips from disposable copies"
+    p6_serialization_probe: "PASS: exact-target server/client probes cover production MapShare preview/import failure paths, five local-store schemas and semantic round trips, malformed JSON, and fixture immutability"
+    static_resource_audit: "PASS: 550/550 JSON and 358/358 metadata parse, 358/358 metadata sidecars resolve to PNG files, and 457/457 PNG signatures are valid"
+    full_client_startup: "PASS: exact 26.1.2 client and fresh P6test integrated world joined with 24 Overworld tiles and no Atlas/reloader/store exception"
+    f3t_reload: "PASS_OWNER_OBSERVED: F3+T completed all four Atlas reloaders; owner confirmed normal map rendering with no missing/magenta textures"
+    local_store_runtime: "PASS: all five P0 stores parsed in the full client; four remained byte-exact and tracked markers preserved P0 content while adding only the expected empty P6test entry"
+    normal_client_shutdown: "PASS: all dimensions saved, Minecraft stopped, Gradle BUILD SUCCESSFUL, and client/test listeners released"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1360,13 +1376,16 @@ latest_session:
     - "Re-ran the exact target P4 binary probe successfully, then added and passed a P6 exact-target server probe covering production MapShare.peek, three malformed-scroll preview paths, five frozen local-store schemas/semantic round trips, malformed JSON rejection, and fixture immutability."
     - "The attempted server-side importFile error check correctly exposed its client-only screen/undo verification dependency; the harness now stays server-safe and reserves import result checks for the full client checkpoint rather than weakening the production client path."
     - "Strict resource audit passes for all 550 JSON, 358 metadata, and 457 PNG files, including zero bad parses, missing metadata targets, or invalid PNG signatures; every frozen P4/P6 fixture hash remains unchanged."
+    - "Added and passed the complementary exact-target client probe: production MapShare.importFile returned read_failed for garbage and truncated input and wrong_dimension for a valid dimensionless scroll, all from temporary files."
+    - "The full isolated P6 client started with all four v1 reloaders, joined fresh P6test, restored 24 Overworld tiles, parsed the five seeded P0 local stores, and completed owner-triggered F3+T with all four listeners logged again."
+    - "The owner confirmed normal Atlas rendering with no missing/magenta textures; normal Save and Quit plus Quit Game saved every dimension and returned Gradle BUILD SUCCESSFUL. P0 local-store content survived, with only the expected empty P6test tracked-marker entry added."
   blockers:
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks remain assigned to the later P7/P8 matrix."
     - "P7 and later phases remain independently blocked."
   next_action: >-
-    Commit the isolated serialization probe evidence, prepare an ignored P6 client directory seeded with
-    disposable P0 local-store and malformed-scroll copies, launch the exact target client, and require startup
-    plus F3+T completion for all four reloaders and bounded client import failures before final build/server audit.
+    Commit the client-side malformed-import and full reload-runtime evidence, run the final exact-lock offline
+    clean build and dedicated-server smoke, audit the P6 approval range, fixture hashes, tag/design/lock/upstream
+    invariants and no-publication record, then mark P6 complete and stop at the explicit P7 approval gate.
 
 agent_first_prompt:
   text: >-

@@ -3,10 +3,13 @@
   "id": "wawi_p6_serialization_probe",
   "version": "1.0.0",
   "name": "WAWI P6 Serialization Probe",
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "glam.ardor.roleplayers_atlas.P6SerializationProbe"
+    ],
+    "client": [
+      "glam.ardor.roleplayers_atlas.P6ClientFailureProbe"
     ]
   },
   "depends": {

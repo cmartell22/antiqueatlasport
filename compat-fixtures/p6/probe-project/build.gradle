@@ -32,6 +32,11 @@ loom {
             vmArg "-Dwawi.p6.fixtures=${file("..").absolutePath}"
             vmArg "-Dwawi.p4.fixtures=${file("../../p4").absolutePath}"
         }
+        p6ClientProbe {
+            client()
+            runDir = file("../../../build/p6-compat/client-run")
+            vmArg "-Dwawi.p4.fixtures=${file("../../p4").absolutePath}"
+        }
     }
 }
 

@@ -43,11 +43,13 @@ $fallback='C:\wawi-gradle-uds-nonexistent'
 $env:JAVA_TOOL_OPTIONS="-Djdk.net.unixdomain.tmpdir=$fallback"
 .\gradlew.bat compileJava --offline --no-daemon --console=plain --no-problems-report
 .\gradlew.bat -p compat-fixtures\p6\probe-project runP6Probe --offline --no-daemon --console=plain --no-problems-report
+.\gradlew.bat -p compat-fixtures\p6\probe-project runP6ClientProbe --offline --no-daemon --console=plain --no-problems-report
 ```
 
 Acceptance requires `P6_SERIALIZATION_PROBE_PASS` and Gradle exit zero. The probe directly exercises
 `MapShare.peek` against the frozen P0 scroll; verifies bounded null/foreign-dimension previews for
 garbage, truncated, and valid dimensionless scrolls; checks the five local-store schemas and semantic
-JSON round trips; and verifies every tracked input digest is unchanged afterward. `MapShare.importFile`
-is client-coupled through its undo/screen path, so its `read_failed` and `wrong_dimension` results are
-reserved for the full client checkpoint rather than forcing client classes into this server harness.
+JSON round trips; and verifies every tracked input digest is unchanged afterward. Because
+`MapShare.importFile` is client-coupled through its undo/screen path, the separate minimal client probe
+executes two `read_failed` cases and one `wrong_dimension` case in temporary files. It exits immediately
+after the sentinel and does not enter a world or alter tracked inputs.
