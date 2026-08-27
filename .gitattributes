@@ -1,0 +1,2 @@
+# Compatibility fixtures are immutable byte streams; never apply line-ending conversion.
+compat-fixtures/p4/** -text
