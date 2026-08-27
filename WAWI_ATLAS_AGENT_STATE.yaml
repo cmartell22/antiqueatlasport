@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 36
-last_updated_utc: "2026-08-27T16:25:08Z"
+state_revision: 37
+last_updated_utc: "2026-08-27T16:32:08Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P1_COMPLETE_AWAITING_P2_APPROVAL"
-current_phase: "P1"
-current_task: "APPROVAL_STOP_BEFORE_P2"
+project_status: "P2_IN_PROGRESS"
+current_phase: "P2"
+current_task: "P2_BUILD_SYSTEM_AND_DEPENDENCY_LOCK"
 
 authority:
   precedence:
@@ -78,6 +78,20 @@ approvals:
     exclusions:
       - "No P2 or later phase work without a new explicit approval."
       - "No production dependency changes or 26.1.2 implementation edits."
+      - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "No push, release, upload, or publication."
+  - id: "APPROVAL-P2-001"
+    recorded_date: "2026-08-27"
+    source: "Human project owner in the Codex task: 'I approve P2, proceed.'"
+    status: "APPROVED"
+    scope: >-
+      Execute P2 only: adopt Java 25 and exact Minecraft 26.1.2 Fabric build conventions,
+      choose and pin the verified mappings/toolchain and dependency versions, build the exact
+      pinned Surveyor source as needed, and produce a reviewable build-system/dependency lock
+      with zero production behavior edits.
+    exclusions:
+      - "No P3 or later phase work without a new explicit approval."
+      - "No production Java API, rendering, input, mixin, resource, serialization, identity, feature, or art edits."
       - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
       - "No push, release, upload, or publication."
 
@@ -341,7 +355,7 @@ phase_plan:
     purpose: "Inventory every Atlas-to-Minecraft/Fabric/Surveyor touchpoint and produce a sourced port map before edits."
   - id: "P2"
     name: "26.1.2 build-system and dependency lock"
-    status: "BLOCKED_PENDING_P2_APPROVAL"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Adopt Java 25, current Fabric Loom/build conventions, and exact verified dependencies with zero production behavior edits."
@@ -736,7 +750,7 @@ test_evidence:
 
 latest_session:
   date_utc: "2026-08-27"
-  phase: "P1"
+  phase: "P2"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
     - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
@@ -796,11 +810,12 @@ latest_session:
     - "Confirmed Atlas defines no custom Fabric networking surface and retains Surveyor as the synchronized mapping backend."
     - "Produced docs/P1_API_DELTA_DOSSIER.md with evidence pins, categorized phase ownership, risks, and required compatibility probes."
     - "Completed P1 without changing production source, resources, dependencies, Java release, or build configuration and without moving the P0 tag or performing any push/publication."
-  blockers:
-    - "P2 requires separate explicit human approval; P1 approval does not authorize build/dependency changes."
+    - "Human project owner explicitly approved P2; APPROVAL-P2-001 records the build/dependency-only scope and P3 exclusion before any build file is changed."
+    - "Reverified clean port/26.1.2 at P1 commit 8c1090261be74956b4d84d5d0e78ac229c6e3b9d, the locked design SHA-256, and the unchanged annotated P0 tag target before entering P2."
+  blockers: []
   next_action: >-
-    Stop and request explicit P2 approval before changing Java 25/build settings, mappings, Fabric,
-    Surveyor, optional configuration dependencies, or any other production dependency; do not begin P3.
+    Commit the P2 approval checkpoint, then choose and verify the exact Java 25, Loom, mappings,
+    Minecraft 26.1.2, Fabric, Surveyor, and optional configuration dependency lock without production edits.
 
 agent_first_prompt:
   text: >-
