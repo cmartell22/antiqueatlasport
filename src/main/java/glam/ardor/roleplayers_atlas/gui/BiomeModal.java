@@ -392,7 +392,7 @@ public class BiomeModal extends Component {
 
 	/** Rebuilt after something was torn out, dropping back to the list once it is bare. */
 	private void afterTearOut() {
-		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
+		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
 		if (sheetCount() > 0) rebuildSheets();
 		else closeSheets();
 	}
@@ -598,7 +598,7 @@ public class BiomeModal extends Component {
 			// The reset word on the bottom right takes the click back to the guess.
 			if (BiomeOverrides.all().containsKey(entry.biome) && mouseX >= getGuiX() + getWidth() - 46 && mouseY >= getGuiY() + ROW_H / 2) {
 				BiomeOverrides.set(entry.biome, null);
-				MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
+				MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
 				rebuildList();
 				return true;
 			}

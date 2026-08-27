@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 41
-last_updated_utc: "2026-08-27T17:49:29Z"
+state_revision: 42
+last_updated_utc: "2026-08-27T17:52:26Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P3_IN_PROGRESS"
 current_phase: "P3"
-current_task: "P3-T03_SOUND_CONSTRUCTION"
+current_task: "P3-T03_PLAYER_MESSAGE_SIGNATURES"
 
 authority:
   precedence:
@@ -724,6 +724,7 @@ p3_tasks:
     evidence:
       - "Fabric key mapping, end-level tick, and convention biome tag v2 migration committed as 860032b9686b74a3c0e0792eccf79d4175eceb62."
       - "Exact target ChunkPos is a record with x()/z() accessors and fromBlockPos(BlockPos); the bounded migration eliminated all ChunkPos errors and reduced compileJava from the 100 cap to 42 errors."
+      - "Exact target PositionedSoundInstance.master bytecode matches baseline ui for category, pitch/volume order, attenuation, and relative playback; replacing 20 call sites reduced compileJava from 42 to 22 errors."
   - id: "P3-T04"
     name: "Classify later-phase failures and close the P3 approval gate"
     status: "PENDING"
@@ -862,6 +863,7 @@ repository_state:
   p2_build_lock_commit: "f8db0a4fe309a7a409122509f112c2f55a01765a"
   p3_approval_commit: "444d774577d27731591ff2408ba3a15405004d73"
   p3_fabric_api_commit: "860032b9686b74a3c0e0792eccf79d4175eceb62"
+  p3_chunk_pos_commit: "1874194b52ea9cafa47b7acdd4c2b5b97954a154"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -904,6 +906,7 @@ test_evidence:
     compile_baseline: "EXPECTED_P3_FAILURE: exact locked compileJava reached javac's 100-error cap after successful Loom/dependency configuration"
     fabric_api_category: "PASS_AT_COMPILE_BOUNDARY: key-mapping helper, end-level tick, and convention biome tags v2 compile errors eliminated; compile remains capped at 100 on deeper categorized Minecraft/P5 surfaces"
     chunk_pos_category: "PASS_AT_COMPILE_BOUNDARY: exact x()/z() record accessors and fromBlockPos factory applied; zero remaining ChunkPos errors; compile count reduced from 100 capped to 42"
+    sound_category: "PASS_AT_COMPILE_BOUNDARY: baseline ui and target master factory bytecode are behaviorally identical; all 20 sound-construction errors eliminated; compile count reduced from 42 to 22"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -986,11 +989,14 @@ latest_session:
     - "The post-category compile eliminated all key-mapping, END_WORLD_TICK, and convention-tag v1 failures; the compiler remains capped at 100 as deeper ChunkPos, sound, message, input-record, and blocked P5 failures are exposed."
     - "Committed the bounded Fabric API category as 860032b9686b74a3c0e0792eccf79d4175eceb62 with its durable compile evidence."
     - "Verified exact target ChunkPos bytecode exposes x(), z(), and fromBlockPos(BlockPos); migrated only direct field access and removed one-argument constructors, eliminating the category and reducing compileJava to 42 errors."
+    - "Committed the bounded ChunkPos record/factory category as 1874194b52ea9cafa47b7acdd4c2b5b97954a154."
+    - "Compared baseline PositionedSoundInstance.ui and target master bytecode, confirmed identical UI-category construction semantics, replaced only the factory name at 20 call sites, and reduced compileJava from 42 to 22 errors."
+    - "Escalated the next player-message signature category to GPT-5.6 Sol High methodology because the removed boolean distinguishes chat from overlay delivery and therefore carries observable behavior."
   blockers:
     - "P4, P5, P6, and later work remain blocked without separate explicit approval."
   next_action: >-
-    Commit the validated ChunkPos record/factory category, then inspect the exact target sound source
-    and migrate only the removed PositionedSoundInstance.ui construction calls.
+    Commit the validated sound-construction category, then use exact baseline/target player and HUD
+    source evidence to preserve chat-versus-overlay behavior while migrating removed message signatures.
 
 agent_first_prompt:
   text: >-

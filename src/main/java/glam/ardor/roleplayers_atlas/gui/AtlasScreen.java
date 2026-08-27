@@ -590,7 +590,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 	}
 
 	public void prepareToOpen() {
-		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 
 		this.player = MinecraftClient.getInstance().player;
 		this.dim = MinecraftClient.getInstance().world.getRegistryKey();
@@ -730,7 +730,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 					if (!worldAtlasData.deleteLandmark(dim, landmark)) return;
 					if (RoleplayersAtlas.trackedMarkers.remove(RoleplayersAtlas.trackKey(landmark))) glam.ardor.roleplayers_atlas.TrackedMarkersStore.save();
 					updateBookmarkerList();
-					MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, 1F, 0.5F));
+					MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, 1F, 0.5F));
 					if (!hasShiftDown()) {
 						state.switchTo(NORMAL, this);
 					}
@@ -1764,7 +1764,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			} else if (state.is(DELETING_MARKER) && hoveredLandmark != null && isMouseOverMap && mouseState == GLFW.GLFW_MOUSE_BUTTON_1) {
 				if (worldAtlasData.deleteLandmark(dim, hoveredLandmark)) {
 					updateBookmarkerList();
-					MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, 1F, 0.5F));
+					MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, 1F, 0.5F));
 				}
 			} else if (state.is(PICKING_BIOME) && isMouseOverMap && mouseState == GLFW.GLFW_MOUSE_BUTTON_2) {
 				// Held still it names a biome; dragged it pans. Which one it was
@@ -1864,7 +1864,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			}
 		}
 		if (newPrevDimScale != 0) prevDimScale = newPrevDimScale;
-		client.getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.1F));
+		client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.1F));
 		updateAtlasData();
 	}
 
@@ -2248,10 +2248,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		if (tileChunks == 1) {
 			if (tilePixels >= maxTilePixels) return false;
 			tilePixels <<= 1;
-			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_SPYGLASS_USE, 1.0F));
+			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_SPYGLASS_USE, 1.0F));
 		} else {
 			tileChunks >>= 1;
-			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 		}
 		mapOffsetX *= 2;
 		mapOffsetY *= 2;
@@ -2264,10 +2264,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		if (tilePixels == 16) {
 			if (tileChunks >= maxTileChunks) return false;
 			tileChunks <<= 1;
-			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 		} else {
 			tilePixels >>= 1;
-			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_SPYGLASS_USE, 1.0F));
+			if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_SPYGLASS_USE, 1.0F));
 		}
 		mapOffsetX /= 2;
 		mapOffsetY /= 2;

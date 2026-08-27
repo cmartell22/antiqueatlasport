@@ -41,7 +41,7 @@ public class ButtonComponent extends Component {
 	@SuppressWarnings("unchecked")
 	public void onClick() {
 		if (clickSound != null) {
-			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(clickSound, 1.0F));
+			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(clickSound, 1.0F));
 		}
 
 		for (IButtonListener listener : listeners) {

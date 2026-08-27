@@ -451,7 +451,7 @@ public class MarkerModal extends Component {
 			}
 			((AtlasScreen) getParent()).updateBookmarkerList();
 			ClientPlayerEntity player = MinecraftClient.getInstance().player;
-			if (player != null) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ENTITY_VILLAGER_WORK_CARTOGRAPHER, 1F));
+			if (player != null) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_VILLAGER_WORK_CARTOGRAPHER, 1F));
 			closeChild();
 		}).dimensions(this.width / 2 - BUTTON_WIDTH - BUTTON_SPACING / 2, dialogCenterY() + bottomY(), BUTTON_WIDTH, 20).build());
 		addDrawableChild(btnCancel = ButtonWidget.builder(Text.translatable("gui.cancel"), (button) -> closeChild())

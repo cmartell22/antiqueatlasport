@@ -299,7 +299,7 @@ public class ShareModal extends Component {
 	private void select(Path file) {
 		selectedFile = file;
 		preview = MapShare.peek(file, dim);
-		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 	}
 
 	void setData(WorldSummary summary, DynamicRegistryManager manager, RegistryKey<World> dim, WorldAtlasData data) {
@@ -527,7 +527,7 @@ public class ShareModal extends Component {
 				return;
 			}
 			player.sendMessage(Text.translatable("gui.roleplayers_atlas.share.imported", result.landmarks(), result.regions(), result.corrections()), false);
-			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ENTITY_VILLAGER_WORK_CARTOGRAPHER, 1F));
+			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_VILLAGER_WORK_CARTOGRAPHER, 1F));
 		}
 		if (getParent() instanceof AtlasScreen screen) screen.updateBookmarkerList();
 		closeChild();

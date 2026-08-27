@@ -269,7 +269,7 @@ public class CityModal extends Component {
 	}
 
 	private void afterTearOut() {
-		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
+		MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK.value(), 1.0F));
 		if (sheetCount() > 0) rebuildSheets();
 		else closeSheets();
 	}

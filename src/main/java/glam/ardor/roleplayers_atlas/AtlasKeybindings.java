@@ -45,7 +45,7 @@ public class AtlasKeybindings {
 				// First press: draw the book into the player's hands.
 				
 				AtlasHoldMode.activate();
-				client.getSoundManager().play(PositionedSoundInstance.ui(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
+				client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F));
 			}
 		}
 	}

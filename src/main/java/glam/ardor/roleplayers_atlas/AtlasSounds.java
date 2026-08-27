@@ -16,7 +16,7 @@ public final class AtlasSounds {
 	public static void play(SoundEvent sound, float volume, float pitch) {
 		MinecraftClient client = MinecraftClient.getInstance();
 		if (client.getSoundManager() == null) return;
-		client.getSoundManager().play(PositionedSoundInstance.ui(sound, pitch, volume));
+		client.getSoundManager().play(PositionedSoundInstance.master(sound, pitch, volume));
 	}
 
 	/** Brush-on-parchment rustle while painting territory chunks; throttled so dragging doesn't crackle. */
