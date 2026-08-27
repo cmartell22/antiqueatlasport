@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 17
-last_updated_utc: "2026-08-27T03:18:49Z"
+state_revision: 18
+last_updated_utc: "2026-08-27T03:20:00Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P0_AWAITING_HUMAN_MATRIX"
 current_phase: "P0"
@@ -567,6 +567,7 @@ repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
   source_import_tag: "v1.1.2+1.21.11"
   governance_checkpoint_commit: "1ef024974390748cafc7b43c3b41d6cb638f3c2b"
+  marker_modal_stabilization_commit: "61c38e294f4db6a3cfcf843833126364882c6232"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: false
@@ -618,11 +619,12 @@ latest_session:
     - "At temporary GUI Scale 1 the owner completed the full custom-layer/marker create, assign, visibility, edit, delete, and layer-delete lifecycle, isolating the defect to Auto-scale layout. The client then closed cleanly with all dimensions saved and Gradle exit 0."
     - "Implemented adaptive MarkerModal vertical geometry; layout arithmetic passed across logical heights 240-480, compile and clean build passed, and bytecode/artifact audits confirmed the new methods plus unchanged embedded Surveyor."
     - "In the exact Auto-scale reproduction, now at an even smaller 870x519 window, the owner confirmed all controls were visible/clickable and completed the temporary marker/layer lifecycle; the larger note box returned at scale 1. The client then closed and saved cleanly with Gradle exit 0."
+    - "Committed the isolated MarkerModal stabilization and revision-17 evidence locally as 61c38e294f4db6a3cfcf843833126364882c6232; working tree was clean immediately afterward, with no tag or push."
   blockers:
     - "Further P0 progress requires the human-observed visual and interaction matrix."
   next_action: >-
-    Commit the isolated, reviewed MarkerModal stabilization and durable evidence locally, then prepare the next
-    bounded annotation slice for hearth/spawn and death-marker behavior; do not begin P1 or create the P0 tag.
+    Prepare the next bounded human annotation slice for hearth/spawn and death-marker behavior, including
+    visibility and cleanup, while keeping inscriptions, territories/city paint, routes, sharing, and later rows pending.
 
 agent_first_prompt:
   text: >-
