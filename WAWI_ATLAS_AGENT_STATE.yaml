@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 63
-last_updated_utc: "2026-08-27T22:04:33Z"
+state_revision: 64
+last_updated_utc: "2026-08-27T22:08:30Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P6_IN_PROGRESS"
+project_status: "P6_COMPLETE_AWAITING_P7_APPROVAL"
 current_phase: "P6"
-current_task: "P6-T05_FINAL_BUILD_SERVER_SCOPE_AUDIT"
+current_task: "AWAITING_P7_EXPLICIT_APPROVAL"
 
 authority:
   precedence:
@@ -477,7 +477,7 @@ phase_plan:
     purpose: "Migrate render state, GUI, handheld atlas, input, and version-sensitive mixins with visual checkpoints."
   - id: "P6"
     name: "Resources, reloaders, identifiers, registries, and serialization"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Migrate data/resource APIs and prove data/file compatibility with fixtures and reload testing."
@@ -948,7 +948,7 @@ p6_tasks:
       - "Resource audit passes: all 550 JSON and 358 metadata documents parse, every metadata sidecar has its PNG, and all 457 PNG signatures are valid. Both P4 .atlas hashes and all five recorded P6 fixture hashes remain exact."
   - id: "P6-T05"
     name: "Validate reload/runtime behavior and close at the P7 approval gate"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "The ignored menu-only harness resolved runDirectory=run/p6-client and programArguments=[] before launch; the directory was seeded with disposable copies of all five P0 local stores."
@@ -956,6 +956,11 @@ p6_tasks:
       - "Owner-triggered F3+T logged resource-pack reload plus Marker Textures, Tile Textures, Structure Tile / Marker Providers, and Biome Tile Providers completion; the owner confirmed the Atlas rendered normally with no missing/magenta textures."
       - "After normal Save and Quit plus Quit Game, all dimensions saved, Minecraft logged Stopping, Gradle returned BUILD SUCCESSFUL, and no test listener remained."
       - "The four unchanged P0 store files remained byte-exact; tracked_markers.json semantically preserved the P0 entry and added only the expected empty sp:P6test entry on disconnect."
+      - "Final exact-lock offline clean build passed in 38 seconds: eight actionable tasks, seven executed, tests NO-SOURCE, remapped main and sources artifacts produced."
+      - "Final isolated dedicated server reached Done, loaded all three Surveyor dimensions, accepted literal stop, saved all dimensions, released port 25565, and returned Gradle BUILD SUCCESSFUL in 34 seconds."
+      - "Final approval-range audit contains only five reloader/bootstrap Java files, P6 docs/fixtures/probes, and durable state; no production resource, build/dependency lock, serialization format, identity, art, feature, packaging, or publication change occurred."
+      - "Final repository invariants pass: clean port/26.1.2, exact design hash, unchanged annotated P0 tag target, unchanged P2 lock, no upstream, zero legacy v0 helper imports, unchanged frozen-fixture hashes, no listeners, and no push/release/upload/publication."
+      - "P6 is complete and stops at the explicit P7 approval gate; P7 and later phases remain blocked."
 
 decisions:
   - id: "DEC-001"
@@ -1140,6 +1145,11 @@ repository_state:
   p5_server_launch_harness_commit: "d220ce36a"
   p5_previsual_validation_commit: "27b1abcc5ffa58c8d62561c23ce85eb0d65e753b"
   p5_completion_commit: "98821bf500e514e1ac36b253a84abeaf003ca465"
+  p6_approval_commit: "c8bde4f423a92a9ffd106b9c6c270e44326e7b93"
+  p6_inventory_commit: "c6c1c2cced1427bffbb92cdd3cf7bc10d6b04555"
+  p6_resource_api_commit: "4d67550d6e780b27a477720dbf4b685e64907ebc"
+  p6_serialization_probe_commit: "6613e4c7e22036e06c9bda66ec2b2a2f1543347f"
+  p6_client_reload_commit: "7d130e682370c2b0eb75cc90bb1536352781648f"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1228,6 +1238,10 @@ test_evidence:
     f3t_reload: "PASS_OWNER_OBSERVED: F3+T completed all four Atlas reloaders; owner confirmed normal map rendering with no missing/magenta textures"
     local_store_runtime: "PASS: all five P0 stores parsed in the full client; four remained byte-exact and tracked markers preserved P0 content while adding only the expected empty P6test entry"
     normal_client_shutdown: "PASS: all dimensions saved, Minecraft stopped, Gradle BUILD SUCCESSFUL, and client/test listeners released"
+    final_clean_build: "PASS: exact-lock offline clean build completed in 38s; eight actionable tasks, seven executed, tests NO-SOURCE, remapped main and sources artifacts produced"
+    dedicated_server_smoke: "PASS: isolated exact-lock server reached Done, loaded all three Surveyor dimensions, accepted literal stop, saved all dimensions, returned BUILD SUCCESSFUL in 34s, and released port 25565"
+    final_scope_audit: "PASS: P6 range contains five production reloader/bootstrap Java files plus P6 docs/fixtures/probes/state; no production resource, build lock, serialization format, identity, feature, art, packaging, or publication change"
+    final_gate_audit: "PASS: clean port/26.1.2, exact design hash, unchanged annotated P0 tag target, unchanged P2 lock, no upstream, no legacy v0 helper imports, exact frozen-fixture hashes, no listeners, and no external publication; stopped before P7"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1379,13 +1393,15 @@ latest_session:
     - "Added and passed the complementary exact-target client probe: production MapShare.importFile returned read_failed for garbage and truncated input and wrong_dimension for a valid dimensionless scroll, all from temporary files."
     - "The full isolated P6 client started with all four v1 reloaders, joined fresh P6test, restored 24 Overworld tiles, parsed the five seeded P0 local stores, and completed owner-triggered F3+T with all four listeners logged again."
     - "The owner confirmed normal Atlas rendering with no missing/magenta textures; normal Save and Quit plus Quit Game saved every dimension and returned Gradle BUILD SUCCESSFUL. P0 local-store content survived, with only the expected empty P6test tracked-marker entry added."
+    - "Final exact-lock offline clean build passed in 38 seconds with tests NO-SOURCE and both remapped artifacts; the final isolated dedicated server reached Done, loaded all three Surveyor dimensions, then stopped/saved cleanly and released port 25565."
+    - "Final P6 scope and invariant audits pass: only five reloader/bootstrap Java files plus P6 docs/fixtures/probes/state changed; build lock, resources, formats, identity, tag/design, upstream, and no-publication boundaries remain exact."
+    - "P6 is complete at the P7 approval gate; P7 and every later phase remain blocked pending explicit owner approval."
   blockers:
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks remain assigned to the later P7/P8 matrix."
-    - "P7 and later phases remain independently blocked."
+    - "P7 and later phases remain independently blocked pending explicit human approval."
   next_action: >-
-    Commit the client-side malformed-import and full reload-runtime evidence, run the final exact-lock offline
-    clean build and dedicated-server smoke, audit the P6 approval range, fixture hashes, tag/design/lock/upstream
-    invariants and no-publication record, then mark P6 complete and stop at the explicit P7 approval gate.
+    Stop. Preserve the clean P6 completion state and wait for explicit human approval before recording a P7
+    approval checkpoint or beginning any feature-parity reconstruction, synchronization, multiplayer, or later work.
 
 agent_first_prompt:
   text: >-
