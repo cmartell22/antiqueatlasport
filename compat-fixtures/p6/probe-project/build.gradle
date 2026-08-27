@@ -1,0 +1,57 @@
+plugins {
+    id "net.fabricmc.fabric-loom-remap" version "1.17.19"
+}
+
+repositories {
+    maven { url "https://repo.sleeping.town/" }
+    maven { url "https://repo.codemc.io/repository/relativitymc/" }
+}
+
+dependencies {
+    implementation files("../../../build/classes/java/main")
+    implementation "folk.sisby:kaleido-config:0.3.3+1.3.2"
+    minecraft "mojang:minecraft:26.1.2"
+    mappings "org.relativitymc:modern-yarn:26.1.2+build.4:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.19.3"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.155.2+26.1.2"
+    modImplementation "folk.sisby:surveyor:1.2.4+26.1"
+}
+
+sourceSets.main.java {
+    srcDirs("../probe-src")
+}
+
+loom {
+    useIntermediateMappings = true
+    intermediaryUrl = "https://repo.codemc.io/repository/relativitymc/org/relativitymc/intermediary/%1\$s/intermediary-%1\$s-v2.jar"
+
+    runs {
+        p6Probe {
+            server()
+            runDir = file("../../../build/p6-compat/server-run")
+            vmArg "-Dwawi.p6.fixtures=${file("..").absolutePath}"
+            vmArg "-Dwawi.p4.fixtures=${file("../../p4").absolutePath}"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release = 25
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+}
+
+def probeRunDir = file("../../../build/p6-compat/server-run")
+tasks.register("prepareP6ProbeRun") {
+    doLast {
+        probeRunDir.mkdirs()
+        new File(probeRunDir, "eula.txt").text = "eula=true\n"
+    }
+}
+
+tasks.named("runP6Probe") {
+    dependsOn "prepareP6ProbeRun"
+}

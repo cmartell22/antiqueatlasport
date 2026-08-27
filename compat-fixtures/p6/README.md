@@ -13,8 +13,8 @@ P6 freezes its content here before production edits.
 | `local-stores/layers.json` | 36 | `FBA2E7B8529B572C54430F4666D1A42219BFEDEB5961F1444F48A71DEC5A0794` |
 | `local-stores/tracked_markers.json` | 36 | `FBA2E7B8529B572C54430F4666D1A42219BFEDEB5961F1444F48A71DEC5A0794` |
 
-The byte hashes describe the CRLF-bearing P0 source files; committed fixture hashes are recorded in
-the table below after normalization:
+The byte hashes describe the CRLF-bearing P0 source files; normalized Git-blob hashes are recorded in
+the table below:
 
 | Fixture | Committed bytes | Committed SHA-256 |
 | --- | ---: | --- |
@@ -28,3 +28,26 @@ Tests must copy these files to a disposable directory and must never save over t
 
 `.atlas` and Surveyor binary fixtures are not duplicated here. P6 reuses the immutable files and
 hashes already recorded in `compat-fixtures/p4/README.md`.
+
+## Exact target serialization probe
+
+The server-side Fabric/Loom harness in `probe-project` is independently pinned to the exact P2
+Minecraft, mappings, loader, Fabric API, Surveyor, and Kaleido versions. It uses the already-compiled
+target production `MapShare` class, reads only the immutable P4/P6 fixtures, and performs every write
+in an operating-system temporary directory.
+
+From the repository root, compile production first, then run:
+
+```powershell
+$fallback='C:\wawi-gradle-uds-nonexistent'
+$env:JAVA_TOOL_OPTIONS="-Djdk.net.unixdomain.tmpdir=$fallback"
+.\gradlew.bat compileJava --offline --no-daemon --console=plain --no-problems-report
+.\gradlew.bat -p compat-fixtures\p6\probe-project runP6Probe --offline --no-daemon --console=plain --no-problems-report
+```
+
+Acceptance requires `P6_SERIALIZATION_PROBE_PASS` and Gradle exit zero. The probe directly exercises
+`MapShare.peek` against the frozen P0 scroll; verifies bounded null/foreign-dimension previews for
+garbage, truncated, and valid dimensionless scrolls; checks the five local-store schemas and semantic
+JSON round trips; and verifies every tracked input digest is unchanged afterward. `MapShare.importFile`
+is client-coupled through its undo/screen path, so its `read_failed` and `wrong_dimension` results are
+reserved for the full client checkpoint rather than forcing client classes into this server harness.

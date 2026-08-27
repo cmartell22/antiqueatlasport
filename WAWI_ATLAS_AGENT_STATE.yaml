@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 61
-last_updated_utc: "2026-08-27T21:47:28Z"
+state_revision: 62
+last_updated_utc: "2026-08-27T21:56:22Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P6_IN_PROGRESS"
 current_phase: "P6"
-current_task: "P6-T04_SERIALIZATION_FIXTURE_PROOFS"
+current_task: "P6-T05_RELOAD_RUNTIME_AND_FINAL_GATE"
 
 authority:
   precedence:
@@ -937,11 +937,17 @@ p6_tasks:
       - "Static audit reports zero v0 resource helper/listener imports and zero getFabricId/getFabricDependencies methods in production source; git diff --check passes."
   - id: "P6-T04"
     name: "Prove serialization and immutable-fixture compatibility"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "Re-ran the exact target P4 probe from disposable copies: both P0 .atlas files, 10 region packets / 3,154,916 bytes, authored landmark data, 46 Surveyor files, 8,479 chunk summaries, 12 structure regions, and exploration state all passed byte/content round trips."
+      - "Added a separately pinned P6 Fabric server harness that calls the already-compiled production MapShare.peek, validates the frozen singleplayer scroll/version/dimension/counts, and exercises garbage, truncated, and dimensionless scroll previews only in temporary files."
+      - "The first P6 harness attempt deliberately found that MapShare.importFile is client-coupled through its undo/screen verification path; the server harness was corrected to stay on peek, while import error-result checks remain assigned to the full client checkpoint."
+      - "The corrected P6 probe passed one frozen .atlas file, all five P0 local-store schemas and semantic JSON round trips, three malformed .atlas previews, one malformed JSON rejection, and before/after tracked-fixture digest equality."
+      - "Resource audit passes: all 550 JSON and 358 metadata documents parse, every metadata sidecar has its PNG, and all 457 PNG signatures are valid. Both P4 .atlas hashes and all five recorded P6 fixture hashes remain exact."
   - id: "P6-T05"
     name: "Validate reload/runtime behavior and close at the P7 approval gate"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
 
 decisions:
@@ -1351,13 +1357,16 @@ latest_session:
     - "Inventoried all 1,366 resources, strictly parsed all 550 JSON files, documented the four listener IDs and ordering graph, and froze normalized P0 fixtures for all five Atlas-owned JSON stores before production edits."
     - "Migrated the four Atlas reloaders and optional built-in-pack registration directly from deprecated Fabric v0 helpers to v1 ResourceLoader while preserving every ID, registration, ordering edge, and parameter."
     - "After restoring one still-required Collection import found by the first compile, exact-lock compileJava and processResources passed; static audit reports zero legacy resource-helper/listener imports or adapter methods."
+    - "Re-ran the exact target P4 binary probe successfully, then added and passed a P6 exact-target server probe covering production MapShare.peek, three malformed-scroll preview paths, five frozen local-store schemas/semantic round trips, malformed JSON rejection, and fixture immutability."
+    - "The attempted server-side importFile error check correctly exposed its client-only screen/undo verification dependency; the harness now stays server-safe and reserves import result checks for the full client checkpoint rather than weakening the production client path."
+    - "Strict resource audit passes for all 550 JSON, 358 metadata, and 457 PNG files, including zero bad parses, missing metadata targets, or invalid PNG signatures; every frozen P4/P6 fixture hash remains unchanged."
   blockers:
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks remain assigned to the later P7/P8 matrix."
     - "P7 and later phases remain independently blocked."
   next_action: >-
-    Run the immutable P4 .atlas target probe from disposable copies, add and execute bounded malformed-input
-    and frozen local-store compatibility probes, verify every tracked fixture hash remains unchanged, then
-    prepare the full target client resource-reload checkpoint without entering P7 synchronization work.
+    Commit the isolated serialization probe evidence, prepare an ignored P6 client directory seeded with
+    disposable P0 local-store and malformed-scroll copies, launch the exact target client, and require startup
+    plus F3+T completion for all four reloaders and bounded client import failures before final build/server audit.
 
 agent_first_prompt:
   text: >-
