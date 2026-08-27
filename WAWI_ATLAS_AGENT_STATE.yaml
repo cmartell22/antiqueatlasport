@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 44
-last_updated_utc: "2026-08-27T17:58:30Z"
+state_revision: 45
+last_updated_utc: "2026-08-27T18:01:06Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P3_IN_PROGRESS"
+project_status: "P3_COMPLETE_AWAITING_P4_APPROVAL"
 current_phase: "P3"
-current_task: "P3-T04_CLASSIFY_AND_AUDIT"
+current_task: "APPROVAL_STOP_BEFORE_P4"
 
 authority:
   precedence:
@@ -409,14 +409,14 @@ phase_plan:
     purpose: "Adopt Java 25, current Fabric Loom/build conventions, and exact verified dependencies with zero production behavior edits."
   - id: "P3"
     name: "Mechanical mappings and Minecraft/Fabric API uplift"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
     thinking: "high"
     escalation: "GPT-5.6 Sol High when a signature change carries behavioral or serialization meaning"
     purpose: "Restore compilation in small categorized batches while preserving behavior and reviewing each diff."
   - id: "P4"
     name: "Current Surveyor integration migration"
-    status: "BLOCKED"
+    status: "BLOCKED_PENDING_P4_APPROVAL"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Adapt exploration, summaries, landmarks, components, storage, synchronization, and visibility to current Surveyor."
@@ -718,7 +718,7 @@ p3_tasks:
       - "Baseline categories include Fabric key/tick/tags, ChunkPos access, sound factories, player messages, CharInput records, and the known P5 held-renderer BufferAllocator boundary."
   - id: "P3-T03"
     name: "Apply bounded mechanical Minecraft and Fabric API repair categories"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
     escalation: "GPT-5.6 Sol High for behavioral, persistence, synchronization, rendering, input, or serialization meaning"
     evidence:
@@ -729,9 +729,13 @@ p3_tasks:
       - "Exact CharInput records prove modifiers were removed in the target; the six failing reads assigned only unused locals, so deleting those reads is mechanically behavior-neutral and reduces compileJava from 10 to four P5 rendering-owned errors."
   - id: "P3-T04"
     name: "Classify later-phase failures and close the P3 approval gate"
-    status: "PENDING"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
-    evidence: []
+    evidence:
+      - "Final compileJava has exactly four errors: three BufferAllocator symbols in HandheldAtlasRenderer and one removed RenderLayers.entityNoOutline factory in DrawBatcher."
+      - "The durable P1 dossier assigns BufferAllocator and rendering/input/mixin migration to P5; DrawBatcher's render-layer selection is likewise rendering-owned, so no P5 edit was made."
+      - "Locked modCompileClasspath and processResources both pass; P3 changed no build/dependency lock or production resource."
+      - "Range and semantic audits pass: git diff --check is clean; no resource, serialization-format, Surveyor-interface, identity, art, or packaging change occurred; P0 tag is unchanged and no publication occurred."
 
 decisions:
   - id: "DEC-001"
@@ -854,6 +858,11 @@ known_risks:
     status: "MITIGATED_HOST_HARNESS_ONLY"
     risk: "This Codex host reports Unix-domain socket support but rejects the JDK selector pipe connection, preventing Gradle daemon transport before project configuration."
     mitigation: "Pointing jdk.net.unixdomain.tmpdir at a nonexistent path makes the JDK fall back to TCP loopback; this is an uncommitted execution setting and all proof builds then ran normally."
+  - id: "RISK-018"
+    severity: "S2"
+    status: "OPEN_DEFERRED_TO_P5"
+    risk: "The target removed DrawBatcher's RenderLayers.entityNoOutline texture factory; choosing a replacement can affect blending, depth, outlines, and map appearance."
+    mitigation: "Leave the call untouched in P3 and migrate it in P5 with exact render-layer source evidence and visual regression checks."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
@@ -868,6 +877,7 @@ repository_state:
   p3_chunk_pos_commit: "1874194b52ea9cafa47b7acdd4c2b5b97954a154"
   p3_sound_commit: "9afb00d2283ca37b28eb89c8df4a32079bc61258"
   p3_player_message_commit: "6ba4817e00e7e039de7fa88bafe97f363ba77472"
+  p3_char_input_commit: "84a28327759e49359667fa2f5ce8910207bfab08"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -913,6 +923,11 @@ test_evidence:
     sound_category: "PASS_AT_COMPILE_BOUNDARY: baseline ui and target master factory bytecode are behaviorally identical; all 20 sound-construction errors eliminated; compile count reduced from 42 to 22"
     player_message_category: "PASS_AT_COMPILE_BOUNDARY: false/chat call sites use target sendMessage(Text), true/overlay call sites use target sendOverlayMessage(Text); all 12 signature errors eliminated; compile count reduced from 22 to 10"
     char_input_category: "PASS_AT_COMPILE_BOUNDARY: six removed modifiers() reads populated unused locals only; deleting those reads changes no input branch and reduces compile count from 10 to four P5 rendering-owned errors"
+    final_compile_boundary: "EXPECTED_P5_FAILURE: exactly four errors remain, comprising three HandheldAtlasRenderer BufferAllocator symbols and one DrawBatcher RenderLayers.entityNoOutline symbol"
+    dependency_resolution: "PASS: offline modCompileClasspath resolves Loader 0.19.3, Fabric API 0.155.2+26.1.2, Surveyor 1.2.4+26.1, and the exact P2 optional dependencies under Loom 1.17.19"
+    resource_processing: "PASS: offline processResources is UP-TO-DATE and BUILD SUCCESSFUL"
+    final_scope_audit: "PASS: approval-to-HEAD diff has only categorized Java mappings/signatures plus durable state; git diff --check passes; build lock and src/main/resources diffs are empty; Surveyor interfaces and serialization formats are unchanged"
+    final_gate_audit: "PASS: branch port/26.1.2 is clean; annotated P0 tag still peels to 7099b4df2420d5441e3b2b02e53201a0b249c8f9; no upstream is configured and no push, release, upload, or publication was performed"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1005,11 +1020,19 @@ latest_session:
     - "Committed the bounded player-message signature category as 6ba4817e00e7e039de7fa88bafe97f363ba77472."
     - "Compared exact baseline and target CharInput records: target retains codepoint but removes modifiers; all six failing modifier reads assigned unused locals and influenced no branch or delegated input call."
     - "Deleted only those six obsolete reads; compileJava eliminated the category and reduced the remaining errors from 10 to four, all located on the P5 rendering boundary."
+    - "Committed the bounded CharInput category as 84a28327759e49359667fa2f5ce8910207bfab08."
+    - "Classified the final four errors without editing them: three HandheldAtlasRenderer BufferAllocator symbols and one DrawBatcher render-layer factory are P5 rendering-owned under the durable P1 phase map."
+    - "Re-ran the exact locked offline modCompileClasspath and processResources checks; both succeeded with the P2 versions unchanged."
+    - "Final approval-to-HEAD audits found no build-lock or resource diff, no Surveyor-interface or serialization-format change, no obsolete P3-owned symbol, a clean diff check, the unchanged annotated P0 tag target, and no external publication."
+    - "P3 is complete at the compile boundary accepted by the owner; stopped before P4 and retained P5/P6 blocking gates."
   blockers:
-    - "P4, P5, P6, and later work remain blocked without separate explicit approval."
+    - "P4 remains blocked pending separate explicit approval for Surveyor integration work."
+    - "Four P5 rendering-owned compile errors remain deliberately deferred: three BufferAllocator references and one RenderLayers.entityNoOutline call."
+    - "P5, P6, and later work remain blocked without their own explicit approvals."
   next_action: >-
-    Commit the validated CharInput category, then classify the four remaining rendering failures against
-    the durable P1 phase ownership and run the final P3 dependency, resource, diff, scope, tag, and publication audits.
+    Request explicit human approval for P4 only: current Surveyor integration migration under GPT-5.6 Sol High,
+    including persistence, codecs, packets, landmarks, ownership, synchronization, map-data behavior, and frozen-fixture
+    compatibility probes, while P5 rendering/input/mixins and P6 resources/serialization remain excluded.
 
 agent_first_prompt:
   text: >-
