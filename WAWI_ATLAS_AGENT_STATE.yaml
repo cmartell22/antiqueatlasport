@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 37
-last_updated_utc: "2026-08-27T16:32:08Z"
+state_revision: 38
+last_updated_utc: "2026-08-27T16:51:49Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P2_IN_PROGRESS"
+project_status: "P2_COMPLETE_AWAITING_P3_APPROVAL"
 current_phase: "P2"
-current_task: "P2_BUILD_SYSTEM_AND_DEPENDENCY_LOCK"
+current_task: "APPROVAL_STOP_BEFORE_P3"
 
 authority:
   precedence:
@@ -200,7 +200,7 @@ p1_research_pins:
   modern_yarn:
     version: "26.1.2+build.4"
     v2_jar_sha256: "B1CCDDD70ED300644F1637EB19CF9041D7854F2EE2CC285A7E0DFE906C59BA7E"
-    status: "RESEARCH_PIN_ONLY; PRODUCTION_MAPPING_DECISION_DEFERRED_TO_P2"
+    status: "SELECTED_AS_PRODUCTION_MAPPING_LOCK_IN_P2"
   fabric_loom_reference:
     resolved_version: "1.17.19"
     binary_sha256: "AD331736D7EE6CD5F21C45B19584B951C716BA5DE8ACE8662B42813D110452B8"
@@ -229,6 +229,38 @@ baseline_dependency_lock:
   lock_policy: >-
     Do not change these values during P0. Dynamic plugin selectors are facts of the untouched
     source, not approved target choices; resolve and pin target versions in the approved build-migration phase.
+
+target_dependency_lock:
+  source_file: "libs.versions.toml"
+  evidence_file: "docs/P2_BUILD_LOCK.md"
+  java_language_and_toolchain: 25
+  gradle_wrapper: "9.5.1"
+  gradle_distribution_sha256: "BAFC141B619AD6350FD975FC903156DD5C151998CC8B058E8C1044AB5F7B031F"
+  fabric_loom_plugin_id: "net.fabricmc.fabric-loom-remap"
+  fabric_loom: "1.17.19"
+  minecraft: "26.1.2"
+  modern_yarn: "26.1.2+build.4"
+  fabric_loader: "0.19.3"
+  fabric_api: "0.155.2+26.1.2"
+  surveyor: "1.2.4+26.1"
+  kaleido_config: "0.3.3+1.3.2"
+  cloth_config: "26.1.154"
+  modmenu_dev_runtime: "18.0.0"
+  github_release_plugin: "2.4.1"
+  minotaur_plugin: "2.9.0"
+  curseforgegradle_plugin: "1.1.28"
+  repository_policy: "No mavenLocal; exact official artifacts only"
+  mapping_policy: "Modern Yarn plus Loom intermediate mappings and the exact RelativityMC intermediary URL"
+  artifact_sha256:
+    fabric_loom: "AD331736D7EE6CD5F21C45B19584B951C716BA5DE8ACE8662B42813D110452B8"
+    modern_yarn_v2: "B1CCDDD70ED300644F1637EB19CF9041D7854F2EE2CC285A7E0DFE906C59BA7E"
+    fabric_loader: "73EED8C34BBAD0320A2A3CBA5346351E822F74F82B3F3C060574068474132958"
+    fabric_api: "7196F2D8700CF906676DB98CC13CD4B98267C4CA4BA3E8C516E62070B21A5A3A"
+    surveyor: "D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
+    kaleido_config: "168B40CDE9A066679CE9544169D2BE5186D2A8B4CDF84CB3A5FB45782CD2CBC6"
+    cloth_config: "FB7A5D869CE10EAAC2C2FE9AB84B4FC011A1FBFA575A93BE9845A386A7F0C7D3"
+    modmenu: "EA15F4EB0812F23EBE20CC6B0144CDD5455DA0A0A0B1F21B5B733970B20A4D7E"
+  status: "LOCKED_AND_RESOLVED; PRODUCTION_API_COMPILE_MIGRATION_DEFERRED_TO_P3"
 
 target_reference_snapshot:
   provenance: "Existing JavaBackport 26.1.2 project and its already-tested local toolchain"
@@ -355,13 +387,13 @@ phase_plan:
     purpose: "Inventory every Atlas-to-Minecraft/Fabric/Surveyor touchpoint and produce a sourced port map before edits."
   - id: "P2"
     name: "26.1.2 build-system and dependency lock"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Adopt Java 25, current Fabric Loom/build conventions, and exact verified dependencies with zero production behavior edits."
   - id: "P3"
     name: "Mechanical mappings and Minecraft/Fabric API uplift"
-    status: "BLOCKED"
+    status: "BLOCKED_PENDING_P3_APPROVAL"
     model: "GPT-5.6 Terra High"
     thinking: "high"
     escalation: "GPT-5.6 Sol High when a signature change carries behavioral or serialization meaning"
@@ -611,6 +643,45 @@ p1_tasks:
       - "No production source, resource, dependency, Java release, or build configuration was changed during P1."
       - "P1 ends at the explicit P2 approval stop; no implementation uplift has begun."
 
+p2_tasks:
+  - id: "P2-T01"
+    name: "Record approval and select exact target build conventions"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "APPROVAL-P2-001 was recorded and committed as 79bb638869a32eb329f34bd4e3c4df2286b331b6 before build files changed."
+      - "Selected Java 25, Gradle 9.5.1, Loom remap 1.17.19, and Modern Yarn 26.1.2+build.4 with exact intermediary configuration."
+      - "Gradle distribution checksum is pinned and every formerly dynamic production/publishing plugin selector is exact."
+  - id: "P2-T02"
+    name: "Verify and lock exact target dependencies"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "Locked Minecraft 26.1.2, Loader 0.19.3, Fabric API 0.155.2+26.1.2, Surveyor 1.2.4+26.1, Kaleido 0.3.3+1.3.2, Cloth 26.1.154, and Mod Menu 18.0.0."
+      - "Authoritative jar metadata rejects Mod Menu 20 for this target because it requires 26.2; Mod Menu 18 and Cloth 26.1 declare compatible target ranges."
+      - "Resolved-cache SHA-256 values match the independently inspected P1/P2 artifacts."
+      - "mavenLocal was removed so an untracked same-coordinate artifact cannot shadow the official Surveyor lock."
+  - id: "P2-T03"
+    name: "Build the exact Surveyor source pin against 26.1.2"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "Detached proof source was exactly 4b500855ea2e316480c1f3fb9e175ec6dc3060db; only disposable build metadata changed."
+      - ".\\gradlew.bat clean build --offline --no-daemon --console=plain --stacktrace passed in 26 seconds with 9 tasks executed and tests NO-SOURCE."
+      - "Proof remapped jar SHA-256: 72185E0899ADC69383459E67B15D7273E7C1B781A06AE7E3025FDAD4715DB97B."
+      - "Proof sources jar SHA-256: 2DA6272FAF5DC87C5C13F9B5B59E28B2D1EF6B6F70C06D67D4B4B04ABC06D59E."
+  - id: "P2-T04"
+    name: "Apply and validate the Atlas build-only lock"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "modCompileClasspath resolved successfully with every lower Surveyor/optional request converging on the exact Atlas Fabric lock."
+      - ".\\gradlew.bat clean processResources --offline --no-daemon --console=plain --stacktrace passed in 14 seconds."
+      - "Expanded metadata identifies Roleplayer's Atlas 1.1.2+26.1.2 and the exact Minecraft, Loader, Fabric API, and Surveyor requirements."
+      - "compileJava reached javac's 100-error cap only after successful target configuration/resolution; failures are the expected P3 Minecraft/Fabric API migration surface."
+      - "The categorized build lock and evidence were committed as f8db0a4fe309a7a409122509f112c2f55a01765a."
+      - "No production Java, mixin, resource, serialization, identity, feature, or art implementation changed."
+
 decisions:
   - id: "DEC-001"
     date: "2026-08-26"
@@ -630,6 +701,21 @@ decisions:
     decision: "Use Modern Yarn 26.1.2+build.4 only as an immutable P1 research mapping; choose and lock the production mapping/toolchain in P2."
     source: "P1 source archaeology"
     rationale: "Exact API evidence is needed now, while dependency selection remains a separately reviewable build-system decision."
+  - id: "DEC-005"
+    date: "2026-08-27"
+    decision: "Lock the target to Modern Yarn 26.1.2+build.4 with Loom remap 1.17.19 and exact RelativityMC intermediary mappings."
+    source: "P2 build-system verification"
+    rationale: "This aligns Atlas with current Surveyor's mapping convention while pinning the exact target release and eliminating dynamic resolution."
+  - id: "DEC-006"
+    date: "2026-08-27"
+    decision: "Consume official Surveyor 1.2.4+26.1, pinned by hash, after proving its exact source commit builds unchanged against the 26.1.2 target stack."
+    source: "P2 dependency and source-build verification"
+    rationale: "The official artifact declares Minecraft >=26.1 and avoids an unreproducible mavenLocal dependency; P4 still owns runtime/data compatibility."
+  - id: "DEC-007"
+    date: "2026-08-27"
+    decision: "Use Cloth Config 26.1.154 and Mod Menu 18.0.0 as optional target integrations; retain Kaleido Config 0.3.3+1.3.2."
+    source: "P2 artifact metadata inspection"
+    rationale: "Their declared Minecraft ranges match 26.1.2, while newer Mod Menu 20 explicitly targets 26.2."
 
 known_risks:
   - id: "RISK-001"
@@ -639,9 +725,9 @@ known_risks:
     mitigation: "Capture manual control behavior, then add focused tests/fixtures before or with risky target changes."
   - id: "RISK-002"
     severity: "S2"
-    status: "OPEN"
+    status: "CLOSED_FOR_TARGET_LOCK_RETAINED_AS_P0_REPRO_FACT"
     risk: "The untouched build depends on a private/local legacy Surveyor Maven artifact."
-    mitigation: "Rebuild the exact pinned source, hash the artifact, and document reproduction; do not silently substitute versions."
+    mitigation: "P0 reconstruction remains documented; P2 removed mavenLocal and locks the official current Surveyor artifact by version/hash."
   - id: "RISK-003"
     severity: "S3"
     status: "OPEN"
@@ -694,9 +780,9 @@ known_risks:
     mitigation: "MarkerModal now recenters its complete content and contracts only the note area when needed. Geometry checks cover logical heights 240-480; clean build passed; the owner completed the exact workflow at Auto scale in an even smaller 870x519 window and confirmed the roomy note returns at scale 1."
   - id: "RISK-013"
     severity: "S2"
-    status: "OPEN"
+    status: "MITIGATED_BY_EXACT_BUILD_PROOF_PENDING_P4_RUNTIME"
     risk: "Pinned Surveyor head declares 26.1 compatibility but is not an exact published 26.1.2 lock."
-    mitigation: "Build the exact pin against the P2 lock, inspect its artifact, and require client/dedicated runtime proof before integration acceptance."
+    mitigation: "The exact source pin clean-built against the P2 lock; P4 must still prove client/dedicated runtime, data, ownership, and synchronization compatibility."
   - id: "RISK-014"
     severity: "S2"
     status: "OPEN"
@@ -709,9 +795,14 @@ known_risks:
     mitigation: "Apply categorized P3/P6 changes with compile, lifecycle, biome fallback, and F3+T reload regressions."
   - id: "RISK-016"
     severity: "S2"
-    status: "OPEN"
+    status: "MITIGATED_BY_SEPARATE_P2_LOCK_COMMIT"
     risk: "Changing mapping namespace or toolchain while uplifting APIs can hide semantic changes or create an unreviewable mixed diff."
-    mitigation: "P2 must choose exact mappings and versions in a build-only commit; P3 begins only after that lock is reviewed and accepted."
+    mitigation: "P2 selected and committed the exact mappings/toolchain with zero production edits; P3 remains separately approval-gated."
+  - id: "RISK-017"
+    severity: "S1"
+    status: "MITIGATED_HOST_HARNESS_ONLY"
+    risk: "This Codex host reports Unix-domain socket support but rejects the JDK selector pipe connection, preventing Gradle daemon transport before project configuration."
+    mitigation: "Pointing jdk.net.unixdomain.tmpdir at a nonexistent path makes the JDK fall back to TCP loopback; this is an uncommitted execution setting and all proof builds then ran normally."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
@@ -719,6 +810,8 @@ repository_state:
   governance_checkpoint_commit: "1ef024974390748cafc7b43c3b41d6cb638f3c2b"
   marker_modal_stabilization_commit: "61c38e294f4db6a3cfcf843833126364882c6232"
   p1_approval_commit: "37d253d1d"
+  p2_approval_commit: "79bb638869a32eb329f34bd4e3c4df2286b331b6"
+  p2_build_lock_commit: "f8db0a4fe309a7a409122509f112c2f55a01765a"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -747,6 +840,15 @@ test_evidence:
     production_uplift_audit: "PASS: no production Java, resource, dependency, Java release, or build configuration change"
     diff_check: "PASS: git diff --check"
     yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions; revision 36 differs only by recording this completed validation"
+  p2:
+    surveyor_exact_source_build: "PASS: 9 tasks executed in 26s against the exact 26.1.2 lock; tests NO-SOURCE"
+    dependency_resolution: "PASS: modCompileClasspath resolved with exact target versions and no mavenLocal shadowing"
+    artifact_hash_audit: "PASS: Loom, Modern Yarn, Loader, Fabric API, Surveyor, Kaleido, Cloth, and Mod Menu cache artifacts match recorded SHA-256 values"
+    process_resources: "PASS: clean processResources completed in 14s; expanded target metadata verified"
+    compile_boundary: "EXPECTED_P3_FAILURE: configuration and dependencies passed, then compileJava reached the 100-error javac cap on documented Minecraft/Fabric API deltas; no build-lock resolution error"
+    production_implementation_diff: "PASS: no src/main Java, mixin, resource, serialization, identity, feature, or art change"
+    diff_check: "PASS: git diff --check and staged scope audit"
+    yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions for revision 38"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -812,10 +914,21 @@ latest_session:
     - "Completed P1 without changing production source, resources, dependencies, Java release, or build configuration and without moving the P0 tag or performing any push/publication."
     - "Human project owner explicitly approved P2; APPROVAL-P2-001 records the build/dependency-only scope and P3 exclusion before any build file is changed."
     - "Reverified clean port/26.1.2 at P1 commit 8c1090261be74956b4d84d5d0e78ac229c6e3b9d, the locked design SHA-256, and the unchanged annotated P0 tag target before entering P2."
-  blockers: []
+    - "Committed the P2 approval checkpoint as 79bb638869a32eb329f34bd4e3c4df2286b331b6 before modifying build or dependency files."
+    - "Inspected authoritative Maven metadata and exact jar fabric.mod.json files for Surveyor, Cloth Config, Mod Menu, and Kaleido rather than inferring target compatibility from version labels."
+    - "Selected and pinned Java 25, Gradle 9.5.1 plus checksum, Loom remap 1.17.19, Modern Yarn 26.1.2+build.4, Loader 0.19.3, and Fabric API 0.155.2+26.1.2."
+    - "Selected official Surveyor 1.2.4+26.1, Cloth 26.1.154, Mod Menu 18.0.0, and Kaleido 0.3.3+1.3.2; removed mavenLocal and pinned all formerly dynamic plugin selectors."
+    - "The exact pinned Surveyor source clean-built against the complete 26.1.2 lock with Java 25; nine tasks executed and proof artifacts were hashed."
+    - "Atlas modCompileClasspath resolved successfully and clean processResources passed; expanded metadata records version 1.1.2+26.1.2 and exact target requirements."
+    - "Atlas compileJava then reached javac's 100-error cap on the expected P3 API surface, beginning with key mapping, convention tags, BufferAllocator, ChunkPos accessors, sounds, messages, and input records; no dependency-resolution failure remained."
+    - "Committed the isolated build/dependency lock and docs/P2_BUILD_LOCK.md as f8db0a4fe309a7a409122509f112c2f55a01765a with no production implementation edits."
+    - "The Codex host's JDK Unix-domain selector defect was contained by an uncommitted TCP-loopback fallback setting; it caused no project configuration change."
+    - "P2 is complete with the P0 tag unchanged and no push, release, upload, publication, P3 edit, or later-phase work."
+  blockers:
+    - "P3 requires separate explicit human approval; P2 approval does not authorize production Minecraft/Fabric API edits."
   next_action: >-
-    Commit the P2 approval checkpoint, then choose and verify the exact Java 25, Loom, mappings,
-    Minecraft 26.1.2, Fabric, Surveyor, and optional configuration dependency lock without production edits.
+    Stop and request explicit P3 approval before changing any production Java for mechanical mappings
+    or Minecraft/Fabric API uplift; do not begin Surveyor integration, rendering/mixins, or later phases.
 
 agent_first_prompt:
   text: >-
