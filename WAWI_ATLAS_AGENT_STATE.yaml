@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 51
-last_updated_utc: "2026-08-27T19:18:11Z"
+state_revision: 52
+last_updated_utc: "2026-08-27T19:28:22Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P5_IN_PROGRESS"
 current_phase: "P5"
-current_task: "P5-T02_RENDERING_COMPILE_BOUNDARY"
+current_task: "P5-T03_RENDER_AND_MIXIN_AUDIT"
 
 authority:
   precedence:
@@ -836,11 +836,17 @@ p5_tasks:
       - "Verified the locked design SHA-256, no post-P2 dependency-lock diff, no P4 production Java/resource/lock diff, no configured branch upstream, and no publication record."
   - id: "P5-T02"
     name: "Resolve BufferAllocator and render-layer compile boundary"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "Reproduced the exact locked entry boundary: compileJava failed with exactly four errors, comprising the three recorded BufferAllocator symbols and one RenderLayers.entityNoOutline call."
+      - "Exact baseline and target bytecode show BufferAllocator retains its int constructor, AutoCloseable ownership, native allocation, and Immediate-provider integration and moved only from net.minecraft.client.util to com.mojang.blaze3d.buffers at this call surface."
+      - "Exact target RenderTypes/RenderPipelines source exposes entityTranslucent(texture, false) as the supported textured/lightmapped/overlayed, blended, no-cull, sorted translucent layer with outline mode NONE."
+      - "The removed legacy entityNoOutline used a no-depth-write pipeline; no exact non-emissive target factory retains that flag, so the target-standard entityTranslucent depth policy is selected and retained as a required handheld visual checkpoint rather than guessed equivalent behavior."
+      - "Changed only the allocator import and transparent shader-layer factory; exact locked compileJava then passed in 14 seconds with zero errors."
   - id: "P5-T03"
     name: "Migrate held custom geometry, screens, input, and version-sensitive mixins"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
   - id: "P5-T04"
     name: "Validate compilation, mixin application, client/server startup, and human visual/input behavior"
@@ -895,6 +901,11 @@ decisions:
     decision: "Do not silently override current Surveyor's globalSharing operator configuration from Atlas; faithful isolation tests and deployments explicitly select false."
     source: "P4 ownership and synchronization source comparison"
     rationale: "P0 config-preserving upgrades already retain false, while forcing a backend setting would violate operator intent and the Surveyor ownership boundary. The clean-install default difference remains visible for hardening policy."
+  - id: "DEC-010"
+    date: "2026-08-27"
+    decision: "Replace removed RenderLayers.entityNoOutline(texture) with the target-supported RenderLayers.entityTranslucent(texture, false) and require a handheld transparency/depth visual checkpoint."
+    source: "P5 exact 1.21.11 bytecode and exact Minecraft 26.1.2 RenderTypes/RenderPipelines source comparison"
+    rationale: "The target factory preserves textured lightmapped entity translucency, blending, no-cull behavior, sorting, and disables outlines. No exact non-emissive target factory preserves the legacy depth-write-off pipeline, so inventing a custom pipeline would be a broader and more brittle behavioral rewrite than adopting the supported target analogue with explicit visual acceptance."
 
 known_risks:
   - id: "RISK-001"
@@ -1011,6 +1022,7 @@ repository_state:
   p4_fixture_commit: "a1b239007e6f496d5fe44d38d1be759f30082964"
   p4_fixture_integrity_commit: "a017b2621bfb9e594a98396d8c4c253b540b8551"
   p4_compatibility_commit: "3a598667c400be596f2f7fb8f907592c722edba1"
+  p5_approval_commit: "093e3e7740893063b26b197c3979ad7b4b368b02"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1075,6 +1087,8 @@ test_evidence:
     final_gate_audit: "PASS: clean port/26.1.2; annotated P0 tag still peels to 7099b4df2420d5441e3b2b02e53201a0b249c8f9; no upstream or publication; stopped before P5"
   p5:
     approval_preflight: "PASS: exact branch, HEAD, clean status, annotated P0 tag target, design hash, P0-P4 completion, unchanged P2 lock, P4 production-scope boundary, and no-publication record verified before the approval checkpoint"
+    entry_compile_boundary: "EXPECTED_P5_FAILURE_REPRODUCED: exactly four errors, comprising three BufferAllocator symbols and one RenderLayers.entityNoOutline symbol"
+    renderer_compile_category: "PASS: allocator package and supported no-outline translucent-layer substitutions eliminate all four errors; compileJava BUILD SUCCESSFUL in 14s with zero errors"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1192,14 +1206,16 @@ latest_session:
     - "P4 is complete without a production migration and stops at the P5 approval gate; P5, P6, and later phases remain unauthorized."
     - "Human project owner explicitly approved P5 rendering, screen, input, and mixin migration; APPROVAL-P5-001 records the exact P5-only scope and P6/later exclusions before production edits."
     - "Reverified clean port/26.1.2 at f9a2946570d4adb610efd4bb9e3d474294e05118, locked design hash, unchanged annotated P0 tag target, P0-P4 completion, exact unchanged P2 lock, P4 production-scope boundary, and no-publication record."
+    - "Committed the YAML-only P5 approval checkpoint locally as 093e3e7740893063b26b197c3979ad7b4b368b02 before the first production edit."
+    - "Reproduced exactly four P5 compile errors, then compared exact baseline/target allocator bytecode and target RenderTypes/RenderPipelines source before editing."
+    - "Moved only the BufferAllocator import and replaced the removed entityNoOutline call with entityTranslucent(texture, false); compileJava then passed with zero errors under the unchanged P2 lock."
   blockers:
-    - "P5 begins at exactly four rendering-owned compile errors: three BufferAllocator references and one RenderLayers.entityNoOutline call."
     - "Human visual and input observation will be required before P5 can be marked complete; no such target-runtime result is claimed yet."
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
     - "P6 and later phases remain independently blocked."
   next_action: >-
-    Research the exact Minecraft 26.1.2 BufferAllocator ownership and RenderLayers replacement from pinned
-    source and bytecode, apply only that bounded rendering compile-boundary category, and rerun compileJava.
+    Audit the exact target custom-geometry execution and allocator shutdown lifetime plus all seven P5-sensitive
+    mixin targets/descriptors, apply only proven render/mixin repairs, and rerun compileJava.
 
 agent_first_prompt:
   text: >-

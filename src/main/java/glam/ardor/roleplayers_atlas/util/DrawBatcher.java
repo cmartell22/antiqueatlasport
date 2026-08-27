@@ -61,7 +61,7 @@ public class DrawBatcher implements AutoCloseable {
 			VertexConsumerProvider vertexConsumers = painter.vertexConsumers();
 			if (areWeShadersRightNow()) {
 				if (drawingTransparent) {
-					this.vertexConsumer = vertexConsumers.getBuffer(RenderLayers.entityNoOutline(texture));
+					this.vertexConsumer = vertexConsumers.getBuffer(RenderLayers.entityTranslucent(texture, false));
 				} else {
 					this.vertexConsumer = vertexConsumers.getBuffer(RenderLayers.entitySolid(texture));
 				}
