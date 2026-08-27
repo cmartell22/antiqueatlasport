@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 55
-last_updated_utc: "2026-08-27T21:05:04Z"
+state_revision: 56
+last_updated_utc: "2026-08-27T21:08:38Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P5_IN_PROGRESS"
 current_phase: "P5"
@@ -866,6 +866,10 @@ p5_tasks:
       - "Mixin initialization reached Java 25 compatibility with no application error. The absent optional Punchy class produced the expected fail-soft class-not-found warning; offline development authentication and Realms requests produced unrelated expected 401 errors."
       - "LWJGL/OpenGL, Indigo, audio, Minecraft texture atlases, and Atlas's marker, tile, structure-provider, and biome-provider resource reloaders initialized without a project exception."
       - "The human owner closed the unexpected client window while working; Minecraft logged Stopping and Gradle returned BUILD SUCCESSFUL. This records partial startup evidence only: title-screen observation and all human visual/input checks remain unscored."
+      - "Exact Loom 1.17.19 API inspection identified RunConfiguration.getProgramArguments() as a ListProperty; an ignored afterEvaluate override now sets that property to an empty list before finalization while retaining the isolated run/p5-client directory."
+      - "A Gradle configuration-only help check reported runDir=run/p5-client/ and programArgs=[] and completed successfully without launching Minecraft."
+      - "The isolated exact-lock dedicated server reached Done, loaded Surveyor data for Overworld, Nether, and End, then accepted literal stop, saved all dimensions, returned BUILD SUCCESSFUL in 40 seconds, and released port 25565."
+      - "The dedicated server's only logged error was the expected first-run absence of server.properties, after which Minecraft generated defaults and reached Done; there was no Atlas, mixin, or classloading exception."
   - id: "P5-T05"
     name: "Audit P5 scope and close at the P6 approval gate"
     status: "PENDING"
@@ -1045,6 +1049,7 @@ repository_state:
   p5_renderer_compile_commit: "4279b9863"
   p5_game_renderer_mixin_commit: "33954cc68"
   p5_allocator_lifecycle_commit: "1e8c8bb017b9f9beafebae96030c8fefa6e8b6bd"
+  p5_interrupted_runtime_commit: "53b9469bd9fe87de71f57278758aa7d74f67d730"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1114,6 +1119,8 @@ test_evidence:
     mixin_descriptor_compile: "PASS_AT_COMPILE_BOUNDARY: exact GameRenderer bobView descriptor and WrapOperation handler migrated; all seven declared mixin surfaces structurally audited; compileJava BUILD SUCCESSFUL in 13s"
     allocator_lifetime_compile: "PASS: one client-owned allocator remains reused across frames and is closed on CLIENT_STOPPING; compileJava BUILD SUCCESSFUL in 16s"
     isolated_client_startup: "PARTIAL_PASS_USER_TERMINATED: exact locked client reached render-thread, mixin, LWJGL/OpenGL, Indigo, audio, vanilla texture-atlas, and all four Atlas resource-reloader initialization with no project exception; owner closed the unexpected window, Minecraft logged Stopping, and Gradle returned BUILD SUCCESSFUL; title-screen observation and visual/input behavior remain unscored"
+    isolated_client_launch_config: "PASS: exact Loom 1.17.19 RunConfiguration ListProperty override resolves runDir=run/p5-client/ and programArgs=[] during a non-launching offline Gradle help check"
+    dedicated_server_smoke: "PASS: exact locked isolated server reached Done with Surveyor loading all three dimensions; literal stop saved all dimensions, Gradle returned BUILD SUCCESSFUL in 40s, and port 25565 was free afterward"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1243,14 +1250,17 @@ latest_session:
     - "Two initial isolated-run init-script variants failed during Gradle configuration before Minecraft; correcting the Loom run configuration to set the isolated directory before finalization produced a real exact-lock client launch."
     - "The client reached the render thread, initialized mixins and rendering, and ran all four Atlas resource reloaders without a project exception. The owner closed the unexpected window while working; Minecraft logged Stopping and Gradle returned BUILD SUCCESSFUL."
     - "The interrupted run is recorded only as partial startup evidence; title-screen observation and every human visual/input result remain unscored."
+    - "Committed the interrupted-run classification and revision-55 state-only evidence locally as 53b9469bd9fe87de71f57278758aa7d74f67d730."
+    - "Inspected Loom 1.17.19's exact RunConfiguration/RunConfigSettings APIs, then validated without launching Minecraft that the ignored client harness resolves to run/p5-client/ with an empty program-argument list."
+    - "Ran the isolated exact-lock dedicated server to Done; Surveyor loaded all three dimensions, literal stop saved them, Gradle exited successfully, and port 25565 was released. The expected first-run missing server.properties message did not prevent default generation or startup."
   blockers:
     - "Human visual and input observation will be required before P5 can be marked complete; no such target-runtime result is claimed yet."
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
     - "P6 and later phases remain independently blocked."
   next_action: >-
-    Inspect the exact Loom 1.17.19 run-configuration API and prepare an ignored isolated client launch that
-    removes inherited quick-play arguments before finalization; then launch to the title screen at a coordinated
-    human checkpoint and record startup separately from visual/input acceptance.
+    Coordinate a human checkpoint, launch the verified isolated menu-only 26.1.2 client, and score the focused
+    P5 handheld rendering, two-stage M-key transition, fullscreen pan/zoom, movement/look, bob stabilization,
+    resize, GUI-scale, and pause/resume matrix without entering P6 resource migration or later-phase work.
 
 agent_first_prompt:
   text: >-
