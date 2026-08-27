@@ -122,7 +122,7 @@ public class RoleplayersAtlas implements ClientModInitializer {
 		SurveyorClientEvents.Register.structuresAdded(id("world_data"), (s, k) -> WorldAtlasData.getOrCreate(s).onStructuresAdded(s, k));
 		SurveyorClientEvents.Register.landmarksAdded(id("world_data"), (s, k) -> WorldAtlasData.getOrCreate(s).onLandmarksAdded(s, k));
 		SurveyorClientEvents.Register.landmarksRemoved(id("world_data"), (s, k) -> WorldAtlasData.getOrCreate(s).onLandmarksRemoved(s, k));
-		ClientTickEvents.END_WORLD_TICK.register((w -> SurveyorClient.getSummaries(MinecraftClient.getInstance().getNetworkHandler()).values().forEach(s -> WorldAtlasData.getOrCreate(s).tick(s))));
+		ClientTickEvents.END_LEVEL_TICK.register((w -> SurveyorClient.getSummaries(MinecraftClient.getInstance().getNetworkHandler()).values().forEach(s -> WorldAtlasData.getOrCreate(s).tick(s))));
 		CommonLifecycleEvents.TAGS_LOADED.register(((manager, client) -> BiomeTileProviders.getInstance().registerFallbacks(manager.getOrThrow(RegistryKeys.BIOME))));
 		ClientPlayConnectionEvents.DISCONNECT.register(((handler, client) -> BiomeTileProviders.getInstance().clearFallbacks()));
 		ClientPlayConnectionEvents.DISCONNECT.register(((handler, client) -> WorldAtlasData.WORLDS.clear()));

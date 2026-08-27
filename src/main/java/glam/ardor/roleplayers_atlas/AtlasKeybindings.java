@@ -1,7 +1,7 @@
 package glam.ardor.roleplayers_atlas;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -23,8 +23,8 @@ public class AtlasKeybindings {
 	public static final KeyBinding QUICK_MARK_KEYMAPPING = new KeyBinding("key.roleplayers_atlas.quickMark", InputUtil.Type.KEYSYM, 78, CATEGORY);
 
 	public static void init() {
-		KeyBindingHelper.registerKeyBinding(ATLAS_KEYMAPPING);
-		KeyBindingHelper.registerKeyBinding(QUICK_MARK_KEYMAPPING);
+		KeyMappingHelper.registerKeyMapping(ATLAS_KEYMAPPING);
+		KeyMappingHelper.registerKeyMapping(QUICK_MARK_KEYMAPPING);
 		ClientTickEvents.END_CLIENT_TICK.register(AtlasKeybindings::onClientTick);
 	}
 

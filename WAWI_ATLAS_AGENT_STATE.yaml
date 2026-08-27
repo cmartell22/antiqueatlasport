@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 39
-last_updated_utc: "2026-08-27T17:36:05Z"
+state_revision: 40
+last_updated_utc: "2026-08-27T17:44:08Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P3_IN_PROGRESS"
 current_phase: "P3"
-current_task: "P3-T02_BASELINE_COMPILE_CATEGORIZATION"
+current_task: "P3-T03_CHUNKPOS_ACCESSORS"
 
 authority:
   precedence:
@@ -711,12 +711,14 @@ p3_tasks:
       - "Durable state records P0, P1, and P2 COMPLETE, P3 previously BLOCKED_PENDING_P3_APPROVAL, and no push/publication."
   - id: "P3-T02"
     name: "Capture and categorize the target compile baseline"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
-    evidence: []
+    evidence:
+      - "Exact locked compileJava reached javac's 100-error cap after successful Loom 1.17.19 configuration; no dependency or resource failure occurred."
+      - "Baseline categories include Fabric key/tick/tags, ChunkPos access, sound factories, player messages, CharInput records, and the known P5 held-renderer BufferAllocator boundary."
   - id: "P3-T03"
     name: "Apply bounded mechanical Minecraft and Fabric API repair categories"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Terra High"
     escalation: "GPT-5.6 Sol High for behavioral, persistence, synchronization, rendering, input, or serialization meaning"
     evidence: []
@@ -856,6 +858,7 @@ repository_state:
   p1_approval_commit: "37d253d1d"
   p2_approval_commit: "79bb638869a32eb329f34bd4e3c4df2286b331b6"
   p2_build_lock_commit: "f8db0a4fe309a7a409122509f112c2f55a01765a"
+  p3_approval_commit: "444d774577d27731591ff2408ba3a15405004d73"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -895,6 +898,8 @@ test_evidence:
     yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions for revision 38"
   p3:
     approval_preflight: "PASS: exact branch, HEAD, clean status, annotated P0 tag target, phase states, design hash, P2 production-scope audit, and no-publication record verified before approval checkpoint"
+    compile_baseline: "EXPECTED_P3_FAILURE: exact locked compileJava reached javac's 100-error cap after successful Loom/dependency configuration"
+    fabric_api_category: "PASS_AT_COMPILE_BOUNDARY: key-mapping helper, end-level tick, and convention biome tags v2 compile errors eliminated; compile remains capped at 100 on deeper categorized Minecraft/P5 surfaces"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -972,11 +977,14 @@ latest_session:
     - "P2 is complete with the P0 tag unchanged and no push, release, upload, publication, P3 edit, or later-phase work."
     - "Human project owner explicitly approved P3 mechanical mappings and Minecraft/Fabric API uplift; APPROVAL-P3-001 records the exact scope and P4/P5/P6 exclusions before production edits."
     - "Reverified clean port/26.1.2 at 50f27067eab1ad886fe4fb5800bcee62b138f3f5, locked design SHA-256, unchanged annotated P0 tag target, completed P0-P2 phase states, P3's prior approval gate, P2 production-scope boundary, and the no-publication record."
+    - "Committed the YAML-only P3 approval checkpoint as 444d774577d27731591ff2408ba3a15405004d73 before the first production edit."
+    - "Captured the exact compileJava baseline at the 100-error javac cap, then migrated only Fabric key mapping, end-level tick, and convention biome tags v1 to exact target v2 symbols."
+    - "The post-category compile eliminated all key-mapping, END_WORLD_TICK, and convention-tag v1 failures; the compiler remains capped at 100 as deeper ChunkPos, sound, message, input-record, and blocked P5 failures are exposed."
   blockers:
     - "P4, P5, P6, and later work remain blocked without separate explicit approval."
   next_action: >-
-    Commit the APPROVAL-P3-001 durable checkpoint, then capture and categorize the exact target
-    compileJava failure baseline before the first bounded mechanical production edit.
+    Commit the validated Fabric API category, then verify and apply the exact target ChunkPos accessor
+    migration as the next bounded mechanical category.
 
 agent_first_prompt:
   text: >-
