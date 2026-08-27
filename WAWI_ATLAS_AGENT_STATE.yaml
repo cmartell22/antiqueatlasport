@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 49
-last_updated_utc: "2026-08-27T18:50:08Z"
+state_revision: 50
+last_updated_utc: "2026-08-27T18:54:55Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P4_IN_PROGRESS"
+project_status: "P4_COMPLETE_AWAITING_P5_APPROVAL"
 current_phase: "P4"
-current_task: "P4-T05_VALIDATE_AND_CLOSE_GATE"
+current_task: "APPROVAL_STOP_BEFORE_P5"
 
 authority:
   precedence:
@@ -432,13 +432,13 @@ phase_plan:
     purpose: "Restore compilation in small categorized batches while preserving behavior and reviewing each diff."
   - id: "P4"
     name: "Current Surveyor integration migration"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Adapt exploration, summaries, landmarks, components, storage, synchronization, and visibility to current Surveyor."
   - id: "P5"
     name: "Rendering, screen, input, and mixin migration"
-    status: "BLOCKED"
+    status: "BLOCKED_PENDING_P5_APPROVAL"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Migrate render state, GUI, handheld atlas, input, and version-sensitive mixins with visual checkpoints."
@@ -796,11 +796,16 @@ p4_tasks:
       - "The probe reached a target dedicated server Done state and loaded Surveyor for Overworld, Nether, and End under Java 25 / Loader 0.19.3 / Fabric API 0.155.2+26.1.2 / Surveyor 1.2.4+26.1."
   - id: "P4-T05"
     name: "Validate persistence, ownership, synchronization, and close the P4 gate"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "Frozen Atlas packets and Surveyor persistence pass exact target-runtime decode/re-encode with the existing Atlas jigsaw compatibility shim."
       - "Full Atlas client synchronization remains unlaunchable until the four explicitly P5-owned renderer errors are migrated; P4 assigns later live multiplayer regression to P7/P8 without entering P5."
+      - "Final locked modCompileClasspath and processResources passed; dependency resolution remains Loader 0.19.3, Fabric API 0.155.2+26.1.2, Surveyor 1.2.4+26.1, and the exact P2 optional locks."
+      - "Final compileJava reproduces exactly four errors: three BufferAllocator symbols in HandheldAtlasRenderer and one RenderLayers.entityNoOutline symbol in DrawBatcher, all previously classified P5 rendering work."
+      - "Final P4 range audit contains no src/main Java/resource or dependency-lock change; all 49 frozen binary fixture worktree blobs match their committed Git blobs."
+      - "git diff --check passes; branch port/26.1.2 is clean at 3a598667c400be596f2f7fb8f907592c722edba1 before this state-only closeout."
+      - "Annotated p0-baseline-1.21.11 remains an annotated tag peeling to 7099b4df2420d5441e3b2b02e53201a0b249c8f9; no branch upstream, push, release, upload, or publication exists."
 
 decisions:
   - id: "DEC-001"
@@ -960,6 +965,8 @@ repository_state:
   p3_char_input_commit: "84a28327759e49359667fa2f5ce8910207bfab08"
   p4_approval_commit: "e56e9d68f114905c2dabf099d693a5c77e6f6b85"
   p4_fixture_commit: "a1b239007e6f496d5fe44d38d1be759f30082964"
+  p4_fixture_integrity_commit: "a017b2621bfb9e594a98396d8c4c253b540b8551"
+  p4_compatibility_commit: "3a598667c400be596f2f7fb8f907592c722edba1"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1017,6 +1024,11 @@ test_evidence:
     exact_source_semantics: "PASS: all 21 Atlas-imported Surveyor types survive; 12 are blob-identical; nine deltas are classified; packet and persistence codecs needed by Atlas are unchanged or mechanically accessor-adapted"
     target_runtime_fixture_probe: "PASS: exact-lock Fabric server harness reached Done and emitted P4_COMPATIBILITY_PROBE_PASS after exact round trips for 10 Atlas region packets, one authored landmark, 46 Surveyor data files, five persisted landmarks, 8479 chunk summaries, 12 structure regions, and personal/shared exploration state"
     production_migration: "PASS_NO_CHANGE_REQUIRED: target Surveyor APIs already compile at the established boundary and the pre-existing Atlas jigsaw mixin remains necessary and sufficient; no P4 production Java/resource edit was made"
+    dependency_resolution: "PASS: final offline modCompileClasspath resolves the exact P2 lock, including Loader 0.19.3, Fabric API 0.155.2+26.1.2, and Surveyor 1.2.4+26.1"
+    resource_processing: "PASS: final offline processResources is UP-TO-DATE and BUILD SUCCESSFUL"
+    compile_boundary: "EXPECTED_P5_FAILURE: exactly four errors remain, comprising three HandheldAtlasRenderer BufferAllocator symbols and one DrawBatcher RenderLayers.entityNoOutline symbol"
+    final_scope_audit: "PASS: approval-to-HEAD range has no src/main Java/resource or dependency-lock change; 49/49 binary fixtures match committed blobs; git diff --check passes"
+    final_gate_audit: "PASS: clean port/26.1.2; annotated P0 tag still peels to 7099b4df2420d5441e3b2b02e53201a0b249c8f9; no upstream or publication; stopped before P5"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1128,13 +1140,18 @@ latest_session:
     - "The exact target runtime reached Done for all three dimensions and passed byte/content-exact .atlas packet, landmark, WorldLandmarks, compressed NBT, ChunkSummary, RegionStructureSummary, and personal/shared exploration round trips."
     - "The passing probe covered 10 Atlas region packets / 3,154,916 bytes, one authored multiplayer landmark, 46 Surveyor data files, five persisted landmarks, 8,479 chunk summaries, 12 structure regions, and one client personal/shared exploration file."
     - "Exact source, compile-boundary, and runtime evidence establish that P4 requires no production migration; no production Java, resource, dependency, serialization, identity, feature, art, packaging, or publication change was made."
+    - "Committed the exact-source dossier, isolated target-runtime probe, fixture instructions, and revision-49 evidence locally as 3a598667c400be596f2f7fb8f907592c722edba1."
+    - "Final offline dependency and resource checks passed; final compileJava reproduced only the four already-classified P5 rendering errors."
+    - "Final scope and fixture audits passed: no P4 production or dependency-lock diff, all 49 frozen binary blobs unchanged, clean diff check, unchanged annotated P0 tag, and no external publication."
+    - "P4 is complete without a production migration and stops at the P5 approval gate; P5, P6, and later phases remain unauthorized."
   blockers:
     - "Four P5 rendering-owned compile errors remain deliberately deferred: three BufferAllocator references and one RenderLayers.entityNoOutline call."
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
-    - "P5, P6, and later work remain blocked without their own explicit approvals."
+    - "P5 is blocked pending explicit P5-only approval; P6 and later work remain independently blocked."
   next_action: >-
-    Commit the P4 source-comparison dossier and exact-lock compatibility probe, then run final dependency,
-    resource, compile-boundary, fixture-integrity, diff, tag, and no-publication audits before closing P4 at the P5 approval gate.
+    Request explicit human approval for P5 only under GPT-5.6 Sol High: rendering, screen, input, and mixin
+    migration, beginning with the four deferred BufferAllocator/render-layer compile errors and using exact target
+    rendering/mixin source plus visual checkpoints, while P6 resources/serialization and later phases remain excluded.
 
 agent_first_prompt:
   text: >-
