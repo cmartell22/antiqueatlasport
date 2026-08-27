@@ -370,10 +370,10 @@ public final class ParchmentExport {
 					int x = (int) Math.round(toPxX.applyAsDouble(chunk.getStartX()));
 					int y = (int) Math.round(toPxZ.applyAsDouble(chunk.getStartZ()));
 					blendRect(image, x, y, 16, 16, 0x40000000 | rgb);
-					if (!chunks.contains(new ChunkPos(chunk.x - 1, chunk.z))) blendRect(image, x, y, 1, 16, 0x80000000 | rgb);
-					if (!chunks.contains(new ChunkPos(chunk.x + 1, chunk.z))) blendRect(image, x + 15, y, 1, 16, 0x80000000 | rgb);
-					if (!chunks.contains(new ChunkPos(chunk.x, chunk.z - 1))) blendRect(image, x, y, 16, 1, 0x80000000 | rgb);
-					if (!chunks.contains(new ChunkPos(chunk.x, chunk.z + 1))) blendRect(image, x, y + 15, 16, 1, 0x80000000 | rgb);
+					if (!chunks.contains(new ChunkPos(chunk.x() - 1, chunk.z()))) blendRect(image, x, y, 1, 16, 0x80000000 | rgb);
+					if (!chunks.contains(new ChunkPos(chunk.x() + 1, chunk.z()))) blendRect(image, x + 15, y, 1, 16, 0x80000000 | rgb);
+					if (!chunks.contains(new ChunkPos(chunk.x(), chunk.z() - 1))) blendRect(image, x, y, 16, 1, 0x80000000 | rgb);
+					if (!chunks.contains(new ChunkPos(chunk.x(), chunk.z() + 1))) blendRect(image, x, y + 15, 16, 1, 0x80000000 | rgb);
 				}
 			});
 		}

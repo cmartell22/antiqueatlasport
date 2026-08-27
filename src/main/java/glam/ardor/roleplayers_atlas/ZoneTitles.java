@@ -60,7 +60,7 @@ public final class ZoneTitles {
 		String territoryKey = null;
 		Text territoryName = null;
 		int territorySize = Integer.MAX_VALUE;
-		net.minecraft.util.math.ChunkPos playerChunk = new net.minecraft.util.math.ChunkPos(client.player.getBlockPos());
+		net.minecraft.util.math.ChunkPos playerChunk = net.minecraft.util.math.ChunkPos.fromBlockPos(client.player.getBlockPos());
 
 		for (Map.Entry<Landmark, MarkerTexture> entry : data.getAllMarkers(1).entrySet()) {
 			Landmark landmark = entry.getKey();

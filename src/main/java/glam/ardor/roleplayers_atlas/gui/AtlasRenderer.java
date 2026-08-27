@@ -255,10 +255,10 @@ public interface AtlasRenderer {
 						: alphaGetter.apply(markerX, markerY);
 					fillClipped(painter, z, light, 0, 0, size, size, clipX1, clipY1, clipX2, clipY2, 0.25F * alpha, fillColor);
 					if (lineSize > 0) {
-						if (!chunks.contains(new ChunkPos(chunk.x - 1, chunk.z))) fillClipped(painter, z, light, 0, 0, lineSize, size, clipX1, clipY1, clipX2, clipY2, 0.5F * alpha, fillColor);
-						if (!chunks.contains(new ChunkPos(chunk.x, chunk.z - 1))) fillClipped(painter, z, light, 0, 0, size, lineSize, clipX1, clipY1, clipX2, clipY2, 0.5F * alpha, fillColor);
-						if (!chunks.contains(new ChunkPos(chunk.x + 1, chunk.z))) fillClipped(painter, z, light, size - lineSize, 0, size, size, clipX1, clipY1, clipX2, clipY2, 0.5F * alpha, fillColor);
-						if (!chunks.contains(new ChunkPos(chunk.x, chunk.z + 1))) fillClipped(painter, z, light, 0, size - lineSize, size, size, clipX1, clipY1, clipX2, clipY2, 0.5F * alpha, fillColor);
+						if (!chunks.contains(new ChunkPos(chunk.x() - 1, chunk.z()))) fillClipped(painter, z, light, 0, 0, lineSize, size, clipX1, clipY1, clipX2, clipY2, 0.5F * alpha, fillColor);
+						if (!chunks.contains(new ChunkPos(chunk.x(), chunk.z() - 1))) fillClipped(painter, z, light, 0, 0, size, lineSize, clipX1, clipY1, clipX2, clipY2, 0.5F * alpha, fillColor);
+						if (!chunks.contains(new ChunkPos(chunk.x() + 1, chunk.z()))) fillClipped(painter, z, light, size - lineSize, 0, size, size, clipX1, clipY1, clipX2, clipY2, 0.5F * alpha, fillColor);
+						if (!chunks.contains(new ChunkPos(chunk.x(), chunk.z() + 1))) fillClipped(painter, z, light, 0, size - lineSize, size, size, clipX1, clipY1, clipX2, clipY2, 0.5F * alpha, fillColor);
 					}
 				}
 				painter.pop();

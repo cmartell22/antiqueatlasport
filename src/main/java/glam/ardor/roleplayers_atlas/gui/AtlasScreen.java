@@ -1051,8 +1051,8 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		// instead of costing a captured frame each.
 		boolean[] hasContent = new boolean[cellsX * cellsZ];
 		for (ChunkPos chunk : worldAtlasData.exploredChunks()) {
-			int cellX = (chunk.x * 16 - startBlockX) / viewBlocksW;
-			int cellZ = (chunk.z * 16 - startBlockZ) / viewBlocksH;
+			int cellX = (chunk.x() * 16 - startBlockX) / viewBlocksW;
+			int cellZ = (chunk.z() * 16 - startBlockZ) / viewBlocksH;
 			if (cellX >= 0 && cellX < cellsX && cellZ >= 0 && cellZ < cellsZ) hasContent[cellX + cellZ * cellsX] = true;
 		}
 		int firstCell = 0;
@@ -1296,10 +1296,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		int was = pendingPatch.size();
 		pendingPatch.removeAll(patchRectApplied);
 		patchRectApplied.clear();
-		int minX = Math.max(Math.min(patchRectStart.x, corner.x), patchRectStart.x - 96);
-		int maxX = Math.min(Math.max(patchRectStart.x, corner.x), patchRectStart.x + 96);
-		int minZ = Math.max(Math.min(patchRectStart.z, corner.z), patchRectStart.z - 96);
-		int maxZ = Math.min(Math.max(patchRectStart.z, corner.z), patchRectStart.z + 96);
+		int minX = Math.max(Math.min(patchRectStart.x(), corner.x()), patchRectStart.x() - 96);
+		int maxX = Math.min(Math.max(patchRectStart.x(), corner.x()), patchRectStart.x() + 96);
+		int minZ = Math.max(Math.min(patchRectStart.z(), corner.z()), patchRectStart.z() - 96);
+		int maxZ = Math.min(Math.max(patchRectStart.z(), corner.z()), patchRectStart.z() + 96);
 		java.util.List<ChunkPos> lift = new ArrayList<>();
 		for (int x = minX; x <= maxX; x++) {
 			for (int z = minZ; z <= maxZ; z++) {
@@ -1367,10 +1367,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 	/** Shift-drag fills the rectangle as it grows; nothing already laid is taken back. */
 	private void applyCityRect(ChunkPos corner, boolean erase) {
 		if (cityRectStart == null) return;
-		int minX = Math.max(Math.min(cityRectStart.x, corner.x), cityRectStart.x - 96);
-		int maxX = Math.min(Math.max(cityRectStart.x, corner.x), cityRectStart.x + 96);
-		int minZ = Math.max(Math.min(cityRectStart.z, corner.z), cityRectStart.z - 96);
-		int maxZ = Math.min(Math.max(cityRectStart.z, corner.z), cityRectStart.z + 96);
+		int minX = Math.max(Math.min(cityRectStart.x(), corner.x()), cityRectStart.x() - 96);
+		int maxX = Math.min(Math.max(cityRectStart.x(), corner.x()), cityRectStart.x() + 96);
+		int minZ = Math.max(Math.min(cityRectStart.z(), corner.z()), cityRectStart.z() - 96);
+		int maxZ = Math.min(Math.max(cityRectStart.z(), corner.z()), cityRectStart.z() + 96);
 		boolean any = false;
 		for (int x = minX; x <= maxX; x++) {
 			for (int z = minZ; z <= maxZ; z++) {
@@ -1438,10 +1438,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		int was = pendingTerritory.size();
 		pendingTerritory.removeAll(territoryRectApplied);
 		territoryRectApplied.clear();
-		int minX = Math.max(Math.min(territoryRectStart.x, corner.x), territoryRectStart.x - 96);
-		int maxX = Math.min(Math.max(territoryRectStart.x, corner.x), territoryRectStart.x + 96);
-		int minZ = Math.max(Math.min(territoryRectStart.z, corner.z), territoryRectStart.z - 96);
-		int maxZ = Math.min(Math.max(territoryRectStart.z, corner.z), territoryRectStart.z + 96);
+		int minX = Math.max(Math.min(territoryRectStart.x(), corner.x()), territoryRectStart.x() - 96);
+		int maxX = Math.min(Math.max(territoryRectStart.x(), corner.x()), territoryRectStart.x() + 96);
+		int minZ = Math.max(Math.min(territoryRectStart.z(), corner.z()), territoryRectStart.z() - 96);
+		int maxZ = Math.min(Math.max(territoryRectStart.z(), corner.z()), territoryRectStart.z() + 96);
 		for (int x = minX; x <= maxX; x++) {
 			for (int z = minZ; z <= maxZ; z++) {
 				ChunkPos chunk = new ChunkPos(x, z);
@@ -2502,10 +2502,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 				int lineSize = tilePixels / 16;
 				int borderArgb = 0xE0703A14;
 				if (lineSize > 0) {
-					if (!pendingTerritory.contains(new ChunkPos(chunk.x - 1, chunk.z))) context.fill(x1, y1, x1 + lineSize, y2, borderArgb);
-					if (!pendingTerritory.contains(new ChunkPos(chunk.x + 1, chunk.z))) context.fill(x2 - lineSize, y1, x2, y2, borderArgb);
-					if (!pendingTerritory.contains(new ChunkPos(chunk.x, chunk.z - 1))) context.fill(x1, y1, x2, y1 + lineSize, borderArgb);
-					if (!pendingTerritory.contains(new ChunkPos(chunk.x, chunk.z + 1))) context.fill(x1, y2 - lineSize, x2, y2, borderArgb);
+					if (!pendingTerritory.contains(new ChunkPos(chunk.x() - 1, chunk.z()))) context.fill(x1, y1, x1 + lineSize, y2, borderArgb);
+					if (!pendingTerritory.contains(new ChunkPos(chunk.x() + 1, chunk.z()))) context.fill(x2 - lineSize, y1, x2, y2, borderArgb);
+					if (!pendingTerritory.contains(new ChunkPos(chunk.x(), chunk.z() - 1))) context.fill(x1, y1, x2, y1 + lineSize, borderArgb);
+					if (!pendingTerritory.contains(new ChunkPos(chunk.x(), chunk.z() + 1))) context.fill(x1, y2 - lineSize, x2, y2, borderArgb);
 				}
 			}
 		}
@@ -2554,10 +2554,10 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 				int x2 = (int) (worldXToScreenX(chunk.getStartX() + 16) - getGuiX());
 				int y2 = (int) (worldZToScreenY(chunk.getStartZ() + 16) - getGuiY());
 				context.fill(x1, y1, x2, y2, 0x669BD1E8);
-				if (!pendingPatch.contains(new ChunkPos(chunk.x - 1, chunk.z))) context.fill(x1, y1, x1 + lineSize, y2, 0xFF2E6B8A);
-				if (!pendingPatch.contains(new ChunkPos(chunk.x + 1, chunk.z))) context.fill(x2 - lineSize, y1, x2, y2, 0xFF2E6B8A);
-				if (!pendingPatch.contains(new ChunkPos(chunk.x, chunk.z - 1))) context.fill(x1, y1, x2, y1 + lineSize, 0xFF2E6B8A);
-				if (!pendingPatch.contains(new ChunkPos(chunk.x, chunk.z + 1))) context.fill(x1, y2 - lineSize, x2, y2, 0xFF2E6B8A);
+				if (!pendingPatch.contains(new ChunkPos(chunk.x() - 1, chunk.z()))) context.fill(x1, y1, x1 + lineSize, y2, 0xFF2E6B8A);
+				if (!pendingPatch.contains(new ChunkPos(chunk.x() + 1, chunk.z()))) context.fill(x2 - lineSize, y1, x2, y2, 0xFF2E6B8A);
+				if (!pendingPatch.contains(new ChunkPos(chunk.x(), chunk.z() - 1))) context.fill(x1, y1, x2, y1 + lineSize, 0xFF2E6B8A);
+				if (!pendingPatch.contains(new ChunkPos(chunk.x(), chunk.z() + 1))) context.fill(x1, y2 - lineSize, x2, y2, 0xFF2E6B8A);
 			}
 		}
 
@@ -2690,8 +2690,8 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		if (hasAltDown() && !isDragging && isMouseOverMap && openModal() == null) {
 			int x = screenXToWorldX((int) getMouseX());
 			int z = screenYToWorldZ((int) getMouseY());
-			ChunkPos pos = new ChunkPos(new BlockPos(x, 0, z));
-			context.drawText(textRenderer, Text.literal("%d,%d (%d,%d)".formatted(pos.x, pos.z, x, z)), getGuiX(), getGuiY() - 12, 0xFFFFFFFF, true);
+			ChunkPos pos = ChunkPos.fromBlockPos(new BlockPos(x, 0, z));
+			context.drawText(textRenderer, Text.literal("%d,%d (%d,%d)".formatted(pos.x(), pos.z(), x, z)), getGuiX(), getGuiY() - 12, 0xFFFFFFFF, true);
 			if (hoveredLandmark != null) {
 				MarkerTexture texture = worldAtlasData.getMarkerTexture(hoveredLandmark);
 				context.drawText(textRenderer, Text.literal(hoveredLandmark.id().toString()), getGuiX() + bookWidth - textRenderer.getWidth(Text.literal(hoveredLandmark.id().toString())), getGuiY() - 12, 0xFFFFFFFF, true);

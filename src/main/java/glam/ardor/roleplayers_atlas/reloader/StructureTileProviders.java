@@ -123,19 +123,19 @@ public class StructureTileProviders extends LegacyJsonDataLoader implements Iden
 	public void resolve(Map<ChunkPos, TileTexture> outTiles, Map<ChunkPos, StructureTileProvider> structureProviders, Map<ChunkPos, String> debugPredicates, Map<Landmark, MarkerTexture> outMarkers, WorldSummary summary, RegistryKey<Structure> key, ChunkPos pos, StructureStartSummary start, RegistryKey<StructureType<?>> type, Collection<TagKey<Structure>> tags) {
 		if (startMarkers.containsKey(key.getValue())) {
 			MarkerTexture texture = startMarkers.get(key.getValue());
-			outMarkers.put(Landmark.create(WorldLandmarks.GLOBAL, key.getValue().withPath(p -> "start/" + p + "/" + pos.x + "/" + pos.z), b -> b
+			outMarkers.put(Landmark.create(WorldLandmarks.GLOBAL, key.getValue().withPath(p -> "start/" + p + "/" + pos.x() + "/" + pos.z()), b -> b
 				.add(LandmarkComponentTypes.POS, pos.getCenterAtY(0))
 				.add(LandmarkComponentTypes.NAME, Text.translatable(ProviderType.START.translation(key.getValue())))
 			), texture);
 		} else if (type != null && typeMarkers.containsKey(type.getValue())) {
 			MarkerTexture texture = typeMarkers.get(type.getValue());
-			outMarkers.put(Landmark.create(WorldLandmarks.GLOBAL, key.getValue().withPath(p -> "start/" + p + "/" + pos.x + "/" + pos.z), b -> b
+			outMarkers.put(Landmark.create(WorldLandmarks.GLOBAL, key.getValue().withPath(p -> "start/" + p + "/" + pos.x() + "/" + pos.z()), b -> b
 				.add(LandmarkComponentTypes.POS, pos.getCenterAtY(0))
 				.add(LandmarkComponentTypes.NAME, Text.translatable(ProviderType.TYPE.translation(type.getValue())))
 			), texture);
 		} else {
 			tagMarkers.entrySet().stream().filter(entry -> tags.contains(TagKey.of(RegistryKeys.STRUCTURE, entry.getKey()))).findFirst().ifPresent(entry ->
-				outMarkers.put(Landmark.create(WorldLandmarks.GLOBAL, key.getValue().withPath(p -> "start/" + p + "/" + pos.x + "/" + pos.z), b -> b
+				outMarkers.put(Landmark.create(WorldLandmarks.GLOBAL, key.getValue().withPath(p -> "start/" + p + "/" + pos.x() + "/" + pos.z()), b -> b
 					.add(LandmarkComponentTypes.POS, pos.getCenterAtY(0))
 					.add(LandmarkComponentTypes.NAME, Text.translatable(ProviderType.TAG.translation(entry.getKey())))
 				), entry.getValue()));

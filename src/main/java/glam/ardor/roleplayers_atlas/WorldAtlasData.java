@@ -252,7 +252,7 @@ public class WorldAtlasData {
 			if (pos == null) break;
 			TileChoice tile = summary.dimension() == World.NETHER ? TerrainTiling.terrainToTileNether(summary, pos) : TerrainTiling.terrainToTile(summary, pos);
 			if (tile != null) {
-				tileScope.extendTo(pos.x, pos.z);
+				tileScope.extendTo(pos.x(), pos.z());
 				// A patch names this one chunk and outranks anything worked out
 				// from its biome. The height tier still applies on top, so a
 				// painted forest still climbs its hills.
@@ -308,7 +308,7 @@ public class WorldAtlasData {
 		if (client.player == null || !client.player.getEntityWorld().getRegistryKey().equals(summary.dimension())) return;
 		double px = client.player.getX();
 		double pz = client.player.getZ();
-		ChunkPos playerChunk = new ChunkPos(client.player.getBlockPos());
+		ChunkPos playerChunk = ChunkPos.fromBlockPos(client.player.getBlockPos());
 		boolean any = false;
 		for (Landmark landmark : getAllMarkers(1).keySet()) {
 			String key = RoleplayersAtlas.trackKey(landmark);
@@ -353,7 +353,7 @@ public class WorldAtlasData {
 		if (client.player == null || !client.player.getEntityWorld().getRegistryKey().equals(summary.dimension())) return;
 		double px = client.player.getX();
 		double pz = client.player.getZ();
-		ChunkPos playerChunk = new ChunkPos(client.player.getBlockPos());
+		ChunkPos playerChunk = ChunkPos.fromBlockPos(client.player.getBlockPos());
 		for (Map.Entry<Landmark, MarkerTexture> entry : getEditableLandmarks().entrySet()) {
 			Landmark landmark = entry.getKey();
 			if (!AtlasTime.isUnverified(landmark)) continue;

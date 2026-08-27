@@ -136,8 +136,8 @@ public final class MapShare {
 			NbtList chunkList = new NbtList();
 			BiomeOverrides.ownPatches(dim).forEach((pos, look) -> {
 				NbtCompound entry = new NbtCompound();
-				entry.putInt("X", pos.x);
-				entry.putInt("Z", pos.z);
+				entry.putInt("X", pos.x());
+				entry.putInt("Z", pos.z());
 				entry.putString("To", look.toString());
 				chunkList.add(entry);
 			});
@@ -147,8 +147,8 @@ public final class MapShare {
 			NbtList cityList = new NbtList();
 			CityPaint.ownCells(dim).forEach((pos, tile) -> {
 				NbtCompound entry = new NbtCompound();
-				entry.putInt("X", pos.x);
-				entry.putInt("Z", pos.z);
+				entry.putInt("X", pos.x());
+				entry.putInt("Z", pos.z());
 				entry.putString("To", tile.toString());
 				cityList.add(entry);
 			});

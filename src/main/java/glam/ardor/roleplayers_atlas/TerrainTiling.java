@@ -108,7 +108,7 @@ public class TerrainTiling {
 
 	/** A number that is the chunk's own and looks like nothing in particular. */
 	private static int scatter(ChunkPos pos) {
-		long h = pos.x * 0x9E3779B97F4A7C15L ^ pos.z * 0xC2B2AE3D27D4EB4FL;
+		long h = pos.x() * 0x9E3779B97F4A7C15L ^ pos.z() * 0xC2B2AE3D27D4EB4FL;
 		h ^= h >>> 29;
 		h *= 0xBF58476D1CE4E5B9L;
 		h ^= h >>> 32;
