@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 52
-last_updated_utc: "2026-08-27T19:28:22Z"
+state_revision: 53
+last_updated_utc: "2026-08-27T19:32:06Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P5_IN_PROGRESS"
 current_phase: "P5"
-current_task: "P5-T03_RENDER_AND_MIXIN_AUDIT"
+current_task: "P5-T03_ALLOCATOR_LIFETIME"
 
 authority:
   precedence:
@@ -848,6 +848,10 @@ p5_tasks:
     name: "Migrate held custom geometry, screens, input, and version-sensitive mixins"
     status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "Exact target source and Modern Yarn bytecode prove GameRenderer.renderHand now has (CameraRenderState, float, Matrix4fc) and invokes bobView(CameraRenderState, MatrixStack)."
+      - "Retargeted only MixinGameRenderer's WrapOperation descriptor, handler parameters, and original.call argument order to the exact target invocation; compileJava passed in 13 seconds."
+      - "Audited the six other declared mixins against exact target descriptors: DrawContext.state, MinecraftClient.openGameMenu(boolean), Screen.applyBlur/renderDarkening, all HeldItemRenderer fields/methods, the P4-proven Surveyor shim, and optional require=0 Punchy target remain structurally valid."
   - id: "P5-T04"
     name: "Validate compilation, mixin application, client/server startup, and human visual/input behavior"
     status: "PENDING"
@@ -1023,6 +1027,7 @@ repository_state:
   p4_fixture_integrity_commit: "a017b2621bfb9e594a98396d8c4c253b540b8551"
   p4_compatibility_commit: "3a598667c400be596f2f7fb8f907592c722edba1"
   p5_approval_commit: "093e3e7740893063b26b197c3979ad7b4b368b02"
+  p5_renderer_compile_commit: "4279b9863"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1089,6 +1094,7 @@ test_evidence:
     approval_preflight: "PASS: exact branch, HEAD, clean status, annotated P0 tag target, design hash, P0-P4 completion, unchanged P2 lock, P4 production-scope boundary, and no-publication record verified before the approval checkpoint"
     entry_compile_boundary: "EXPECTED_P5_FAILURE_REPRODUCED: exactly four errors, comprising three BufferAllocator symbols and one RenderLayers.entityNoOutline symbol"
     renderer_compile_category: "PASS: allocator package and supported no-outline translucent-layer substitutions eliminate all four errors; compileJava BUILD SUCCESSFUL in 14s with zero errors"
+    mixin_descriptor_compile: "PASS_AT_COMPILE_BOUNDARY: exact GameRenderer bobView descriptor and WrapOperation handler migrated; all seven declared mixin surfaces structurally audited; compileJava BUILD SUCCESSFUL in 13s"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1209,13 +1215,15 @@ latest_session:
     - "Committed the YAML-only P5 approval checkpoint locally as 093e3e7740893063b26b197c3979ad7b4b368b02 before the first production edit."
     - "Reproduced exactly four P5 compile errors, then compared exact baseline/target allocator bytecode and target RenderTypes/RenderPipelines source before editing."
     - "Moved only the BufferAllocator import and replaced the removed entityNoOutline call with entityTranslucent(texture, false); compileJava then passed with zero errors under the unchanged P2 lock."
+    - "Committed the bounded renderer compile category and revision-52 evidence locally as 4279b9863."
+    - "Exact target GameRenderer source/bytecode proved bobView now receives CameraRenderState plus MatrixStack; retargeted the one stale WrapOperation descriptor and audited all six other declared mixins without speculative edits."
   blockers:
     - "Human visual and input observation will be required before P5 can be marked complete; no such target-runtime result is claimed yet."
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
     - "P6 and later phases remain independently blocked."
   next_action: >-
-    Audit the exact target custom-geometry execution and allocator shutdown lifetime plus all seven P5-sensitive
-    mixin targets/descriptors, apply only proven render/mixin repairs, and rerun compileJava.
+    Close the renderer-owned native BufferAllocator at the exact client-stopping lifecycle, then rerun compileJava
+    and launch the development client to validate actual mixin application and rendering startup.
 
 agent_first_prompt:
   text: >-
