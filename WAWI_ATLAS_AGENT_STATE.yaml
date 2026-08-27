@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 57
-last_updated_utc: "2026-08-27T21:10:52Z"
+state_revision: 58
+last_updated_utc: "2026-08-27T21:31:19Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P5_IN_PROGRESS"
+project_status: "P5_COMPLETE_AWAITING_P6_APPROVAL"
 current_phase: "P5"
-current_task: "P5-T04_RUNTIME_MIXIN_STARTUP"
+current_task: "APPROVAL_STOP_BEFORE_P6"
 
 authority:
   precedence:
@@ -454,7 +454,7 @@ phase_plan:
     purpose: "Adapt exploration, summaries, landmarks, components, storage, synchronization, and visibility to current Surveyor."
   - id: "P5"
     name: "Rendering, screen, input, and mixin migration"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Migrate render state, GUI, handheld atlas, input, and version-sensitive mixins with visual checkpoints."
@@ -858,7 +858,7 @@ p5_tasks:
       - "compileJava passed in 16 seconds after the allocator-lifetime hook; no screen or input compile repair beyond the exact descriptor migration was exposed."
   - id: "P5-T04"
     name: "Validate compilation, mixin application, client/server startup, and human visual/input behavior"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "Two discarded isolated-run init-script variants failed during Gradle configuration before Minecraft started: one attempted to clear a finalized program-argument list and one attempted to replace a finalized run directory. Neither result is an Atlas runtime failure."
@@ -873,10 +873,21 @@ p5_tasks:
       - "Final exact-lock offline clean build passed in 44 seconds with eight actionable tasks: seven executed, compileJava from cache, and tests NO-SOURCE."
       - "The approval-to-HEAD range contains exactly RoleplayersAtlas, HandheldAtlasRenderer, MixinGameRenderer, DrawBatcher, and durable state; build-lock, src/main/resources, and compat-fixtures/p4 diffs are empty."
       - "git diff --check and clean-status checks pass; the design hash and annotated P0 tag target are unchanged, no upstream is configured, and no publication occurred."
+      - "The coordinated menu-only client created and joined fresh disposable world P5test; Player800 joined, Atlas restored 24 Overworld tiles, and no Atlas, renderer, mixin-application, or integrated-server exception occurred."
+      - "The human owner passed the closed-to-handheld-to-fullscreen-to-closed M-key cycle, ordinary movement/look, handheld book/map transparency/depth/layering without black boxes, flicker, unwanted outline, or obvious overlap defects, and fullscreen pan/zoom."
+      - "The human owner passed both held-map bob modes: natural sway with stabilization off and a level handheld atlas with Steady the held atlas on, while ordinary world/camera movement remained normal."
+      - "The human owner passed smaller/larger window resize, a GUI-scale change, pause/resume, post-transition handheld/fullscreen rendering, M-key cycling, pan/zoom, and ordinary input with no clipping, blank map, misplaced-control, crash, or broken-input report."
+      - "F3+T was intentionally not exercised because resource-reloader migration belongs to separately approval-gated P6; startup resource loading alone is recorded without crossing that gate."
+      - "Normal Save and Quit stopped P5test and saved Overworld, Nether, and End; Quit Game logged Minecraft Stopping and Gradle BUILD SUCCESSFUL in 7m21s. jps reported no remaining Java process and test ports 25565/25575 were free."
   - id: "P5-T05"
     name: "Audit P5 scope and close at the P6 approval gate"
-    status: "PENDING"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "Exact-lock compile categories, clean build, client mixin/render startup, dedicated-server startup, human visual/input checkpoints, and normal client/server shutdown all pass."
+      - "Final P5 approval-range scope is exactly four rendering/lifecycle/mixin Java files plus durable state; no build/dependency lock, production resource, P4 fixture, Surveyor interface, serialization, identity, feature, art, or packaging change occurred."
+      - "git diff --check and YAML structural validation pass; the branch is clean after each categorized commit, the design hash and annotated P0 tag target remain unchanged, and no upstream, push, release, upload, or publication exists."
+      - "P5 is complete at the explicit P6 approval stop; P6 resources/reloaders/identifiers/registries/serialization and every later phase remain unauthorized."
 
 decisions:
   - id: "DEC-001"
@@ -951,14 +962,14 @@ known_risks:
     mitigation: "Freeze fixtures before migration; require old-read/new-round-trip and failure-path tests before acceptance."
   - id: "RISK-004"
     severity: "S2"
-    status: "OPEN"
+    status: "MITIGATED_FOR_P5_PENDING_P6_RESOURCES"
     risk: "Minecraft 26.1 render/input/resource APIs and mixin targets are version-sensitive and visually test-heavy."
-    mitigation: "Use exact target source, small categorized commits, structural audits, and human visual checkpoints."
+    mitigation: "P5 exact-source, compile, mixin-startup, server, and human render/input checkpoints pass. Resource/reloader behavior remains separately owned by P6."
   - id: "RISK-005"
     severity: "S2"
-    status: "OPEN"
+    status: "MITIGATED_AT_P5_RETAINED_FOR_LATER_GATES"
     risk: "Client-only implementation or embedded Surveyor may still produce dedicated-server classloading regressions."
-    mitigation: "Run dedicated-server smoke gates at build migration, integration, hardening, and release-candidate phases."
+    mitigation: "The exact-lock P5 dedicated server reached Done, loaded all dimensions, and stopped/saved cleanly. Repeat at hardening and release-candidate gates."
   - id: "RISK-006"
     severity: "S1"
     status: "OPEN"
@@ -971,9 +982,9 @@ known_risks:
     mitigation: "Preserve repository notices now; correct and audit release packaging in an approved build/release phase before distribution."
   - id: "RISK-008"
     severity: "S1"
-    status: "MITIGATED_BY_SOURCE_ARCHAEOLOGY_PENDING_RUNTIME_REGRESSION"
+    status: "MITIGATED_AND_TARGET_RUNTIME_VERIFIED"
     risk: "Client startup warns that optional punchy/config/PunchyConfig is absent."
-    mitigation: "P1 confirmed @Pseudo, remap=false, and require=0 fail-soft intent; retain a target startup regression check."
+    mitigation: "P1 confirmed @Pseudo, remap=false, and require=0 fail-soft intent; P5 target startup emitted only the expected warning and continued through world join and normal shutdown."
   - id: "RISK-009"
     severity: "S1"
     status: "OPEN_HARNESS_LIMITATION"
@@ -1001,9 +1012,9 @@ known_risks:
     mitigation: "The exact source pin clean-built against the P2 lock and P4's exact target dedicated-server fixture probe passed all reachable codecs/persistence; repeat full Atlas client/dedicated synchronization after P5 compilation in P7/P8."
   - id: "RISK-014"
     severity: "S2"
-    status: "OPEN"
+    status: "MITIGATED_AND_HUMAN_VERIFIED"
     risk: "Minecraft 26.1.2 removed the held renderer's old ordered submitCustom API and changed the GameRenderer bobView/renderHand descriptors."
-    mitigation: "Migrate only in P5 using exact source, preserve ordering/translucency, audit mixin application, and repeat handheld/fullscreen visual checks."
+    mitigation: "P5 exact-source migration retained target custom geometry, retargeted bobView, passed mixin startup, and passed human handheld/fullscreen ordering, input, bob, resize, scale, and pause checkpoints."
   - id: "RISK-015"
     severity: "S2"
     status: "OPEN"
@@ -1021,9 +1032,9 @@ known_risks:
     mitigation: "Pointing jdk.net.unixdomain.tmpdir at a nonexistent path makes the JDK fall back to TCP loopback; this is an uncommitted execution setting and all proof builds then ran normally."
   - id: "RISK-018"
     severity: "S2"
-    status: "OPEN_DEFERRED_TO_P5"
+    status: "MITIGATED_AND_HUMAN_VERIFIED"
     risk: "The target removed DrawBatcher's RenderLayers.entityNoOutline texture factory; choosing a replacement can affect blending, depth, outlines, and map appearance."
-    mitigation: "Leave the call untouched in P3 and migrate it in P5 with exact render-layer source evidence and visual regression checks."
+    mitigation: "P5 selected target entityTranslucent(texture, false) from exact source; the human owner observed correct handheld transparency, depth/layering, and no black box, flicker, or unwanted outline."
   - id: "RISK-019"
     severity: "S1"
     status: "OPEN_ASSIGNED_TO_P7_P8_POLICY_AND_RUNTIME_MATRIX"
@@ -1054,6 +1065,7 @@ repository_state:
   p5_allocator_lifecycle_commit: "1e8c8bb017b9f9beafebae96030c8fefa6e8b6bd"
   p5_interrupted_runtime_commit: "53b9469bd9fe87de71f57278758aa7d74f67d730"
   p5_server_launch_harness_commit: "d220ce36a"
+  p5_previsual_validation_commit: "27b1abcc5ffa58c8d62561c23ce85eb0d65e753b"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1127,6 +1139,10 @@ test_evidence:
     dedicated_server_smoke: "PASS: exact locked isolated server reached Done with Surveyor loading all three dimensions; literal stop saved all dimensions, Gradle returned BUILD SUCCESSFUL in 40s, and port 25565 was free afterward"
     final_clean_build: "PASS: exact-lock offline clean build completed in 44s; eight actionable tasks, seven executed, compileJava from cache, tests NO-SOURCE"
     pre_visual_scope_audit: "PASS: approval-to-HEAD contains four P5-owned Java files plus state; no build-lock, src/main/resources, or P4-fixture diff; diff check and clean status pass; design hash and annotated P0 tag target unchanged; no upstream or publication"
+    coordinated_client_startup: "PASS: verified menu-only harness launched exact 26.1.2 stack, owner created fresh P5test, Player800 joined, Atlas restored 24 Overworld tiles, and no Atlas/render/mixin/integrated-server exception occurred"
+    human_visual_input_matrix: "PASS_OWNER_OBSERVED: handheld/fullscreen/closed cycle, movement/look, handheld transparency-depth-layering, fullscreen pan/zoom, bobbing off/on stabilization semantics, resize, GUI-scale change, pause/resume, post-transition rendering, and input all passed"
+    normal_client_shutdown: "PASS: Save and Quit stopped P5test and saved all three dimensions; Quit Game logged Stopping; Gradle BUILD SUCCESSFUL in 7m21s; jps empty and ports 25565/25575 free"
+    final_scope_audit: "PASS: exactly four P5-owned Java files plus durable state; no build lock, production resource, P4 fixture, Surveyor interface, serialization, identity, feature, art, packaging, upstream, or publication change; P6 remains blocked"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1261,14 +1277,19 @@ latest_session:
     - "Ran the isolated exact-lock dedicated server to Done; Surveyor loaded all three dimensions, literal stop saved them, Gradle exited successfully, and port 25565 was released. The expected first-run missing server.properties message did not prevent default generation or startup."
     - "Committed the menu-only launch-harness and dedicated-server evidence locally as d220ce36a, then passed the final exact-lock offline clean build in 44 seconds with tests NO-SOURCE."
     - "The pre-visual scope audit found exactly four P5-owned production Java files plus state and no build-lock, resource, or frozen-fixture change; repository, tag, design-hash, upstream, and no-publication invariants pass."
+    - "Committed the clean-build and pre-visual audit checkpoint locally as 27b1abcc5ffa58c8d62561c23ce85eb0d65e753b."
+    - "The coordinated menu-only client launched the exact target stack; the owner created P5test, Player800 joined, Atlas restored 24 Overworld tiles, and logs showed no project startup or world-join exception."
+    - "The human owner passed the complete focused P5 matrix: M-key handheld/fullscreen/closed cycle, ordinary movement/look, handheld transparency/depth/layering, fullscreen pan/zoom, default bob plus enabled stabilization, window resize, GUI-scale change, pause/resume, and post-transition input/rendering."
+    - "F3+T was deliberately excluded to preserve the separate P6 resource gate. Normal Save and Quit saved all dimensions; Quit Game logged Stopping and Gradle BUILD SUCCESSFUL, with no Java process or test listener remaining."
+    - "Final P5 scope and invariant audits pass; P5 is complete and stops before P6 with no push, release, upload, or publication."
   blockers:
-    - "Human visual and input observation will be required before P5 can be marked complete; no such target-runtime result is claimed yet."
-    - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
-    - "P6 and later phases remain independently blocked."
+    - "P6 resources, reloaders, identifiers, registries, and serialization require separate explicit human approval."
+    - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks remain assigned to the later P7/P8 matrix."
+    - "P7 and later phases remain independently blocked."
   next_action: >-
-    Coordinate a human checkpoint, launch the verified isolated menu-only 26.1.2 client, and score the focused
-    P5 handheld rendering, two-stage M-key transition, fullscreen pan/zoom, movement/look, bob stabilization,
-    resize, GUI-scale, and pause/resume matrix without entering P6 resource migration or later-phase work.
+    Request explicit human approval for P6 only under GPT-5.6 Sol High: resources, reloaders, identifiers,
+    registries, and serialization, beginning with exact target source and reload/fixture evidence while P7 and
+    later phases remain excluded. Do not begin P6, run its F3+T acceptance, or edit its surfaces before approval.
 
 agent_first_prompt:
   text: >-
