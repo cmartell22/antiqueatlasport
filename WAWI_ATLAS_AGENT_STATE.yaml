@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 45
-last_updated_utc: "2026-08-27T18:01:06Z"
+state_revision: 46
+last_updated_utc: "2026-08-27T18:13:40Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P3_COMPLETE_AWAITING_P4_APPROVAL"
-current_phase: "P3"
-current_task: "APPROVAL_STOP_BEFORE_P4"
+project_status: "P4_IN_PROGRESS"
+current_phase: "P4"
+current_task: "P4-T02_FREEZE_COMPATIBILITY_FIXTURES"
 
 authority:
   precedence:
@@ -107,6 +107,22 @@ approvals:
       - "No P5 behavioral rendering, input, or mixin migration, including held custom geometry or GameRenderer descriptors."
       - "No P6 resource-loader or serialization migration beyond minimum compile-safe symbol changes."
       - "No dependency-lock change, broad refactor, package rename, identity, feature, gameplay, or art change."
+      - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "Do not fix RISK-007 packaging."
+      - "No push, release, upload, or publication."
+  - id: "APPROVAL-P4-001"
+    recorded_date: "2026-08-27"
+    source: "Human project owner in the Codex task: 'approve. proceed with P4'"
+    status: "APPROVED"
+    scope: >-
+      Execute P4 only under GPT-5.6 Sol High methodology: migrate and validate integration with the
+      exact locked current Surveyor, including Surveyor-owned persistence, codecs, packets, landmarks,
+      ownership, synchronization, map-data behavior, and frozen-fixture compatibility probes.
+    exclusions:
+      - "No P5 rendering, screen, input, or mixin migration, including the four deliberately deferred compile errors."
+      - "No P6 resource-loader migration or unrelated serialization redesign."
+      - "Do not change the exact P2 dependency lock unless a proven defect is recorded and work stops for approval."
+      - "No broad refactor, package rename, identity, WAWI feature, gameplay, or art change."
       - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
       - "Do not fix RISK-007 packaging."
       - "No push, release, upload, or publication."
@@ -416,7 +432,7 @@ phase_plan:
     purpose: "Restore compilation in small categorized batches while preserving behavior and reviewing each diff."
   - id: "P4"
     name: "Current Surveyor integration migration"
-    status: "BLOCKED_PENDING_P4_APPROVAL"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Adapt exploration, summaries, landmarks, components, storage, synchronization, and visibility to current Surveyor."
@@ -737,6 +753,37 @@ p3_tasks:
       - "Locked modCompileClasspath and processResources both pass; P3 changed no build/dependency lock or production resource."
       - "Range and semantic audits pass: git diff --check is clean; no resource, serialization-format, Surveyor-interface, identity, art, or packaging change occurred; P0 tag is unchanged and no publication occurred."
 
+p4_tasks:
+  - id: "P4-T01"
+    name: "Record P4 approval and verify entry invariants"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "APPROVAL-P4-001 records the owner's current-Surveyor integration scope and P5/P6 exclusions."
+      - "Verified clean branch port/26.1.2 at 94c0b334d7ed4b3500fcdbc8da0df9d6fb6e37bb before any P4 production edit."
+      - "Verified annotated p0-baseline-1.21.11 remains an annotated tag peeling to 7099b4df2420d5441e3b2b02e53201a0b249c8f9."
+      - "Verified the locked design SHA-256, P0-P3 COMPLETE, the single P4 approval next action, and the no-publication record."
+  - id: "P4-T02"
+    name: "Freeze and hash representative Surveyor and .atlas compatibility fixtures"
+    status: "IN_PROGRESS"
+    model: "GPT-5.6 Sol High"
+    evidence: []
+  - id: "P4-T03"
+    name: "Compare exact legacy and target Surveyor integration semantics"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+    evidence: []
+  - id: "P4-T04"
+    name: "Apply bounded Surveyor integration migration and compatibility probes"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+    evidence: []
+  - id: "P4-T05"
+    name: "Validate persistence, ownership, synchronization, and close the P4 gate"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+    evidence: []
+
 decisions:
   - id: "DEC-001"
     date: "2026-08-26"
@@ -931,7 +978,7 @@ test_evidence:
 
 latest_session:
   date_utc: "2026-08-27"
-  phase: "P3"
+  phase: "P4"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
     - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
@@ -1025,14 +1072,14 @@ latest_session:
     - "Re-ran the exact locked offline modCompileClasspath and processResources checks; both succeeded with the P2 versions unchanged."
     - "Final approval-to-HEAD audits found no build-lock or resource diff, no Surveyor-interface or serialization-format change, no obsolete P3-owned symbol, a clean diff check, the unchanged annotated P0 tag target, and no external publication."
     - "P3 is complete at the compile boundary accepted by the owner; stopped before P4 and retained P5/P6 blocking gates."
+    - "Human project owner explicitly approved P4 current-Surveyor integration work; APPROVAL-P4-001 records persistence, codec, packet, landmark, ownership, synchronization, map-data, and frozen-fixture scope with P5/P6 still excluded."
+    - "Reverified clean port/26.1.2 at 94c0b334d7ed4b3500fcdbc8da0df9d6fb6e37bb, locked design SHA-256, unchanged annotated P0 tag target, P0-P3 completion, the P4 approval gate, and the no-publication record before any P4 production edit."
   blockers:
-    - "P4 remains blocked pending separate explicit approval for Surveyor integration work."
     - "Four P5 rendering-owned compile errors remain deliberately deferred: three BufferAllocator references and one RenderLayers.entityNoOutline call."
     - "P5, P6, and later work remain blocked without their own explicit approvals."
   next_action: >-
-    Request explicit human approval for P4 only: current Surveyor integration migration under GPT-5.6 Sol High,
-    including persistence, codecs, packets, landmarks, ownership, synchronization, map-data behavior, and frozen-fixture
-    compatibility probes, while P5 rendering/input/mixins and P6 resources/serialization remain excluded.
+    Commit the YAML-only P4 approval checkpoint, then inventory, copy without mutation, and hash representative
+    P0 Surveyor persistence plus singleplayer and multiplayer/hearsay .atlas fixtures before any integration edit.
 
 agent_first_prompt:
   text: >-
