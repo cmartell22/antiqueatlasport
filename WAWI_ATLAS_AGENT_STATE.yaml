@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 56
-last_updated_utc: "2026-08-27T21:08:38Z"
+state_revision: 57
+last_updated_utc: "2026-08-27T21:10:52Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P5_IN_PROGRESS"
 current_phase: "P5"
@@ -870,6 +870,9 @@ p5_tasks:
       - "A Gradle configuration-only help check reported runDir=run/p5-client/ and programArgs=[] and completed successfully without launching Minecraft."
       - "The isolated exact-lock dedicated server reached Done, loaded Surveyor data for Overworld, Nether, and End, then accepted literal stop, saved all dimensions, returned BUILD SUCCESSFUL in 40 seconds, and released port 25565."
       - "The dedicated server's only logged error was the expected first-run absence of server.properties, after which Minecraft generated defaults and reached Done; there was no Atlas, mixin, or classloading exception."
+      - "Final exact-lock offline clean build passed in 44 seconds with eight actionable tasks: seven executed, compileJava from cache, and tests NO-SOURCE."
+      - "The approval-to-HEAD range contains exactly RoleplayersAtlas, HandheldAtlasRenderer, MixinGameRenderer, DrawBatcher, and durable state; build-lock, src/main/resources, and compat-fixtures/p4 diffs are empty."
+      - "git diff --check and clean-status checks pass; the design hash and annotated P0 tag target are unchanged, no upstream is configured, and no publication occurred."
   - id: "P5-T05"
     name: "Audit P5 scope and close at the P6 approval gate"
     status: "PENDING"
@@ -1050,6 +1053,7 @@ repository_state:
   p5_game_renderer_mixin_commit: "33954cc68"
   p5_allocator_lifecycle_commit: "1e8c8bb017b9f9beafebae96030c8fefa6e8b6bd"
   p5_interrupted_runtime_commit: "53b9469bd9fe87de71f57278758aa7d74f67d730"
+  p5_server_launch_harness_commit: "d220ce36a"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1121,6 +1125,8 @@ test_evidence:
     isolated_client_startup: "PARTIAL_PASS_USER_TERMINATED: exact locked client reached render-thread, mixin, LWJGL/OpenGL, Indigo, audio, vanilla texture-atlas, and all four Atlas resource-reloader initialization with no project exception; owner closed the unexpected window, Minecraft logged Stopping, and Gradle returned BUILD SUCCESSFUL; title-screen observation and visual/input behavior remain unscored"
     isolated_client_launch_config: "PASS: exact Loom 1.17.19 RunConfiguration ListProperty override resolves runDir=run/p5-client/ and programArgs=[] during a non-launching offline Gradle help check"
     dedicated_server_smoke: "PASS: exact locked isolated server reached Done with Surveyor loading all three dimensions; literal stop saved all dimensions, Gradle returned BUILD SUCCESSFUL in 40s, and port 25565 was free afterward"
+    final_clean_build: "PASS: exact-lock offline clean build completed in 44s; eight actionable tasks, seven executed, compileJava from cache, tests NO-SOURCE"
+    pre_visual_scope_audit: "PASS: approval-to-HEAD contains four P5-owned Java files plus state; no build-lock, src/main/resources, or P4-fixture diff; diff check and clean status pass; design hash and annotated P0 tag target unchanged; no upstream or publication"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1253,6 +1259,8 @@ latest_session:
     - "Committed the interrupted-run classification and revision-55 state-only evidence locally as 53b9469bd9fe87de71f57278758aa7d74f67d730."
     - "Inspected Loom 1.17.19's exact RunConfiguration/RunConfigSettings APIs, then validated without launching Minecraft that the ignored client harness resolves to run/p5-client/ with an empty program-argument list."
     - "Ran the isolated exact-lock dedicated server to Done; Surveyor loaded all three dimensions, literal stop saved them, Gradle exited successfully, and port 25565 was released. The expected first-run missing server.properties message did not prevent default generation or startup."
+    - "Committed the menu-only launch-harness and dedicated-server evidence locally as d220ce36a, then passed the final exact-lock offline clean build in 44 seconds with tests NO-SOURCE."
+    - "The pre-visual scope audit found exactly four P5-owned production Java files plus state and no build-lock, resource, or frozen-fixture change; repository, tag, design-hash, upstream, and no-publication invariants pass."
   blockers:
     - "Human visual and input observation will be required before P5 can be marked complete; no such target-runtime result is claimed yet."
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks require P5 compilation first and remain assigned to the later P7/P8 matrix."
