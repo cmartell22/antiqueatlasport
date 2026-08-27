@@ -124,12 +124,12 @@ public final class ParchmentExport {
 				if (framed != crop) framed.close();
 				crop.close();
 				if (player != null) {
-					player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.saved", fileLink(file)), false);
+					player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.saved", fileLink(file)));
 					AtlasSounds.exportDone();
 				}
 			} catch (Exception e) {
 				RoleplayersAtlas.LOGGER.warn("[Roleplayer's Atlas] View capture failed", e);
-				if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.failed"), false);
+				if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.failed"));
 			}
 		});
 	}

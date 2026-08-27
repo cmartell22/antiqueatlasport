@@ -1043,7 +1043,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		if (totalPxW <= 0 || totalPxH <= 0 || totalPxW * totalPxH > 400_000_000L) {
 			tilePixels = savedTilePixels;
 			tileChunks = savedTileChunks;
-			if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.tooLarge"), false);
+			if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.tooLarge"));
 			return;
 		}
 
@@ -1060,7 +1060,7 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 		if (firstCell >= hasContent.length) {
 			tilePixels = savedTilePixels;
 			tileChunks = savedTileChunks;
-			if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.empty"), false);
+			if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.empty"));
 			return;
 		}
 
@@ -1145,12 +1145,12 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 			java.nio.file.Path file = glam.ardor.roleplayers_atlas.ParchmentExport.save(framed, "atlas_map");
 			if (framed != export.image) framed.close();
 			if (player != null) {
-				player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.saved", glam.ardor.roleplayers_atlas.ParchmentExport.fileLink(file)), false);
+				player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.saved", glam.ardor.roleplayers_atlas.ParchmentExport.fileLink(file)));
 				glam.ardor.roleplayers_atlas.AtlasSounds.exportDone();
 			}
 		} catch (Exception e) {
 			RoleplayersAtlas.LOGGER.warn("[Roleplayer's Atlas] Full map export failed", e);
-			if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.failed"), false);
+			if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.screenshot.failed"));
 		}
 		restoreAfterExport(export);
 	}

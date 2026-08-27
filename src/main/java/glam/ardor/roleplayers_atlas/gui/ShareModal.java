@@ -508,13 +508,13 @@ public class ShareModal extends Component {
 			Path file = MapShare.export(dim, summary, manager, selected, includeTerrain, includeCorrections, includeAuthor, nameField.getText());
 			if (player != null) {
 				// An .atlas file has nothing to open it, so the link reveals the folder.
-				player.sendMessage(Text.translatable("gui.roleplayers_atlas.share.exported", glam.ardor.roleplayers_atlas.ParchmentExport.folderLink(file)), false);
+				player.sendMessage(Text.translatable("gui.roleplayers_atlas.share.exported", glam.ardor.roleplayers_atlas.ParchmentExport.folderLink(file)));
 				glam.ardor.roleplayers_atlas.AtlasSounds.exportDone();
 			}
 			closeChild();
 		} catch (Exception e) {
 			glam.ardor.roleplayers_atlas.RoleplayersAtlas.LOGGER.warn("[Roleplayer's Atlas] Export failed", e);
-			if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.share.exportFailed"), false);
+			if (player != null) player.sendMessage(Text.translatable("gui.roleplayers_atlas.share.exportFailed"));
 		}
 	}
 
@@ -523,10 +523,10 @@ public class ShareModal extends Component {
 		MapShare.ImportResult result = MapShare.importFile(file, dim, summary, manager);
 		if (player != null) {
 			if (result.error() != null) {
-				player.sendMessage(Text.translatable("gui.roleplayers_atlas.share." + result.error()), false);
+				player.sendMessage(Text.translatable("gui.roleplayers_atlas.share." + result.error()));
 				return;
 			}
-			player.sendMessage(Text.translatable("gui.roleplayers_atlas.share.imported", result.landmarks(), result.regions(), result.corrections()), false);
+			player.sendMessage(Text.translatable("gui.roleplayers_atlas.share.imported", result.landmarks(), result.regions(), result.corrections()));
 			MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_VILLAGER_WORK_CARTOGRAPHER, 1F));
 		}
 		if (getParent() instanceof AtlasScreen screen) screen.updateBookmarkerList();
