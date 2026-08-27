@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 33
-last_updated_utc: "2026-08-27T06:23:13Z"
+state_revision: 34
+last_updated_utc: "2026-08-27T15:59:04Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P0_COMPLETE_AWAITING_P1_APPROVAL"
-current_phase: "P0"
-current_task: "APPROVAL_STOP_BEFORE_P1"
+project_status: "P1_IN_PROGRESS"
+current_phase: "P1"
+current_task: "P1_SOURCE_ARCHAEOLOGY_AND_API_DELTA_DOSSIER"
 
 authority:
   precedence:
@@ -66,6 +66,20 @@ approvals:
       - "No 26.1.2 production uplift or P1 work."
       - "No push, release, upload, or publication."
       - "Stop when further progress requires human-observed testing or a new phase approval."
+  - id: "APPROVAL-P1-001"
+    recorded_date: "2026-08-27"
+    source: "Human project owner in the Codex task: 'approve, proceed with P1 work.'"
+    status: "APPROVED"
+    scope: >-
+      Execute P1 only: perform source archaeology, fetch and pin the exact upstream Antique Atlas
+      and target Surveyor sources with full immutable commit SHAs, inventory Atlas-to-Minecraft,
+      Fabric, and Surveyor touchpoints, and produce an evidence-backed API-delta dossier before
+      any production uplift edits.
+    exclusions:
+      - "No P2 or later phase work without a new explicit approval."
+      - "No production dependency changes or 26.1.2 implementation edits."
+      - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "No push, release, upload, or publication."
 
 project:
   working_name: "WAWI Antique Atlas Port"
@@ -290,7 +304,7 @@ phase_plan:
       - "A reviewed P0 commit and immutable local baseline tag exist only after all exit criteria pass."
   - id: "P1"
     name: "Source archaeology and API-delta dossier"
-    status: "BLOCKED_PENDING_APPROVAL"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Inventory every Atlas-to-Minecraft/Fabric/Surveyor touchpoint and produce a sourced port map before edits."
@@ -616,8 +630,8 @@ test_evidence:
     persisted_client_control_data: "PASS: 5 files / 49051 bytes retained under ignored run/p0-client/data/surveyor"
 
 latest_session:
-  date_utc: "2026-08-26"
-  phase: "P0"
+  date_utc: "2026-08-27"
+  phase: "P1"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
     - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
@@ -667,11 +681,12 @@ latest_session:
     - "Closed Player777 normally, then stopped the server with its literal command; both Gradle runs succeeded, Surveyor and all dimensions saved, and no test runtime or listener remained. P0-T07 is complete."
     - "Final clean build reproduced the established stabilized artifact hashes; the complete source-pin diff and artifact/legal audits found no unapproved change and reconfirmed the inherited RISK-007 packaging defect."
     - "Completed P0-T08 locally with the reviewed gate commit and annotated p0-baseline-1.21.11 tag; no push, release, upload, publication, or 26.1.2 uplift occurred."
-  blockers:
-    - "P1 requires a new explicit approval from the human project owner."
+    - "Human project owner explicitly approved P1 in the Codex task; APPROVAL-P1-001 records the exact scope and exclusions before archaeology begins."
+    - "Reverified clean branch port/26.1.2 at P0 tag target 7099b4df2420d5441e3b2b02e53201a0b249c8f9 and validated the locked design-doc.txt SHA-256 before entering P1."
+  blockers: []
   next_action: >-
-    Stop at the P0 approval gate. Wait for the human project owner's explicit approval before beginning P1 source
-    archaeology or any 26.1.2 uplift work; do not push, release, upload, publish, or move the local baseline tag.
+    Fetch and pin the exact upstream Antique Atlas and target Surveyor sources, then inventory the
+    Atlas-to-Minecraft, Fabric, and Surveyor API touchpoints for the P1 evidence dossier; do not begin P2.
 
 agent_first_prompt:
   text: >-
