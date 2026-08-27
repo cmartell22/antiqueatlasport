@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 46
-last_updated_utc: "2026-08-27T18:13:40Z"
+state_revision: 47
+last_updated_utc: "2026-08-27T18:16:34Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P4_IN_PROGRESS"
 current_phase: "P4"
-current_task: "P4-T02_FREEZE_COMPATIBILITY_FIXTURES"
+current_task: "P4-T03_COMPARE_SURVEYOR_SEMANTICS"
 
 authority:
   precedence:
@@ -765,12 +765,16 @@ p4_tasks:
       - "Verified the locked design SHA-256, P0-P3 COMPLETE, the single P4 approval next action, and the no-publication record."
   - id: "P4-T02"
     name: "Freeze and hash representative Surveyor and .atlas compatibility fixtures"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
-    evidence: []
+    evidence:
+      - "Copied 49 P0 control files totaling 3,494,735 bytes into compat-fixtures/p4 without modifying the ignored sources."
+      - "Frozen two .atlas files: 926,917-byte singleplayer all-dimension export and 131,955-byte Player271 multiplayer author scroll; source and destination SHA-256 values match."
+      - "Frozen Surveyor singleplayer Overworld/Nether/End, dedicated-server, and independent multiplayer client-B persistence trees; all five deterministic source/destination tree digests match."
+      - "compat-fixtures/p4/README.md records provenance, sizes, hashes, aggregate digest algorithm, semantic coverage, and the never-migrate-in-place rule."
   - id: "P4-T03"
     name: "Compare exact legacy and target Surveyor integration semantics"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     evidence: []
   - id: "P4-T04"
@@ -925,6 +929,7 @@ repository_state:
   p3_sound_commit: "9afb00d2283ca37b28eb89c8df4a32079bc61258"
   p3_player_message_commit: "6ba4817e00e7e039de7fa88bafe97f363ba77472"
   p3_char_input_commit: "84a28327759e49359667fa2f5ce8910207bfab08"
+  p4_approval_commit: "e56e9d68f114905c2dabf099d693a5c77e6f6b85"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -975,6 +980,9 @@ test_evidence:
     resource_processing: "PASS: offline processResources is UP-TO-DATE and BUILD SUCCESSFUL"
     final_scope_audit: "PASS: approval-to-HEAD diff has only categorized Java mappings/signatures plus durable state; git diff --check passes; build lock and src/main/resources diffs are empty; Surveyor interfaces and serialization formats are unchanged"
     final_gate_audit: "PASS: branch port/26.1.2 is clean; annotated P0 tag still peels to 7099b4df2420d5441e3b2b02e53201a0b249c8f9; no upstream is configured and no push, release, upload, or publication was performed"
+  p4:
+    approval_preflight: "PASS: exact branch, HEAD, clean status, annotated P0 tag target, design hash, P0-P3 phase completion, single P4 next action, and no-publication record verified before the approval checkpoint"
+    fixture_freeze: "PASS: 49 files / 3,494,735 bytes copied from verified ignored P0 controls; two file hashes and five deterministic Surveyor tree digests match source to destination"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1074,12 +1082,15 @@ latest_session:
     - "P3 is complete at the compile boundary accepted by the owner; stopped before P4 and retained P5/P6 blocking gates."
     - "Human project owner explicitly approved P4 current-Surveyor integration work; APPROVAL-P4-001 records persistence, codec, packet, landmark, ownership, synchronization, map-data, and frozen-fixture scope with P5/P6 still excluded."
     - "Reverified clean port/26.1.2 at 94c0b334d7ed4b3500fcdbc8da0df9d6fb6e37bb, locked design SHA-256, unchanged annotated P0 tag target, P0-P3 completion, the P4 approval gate, and the no-publication record before any P4 production edit."
+    - "Committed the YAML-only P4 approval checkpoint as e56e9d68f114905c2dabf099d693a5c77e6f6b85 before any Surveyor integration or fixture edit."
+    - "Froze two representative P0 .atlas scrolls and five Surveyor persistence trees covering all three singleplayer dimensions, dedicated-server restart state, and independent multiplayer/hearsay client state."
+    - "Verified every copied .atlas hash and deterministic Surveyor tree digest matches its ignored P0 source; the tracked fixture set is 49 files totaling 3,494,735 bytes and carries provenance plus no-in-place-migration instructions."
   blockers:
     - "Four P5 rendering-owned compile errors remain deliberately deferred: three BufferAllocator references and one RenderLayers.entityNoOutline call."
     - "P5, P6, and later work remain blocked without their own explicit approvals."
   next_action: >-
-    Commit the YAML-only P4 approval checkpoint, then inventory, copy without mutation, and hash representative
-    P0 Surveyor persistence plus singleplayer and multiplayer/hearsay .atlas fixtures before any integration edit.
+    Commit the immutable P4 compatibility fixtures, then compare exact legacy and target Surveyor source for every
+    Atlas-used summary, terrain, region-packet codec, landmark component, ownership, and synchronization surface before editing production code.
 
 agent_first_prompt:
   text: >-
