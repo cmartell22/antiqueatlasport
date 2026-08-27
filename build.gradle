@@ -12,8 +12,8 @@ version = "$baseVersion+$branch"
 base.archivesName = project.slug
 
 repositories {
-	mavenLocal()
 	maven { url "https://repo.sleeping.town/" }
+	maven { url "https://repo.codemc.io/repository/relativitymc/" }
 	maven { url "https://maven.terraformersmc.com/" }
 	maven { url "https://maven.shedaniel.me/" }
 }
@@ -31,8 +31,8 @@ dependencies {
 	include libs.surveyor
 
 	// ModMenu: config screen entrypoint; present in the dev client for testing.
-	modCompileOnly "com.terraformersmc:modmenu:17.0.0"
-	modLocalRuntime "com.terraformersmc:modmenu:17.0.0"
+	modCompileOnly libs.modMenu
+	modLocalRuntime libs.modMenu
 
 	// Cloth Config: optional at runtime, so it must not be shaded in. It brings
 	// its own copy of Fabric API along, which would fight with ours.
@@ -41,6 +41,9 @@ dependencies {
 }
 
 loom {
+	useIntermediateMappings = true
+	intermediaryUrl = 'https://repo.codemc.io/repository/relativitymc/org/relativitymc/intermediary/%1$s/intermediary-%1$s-v2.jar'
+
 	runs {
 		client {
 			// Dev convenience: jump straight into the test world.
@@ -74,13 +77,16 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
-	it.options.release = 21
+	it.options.release = 25
 }
 
 java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
 	withSourcesJar()
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {
