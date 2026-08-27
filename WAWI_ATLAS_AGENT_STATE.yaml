@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 58
-last_updated_utc: "2026-08-27T21:31:19Z"
+state_revision: 59
+last_updated_utc: "2026-08-27T21:36:05Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P5_COMPLETE_AWAITING_P6_APPROVAL"
-current_phase: "P5"
-current_task: "APPROVAL_STOP_BEFORE_P6"
+project_status: "P6_IN_PROGRESS"
+current_phase: "P6"
+current_task: "P6-T02_EXACT_RESOURCE_SERIALIZATION_INVENTORY"
 
 authority:
   precedence:
@@ -139,6 +139,23 @@ approvals:
       - "No Surveyor persistence, codec, packet, landmark, ownership, synchronization, map-data, fixture, or globalSharing behavior change."
       - "No dependency-lock change; a proven lock defect must be recorded and work stopped for separate approval."
       - "No P7 feature reconstruction, P8 multiplayer/lifecycle hardening, broad refactor, package rename, identity, gameplay, feature, or art change."
+      - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "Do not fix RISK-007 packaging."
+      - "No push, release, upload, or publication."
+  - id: "APPROVAL-P6-001"
+    recorded_date: "2026-08-27"
+    source: "Human project owner in the Codex task: 'Approve to proceed with P6'"
+    status: "APPROVED"
+    scope: >-
+      Execute P6 only under GPT-5.6 Sol High methodology: inventory and migrate resources,
+      reloaders, identifiers, registries, and serialization against the exact P2 dependency lock;
+      use exact target source, immutable compatibility fixtures, resource validation, and reload testing
+      to preserve existing data and observable P0 behavior.
+    exclusions:
+      - "No P7 feature-parity reconstruction or P8 multiplayer/lifecycle hardening beyond P6-proportional startup, reload, fixture, and shutdown checks."
+      - "No Surveyor ownership, synchronization, globalSharing, packet, persistence, or map-data redesign; existing P4 formats and fixtures remain immutable controls."
+      - "No dependency-lock change; a proven lock defect must be recorded and work stopped for separate approval."
+      - "No broad refactor, package rename, identity, WAWI feature, gameplay, feature, custom resource, or art change."
       - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
       - "Do not fix RISK-007 packaging."
       - "No push, release, upload, or publication."
@@ -460,7 +477,7 @@ phase_plan:
     purpose: "Migrate render state, GUI, handheld atlas, input, and version-sensitive mixins with visual checkpoints."
   - id: "P6"
     name: "Resources, reloaders, identifiers, registries, and serialization"
-    status: "BLOCKED"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Migrate data/resource APIs and prove data/file compatibility with fixtures and reload testing."
@@ -889,6 +906,33 @@ p5_tasks:
       - "git diff --check and YAML structural validation pass; the branch is clean after each categorized commit, the design hash and annotated P0 tag target remain unchanged, and no upstream, push, release, upload, or publication exists."
       - "P5 is complete at the explicit P6 approval stop; P6 resources/reloaders/identifiers/registries/serialization and every later phase remain unauthorized."
 
+p6_tasks:
+  - id: "P6-T01"
+    name: "Record P6 approval and verify entry invariants"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "APPROVAL-P6-001 records the owner's resources, reloaders, identifiers, registries, and serialization scope with P7 and later phases excluded."
+      - "Verified clean port/26.1.2 at 98821bf500e514e1ac36b253a84abeaf003ca465 before any P6 production or resource edit."
+      - "Verified state revision 58 records P0-P5 COMPLETE and the single stop-before-P6 next action."
+      - "Verified the locked design SHA-256, unchanged P2 build/dependency lock, unchanged annotated P0 tag target, no configured upstream, and no publication record."
+  - id: "P6-T02"
+    name: "Inventory exact resource, reloader, identifier, registry, and serialization deltas"
+    status: "IN_PROGRESS"
+    model: "GPT-5.6 Sol High"
+  - id: "P6-T03"
+    name: "Apply bounded P6 migrations with resource and compile checks"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+  - id: "P6-T04"
+    name: "Prove serialization and immutable-fixture compatibility"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+  - id: "P6-T05"
+    name: "Validate reload/runtime behavior and close at the P7 approval gate"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+
 decisions:
   - id: "DEC-001"
     date: "2026-08-26"
@@ -1066,6 +1110,7 @@ repository_state:
   p5_interrupted_runtime_commit: "53b9469bd9fe87de71f57278758aa7d74f67d730"
   p5_server_launch_harness_commit: "d220ce36a"
   p5_previsual_validation_commit: "27b1abcc5ffa58c8d62561c23ce85eb0d65e753b"
+  p5_completion_commit: "98821bf500e514e1ac36b253a84abeaf003ca465"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1143,10 +1188,12 @@ test_evidence:
     human_visual_input_matrix: "PASS_OWNER_OBSERVED: handheld/fullscreen/closed cycle, movement/look, handheld transparency-depth-layering, fullscreen pan/zoom, bobbing off/on stabilization semantics, resize, GUI-scale change, pause/resume, post-transition rendering, and input all passed"
     normal_client_shutdown: "PASS: Save and Quit stopped P5test and saved all three dimensions; Quit Game logged Stopping; Gradle BUILD SUCCESSFUL in 7m21s; jps empty and ports 25565/25575 free"
     final_scope_audit: "PASS: exactly four P5-owned Java files plus durable state; no build lock, production resource, P4 fixture, Surveyor interface, serialization, identity, feature, art, packaging, upstream, or publication change; P6 remains blocked"
+  p6:
+    approval_preflight: "PASS: exact branch, clean P5-completion HEAD, annotated P0 tag target, design hash, P0-P5 completion, unchanged P2 lock, no upstream, and no-publication record verified before the P6 approval checkpoint"
 
 latest_session:
   date_utc: "2026-08-27"
-  phase: "P5"
+  phase: "P6"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
     - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
@@ -1282,14 +1329,15 @@ latest_session:
     - "The human owner passed the complete focused P5 matrix: M-key handheld/fullscreen/closed cycle, ordinary movement/look, handheld transparency/depth/layering, fullscreen pan/zoom, default bob plus enabled stabilization, window resize, GUI-scale change, pause/resume, and post-transition input/rendering."
     - "F3+T was deliberately excluded to preserve the separate P6 resource gate. Normal Save and Quit saved all dimensions; Quit Game logged Stopping and Gradle BUILD SUCCESSFUL, with no Java process or test listener remaining."
     - "Final P5 scope and invariant audits pass; P5 is complete and stops before P6 with no push, release, upload, or publication."
+    - "Human project owner explicitly approved P6 resources, reloaders, identifiers, registries, and serialization; APPROVAL-P6-001 records the exact P6-only scope with P7 and later work excluded."
+    - "Reverified clean port/26.1.2 at P5 completion commit 98821bf500e514e1ac36b253a84abeaf003ca465, locked design hash, unchanged annotated P0 tag target, P0-P5 completion, exact unchanged P2 lock, no upstream, and no-publication record before P6 work."
   blockers:
-    - "P6 resources, reloaders, identifiers, registries, and serialization require separate explicit human approval."
     - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks remain assigned to the later P7/P8 matrix."
     - "P7 and later phases remain independently blocked."
   next_action: >-
-    Request explicit human approval for P6 only under GPT-5.6 Sol High: resources, reloaders, identifiers,
-    registries, and serialization, beginning with exact target source and reload/fixture evidence while P7 and
-    later phases remain excluded. Do not begin P6, run its F3+T acceptance, or edit its surfaces before approval.
+    Inventory every Atlas resource reloader, identifier/registry lookup, and Atlas-owned serialization surface;
+    compare the exact 1.21.11 baseline with pinned 26.1.2 Minecraft/Fabric sources and the immutable P4 fixtures,
+    then record whether each surface is compatible, deprecated, or requires a bounded P6 migration before editing.
 
 agent_first_prompt:
   text: >-
