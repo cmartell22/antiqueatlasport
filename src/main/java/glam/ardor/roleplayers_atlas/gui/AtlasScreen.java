@@ -2011,7 +2011,6 @@ public class AtlasScreen extends Component implements AtlasRenderer {
 	@Override
 	public boolean charTyped(CharInput input) {
 		char chr = (char) input.codepoint();
-		int modifiers = input.modifiers();
 		if (searchField != null && searchField.isFocused()) {
 			searchField.charTyped(input);
 			return true;

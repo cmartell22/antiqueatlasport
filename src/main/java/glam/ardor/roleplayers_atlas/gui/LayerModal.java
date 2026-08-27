@@ -240,7 +240,6 @@ public class LayerModal extends Component {
 	@Override
 	public boolean charTyped(CharInput input) {
 		char chr = (char) input.codepoint();
-		int modifiers = input.modifiers();
 		return super.charTyped(input) || nameField.charTyped(input);
 	}
 

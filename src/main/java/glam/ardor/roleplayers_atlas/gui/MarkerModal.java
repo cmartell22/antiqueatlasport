@@ -666,7 +666,6 @@ public class MarkerModal extends Component {
 	@Override
 	public boolean charTyped(CharInput input) {
 		char chr = (char) input.codepoint();
-		int modifiers = input.modifiers();
 		if (noteFocused) {
 			if (chr >= ' ' && noteText.length() < 512) noteText += chr;
 			return true;

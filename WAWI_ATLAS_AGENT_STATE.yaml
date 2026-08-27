@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 43
-last_updated_utc: "2026-08-27T17:56:27Z"
+state_revision: 44
+last_updated_utc: "2026-08-27T17:58:30Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P3_IN_PROGRESS"
 current_phase: "P3"
-current_task: "P3-T03_CHAR_INPUT_SIGNATURES"
+current_task: "P3-T04_CLASSIFY_AND_AUDIT"
 
 authority:
   precedence:
@@ -726,6 +726,7 @@ p3_tasks:
       - "Exact target ChunkPos is a record with x()/z() accessors and fromBlockPos(BlockPos); the bounded migration eliminated all ChunkPos errors and reduced compileJava from the 100 cap to 42 errors."
       - "Exact target PositionedSoundInstance.master bytecode matches baseline ui for category, pitch/volume order, attenuation, and relative playback; replacing 20 call sites reduced compileJava from 42 to 22 errors."
       - "Exact baseline and target ClientPlayerEntity/MessageHandler bytecode proved false maps to normal chat delivery and true maps to overlay delivery; target sendMessage(Text) and sendOverlayMessage(Text) eliminate all 12 signature errors and reduce compileJava from 22 to 10 errors."
+      - "Exact CharInput records prove modifiers were removed in the target; the six failing reads assigned only unused locals, so deleting those reads is mechanically behavior-neutral and reduces compileJava from 10 to four P5 rendering-owned errors."
   - id: "P3-T04"
     name: "Classify later-phase failures and close the P3 approval gate"
     status: "PENDING"
@@ -866,6 +867,7 @@ repository_state:
   p3_fabric_api_commit: "860032b9686b74a3c0e0792eccf79d4175eceb62"
   p3_chunk_pos_commit: "1874194b52ea9cafa47b7acdd4c2b5b97954a154"
   p3_sound_commit: "9afb00d2283ca37b28eb89c8df4a32079bc61258"
+  p3_player_message_commit: "6ba4817e00e7e039de7fa88bafe97f363ba77472"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -910,6 +912,7 @@ test_evidence:
     chunk_pos_category: "PASS_AT_COMPILE_BOUNDARY: exact x()/z() record accessors and fromBlockPos factory applied; zero remaining ChunkPos errors; compile count reduced from 100 capped to 42"
     sound_category: "PASS_AT_COMPILE_BOUNDARY: baseline ui and target master factory bytecode are behaviorally identical; all 20 sound-construction errors eliminated; compile count reduced from 42 to 22"
     player_message_category: "PASS_AT_COMPILE_BOUNDARY: false/chat call sites use target sendMessage(Text), true/overlay call sites use target sendOverlayMessage(Text); all 12 signature errors eliminated; compile count reduced from 22 to 10"
+    char_input_category: "PASS_AT_COMPILE_BOUNDARY: six removed modifiers() reads populated unused locals only; deleting those reads changes no input branch and reduces compile count from 10 to four P5 rendering-owned errors"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -999,11 +1002,14 @@ latest_session:
     - "Compared baseline and target ClientPlayerEntity and MessageHandler bytecode: baseline false routes to chat while true routes to overlay; target splits those behaviors into sendMessage(Text) and sendOverlayMessage(Text)."
     - "Migrated 10 normal-chat call sites and two QuickMark overlay call sites to their exact target methods; compileJava eliminated all message errors and reduced the remaining count from 22 to 10."
     - "Escalated the CharInput signature category to GPT-5.6 Sol High methodology because modifier-state removal carries input behavior and must be classified before any edit."
+    - "Committed the bounded player-message signature category as 6ba4817e00e7e039de7fa88bafe97f363ba77472."
+    - "Compared exact baseline and target CharInput records: target retains codepoint but removes modifiers; all six failing modifier reads assigned unused locals and influenced no branch or delegated input call."
+    - "Deleted only those six obsolete reads; compileJava eliminated the category and reduced the remaining errors from 10 to four, all located on the P5 rendering boundary."
   blockers:
     - "P4, P5, P6, and later work remain blocked without separate explicit approval."
   next_action: >-
-    Commit the validated player-message signature category, then inspect exact baseline/target CharInput
-    and screen input APIs to determine whether the six modifier failures are mechanical P3 work or deferred P5 input migration.
+    Commit the validated CharInput category, then classify the four remaining rendering failures against
+    the durable P1 phase ownership and run the final P3 dependency, resource, diff, scope, tag, and publication audits.
 
 agent_first_prompt:
   text: >-
