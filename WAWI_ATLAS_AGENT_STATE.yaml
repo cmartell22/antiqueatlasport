@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 18
-last_updated_utc: "2026-08-27T03:20:00Z"
+state_revision: 20
+last_updated_utc: "2026-08-27T05:27:02Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P0_AWAITING_HUMAN_MATRIX"
 current_phase: "P0"
@@ -476,8 +476,11 @@ p0_tasks:
       - "Layout arithmetic verified full-marker, simple inscription/route, and spawn dialogs remain within logical heights 240, 270, 312, 360, and 480; the full note remains 60px when room permits and contracts to 18px at the minimum 240px case."
       - "After a successful compile and clean build, the exact Auto-scale reproduction was rerun in an even smaller 870x519 physical window. The human owner confirmed every marker control was visible/clickable, completed the temporary layer/marker lifecycle, and observed the larger note field returning at GUI Scale 1."
       - "The verified marker/layer lifecycle is PASS: create custom layer, create and assign marker, hide/show layer, edit marker, delete marker, and delete empty layer."
+      - "The human owner passed the hearth/spawn-marker interaction slice: hearth control present, left-click centering, right-click tracking toggle/clear, and shift-click compact style dialog at Auto scale all worked."
+      - "The death-marker portion is not yet scored: the isolated world is in Creative mode with commands disabled, so the owner could not produce a death. This is a test-fixture constraint, not a product failure."
+      - "After commands were temporarily enabled through Open to LAN, the live server log recorded Player936's intentional death. The human owner confirmed death-marker creation, the Deaths layer hide/show behavior, marker deletion, and post-delete absence; the full hearth/spawn/death slice is PASS."
     pending:
-      - "Death/spawn marks, inscriptions, territories/city paint, and routes."
+      - "Inscriptions, territories/city paint, and routes."
       - "PNG export plus .atlas export/import/signature/hearsay behavior without source data mutation."
       - "Overworld, Nether, End, portal transition, disconnect/reconnect, and client restart."
       - "Dedicated multiplayer connection, independent player knowledge, and clean server restart."
@@ -620,11 +623,14 @@ latest_session:
     - "Implemented adaptive MarkerModal vertical geometry; layout arithmetic passed across logical heights 240-480, compile and clean build passed, and bytecode/artifact audits confirmed the new methods plus unchanged embedded Surveyor."
     - "In the exact Auto-scale reproduction, now at an even smaller 870x519 window, the owner confirmed all controls were visible/clickable and completed the temporary marker/layer lifecycle; the larger note box returned at scale 1. The client then closed and saved cleanly with Gradle exit 0."
     - "Committed the isolated MarkerModal stabilization and revision-17 evidence locally as 61c38e294f4db6a3cfcf843833126364882c6232; working tree was clean immediately afterward, with no tag or push."
+    - "Human owner passed all four hearth/spawn-marker checks, including the compact style dialog at Auto scale. Death-marker testing paused unscored because the Creative-mode isolated world did not grant command authority."
+    - "Enabled commands only for the disposable integrated-world session through Open to LAN; the log recorded the intentional death and the owner passed grave creation, Deaths-layer hide/show, and grave deletion."
+    - "Closed the integrated client normally after the completed hearth/spawn/death slice; all dimensions and Surveyor data saved, Gradle returned BUILD SUCCESSFUL, and no production configuration was changed."
   blockers:
     - "Further P0 progress requires the human-observed visual and interaction matrix."
   next_action: >-
-    Prepare the next bounded human annotation slice for hearth/spawn and death-marker behavior, including
-    visibility and cleanup, while keeping inscriptions, territories/city paint, routes, sharing, and later rows pending.
+    Prepare the next bounded human annotation slice for inscriptions, including creation, editing, visibility,
+    and cleanup at Auto scale; keep territories/city paint, routes, sharing, and later rows pending.
 
 agent_first_prompt:
   text: >-
