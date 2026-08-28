@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 92
-last_updated_utc: "2026-08-28T09:36:33Z"
+state_revision: 93
+last_updated_utc: "2026-08-28T09:39:26Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P9_COMPLETE_PUBLICATION_AUTHORIZED_PREFLIGHT"
+project_status: "P9_COMPLETE_PUBLISHED_AWAITING_P10_APPROVAL"
 current_phase: "P9"
-current_task: "GITHUB_GIT_REF_PUBLICATION_PREFLIGHT"
+current_task: "AWAITING_P10_EXPLICIT_APPROVAL"
 
 authority:
   precedence:
@@ -1588,11 +1588,15 @@ repository_state:
   governance_files_status: "COMMITTED_AT_P0_BASELINE_TAG"
   local_p0_baseline_tag: "p0-baseline-1.21.11"
   local_p0_baseline_tag_target: "7099b4df2420d5441e3b2b02e53201a0b249c8f9"
-  pushes_performed: false
+  pushes_performed: true
   publication_approval: "APPROVAL-PUBLICATION-001"
   publication_target: "https://github.com/cmartell22/antiqueatlasport.git"
   publication_local_branch_count: 1
   publication_local_tag_count: 111
+  publication_approval_checkpoint_commit: "f6878cfd7ac60c9dd9fea2716397088b000d15dc"
+  publication_initial_branch_commit: "f6878cfd7ac60c9dd9fea2716397088b000d15dc"
+  publication_verified_ref_count: 112
+  publication_completion_state_revision: 93
 
 test_evidence:
   p0:
@@ -1765,7 +1769,10 @@ test_evidence:
   publication:
     authorization: "PASS: APPROVAL-PUBLICATION-001 records the exact GitHub destination and Git-ref-only scope before any push."
     local_preflight: "PASS: clean port/26.1.2 at 4ed6b8d383b6ab5b77866dae606ae374804ce4d8; one local branch, 111 local tags, no branch upstream, exact design hash, exact annotated P0 tag target, and exact annotated RC tag object/target/message."
-    destination_preflight: "RETRY_REQUIRED: first read-only git ls-remote attempt failed before remote inspection because the host could not resolve github.com; no push was attempted."
+    destination_preflight: "PASS_AFTER_TRANSIENT_DNS_RETRY: the first read-only attempt could not resolve github.com; the successful retry returned zero destination branches/tags, proving the repository was empty before publication."
+    branch_publication: "PASS: non-forced git push --all created remote port/26.1.2 at YAML-only approval checkpoint f6878cfd7ac60c9dd9fea2716397088b000d15dc without configuring an upstream."
+    tag_publication: "PASS: non-forced git push --tags created all 111 local tags, including annotated p0-baseline-1.21.11 and v82.rc.1-26.1.2; no tag moved and no release was created."
+    ref_verification: "PASS: read-only post-push comparison found 112 local refs and 112 remote refs with zero missing, differing, or extra refs; P0 tag object/target and RC tag object/target remain exact."
 
 latest_session:
   date_utc: "2026-08-28"
@@ -2015,13 +2022,15 @@ latest_session:
     - "The owner explicitly authorized copying the complete tracked local Git repository to https://github.com/cmartell22/antiqueatlasport.git; APPROVAL-PUBLICATION-001 limits this to all local branches, tags, and reachable history without force, deletion, release, package, or P10/P11/WAWI work."
     - "Publication preflight found a clean port/26.1.2 at 4ed6b8d383b6ab5b77866dae606ae374804ce4d8, one local branch, 111 local tags, no upstream, and exact P0/RC annotated-tag controls."
     - "The first read-only git ls-remote destination check failed on host DNS resolution before any remote refs could be inspected; no push was attempted, and this YAML-only approval checkpoint precedes every publication action."
+    - "Committed APPROVAL-PUBLICATION-001 as YAML-only checkpoint f6878cfd7ac60c9dd9fea2716397088b000d15dc before any push."
+    - "A successful destination retry returned no branches or tags; non-forced pushes then created port/26.1.2 and all 111 local tags at the exact approved GitHub repository."
+    - "Post-push read-only verification compared all 112 local branch/tag refs against all 112 destination refs with zero missing, differing, or extra refs; the annotated P0 and RC tag objects and peeled targets remain exact."
+    - "No upstream, force push, remote deletion, GitHub Release, package, build-artifact upload, P10/P11 work, or WAWI-specific change was performed; this revision is the final publication-evidence synchronization payload."
   blockers:
     - "P10, P11, and all WAWI-specific integration remain unauthorized pending a separate explicit human approval."
-    - "The GitHub destination must be inspected successfully after the transient github.com DNS failure before any non-forced push."
   next_action: >-
-    Commit this YAML-only APPROVAL-PUBLICATION-001 checkpoint, retry the read-only destination-ref
-    inspection, and, only if no conflicting destination refs exist, push every local branch and tag
-    to the exact approved GitHub URL without force, deletion, release creation, or entering P10.
+    Stop and wait for separate explicit human approval before recording a P10 approval checkpoint
+    or beginning any P10, P11, or WAWI-specific work.
 
 agent_first_prompt:
   text: >-
