@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 66
-last_updated_utc: "2026-08-28T00:48:00Z"
+state_revision: 67
+last_updated_utc: "2026-08-28T00:55:00Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P7_IN_PROGRESS"
 current_phase: "P7"
-current_task: "P7-T03_EXPLORATION_TERRAIN_BIOME_STRUCTURE_PARITY"
+current_task: "P7-T04_ANNOTATION_FEATURE_PARITY"
 
 authority:
   precedence:
@@ -1015,11 +1015,20 @@ p7_tasks:
       - "The matrix requires automated disposable-client evidence before the separately paused owner-observed P7 matrix."
   - id: "P7-T03"
     name: "Recover exploration, terrain, biome, discovered-structure, and atlas-view parity"
-    status: "PENDING"
+    status: "COMPLETE_AUTOMATED_PENDING_FINAL_HUMAN_CHECK"
     model: "GPT-5.6 Terra High"
+    evidence:
+      - "Added an independently exact-P2-lock client probe that runs alongside the compiled production Atlas in a disposable copy of the target P6test world."
+      - "The first automated launch stayed at the menu and timed out after 120 seconds with no Atlas exception; exact target QuickPlay bytecode identified the supported public start path, so only the ignored harness was corrected."
+      - "The second launch joined successfully and resolved 1,057 tiles, then exposed one incorrect probe expectation: P0 name logic refines deep_cold_ocean, not cold_deep_ocean. No product result was scored and a fresh runtime was used."
+      - "The final automated client passed: 1,057 explored tiles, 526 retained biome IDs, 1,057 provider IDs, 49 batches / 4,228 subtiles, four Surveyor exploration regions, and 73 loaded biome looks."
+      - "Representative P0-defined name fallbacks for cherry, deep-cold ocean, outer-End mountain, Nether forest, and unknown names passed unchanged."
+      - "The disposable target world had zero discovered structures; structure compatibility remains covered by P4's exact target decoding of 12 frozen structure regions and remains in the final focused owner observation."
+      - "Minecraft requested a normal stop, saved the disposable world and Surveyor data, and Gradle returned BUILD SUCCESSFUL in 33 seconds."
+      - "No production edit was required for P7-S01."
   - id: "P7-T04"
     name: "Recover marker, layer, hearth/death, inscription, territory, city, and route parity"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Terra High"
   - id: "P7-T05"
     name: "Recover map sharing, PNG, ownership, hearsay, and basic synchronization parity"
@@ -1316,6 +1325,7 @@ test_evidence:
     approval_checkpoint: "PASS: YAML-only local commit 8662ac1a148a22c65f8e27392d919aabd7c3ef66 recorded APPROVAL-P7-001 before any P7 production edit"
     entry_clean_build: "PASS: exact-lock offline clean build completed in 16s; eight actionable tasks, five executed, three from cache, tests NO-SOURCE"
     parity_inventory: "PASS: docs/P7_FEATURE_PARITY_MATRIX.md maps every P0 category, existing evidence, bounded P7 slice, P8 boundary, test order, and stop rule; no inventory-only production edit justified"
+    automated_terrain_probe: "PASS: exact target client joined disposable P7Auto, resolved 1057 tiles / 526 biome IDs / 1057 providers / 49 batches / 4228 subtiles from four Surveyor exploration regions, loaded 73 biome looks, passed representative name fallbacks, stopped/saved normally, and returned Gradle success in 33s"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1475,12 +1485,15 @@ latest_session:
     - "Committed the YAML-only P7 approval checkpoint locally as 8662ac1a148a22c65f8e27392d919aabd7c3ef66 before any production edit."
     - "The P7 entry exact-lock offline clean build passed in 16 seconds with tests NO-SOURCE."
     - "Derived docs/P7_FEATURE_PARITY_MATRIX.md from the complete P0 evidence and exact pinned sources; all 35 production deltas remain within proven P3-P6 categories, while the core annotation, autosave, spawn/death, route, overlay, screenshot, and undo implementations are blob-identical to P0."
+    - "Added the exact-lock P7 automated feature-probe harness without changing production source, resources, or the P2 lock."
+    - "Two unscored harness iterations were corrected from exact evidence: the first menu timeout required target QuickPlay.startQuickPlay, and the second used an invalid cold/deep name order in its assertion."
+    - "The fresh final P7-S01 client passed with 1,057 explored tiles, 526 biome identities, 1,057 providers, 49 batches / 4,228 subtiles, four Surveyor exploration regions, 73 loaded looks, representative P0 name fallbacks, and normal save/stop."
   blockers:
     - "P8 persistence/lifecycle/dimension/multiplayer hardening and all later phases remain independently blocked pending explicit human approval."
     - "P7 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Implement and run the disposable automated P7-S01 probe for target exploration, terrain, biome,
-    discovered-structure inputs, and Atlas tile/batch population without beginning user testing.
+    Extend the disposable automated probe with P7-S03 marker, layer, inscription, territory, city,
+    route, undo, and tracking model assertions without beginning user testing.
 
 agent_first_prompt:
   text: >-

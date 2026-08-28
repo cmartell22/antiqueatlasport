@@ -56,4 +56,3 @@ a compatibility defect.
 4. Before any user testing, stop and obtain the owner's readiness confirmation before launching the
    client. An automated client launch does not waive that pause.
 5. Stop immediately on any unexplained S2 or any S3 result. Do not enter P8 to make P7 pass.
-
