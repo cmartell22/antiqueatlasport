@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 85
-last_updated_utc: "2026-08-28T08:09:21Z"
+state_revision: 86
+last_updated_utc: "2026-08-28T08:16:16Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P9_IN_PROGRESS"
 current_phase: "P9"
@@ -1285,6 +1285,11 @@ p9_tasks:
       - "Corrected artifacts are main SHA-256 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28 and sources SHA-256 6D4E4696A36777262957FE4F330FBA5224B20AEC7F4C746CD52215D0986C8640."
       - "Every Atlas legal entry hashes byte-exact to the tracked source file; the valid top-level Surveyor license hashes byte-exact to the nested license text; nested Surveyor remains 611,808 bytes and exact P2 SHA-256 D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
       - "Post-correction frozen-fixture audit again passed both P4 scroll hashes, all five P6 store hashes, all five P4 Surveyor tree digests, and zero fixture diff."
+      - "Committed the initial legal packaging correction and revision-85 evidence locally as d1d96a65c6927a13f9d47810d36804ad59e1f97b."
+      - "A no-local/no-hardlinks short-path clone of d1d96a65c6927a13f9d47810d36804ad59e1f97b contained no generated roots and passed its own exact-wrapper offline clean build in 1m35s; the main artifact reproduced exactly."
+      - "The first clean clone exposed one release-candidate reproducibility defect: its sources jar was 179 bytes smaller because Windows Git checked Java sources out as CRLF while the long-lived workspace had mixed line endings. All 31 differing Java entries became byte-identical after newline normalization; no semantic source difference exists."
+      - "A second build.gradle-only packaging correction normalizes only packaged **/*.java source entries to LF through Gradle's FixCrLfFilter; it does not rewrite tracked sources, gameplay classes, resources, metadata, legal text, or the main artifact."
+      - "Post-normalization workspace clean build passed in 32 seconds; main remains 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28 and normalized sources are AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579."
   - id: "P9-T05"
     name: "Run owner-observed release-candidate checks after readiness, complete final audits, create the authorized local RC tag, and stop at P10"
     status: "PENDING"
@@ -1466,6 +1471,11 @@ known_risks:
     status: "MITIGATED_BY_P8_RUNTIME_MATRIX_RETAINED_FOR_P9_DEPLOYMENT_POLICY"
     risk: "Current Surveyor defaults networking.globalSharing to true, while the legacy P0 default was false; a clean server can therefore begin with broader sharing than the independent-knowledge P0 control."
     mitigation: "P8 proved explicit false preserves independent personal/hearsay ownership through restart/reconnect, while a clean generated true config directly shares other-owner markers with Surveyor GROUP edit rights and no Atlas import layer. Atlas does not override the setting; P9 must make the operator deployment choice explicit."
+  - id: "RISK-020"
+    severity: "S2"
+    status: "MITIGATED_BY_SOURCE_ARCHIVE_NORMALIZATION_PENDING_SECOND_CLEAN_CHECKOUT_PROOF"
+    risk: "The remapped sources jar varied between the long-lived mixed-line-ending workspace and a Windows Git clean checkout even though all source content was semantically identical."
+    mitigation: "Normalize only packaged Java source entries to LF with Gradle FixCrLfFilter; the main jar is unaffected. Repeat the no-local/no-hardlinks clean-checkout build at the correction commit and require exact main and sources hashes before closing P9 artifact reproducibility."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
@@ -1513,6 +1523,7 @@ repository_state:
   p9_approval_commit: "7db1361e10e3c78117ffc679b33c689d4ade8ecd"
   p9_tag_authority_commit: "1ce83f952fd5007ea27a6e90f092c07f3768e66d"
   p9_release_candidate_matrix_commit: "b56dfd4fb300220e5d92dd538a24a0341a04a149"
+  p9_initial_legal_packaging_commit: "d1d96a65c6927a13f9d47810d36804ad59e1f97b"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1670,7 +1681,9 @@ test_evidence:
     dedicated_false_policy: "PASS: Alice owner/edit/export restart persistence; Bob isolation, receiver-owned Alice-attributed hearsay import and restart persistence; Alice post-B isolation; literal server stops"
     clean_default_true_policy: "PASS: generated config hash 4C1917769799DC724E3585064768ABAE717AFEBF61BEFEA059240B55A0CCB818 records globalSharing=true; direct cross-owner GROUP edit permission and no Atlas import layer"
     automated_negative_cleanup: "PASS: nine scored logs have no CME/protocol/codec/decoder/encoder/probe failure; no Java process or listener on the controlled ports remains"
-    risk_007_packaging: "MITIGATED_PENDING_CLEAN_CHECKOUT: main 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; sources 6D4E4696A36777262957FE4F330FBA5224B20AEC7F4C746CD52215D0986C8640; legal entries byte-exact; nested Surveyor exact P2 hash"
+    risk_007_packaging: "MITIGATED_PENDING_SECOND_CLEAN_CHECKOUT: main 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; normalized sources AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579; legal entries byte-exact; nested Surveyor exact P2 hash"
+    first_clean_checkout_build: "PASS_BUILD_ARTIFACT_REPRO_DEFECT_FOUND: no-local/no-hardlinks clone of d1d96a65c passed offline build; main reproduced exactly; sources differed only in 31 Java entry line endings because clean Windows checkout was CRLF and workspace was mixed"
+    source_archive_normalization: "IMPLEMENTED_PENDING_SECOND_CLEAN_CHECKOUT: build.gradle FixCrLfFilter normalizes only packaged Java sources to LF; workspace clean build passes; main hash unchanged; sources AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1897,11 +1910,14 @@ latest_session:
     - "Artifact inspection dispositioned RISK-007 with one build.gradle-only packaging correction: include Atlas LICENSE/CREDITS in both artifacts and expose byte-exact Surveyor LGPL text under a valid top-level name without changing the nested jar."
     - "The corrected exact-lock clean build passed; main is 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28, sources is 6D4E4696A36777262957FE4F330FBA5224B20AEC7F4C746CD52215D0986C8640, and nested Surveyor remains exact D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
     - "Every frozen P4/P6 file and tree digest remains exact after all automated runs and packaging work; no gameplay, production resource, identifier, format, ownership boundary, Surveyor policy, or P2 lock changed."
+    - "Created a no-local/no-hardlinks short-path clone at exact legal-packaging commit d1d96a65c6927a13f9d47810d36804ad59e1f97b with no generated roots; its wrapper-only offline clean build passed in 1m35s and reproduced the main jar exactly."
+    - "The clone's sources jar differed from the workspace only across 31 Java entries, and every difference normalized to equality after CRLF/LF conversion; recorded RISK-020 rather than accepting a non-reproducible release-candidate source artifact."
+    - "Added a four-line packaged-Java LF normalization rule to sourcesJar, leaving tracked source bytes and the main artifact untouched; the resulting workspace clean build passed with normalized sources hash AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579."
   blockers:
     - "Owner-observed P9 client testing remains paused until the owner separately confirms readiness."
   next_action: >-
-    Commit the narrow RISK-007 packaging checkpoint, then prove a genuinely clean checkout of that
-    exact commit builds offline and reproduces the audited artifacts before requesting P9 owner readiness.
+    Commit the source-archive reproducibility correction, then create a second no-local/no-hardlinks
+    clean checkout of that exact commit and require both main and sources artifact hashes to reproduce.
 
 agent_first_prompt:
   text: >-

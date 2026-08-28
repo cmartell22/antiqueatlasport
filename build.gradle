@@ -108,6 +108,10 @@ jar {
 }
 
 sourcesJar {
+	filesMatching("**/*.java") {
+		filter(org.apache.tools.ant.filters.FixCrLfFilter,
+			eol: org.apache.tools.ant.filters.FixCrLfFilter.CrLf.newInstance("lf"))
+	}
 	from("LICENSE") {
 		rename { "${it}_${base.archivesName.get()}" }
 	}
