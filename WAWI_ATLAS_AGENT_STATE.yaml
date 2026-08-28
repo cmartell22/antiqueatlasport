@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 72
-last_updated_utc: "2026-08-28T02:58:33Z"
+state_revision: 73
+last_updated_utc: "2026-08-28T03:12:16Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P7_IN_PROGRESS"
+project_status: "P7_COMPLETE_AWAITING_P8_APPROVAL"
 current_phase: "P7"
-current_task: "P7-T06_COORDINATED_MATRIX_AND_FINAL_GATE"
+current_task: "AWAITING_P8_EXPLICIT_APPROVAL"
 
 authority:
   precedence:
@@ -501,7 +501,7 @@ phase_plan:
     purpose: "Migrate data/resource APIs and prove data/file compatibility with fixtures and reload testing."
   - id: "P7"
     name: "Feature-parity reconstruction"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
     thinking: "high"
     escalation: "GPT-5.6 Sol High for persistence, sharing, visibility, or unexplained regressions"
@@ -1015,7 +1015,7 @@ p7_tasks:
       - "The matrix requires automated disposable-client evidence before the separately paused owner-observed P7 matrix."
   - id: "P7-T03"
     name: "Recover exploration, terrain, biome, discovered-structure, and atlas-view parity"
-    status: "COMPLETE_AUTOMATED_PENDING_FINAL_HUMAN_CHECK"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
     evidence:
       - "Added an independently exact-P2-lock client probe that runs alongside the compiled production Atlas in a disposable copy of the target P6test world."
@@ -1026,9 +1026,10 @@ p7_tasks:
       - "The disposable target world had zero discovered structures; structure compatibility remains covered by P4's exact target decoding of 12 frozen structure regions and remains in the final focused owner observation."
       - "Minecraft requested a normal stop, saved the disposable world and Surveyor data, and Gradle returned BUILD SUCCESSFUL in 33 seconds."
       - "No production edit was required for P7-S01."
+      - "The final isolated client loaded 1,057 Overworld tiles plus two discovered-structure regions; the owner confirmed normal antique rendering, handheld/fullscreen/closed cycling, pan, zoom, textures, and input."
   - id: "P7-T04"
     name: "Recover marker, layer, hearth/death, inscription, territory, city, and route parity"
-    status: "COMPLETE_AUTOMATED_PENDING_FINAL_HUMAN_CHECK"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
     evidence:
       - "Extended the independently locked disposable-client probe without changing production source, resources, formats, or the P2 lock."
@@ -1038,9 +1039,10 @@ p7_tasks:
       - "Probe cleanup removed every temporary landmark/layer/tracking entry and restored biome/city state; Surveyor's normal shutdown reported zero saved landmarks."
       - "Minecraft stopped normally, saved all three dimensions and Surveyor data, and Gradle returned BUILD SUCCESSFUL in 33 seconds."
       - "No production defect or production edit was required for P7-S03."
+      - "The owner passed the focused visual workflow for temporary marker create/edit, existing-marker edit, layer hide/show, inscription, route, territory/city paint, undo, and redo; tools, modals, and rendered annotations behaved normally."
   - id: "P7-T05"
     name: "Recover map sharing, PNG, ownership, hearsay, and basic synchronization parity"
-    status: "COMPLETE_AUTOMATED_PENDING_FINAL_HUMAN_CHECK"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "Extended the independent exact-lock client probe for the successful P7-S04 sharing/output path; clean probe builds passed in 9 and 8 seconds with six tasks executed and tests NO-SOURCE."
@@ -1060,9 +1062,11 @@ p7_tasks:
       - "Server passthrough warnings for Atlas source/note components exactly match the P0 dedicated control's passthrough behavior and are not a target regression."
       - "The bounded run used one client, one connection, one dimension, and one server lifecycle only; multi-client isolation, reconnect, restart, dimension, and stress hardening remain P8."
       - "No production defect or production edit was required for P7-S05."
+      - "The owner passed one focused .atlas export/preview/import and PNG-save workflow in the disposable client; the source map remained visually normal."
+      - "Runtime logs corroborate a 459,952-byte badswamp.atlas export, import of five landmarks / four terrain regions / seven corrections, and a 788x490 PNG save."
   - id: "P7-T06"
     name: "Run the coordinated P7 feature matrix and close at the P8 approval gate"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
     escalation: "GPT-5.6 Sol High for any unexplained S2/S3 result"
     evidence:
@@ -1075,6 +1079,13 @@ p7_tasks:
       - "No push, release, upload, or publication was performed; RISK-007, the baseline tag, and the P8 boundary remain untouched."
       - "Per the owner's caveat, no user-testing client has been launched; final owner-observed checks remain paused pending readiness confirmation."
       - "The human project owner confirmed readiness in the Codex task with 'Ready, let's do it'; the final focused P7 user-testing client may now launch, while P8 and later phases remain unauthorized."
+      - "The first approved launch attempt stopped before Minecraft on the already-recorded host JDK loopback-selector defect; the documented uncommitted TCP fallback then launched the exact locked menu-only client."
+      - "The owner passed every focused terrain/view, annotation, sharing, import, and PNG observation with no visual, input, modal, or source-map defect reported."
+      - "Normal Save and Quit saved Overworld, Nether, and End; Quit Game logged Stopping and Gradle returned BUILD SUCCESSFUL in 9m27s."
+      - "Final runtime cleanup found no Java/javaw process and no listeners on ports 25565, 25575, or 25576."
+      - "Final P7 approval-range audit contains only durable state, the P7 matrix, and independent probe sources/configuration; no src/main, production resource, or P2-lock change exists."
+      - "Final design hash, annotated baseline tag target, frozen-fixture worktree, clean status, no-upstream, no-publication, RISK-007, and P8 boundaries all pass unchanged."
+      - "P7 is complete and stops at the explicit P8 approval gate; no P8 scenario was entered."
 
 decisions:
   - id: "DEC-001"
@@ -1374,9 +1385,14 @@ test_evidence:
     pre_human_clean_build: "PASS: exact-lock offline clean build completed in 14s; eight actionable tasks, five executed, three from cache, tests NO-SOURCE; main jar 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9; sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870; nested Surveyor exact P2 hash D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
     pre_human_scope_invariant_audit: "PASS: P7 approval range has no src/main production/resource or P2-lock change; branch/tag/design/upstream/no-publication controls pass; git diff check and status are clean; both P4 scrolls, five P4 trees, and five P6 stores match frozen hashes"
     owner_readiness: "CONFIRMED: owner explicitly said 'Ready, let's do it'; the approval caveat is satisfied for the final focused P7 user-observed client only"
+    human_terrain_view_matrix: "PASS_OWNER_OBSERVED: populated antique terrain and discovered information looked normal; handheld/fullscreen/closed cycle, fullscreen pan/zoom, textures, visuals, and input passed; logs loaded 1057 Overworld tiles and two structure regions"
+    human_annotation_matrix: "PASS_OWNER_OBSERVED: temporary marker create/edit, existing-marker edit, layer hide/show, inscription, route, territory/city paint, undo, and redo all passed with normal tools, modals, and rendering"
+    human_sharing_output_matrix: "PASS_OWNER_OBSERVED_AND_LOG_CORROBORATED: .atlas export/preview/import and current-view PNG save passed; logs imported 5 landmarks / 4 terrain regions / 7 corrections; badswamp.atlas is 459952 bytes with SHA-256 61376B4DE47F28F48D53A5B4667978A292FDC881409062F337115056D61DA874; PNG is 788x490 / 134598 bytes with SHA-256 94F52230120F150D588440BB443E71D141423F9E405986BCFE02ACFC2C82C31B"
+    normal_client_shutdown: "PASS: normal Save and Quit saved all three dimensions; Quit Game logged Stopping; Gradle BUILD SUCCESSFUL in 9m27s; no Java/javaw process or listeners on 25565/25575/25576 remained"
+    final_scope_invariant_audit: "PASS: approval range contains only state, docs/P7_FEATURE_PARITY_MATRIX.md, and independent compat-fixtures/p7 probe files; no src/main, production resource, build/dependency lock, frozen P4/P6 fixture, Surveyor boundary, identifier, format, art, RISK-007, tag, design, upstream, or publication change; repository is clean before this final YAML checkpoint"
 
 latest_session:
-  date_utc: "2026-08-27"
+  date_utc: "2026-08-28"
   phase: "P7"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
@@ -1550,11 +1566,17 @@ latest_session:
     - "Pre-human P7 scope and invariant audit passes with zero P7 production/resource/build-lock edit, every frozen P4/P6 digest exact, the annotated baseline tag and design hash unchanged, no upstream, and no publication."
     - "Stopped without launching a user-testing client, as required; the final focused owner-observed matrix awaits explicit readiness confirmation."
     - "The owner explicitly confirmed readiness for the final focused P7 user-observed matrix; P8 and later phases remain unauthorized."
+    - "Launched an isolated menu-only exact-lock client after containing the known host JDK loopback defect with the documented uncommitted TCP fallback."
+    - "The owner passed the populated terrain/view cycle and every focused annotation interaction, including edits to existing markers."
+    - "The owner passed one .atlas export/preview/import and PNG-save workflow; logs and disposable outputs corroborate the successful results."
+    - "Normal shutdown saved every dimension, Gradle succeeded, and final process/port cleanup passed."
+    - "Final P7 scope and invariant audit passes with no P7 production edit; P7 is complete and stops at the P8 explicit-approval gate."
   blockers:
     - "P8 persistence/lifecycle/dimension/multiplayer hardening and all later phases remain independently blocked pending explicit human approval."
   next_action: >-
-    Launch the isolated menu-only client and complete the final focused P7 owner-observed feature
-    matrix, then record results and stop at the P8 approval gate without entering P8.
+    Stop. Preserve the clean P7 completion state and wait for explicit human approval before recording
+    a P8 approval checkpoint or beginning any persistence, lifecycle, dimension, multiplayer-hardening,
+    or later-phase work.
 
 agent_first_prompt:
   text: >-
