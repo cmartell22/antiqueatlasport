@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 65
-last_updated_utc: "2026-08-28T00:32:15Z"
+state_revision: 66
+last_updated_utc: "2026-08-28T00:48:00Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P7_IN_PROGRESS"
 current_phase: "P7"
-current_task: "P7-T02_PARITY_INVENTORY_AND_SLICE_PLAN"
+current_task: "P7-T03_EXPLORATION_TERRAIN_BIOME_STRUCTURE_PARITY"
 
 authority:
   precedence:
@@ -1003,9 +1003,16 @@ p7_tasks:
       - "Verified no configured branch upstream and the durable no-push/no-publication record."
   - id: "P7-T02"
     name: "Derive the target parity matrix and bounded slice plan from P0 and exact pinned sources"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Terra High"
     escalation: "GPT-5.6 Sol High for persistence, sharing, visibility, ownership, or unexplained regressions"
+    evidence:
+      - "docs/P7_FEATURE_PARITY_MATRIX.md maps every P0 feature category to existing target evidence, one bounded P7 slice, and the P8 hardening boundary."
+      - "Verified all exact Roleplayer's Atlas, AA4, legacy/target Surveyor, Fabric API, and Fabric Loader commit objects remain locally available at their recorded immutable SHAs."
+      - "The P0-to-P7 range changes 35 production Java files, all within the already-evidenced P3-P6 API categories; no new inventory-only production edit is justified."
+      - "AtlasComponents, AtlasTime, AtlasUndo, FeatureTiles, MapAutosave, MarkerLayers, SpawnMarker, TrackedMarkersStore, AtlasOverlay, ScreenshotModal, and RouteUtil are Git-blob-identical to P0."
+      - "Exact-lock offline clean build passed in 16 seconds with eight actionable tasks, five executed, three from cache, and tests NO-SOURCE."
+      - "The matrix requires automated disposable-client evidence before the separately paused owner-observed P7 matrix."
   - id: "P7-T03"
     name: "Recover exploration, terrain, biome, discovered-structure, and atlas-view parity"
     status: "PENDING"
@@ -1306,6 +1313,9 @@ test_evidence:
     final_gate_audit: "PASS: clean port/26.1.2, exact design hash, unchanged annotated P0 tag target, unchanged P2 lock, no upstream, no legacy v0 helper imports, exact frozen-fixture hashes, no listeners, and no external publication; stopped before P7"
   p7:
     approval_preflight: "PASS: exact clean P6 completion HEAD, revision-64 P0-P6 completion and approval gate, design hash, P2 lock, annotated P0 tag target, frozen P4/P6 fixture digests, no upstream, and no-publication record verified before the YAML-only checkpoint"
+    approval_checkpoint: "PASS: YAML-only local commit 8662ac1a148a22c65f8e27392d919aabd7c3ef66 recorded APPROVAL-P7-001 before any P7 production edit"
+    entry_clean_build: "PASS: exact-lock offline clean build completed in 16s; eight actionable tasks, five executed, three from cache, tests NO-SOURCE"
+    parity_inventory: "PASS: docs/P7_FEATURE_PARITY_MATRIX.md maps every P0 category, existing evidence, bounded P7 slice, P8 boundary, test order, and stop rule; no inventory-only production edit justified"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1462,12 +1472,15 @@ latest_session:
     - "P6 is complete at the P7 approval gate; P7 and every later phase remain blocked pending explicit owner approval."
     - "Human project owner explicitly approved P7 feature-parity reconstruction only; APPROVAL-P7-001 records the exact P7 scope, P8 and later exclusions, and the required pause before user testing/client launch."
     - "Reverified clean port/26.1.2 at P6 completion commit 0b2c3a4f37d6bd95e301385cfb8e479d6c7af578, revision-64 P0-P6 completion, locked design hash, exact unchanged P2 lock, annotated P0 tag target, every frozen P4/P6 fixture digest, no upstream, and no-publication record before any P7 production edit."
+    - "Committed the YAML-only P7 approval checkpoint locally as 8662ac1a148a22c65f8e27392d919aabd7c3ef66 before any production edit."
+    - "The P7 entry exact-lock offline clean build passed in 16 seconds with tests NO-SOURCE."
+    - "Derived docs/P7_FEATURE_PARITY_MATRIX.md from the complete P0 evidence and exact pinned sources; all 35 production deltas remain within proven P3-P6 categories, while the core annotation, autosave, spawn/death, route, overlay, screenshot, and undo implementations are blob-identical to P0."
   blockers:
     - "P8 persistence/lifecycle/dimension/multiplayer hardening and all later phases remain independently blocked pending explicit human approval."
     - "P7 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Derive the bounded P7 feature-parity slice matrix from the complete P0 control evidence and exact pinned
-    sources, beginning with non-launching static and automated characterization only.
+    Implement and run the disposable automated P7-S01 probe for target exploration, terrain, biome,
+    discovered-structure inputs, and Atlas tile/batch population without beginning user testing.
 
 agent_first_prompt:
   text: >-
