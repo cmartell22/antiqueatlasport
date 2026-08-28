@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 64
-last_updated_utc: "2026-08-27T22:08:30Z"
+state_revision: 65
+last_updated_utc: "2026-08-28T00:32:15Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P6_COMPLETE_AWAITING_P7_APPROVAL"
-current_phase: "P6"
-current_task: "AWAITING_P7_EXPLICIT_APPROVAL"
+project_status: "P7_IN_PROGRESS"
+current_phase: "P7"
+current_task: "P7-T02_PARITY_INVENTORY_AND_SLICE_PLAN"
 
 authority:
   precedence:
@@ -158,6 +158,24 @@ approvals:
       - "No broad refactor, package rename, identity, WAWI feature, gameplay, feature, custom resource, or art change."
       - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
       - "Do not fix RISK-007 packaging."
+      - "No push, release, upload, or publication."
+  - id: "APPROVAL-P7-001"
+    recorded_date: "2026-08-27"
+    source: "Human project owner in the Codex task: explicit approval to begin P7 only"
+    status: "APPROVED"
+    scope: >-
+      Execute P7 only: reconstruct P0 feature parity one bounded, tested behavior slice at a time
+      against the P0 control evidence and exact pinned Minecraft, Fabric, Roleplayer's Atlas, Antique
+      Atlas, and Surveyor sources; preserve identifiers, formats, resources, visual behavior, and
+      Surveyor ownership boundaries unless a demonstrated compatibility defect requires a narrow fix.
+    exclusions:
+      - "No P8 persistence, lifecycle, dimensions, or multiplayer hardening beyond P7-proportional basic feature-parity checks."
+      - "No P2 dependency-lock change; a proven lock defect must be recorded and work stopped for separate approval."
+      - "No Surveyor redesign, replacement backend, or ownership-boundary change."
+      - "No WAWI-specific feature, gameplay, identity, resource, art, broad refactor, package rename, or unrelated cleanup."
+      - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "Do not fix RISK-007 packaging."
+      - "Do not launch the client for user testing until the owner confirms readiness; automated client testing remains allowed."
       - "No push, release, upload, or publication."
 
 project:
@@ -483,11 +501,18 @@ phase_plan:
     purpose: "Migrate data/resource APIs and prove data/file compatibility with fixtures and reload testing."
   - id: "P7"
     name: "Feature-parity reconstruction"
-    status: "BLOCKED"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Terra High"
     thinking: "high"
     escalation: "GPT-5.6 Sol High for persistence, sharing, visibility, or unexplained regressions"
     purpose: "Recover baseline behaviors one tested slice at a time against the P0 control evidence."
+    exit_criteria:
+      - "Every P0 feature category has a target result backed by automated evidence and human observation where visual or interactive judgment is required."
+      - "Terrain, biome, discovered structure, marker/layer, hearth/death, inscription, territory/city, route, map-share, PNG, and atlas UI behavior match the faithful P0 control."
+      - "Basic target client/dedicated synchronization, ownership, and hearsay flows pass without entering P8 adversarial restart, lifecycle, dimension, or multiplayer hardening."
+      - "Every demonstrated target defect is repaired in one bounded category with proportional regression evidence; no guessed API or speculative redesign is accepted."
+      - "Exact-lock compile and clean build pass; production identifiers, formats, resources, Surveyor boundaries, frozen fixtures, tag, design hash, and no-publication invariants remain intact."
+      - "The final P7 scope/invariant audit passes and the project stops at the explicit P8 approval gate."
   - id: "P8"
     name: "Persistence, lifecycle, dimensions, and multiplayer hardening"
     status: "BLOCKED"
@@ -962,6 +987,43 @@ p6_tasks:
       - "Final repository invariants pass: clean port/26.1.2, exact design hash, unchanged annotated P0 tag target, unchanged P2 lock, no upstream, zero legacy v0 helper imports, unchanged frozen-fixture hashes, no listeners, and no push/release/upload/publication."
       - "P6 is complete and stops at the explicit P7 approval gate; P7 and later phases remain blocked."
 
+p7_tasks:
+  - id: "P7-T01"
+    name: "Record P7 approval and verify entry invariants"
+    status: "COMPLETE"
+    model: "GPT-5.6 Terra High"
+    evidence:
+      - "APPROVAL-P7-001 records the owner's P7-only feature-parity scope, P8 exclusion, and required pause before user testing/client launch."
+      - "Verified clean port/26.1.2 at P6 completion commit 0b2c3a4f37d6bd95e301385cfb8e479d6c7af578 before any P7 production edit."
+      - "Verified state revision 64 records P0-P6 COMPLETE and AWAITING_P7_EXPLICIT_APPROVAL with exactly one approval-gated next action."
+      - "Verified design-doc.txt SHA-256 1FC133AE82AECD1CA5728B80015C66A4D32A0C1C30F107EE73EC990520B24079."
+      - "Verified zero P2-lock file changes since f8db0a4fe309a7a409122509f112c2f55a01765a and exact locked values in libs.versions.toml."
+      - "Verified p0-baseline-1.21.11 remains an annotated tag peeling to 7099b4df2420d5441e3b2b02e53201a0b249c8f9."
+      - "Verified both P4 .atlas SHA-256 values, all five P4 Surveyor tree digests, all five P6 local-store SHA-256 values, and zero tracked fixture diff."
+      - "Verified no configured branch upstream and the durable no-push/no-publication record."
+  - id: "P7-T02"
+    name: "Derive the target parity matrix and bounded slice plan from P0 and exact pinned sources"
+    status: "IN_PROGRESS"
+    model: "GPT-5.6 Terra High"
+    escalation: "GPT-5.6 Sol High for persistence, sharing, visibility, ownership, or unexplained regressions"
+  - id: "P7-T03"
+    name: "Recover exploration, terrain, biome, discovered-structure, and atlas-view parity"
+    status: "PENDING"
+    model: "GPT-5.6 Terra High"
+  - id: "P7-T04"
+    name: "Recover marker, layer, hearth/death, inscription, territory, city, and route parity"
+    status: "PENDING"
+    model: "GPT-5.6 Terra High"
+  - id: "P7-T05"
+    name: "Recover map sharing, PNG, ownership, hearsay, and basic synchronization parity"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+  - id: "P7-T06"
+    name: "Run the coordinated P7 feature matrix and close at the P8 approval gate"
+    status: "PENDING"
+    model: "GPT-5.6 Terra High"
+    escalation: "GPT-5.6 Sol High for any unexplained S2/S3 result"
+
 decisions:
   - id: "DEC-001"
     date: "2026-08-26"
@@ -1242,10 +1304,12 @@ test_evidence:
     dedicated_server_smoke: "PASS: isolated exact-lock server reached Done, loaded all three Surveyor dimensions, accepted literal stop, saved all dimensions, returned BUILD SUCCESSFUL in 34s, and released port 25565"
     final_scope_audit: "PASS: P6 range contains five production reloader/bootstrap Java files plus P6 docs/fixtures/probes/state; no production resource, build lock, serialization format, identity, feature, art, packaging, or publication change"
     final_gate_audit: "PASS: clean port/26.1.2, exact design hash, unchanged annotated P0 tag target, unchanged P2 lock, no upstream, no legacy v0 helper imports, exact frozen-fixture hashes, no listeners, and no external publication; stopped before P7"
+  p7:
+    approval_preflight: "PASS: exact clean P6 completion HEAD, revision-64 P0-P6 completion and approval gate, design hash, P2 lock, annotated P0 tag target, frozen P4/P6 fixture digests, no upstream, and no-publication record verified before the YAML-only checkpoint"
 
 latest_session:
   date_utc: "2026-08-27"
-  phase: "P6"
+  phase: "P7"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
     - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
@@ -1396,12 +1460,14 @@ latest_session:
     - "Final exact-lock offline clean build passed in 38 seconds with tests NO-SOURCE and both remapped artifacts; the final isolated dedicated server reached Done, loaded all three Surveyor dimensions, then stopped/saved cleanly and released port 25565."
     - "Final P6 scope and invariant audits pass: only five reloader/bootstrap Java files plus P6 docs/fixtures/probes/state changed; build lock, resources, formats, identity, tag/design, upstream, and no-publication boundaries remain exact."
     - "P6 is complete at the P7 approval gate; P7 and every later phase remain blocked pending explicit owner approval."
+    - "Human project owner explicitly approved P7 feature-parity reconstruction only; APPROVAL-P7-001 records the exact P7 scope, P8 and later exclusions, and the required pause before user testing/client launch."
+    - "Reverified clean port/26.1.2 at P6 completion commit 0b2c3a4f37d6bd95e301385cfb8e479d6c7af578, revision-64 P0-P6 completion, locked design hash, exact unchanged P2 lock, annotated P0 tag target, every frozen P4/P6 fixture digest, no upstream, and no-publication record before any P7 production edit."
   blockers:
-    - "Full Atlas client/dedicated synchronization and interactive ownership runtime checks remain assigned to the later P7/P8 matrix."
-    - "P7 and later phases remain independently blocked pending explicit human approval."
+    - "P8 persistence/lifecycle/dimension/multiplayer hardening and all later phases remain independently blocked pending explicit human approval."
+    - "P7 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Stop. Preserve the clean P6 completion state and wait for explicit human approval before recording a P7
-    approval checkpoint or beginning any feature-parity reconstruction, synchronization, multiplayer, or later work.
+    Derive the bounded P7 feature-parity slice matrix from the complete P0 control evidence and exact pinned
+    sources, beginning with non-launching static and automated characterization only.
 
 agent_first_prompt:
   text: >-
