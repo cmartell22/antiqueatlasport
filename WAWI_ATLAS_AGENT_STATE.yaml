@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 75
-last_updated_utc: "2026-08-28T03:22:59Z"
+state_revision: 76
+last_updated_utc: "2026-08-28T03:41:02Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P8_IN_PROGRESS"
 current_phase: "P8"
@@ -1144,7 +1144,14 @@ p8_tasks:
     name: "Harden integrated persistence, dimensions, imports, and client lifecycle"
     status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
-    evidence: []
+    evidence:
+      - "Added compat-fixtures/p8 as an independent exact-P2-lock client probe; its build command `.\\gradlew.bat -p compat-fixtures\\p8\\probe-project build --offline --no-daemon --console=plain --no-problems-report` passed in 8 seconds with five actionable tasks, three executed, two up-to-date."
+      - "Two unscored fresh disposable runtimes exposed harness errors only: the first asserted Atlas state in the same tick that local-store mutation correctly triggered a retile; the second put the tracked control at the player's feet, where production clearTrackingOnArrival correctly removed it. Both entire runtimes were discarded before rescoring."
+      - "The corrected scored seed runtime passed Overworld -> Nether -> Overworld -> End -> Overworld with 1057 / 5 / 289 terrain tiles, one isolated UUID-owned marker per dimension, deterministic layer/biome/chunk-patch/city stores, and one tracked marker."
+      - "The same process then disconnected through the saving screen, proved WorldAtlasData.WORLDS empty, rejoined the same world, reloaded all three Surveyor summaries, and emitted P8_INTEGRATED_LIFECYCLE_PASS before normal all-dimension save/stop; Gradle succeeded in 37 seconds."
+      - "Three subsequent fresh-JVM verify launches each reloaded exactly 1057 / 5 / 289 tiles, three dimension-isolated markers, all four local-store controls, and tracking, then stopped normally with Gradle success in 28, 28, and 27 seconds."
+      - "All four scored runtime logs are free of ConcurrentModificationException, Network Protocol Error, decoder/encoder failure, or probe IllegalStateException; only expected development-session authentication and fail-soft optional Punchy warnings remain."
+      - "Post-slice persisted evidence contains 9 Overworld / 8 Nether / 5 End Surveyor files and exact semantic local-store entries under sp:P6test; all two P4 scroll hashes, five P6 store hashes, and five P4 Surveyor tree digests still pass."
   - id: "P8-T04"
     name: "Harden dedicated-server restart, reconnect, multi-client isolation, ownership, and sharing policy"
     status: "PENDING"
@@ -1215,6 +1222,11 @@ decisions:
     decision: "Translate the deprecated Fabric v0 resource helper directly to v1 ResourceLoader registration while retaining Minecraft SinglePreparationResourceReloader implementations."
     source: "P6 exact Fabric resource-loader v0/v1 source comparison"
     rationale: "The exact v0 helper is only an adapter that forwards listener IDs and dependency ordering to v1. Direct registration preserves behavior and removes deprecated identity interfaces without changing preparation, apply, resource, or serialization logic."
+  - id: "DEC-013"
+    date: "2026-08-28"
+    decision: "Classify the two initial P8 integrated runs as unscored probe defects, discard their complete runtimes, and make no production edit."
+    source: "P8 exact Atlas lifecycle behavior and fresh-runtime stop rules"
+    rationale: "Local-store writes intentionally retile Atlas asynchronously, and clearTrackingOnArrival intentionally removes a marker at the player's position. Waiting for the retile and placing the tracked control outside the arrival radius preserve the acceptance criteria without masking a product failure."
 
 known_risks:
   - id: "RISK-001"
@@ -1351,6 +1363,7 @@ repository_state:
   p7_sharing_probe_commit: "44af10476cb7ced414977054c24c18e98bc3616d"
   p7_basic_sync_probe_commit: "8ff3c260a5d335c6161480074ae96af5a7d09986"
   p8_approval_commit: "b5f9e570c"
+  p8_hardening_matrix_commit: "9a6cc693d"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1466,6 +1479,11 @@ test_evidence:
     hardening_matrix: "PASS: docs/P8_HARDENING_MATRIX.md defines eight bounded slices, exact-source lifecycle facts, disposable-input rules, globalSharing policy separation, user-testing pause, stop rules, and the P9 boundary"
     immutable_fixture_entry_audit: "PASS: 2 P4 scroll hashes, 5 P6 local-store hashes, and 5 P4 Surveyor tree digests match their recorded values exactly; tracked fixtures remain unchanged"
     entry_clean_build: "PASS: exact-lock offline clean build completed in 16s; eight actionable tasks, five executed, three from cache, tests NO-SOURCE; main and sources hashes reproduce the P7 artifacts"
+    integrated_lifecycle_probe_build: "PASS: independent exact-lock P8 probe built offline in 8s; five actionable tasks, three executed and two up-to-date"
+    integrated_dimension_seed_rejoin: "PASS: fresh scored runtime traversed Overworld/Nether/Overworld/End/Overworld; retained 1057/5/289 terrain tiles, three dimension-isolated markers, layer/biome/patch/city/tracking controls; cleared Atlas state on disconnect; same-process rejoin restored all controls; normal save/stop and Gradle success in 37s"
+    fresh_jvm_restart_repetition: "PASS_3X: three independent JVM launches restored identical 1057/5/289 tiles, three markers, all local stores, and tracking, then normally saved/stopped with Gradle success in 28s, 28s, and 27s"
+    integrated_negative_log_audit: "PASS: four scored runtime logs contain no ConcurrentModificationException, Network Protocol Error, decoder/encoder failure, or probe IllegalStateException"
+    integrated_post_fixture_audit: "PASS: two P4 scrolls, five P6 stores, and five P4 Surveyor trees retain every recorded SHA-256/tree digest after the scored integrated slice"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1653,13 +1671,18 @@ latest_session:
     - "Derived docs/P8_HARDENING_MATRIX.md from the P0/P7 controls and exact pinned Surveyor lifecycle/config source; it defines eight bounded slices and preserves the separate user-testing pause."
     - "Verified every recorded frozen P4/P6 file and tree digest exactly after correcting one unscored ad-hoc digest sort-order mistake from the committed algorithm."
     - "The P8 entry exact-lock offline clean build passed in 16 seconds with tests NO-SOURCE and reproduced the P7 artifact hashes."
+    - "Added an independently exact-locked P8 integrated lifecycle probe and corrected two unscored harness defects from exact production behavior; each failed disposable runtime was deleted before any scored rerun, and no production edit was made."
+    - "The final fresh seed run passed Overworld/Nether/Overworld/End/Overworld transitions, dimension-isolated markers, deterministic local stores, clean Atlas disconnect clearing, same-process rejoin, and normal all-dimension save/stop."
+    - "Three fresh-JVM restart repetitions restored identical 1057/5/289 terrain counts, three markers, layer/biome/patch/city/tracking controls, with no CME, protocol, codec, or probe assertion failure."
+    - "Post-slice runtime artifacts are dimension-separated and every frozen P4/P6 digest remains exact; P8-S02 and P8-S03 automated persistence evidence pass without a production change."
   blockers:
     - "P9 release-candidate work and all later phases remain independently blocked pending explicit human approval."
     - "P8 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Build and run the first automated P8 integrated lifecycle slice in fresh disposable runtimes:
-    repeated join/save/quit plus same-world rejoin with deterministic terrain, structure, landmark,
-    and local-store assertions; do not launch a user-testing client or enter P9.
+    Build and run P8-S04 repeated import and restart against a digest-verified disposable copy of
+    the P0 multiplayer-author scroll: import twice, assert stable identity, source attribution/layer,
+    hearsay ownership, grouped undo, correction/city behavior, source-byte nonmutation, and restart
+    persistence; do not launch a user-testing client or enter dedicated P8-T04/P9 work.
 
 agent_first_prompt:
   text: >-
