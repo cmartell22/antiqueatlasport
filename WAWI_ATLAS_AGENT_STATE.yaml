@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 88
-last_updated_utc: "2026-08-28T08:55:50Z"
+state_revision: 89
+last_updated_utc: "2026-08-28T09:21:54Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P9_IN_PROGRESS"
 current_phase: "P9"
-current_task: "P9_T05_PREPARE_AND_RUN_OWNER_OBSERVED_RELEASE_CLIENT"
+current_task: "P9_T05_PROVE_FINAL_CANDIDATE_CHECKOUT_AND_PREPARE_TAG_TARGET"
 
 authority:
   precedence:
@@ -1315,6 +1315,15 @@ p9_tasks:
     evidence:
       - "The owner explicitly confirmed readiness in the Codex task with 'I'm ready'; APPROVAL-P9-OWNER-READY-001 satisfies the P9 owner-testing pause for the focused P9-S10 client only."
       - "This revision is the required YAML-only readiness checkpoint; its immutable commit SHA is resolved from the Git commit containing state revision 88 before any owner runtime preparation or launch."
+      - "Committed the YAML-only revision-88 readiness checkpoint as b4f681b742fb51879dd313f46dd9df798f0dc793 before preparing or launching the disposable owner runtime."
+      - "Prepared one disposable candidate profile from verified P6 control copies: P8 lifecycle seed passed at 1,057/19/289 Overworld/Nether/End tiles, repeated import seeded 2,188 terrain bits, and a fresh JVM verified stable Player271 attribution/layer/marker before the probe artifact was removed."
+      - "The owner reported every P9-S10 check passed with no glitches or bad textures and pan/zoom working in every dimension; this includes the handheld/fullscreen/closed cycle, movement/look, resize, GUI scale, pause/resume, F3+T, terrain/structure/annotation rendering, dimension returns, import preview/attribution/layer, and normal save/quit workflow."
+      - "Owner log SHA-256 39B012556CA91722EED9CCBD37431F0013CF691EB0591F64A2E2CC6FFA9908AC corroborates two invocations of each of the four Atlas reloaders, a 1-landmark/4-region import, all-dimension saves, normal Stopping, and Gradle success in 13m38s."
+      - "Post-owner negative/process/listener audit found only the established optional Punchy warning, no forbidden runtime signature, no Java/javaw process, and no listener on ports 25565/25575/25576/25578/25579."
+      - "Post-owner immutable audit passed both P4 scroll hashes, all five P6 local-store hashes, all five P4 Surveyor tree digests, zero fixture diff, exact design/P0 tag/P2 lock/no-upstream/no-publication controls, and absent RC tag."
+      - "Final workspace exact-lock offline clean build passed in 16 seconds with eight actionable tasks, five executed and three from cache; tests are NO-SOURCE and the disposable owner runtime was removed."
+      - "Final workspace artifacts remain exact: main 1,984,944 bytes / 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; sources 1,120,170 bytes / AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579; nested Surveyor 611,808 bytes / D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
+      - "Recursive artifact inspection again found no duplicate or unsafe entries, exact Atlas metadata/legal bytes, exact Surveyor metadata/license bytes, and nested Kaleido 0.3.3+1.3.2 metadata plus license."
 
 decisions:
   - id: "DEC-001"
@@ -1546,6 +1555,7 @@ repository_state:
   p9_release_candidate_matrix_commit: "b56dfd4fb300220e5d92dd538a24a0341a04a149"
   p9_initial_legal_packaging_commit: "d1d96a65c6927a13f9d47810d36804ad59e1f97b"
   p9_source_archive_reproducibility_commit: "8a3b534404c4ebf644fa4f6abdba7246a189adfb"
+  p9_owner_readiness_commit: "b4f681b742fb51879dd313f46dd9df798f0dc793"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1710,6 +1720,14 @@ test_evidence:
     final_recursive_artifact_audit: "PASS: exact main/sources hashes, target Atlas metadata, expected sources template, no duplicate entries, Atlas legal hashes, exact nested Surveyor metadata/hash/license, and nested Kaleido metadata/license"
     pre_owner_scope_invariant_audit: "PASS: exact branch/design/P0 tag/P2 lock, P9 scope limited to state/docs/build packaging, no gameplay/resource/fixture change, no RC tag yet, no upstream/publication, and no Java process/listener"
     owner_readiness: "CONFIRMED: owner explicitly said 'I'm ready'; APPROVAL-P9-OWNER-READY-001 permits one focused disposable P9-S10 owner-observed client after the YAML-only revision-88 checkpoint commit"
+    owner_runtime_preparation: "PASS: lifecycle seed/rejoin retained 1057/19/289 dimension tiles; repeated import seeded and fresh-JVM verified 2188 terrain bits with stable receiver-owned Player271 hearsay/layer/marker; copied probe removed before owner launch"
+    human_release_candidate_matrix: "PASS_OWNER_OBSERVED: owner reports all focused handheld/fullscreen/closed, movement/look, pan/zoom, resize, GUI-scale, pause/resume, F3+T, terrain/structure/annotation, all-dimension/return, import preview/attribution/layer, and normal save/quit checks passed with no glitch or bad texture; pan/zoom passed in every dimension"
+    human_log_corroboration: "PASS: 38,132-byte owner log SHA-256 39B012556CA91722EED9CCBD37431F0013CF691EB0591F64A2E2CC6FFA9908AC records two runs of each Atlas reloader, one-landmark/four-region import, all-dimension saves, normal Stopping, and Gradle BUILD SUCCESSFUL in 13m38s"
+    post_human_negative_cleanup: "PASS: only established optional Punchy class warning; no CME/protocol/codec/decoder/encoder/probe/mixin/classloading/crash/IllegalStateException failure; no Java process or controlled listener remains"
+    post_human_fixture_audit: "PASS: both P4 scrolls, all five P6 stores, all five P4 Surveyor tree digests, and tracked fixture diff remain exact after owner testing"
+    final_workspace_clean_build: "PASS: exact-lock offline clean build completed in 16s; eight actionable tasks, five executed and three from cache; tests NO-SOURCE; disposable owner runtime removed"
+    final_workspace_artifacts: "PASS: main 1,984,944 bytes / 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; sources 1,120,170 bytes / AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579; nested Surveyor 611,808 bytes / D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
+    final_workspace_recursive_artifact_audit: "PASS: no duplicate/unsafe entries; exact Atlas metadata and legal bytes; exact Surveyor metadata/hash/license; nested Kaleido metadata/license present"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1944,10 +1962,16 @@ latest_session:
     - "Recursive clean-artifact inspection passed Atlas/Surveyor/Kaleido metadata, nested coordinates, legal text, exact dependency hash, and duplicate-entry checks; RISK-007 and RISK-020 are clean-checkout verified."
     - "Pre-owner branch, design, P0 tag, P2 dependency lock, scope, process, listener, tag-absence, upstream, and no-publication audits pass. No owner-observed P9 client has been launched."
     - "The owner explicitly confirmed P9 readiness with 'I'm ready'; recorded APPROVAL-P9-OWNER-READY-001 in this YAML-only revision 88 before preparing or launching the owner-observed runtime."
+    - "Committed the YAML-only P9 owner-readiness checkpoint as b4f681b742fb51879dd313f46dd9df798f0dc793 before runtime preparation and launch."
+    - "Prepared a disposable candidate profile through lifecycle seed/rejoin, copied-world repeated import, and fresh-JVM import verification; removed the P8 probe jar and the unused seed world before launching the production candidate for owner observation."
+    - "The owner reported every P9-S10 release check passed with no glitch or bad texture and pan/zoom working in Overworld, Nether, and End."
+    - "The 38,132-byte owner log hashes to 39B012556CA91722EED9CCBD37431F0013CF691EB0591F64A2E2CC6FFA9908AC and corroborates F3+T across all four Atlas reloaders, a 1-landmark/4-region Player271 import, all-dimension saves, normal Stopping, and Gradle success in 13m38s."
+    - "Post-owner negative, process, listener, fixture, design, P0 tag, P2 lock, upstream, publication, and scope audits pass with no unexplained S2/S3 result and no RC tag yet."
+    - "The final workspace exact-lock clean build passed in 16 seconds and reproduced the clean-checkout-verified main, sources, and nested Surveyor hashes exactly; recursive metadata/legal/package inspection also remains exact."
   blockers: []
   next_action: >-
-    Commit this YAML-only readiness checkpoint, then prepare and launch one disposable
-    release-candidate client for the focused owner-observed P9-S10 matrix.
+    Commit this owner-observation and final-workspace checkpoint, then prove a new no-local,
+    no-hardlinks clean checkout of that exact candidate commit before preparing the final tag target.
 
 agent_first_prompt:
   text: >-
