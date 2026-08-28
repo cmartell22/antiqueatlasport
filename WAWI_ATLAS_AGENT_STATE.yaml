@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 71
-last_updated_utc: "2026-08-28T01:15:51Z"
+state_revision: 72
+last_updated_utc: "2026-08-28T02:58:33Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P7_IN_PROGRESS"
 current_phase: "P7"
@@ -1074,6 +1074,7 @@ p7_tasks:
       - "Both P4 scroll hashes, all five deterministic P4 Surveyor tree digests, and all five P6 local-store hashes match their frozen records exactly."
       - "No push, release, upload, or publication was performed; RISK-007, the baseline tag, and the P8 boundary remain untouched."
       - "Per the owner's caveat, no user-testing client has been launched; final owner-observed checks remain paused pending readiness confirmation."
+      - "The human project owner confirmed readiness in the Codex task with 'Ready, let's do it'; the final focused P7 user-testing client may now launch, while P8 and later phases remain unauthorized."
 
 decisions:
   - id: "DEC-001"
@@ -1372,6 +1373,7 @@ test_evidence:
     automated_basic_sync_probe: "PASS: exact target one-client/one-server flow with globalSharing=false synchronized 24 chunks over 4 regions, round-tripped one UUID-owned Atlas marker through Surveyor, exposed it owner-editable, cleanly saved one client/server landmark, stopped both runtimes successfully, and released loopback port 25576"
     pre_human_clean_build: "PASS: exact-lock offline clean build completed in 14s; eight actionable tasks, five executed, three from cache, tests NO-SOURCE; main jar 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9; sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870; nested Surveyor exact P2 hash D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
     pre_human_scope_invariant_audit: "PASS: P7 approval range has no src/main production/resource or P2-lock change; branch/tag/design/upstream/no-publication controls pass; git diff check and status are clean; both P4 scrolls, five P4 trees, and five P6 stores match frozen hashes"
+    owner_readiness: "CONFIRMED: owner explicitly said 'Ready, let's do it'; the approval caveat is satisfied for the final focused P7 user-observed client only"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1547,12 +1549,12 @@ latest_session:
     - "The pre-human exact-lock clean build passed in 14 seconds and produced exact target artifacts with the locked Surveyor jar byte-identical inside the main artifact."
     - "Pre-human P7 scope and invariant audit passes with zero P7 production/resource/build-lock edit, every frozen P4/P6 digest exact, the annotated baseline tag and design hash unchanged, no upstream, and no publication."
     - "Stopped without launching a user-testing client, as required; the final focused owner-observed matrix awaits explicit readiness confirmation."
+    - "The owner explicitly confirmed readiness for the final focused P7 user-observed matrix; P8 and later phases remain unauthorized."
   blockers:
     - "P8 persistence/lifecycle/dimension/multiplayer hardening and all later phases remain independently blocked pending explicit human approval."
-    - "P7 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Wait for the owner's readiness confirmation before launching the final focused P7 user-observed
-    client matrix; do not launch the user-testing client until that confirmation arrives.
+    Launch the isolated menu-only client and complete the final focused P7 owner-observed feature
+    matrix, then record results and stop at the P8 approval gate without entering P8.
 
 agent_first_prompt:
   text: >-
