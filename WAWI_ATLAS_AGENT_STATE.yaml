@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 82
-last_updated_utc: "2026-08-28T07:24:00Z"
+state_revision: 83
+last_updated_utc: "2026-08-28T07:31:25Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P9_BLOCKED_PENDING_EXACT_RC_TAG_AUTHORITY"
+project_status: "P9_IN_PROGRESS"
 current_phase: "P9"
-current_task: "AWAITING_EXACT_P9_RC_TAG_NAME_AND_FORM"
+current_task: "P9_T02_DERIVE_RELEASE_CANDIDATE_MATRIX"
 
 authority:
   precedence:
@@ -220,6 +220,17 @@ approvals:
       - "If the exact local release-candidate tag name or required tag form is not durably recorded, stop and ask rather than inventing it."
       - "Pause before owner-observed client testing until the owner confirms readiness; automated client testing remains allowed."
       - "No push, release, upload, or publication."
+  - id: "APPROVAL-P9-TAG-001"
+    recorded_date: "2026-08-28"
+    source: "Human project owner in the Codex task"
+    status: "APPROVED"
+    scope: >-
+      After every P9 exit criterion passes, create the local annotated tag
+      v82.rc.1-26.1.2 with the exact message "Release candidate for faithful repro of AA4 on MC v26.1".
+    exclusions:
+      - "Do not create the tag before all P9 release-candidate criteria pass."
+      - "Do not use a different name, tag form, message, or target."
+      - "Do not push, release, upload, or publish the tag."
 
 project:
   working_name: "WAWI Antique Atlas Port"
@@ -1238,12 +1249,13 @@ p9_tasks:
       - "This revision is the required YAML-only APPROVAL-P9-001 checkpoint; its immutable commit SHA is resolved from the Git commit containing state revision 81."
   - id: "P9-T02"
     name: "Derive the exhaustive faithful release-candidate matrix and resolve the authorized tag criterion"
-    status: "BLOCKED_PENDING_OWNER_TAG_CRITERION"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     evidence:
       - "After APPROVAL-P9-001 checkpoint commit 7db1361e10e3c78117ffc679b33c689d4ade8ecd, searched the complete durable state, design, tracked docs, fixture instructions, and repository text for P9/release-candidate/tag criteria."
       - "The durable record authorizes only an unspecified local RC tag; it contains no exact tag name and no required annotated-versus-lightweight form or annotated tag message."
       - "Per APPROVAL-P9-001's explicit stop rule, no P9 test, regression-matrix document, artifact modification, packaging correction, or tag operation was performed after discovering the missing authority."
+      - "APPROVAL-P9-TAG-001 now authorizes exact local annotated tag v82.rc.1-26.1.2 with exact message Release candidate for faithful repro of AA4 on MC v26.1 only after every P9 exit criterion passes."
   - id: "P9-T03"
     name: "Execute automated regression, failure-path, dedicated, lifecycle, dimension, import, ownership, hearsay, synchronization, rendering, input, and reload gates"
     status: "PENDING"
@@ -1331,6 +1343,11 @@ decisions:
     decision: "Execute the complete P9 faithful compatibility release-candidate gate under GPT-5.6 Sol High methodology."
     source: "Human project owner after correcting the desktop task's initial model setting"
     rationale: "P9 is correctness-critical and combines exhaustive runtime, persistence, synchronization, clean-checkout, legal/package, and immutable release-candidate evidence."
+  - id: "DEC-016"
+    date: "2026-08-28"
+    decision: "Use local annotated P9 tag v82.rc.1-26.1.2 with exact message Release candidate for faithful repro of AA4 on MC v26.1."
+    source: "Human project owner"
+    rationale: "This supplies the exact release-candidate identity and form that were intentionally absent from the prior durable record; creation remains conditional on every P9 exit criterion passing."
 
 known_risks:
   - id: "RISK-001"
@@ -1620,7 +1637,7 @@ test_evidence:
   p9:
     approval_preflight: "PASS: exact clean P8 completion HEAD, revision-80 P0-P8 completion and approval gate, locked design hash, unchanged exact P2 lock, annotated P0 tag form/target, all frozen P4/P6 fixture hashes and tree digests, no branch upstream, and no-publication record verified before the YAML-only checkpoint"
     approval_checkpoint: "PASS: YAML-only APPROVAL-P9-001 commit 7db1361e10e3c78117ffc679b33c689d4ade8ecd precedes every P9 test, artifact modification, packaging correction, and tag operation"
-    tag_criterion_search: "BLOCKED_PENDING_OWNER_AUTHORITY: exhaustive tracked-text search found no exact P9 RC tag name and no required annotated/lightweight form; no P9 test or non-state artifact change followed the discovery"
+    tag_criterion_search: "RESOLVED_BY_APPROVAL-P9-TAG-001: exhaustive tracked-text search first found no exact criterion and stopped before tests; owner then authorized local annotated tag v82.rc.1-26.1.2 with exact message Release candidate for faithful repro of AA4 on MC v26.1"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1837,12 +1854,12 @@ latest_session:
     - "Committed the YAML-only APPROVAL-P9-001 checkpoint as 7db1361e10e3c78117ffc679b33c689d4ade8ecd."
     - "Searched the complete durable state, design, tracked docs, fixture instructions, and repository text for an exact P9 release-candidate tag criterion; no exact name or annotated/lightweight form is recorded."
     - "Stopped before deriving the P9 matrix or running any P9 test and made no artifact, packaging, or tag change, as required by the explicit missing-tag-authority stop rule."
+    - "Human project owner supplied the exact P9 tag authority: local annotated v82.rc.1-26.1.2 with message Release candidate for faithful repro of AA4 on MC v26.1, to be created only after every P9 exit criterion passes."
   blockers:
-    - "The exact authorized local P9 RC tag name and required annotated/lightweight form are not durably recorded."
     - "Owner-observed P9 client testing remains paused until the owner separately confirms readiness."
   next_action: >-
-    Obtain and durably record the owner's exact local P9 release-candidate tag name and required tag
-    form, including the tag message if annotated, before deriving the P9 matrix or running any P9 test.
+    Derive and commit the exhaustive P9 faithful compatibility release-candidate regression matrix
+    from the P0 controls and P3-P8 evidence before running the first P9 test.
 
 agent_first_prompt:
   text: >-
