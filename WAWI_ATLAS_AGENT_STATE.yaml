@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 78
-last_updated_utc: "2026-08-28T04:17:51Z"
+state_revision: 79
+last_updated_utc: "2026-08-28T04:24:51Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P8_IN_PROGRESS"
 current_phase: "P8"
@@ -1186,7 +1186,7 @@ p8_tasks:
       - "Final build command: `.\\gradlew.bat clean build --offline --no-daemon --console=plain --no-problems-report` with the established jdk.net.unixdomain.tmpdir TCP fallback."
       - "Final artifacts reproduce the P7/P8 entry controls: main jar 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9, sources jar 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870, and nested Surveyor D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
       - "Pre-human scope/invariant audit finds no P8 src/main, production resource, P2-lock, frozen-fixture, identifier, format, art, Surveyor-policy, RISK-007, tag, design, upstream, or publication change; automated runtimes were removed by the final clean build and no Java process/listener remains."
-      - "Required focused owner observations remain pending, and the client-launch pause remains active until the owner explicitly confirms P8 testing readiness."
+      - "The owner explicitly confirmed readiness in the Codex task with 'I'm ready let's proceed'; the P8 client-launch caveat is satisfied for the focused owner-observed matrix only, while P9 and later phases remain unauthorized."
 
 decisions:
   - id: "DEC-001"
@@ -1529,7 +1529,8 @@ test_evidence:
     final_fixture_audit: "PASS: 2 P4 scroll hashes, 5 P6 store hashes, and 5 P4 Surveyor tree digests match every recorded value exactly after all automated P8 slices"
     pre_human_clean_build: "PASS: exact-lock offline clean build completed in 14s; eight actionable tasks, five executed and three from cache, tests NO-SOURCE; main 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9; sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870; nested Surveyor exact P2 hash D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
     pre_human_scope_invariant_audit: "PASS: approval range contains only durable state, docs/P8_HARDENING_MATRIX.md, and independent compat-fixtures/p8 probe files; no src/main production/resource, P2-lock, frozen-fixture, identifier, format, art, Surveyor-policy, RISK-007, tag, design, upstream, or publication change"
-    yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions for revision 78, P0-P7 COMPLETE, P8-T04 COMPLETE, P8-T05 IN_PROGRESS, P9 BLOCKED, and the single readiness-gated next action"
+    owner_readiness: "CONFIRMED: owner explicitly said 'I'm ready let's proceed'; the approval caveat is satisfied for the focused P8 owner-observed client only"
+    yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions for revision 79, P0-P7 COMPLETE, P8-T04 COMPLETE, P8-T05 IN_PROGRESS, P9 BLOCKED, and the single launch-gated next action"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1733,14 +1734,14 @@ latest_session:
     - "Committed the tested P8 dedicated/multi-client harness as f0928f0593fe931e128fe90c498858180bd6261e."
     - "Final scored-log, process, port, frozen-fixture, exact-lock clean-build, artifact-hash, and P8 scope/invariant audits pass with no production edit or unexplained S2/S3 result."
     - "Stopped before owner-observed P8 client testing; explicit P8 readiness confirmation remains required before launch."
+    - "The owner explicitly confirmed readiness for the focused P8 owner-observed matrix; P9 and later phases remain unauthorized."
   blockers:
     - "P9 release-candidate work and all later phases remain independently blocked pending explicit human approval."
-    - "P8 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Obtain the owner's explicit readiness confirmation for the focused P8 owner-observed matrix;
-    only after that confirmation, prepare and launch an isolated client to confirm persisted
+    Prepare and launch the isolated focused P8 owner-observed client, confirm persisted
     dimension/return maps, repeated-import attribution/layer behavior, and personal-versus-hearsay
-    display, then complete the final P8 audit and stop at the P9 explicit-approval gate.
+    display, then shut down normally, complete the final P8 audit, and stop at the P9
+    explicit-approval gate.
 
 agent_first_prompt:
   text: >-
