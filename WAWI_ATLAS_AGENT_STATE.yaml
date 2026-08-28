@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 74
-last_updated_utc: "2026-08-28T03:17:15Z"
+state_revision: 75
+last_updated_utc: "2026-08-28T03:22:59Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P8_IN_PROGRESS"
 current_phase: "P8"
-current_task: "P8-T02_HARDENING_MATRIX_AND_FIXTURES"
+current_task: "P8-T03_INTEGRATED_LIFECYCLE_DIMENSIONS_IMPORTS"
 
 authority:
   precedence:
@@ -1130,12 +1130,19 @@ p8_tasks:
       - "Verified no tracked P4/P6 fixture diff, no configured branch upstream, and the durable no-push/no-publication record."
   - id: "P8-T02"
     name: "Derive the adversarial hardening matrix and prepare immutable disposable controls"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
-    evidence: []
+    evidence:
+      - "docs/P8_HARDENING_MATRIX.md maps the P0/P7 controls to eight bounded hardening slices, exact-source lifecycle facts, required automated and human evidence, the globalSharing policy split, test order, and stop rules."
+      - "The matrix requires verified disposable copies, retained-stdin literal server stops, fresh runtimes after failed harness attempts, and a pause before owner-observed client launch."
+      - "All seven recorded individual P4/P6 fixture hashes pass exactly: two .atlas scrolls and five normalized Atlas local stores."
+      - "An initial unscored PowerShell tree-digest reconstruction sorted complete hash records instead of relative paths; reading the committed algorithm corrected the harness without changing any fixture or acceptance criterion."
+      - "All five deterministic P4 Surveyor tree digests then passed exactly when records were sorted by relative path as documented."
+      - "The exact-lock P8 entry clean build passed offline in 16 seconds with eight actionable tasks, five executed, three from cache, and tests NO-SOURCE."
+      - "Entry artifacts reproduce the P7 hashes: main 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9 and sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870."
   - id: "P8-T03"
     name: "Harden integrated persistence, dimensions, imports, and client lifecycle"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     evidence: []
   - id: "P8-T04"
@@ -1343,6 +1350,7 @@ repository_state:
   p7_annotation_probe_commit: "cebabc734d707c68f33387e34f4be5285d105223"
   p7_sharing_probe_commit: "44af10476cb7ced414977054c24c18e98bc3616d"
   p7_basic_sync_probe_commit: "8ff3c260a5d335c6161480074ae96af5a7d09986"
+  p8_approval_commit: "b5f9e570c"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1454,6 +1462,10 @@ test_evidence:
     final_scope_invariant_audit: "PASS: approval range contains only state, docs/P7_FEATURE_PARITY_MATRIX.md, and independent compat-fixtures/p7 probe files; no src/main, production resource, build/dependency lock, frozen P4/P6 fixture, Surveyor boundary, identifier, format, art, RISK-007, tag, design, upstream, or publication change; repository is clean before this final YAML checkpoint"
   p8:
     approval_preflight: "PASS: exact clean P7 completion HEAD, revision-73 P0-P7 completion and approval gate, locked design hash, unchanged P2 lock, annotated P0 tag target, no tracked P4/P6 fixture diff, no upstream, and no-publication record verified before the YAML-only checkpoint"
+    approval_checkpoint: "PASS: YAML-only local commit b5f9e570c recorded APPROVAL-P8-001 before any P8 runtime, fixture, harness, or production action"
+    hardening_matrix: "PASS: docs/P8_HARDENING_MATRIX.md defines eight bounded slices, exact-source lifecycle facts, disposable-input rules, globalSharing policy separation, user-testing pause, stop rules, and the P9 boundary"
+    immutable_fixture_entry_audit: "PASS: 2 P4 scroll hashes, 5 P6 local-store hashes, and 5 P4 Surveyor tree digests match their recorded values exactly; tracked fixtures remain unchanged"
+    entry_clean_build: "PASS: exact-lock offline clean build completed in 16s; eight actionable tasks, five executed, three from cache, tests NO-SOURCE; main and sources hashes reproduce the P7 artifacts"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1637,13 +1649,17 @@ latest_session:
     - "Final P7 scope and invariant audit passes with no P7 production edit; P7 is complete and stops at the P8 explicit-approval gate."
     - "Human project owner explicitly approved P8 persistence, lifecycle, dimension, import, reconnect/restart, and multiplayer hardening only; APPROVAL-P8-001 records the exact scope and P9/later exclusions."
     - "Reverified clean port/26.1.2 at P7 completion commit b7c5a06c50b13bade267836b236a142b75b7086c, revision-73 P0-P7 completion, locked design hash, unchanged P2 lock, annotated P0 tag target, frozen-fixture worktree, no upstream, and no-publication record before P8 action."
+    - "Committed the YAML-only P8 approval checkpoint locally as b5f9e570c before any P8 runtime, fixture, harness, or production action."
+    - "Derived docs/P8_HARDENING_MATRIX.md from the P0/P7 controls and exact pinned Surveyor lifecycle/config source; it defines eight bounded slices and preserves the separate user-testing pause."
+    - "Verified every recorded frozen P4/P6 file and tree digest exactly after correcting one unscored ad-hoc digest sort-order mistake from the committed algorithm."
+    - "The P8 entry exact-lock offline clean build passed in 16 seconds with tests NO-SOURCE and reproduced the P7 artifact hashes."
   blockers:
     - "P9 release-candidate work and all later phases remain independently blocked pending explicit human approval."
     - "P8 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Derive and commit the bounded P8 hardening matrix from the P0/P7 controls, then prepare only
-    verified disposable copies and automated harnesses for the first integrated persistence/lifecycle
-    slice; do not launch a user-testing client or enter P9.
+    Build and run the first automated P8 integrated lifecycle slice in fresh disposable runtimes:
+    repeated join/save/quit plus same-world rejoin with deterministic terrain, structure, landmark,
+    and local-store assertions; do not launch a user-testing client or enter P9.
 
 agent_first_prompt:
   text: >-
