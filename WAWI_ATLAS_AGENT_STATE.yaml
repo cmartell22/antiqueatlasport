@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 80
-last_updated_utc: "2026-08-28T04:44:29Z"
+state_revision: 81
+last_updated_utc: "2026-08-28T07:20:12Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P8_COMPLETE_AWAITING_P9_APPROVAL"
-current_phase: "P8"
-current_task: "AWAITING_P9_EXPLICIT_APPROVAL"
+project_status: "P9_IN_PROGRESS"
+current_phase: "P9"
+current_task: "P9_T02_DERIVE_RELEASE_CANDIDATE_MATRIX"
 
 authority:
   precedence:
@@ -195,6 +195,30 @@ approvals:
       - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
       - "Do not fix unrelated packaging risk RISK-007."
       - "Pause before any user-testing client launch until the owner confirms readiness; automated client testing remains allowed."
+      - "No push, release, upload, or publication."
+  - id: "APPROVAL-P9-001"
+    recorded_date: "2026-08-28"
+    source: "Human project owner in the Codex task: explicit approval to begin P9 only"
+    status: "APPROVED"
+    scope: >-
+      Execute P9 only under GPT-5.6 Sol High methodology: derive and execute the exhaustive faithful
+      compatibility release-candidate regression matrix from P0 controls and P3-P8 evidence; rerun the
+      required client, integrated-world, dedicated-server, persistence, dimension, import, ownership,
+      hearsay, synchronization, rendering, input, resource-reload, and failure-path checks; prove a
+      genuinely clean-checkout build using only the documented locked prerequisites; audit final main,
+      sources, embedded Surveyor, metadata, legal notices, and packaging; disposition RISK-007 with only
+      the narrowest demonstrated packaging correction; reverify every frozen fixture and compatibility
+      hash; complete final scope/invariant/process/listener/publication audits; and create only the exact
+      local release-candidate tag authorized by durable P9 criteria.
+    exclusions:
+      - "No P10, P11, or WAWI-specific integration, behavior, identity, resource, art, biome, recipe, progression, or presentation work."
+      - "No P2 dependency-lock change; a demonstrated lock defect must be recorded and work stopped for separate approval."
+      - "No Surveyor redesign or replacement, forced globalSharing override, ownership-boundary change, identifier change, or format change."
+      - "Never migrate or save over the frozen P4/P6 fixtures; operate only on verified disposable copies."
+      - "No gameplay change, broad refactor, package rename, unrelated cleanup, or non-packaging correction."
+      - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "If the exact local release-candidate tag name or required tag form is not durably recorded, stop and ask rather than inventing it."
+      - "Pause before owner-observed client testing until the owner confirms readiness; automated client testing remains allowed."
       - "No push, release, upload, or publication."
 
 project:
@@ -549,10 +573,9 @@ phase_plan:
       - "Exact-lock clean build, frozen-fixture verification, final scope/invariant audit, and required owner observations pass; the project stops at the explicit P9 approval gate."
   - id: "P9"
     name: "Faithful compatibility release candidate"
-    status: "BLOCKED"
-    model: "GPT-5.6 Terra High"
+    status: "IN_PROGRESS"
+    model: "GPT-5.6 Sol High"
     thinking: "high"
-    escalation: "GPT-5.6 Sol High for any unexplained S2/S3 release-gate result"
     purpose: "Exhaustive regression matrix, artifact/legal audit, clean-checkout build, and local RC tag."
   - id: "P10"
     name: "Separately approved WAWI integration"
@@ -1198,6 +1221,38 @@ p8_tasks:
       - "Final P8 approval-range audit contains only durable state, docs/P8_HARDENING_MATRIX.md, and the independent compat-fixtures/p8 harness; no production source/resource, P2-lock, frozen-fixture, identifier, format, art, Surveyor-policy, RISK-007, tag, design, upstream, or publication change exists."
       - "P8 is complete and stops at the explicit P9 approval gate; no P9 or later-phase work was entered."
 
+p9_tasks:
+  - id: "P9-T01"
+    name: "Record P9 approval and verify entry invariants"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "APPROVAL-P9-001 records the owner's P9-only faithful compatibility release-candidate scope, P10/P11/WAWI exclusions, packaging boundary, tag-name stop rule, and owner-testing pause."
+      - "Verified clean port/26.1.2 at P8 completion commit 2a741138c9001e977e88351f3bee46c449d6b2c6 before any P9 test, artifact modification, packaging correction, or tag operation."
+      - "Verified state revision 80 recorded P0-P8 COMPLETE and AWAITING_P9_EXPLICIT_APPROVAL with exactly one approval-gated next action."
+      - "Verified design-doc.txt SHA-256 1FC133AE82AECD1CA5728B80015C66A4D32A0C1C30F107EE73EC990520B24079."
+      - "Verified every P2 lock file is unchanged since f8db0a4fe309a7a409122509f112c2f55a01765a and the exact target versions remain recorded in libs.versions.toml."
+      - "Verified p0-baseline-1.21.11 remains an annotated tag object peeling to 7099b4df2420d5441e3b2b02e53201a0b249c8f9."
+      - "Verified both P4 .atlas SHA-256 values, all five P4 Surveyor tree digests, all five P6 local-store SHA-256 values, and zero tracked fixture diff."
+      - "Verified no configured branch upstream and the durable pushes_performed=false/no-publication record."
+      - "This revision is the required YAML-only APPROVAL-P9-001 checkpoint; its immutable commit SHA is resolved from the Git commit containing state revision 81."
+  - id: "P9-T02"
+    name: "Derive the exhaustive faithful release-candidate matrix and resolve the authorized tag criterion"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+  - id: "P9-T03"
+    name: "Execute automated regression, failure-path, dedicated, lifecycle, dimension, import, ownership, hearsay, synchronization, rendering, input, and reload gates"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+  - id: "P9-T04"
+    name: "Prove clean-checkout build and audit artifacts, embedded Surveyor, metadata, legal notices, packaging, fixtures, and hashes"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+  - id: "P9-T05"
+    name: "Run owner-observed release-candidate checks after readiness, complete final audits, create the authorized local RC tag, and stop at P10"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+
 decisions:
   - id: "DEC-001"
     date: "2026-08-26"
@@ -1267,6 +1322,11 @@ decisions:
     decision: "Treat Surveyor's clean-install globalSharing=true behavior, including GROUP modification rights across distinct owner UUIDs, as explicit operator-owned target policy rather than an Atlas defect."
     source: "Exact official Surveyor 1.2.4+26.1 SurveyorConfig and SurveyorClient source plus fresh two-identity runtime evidence"
     rationale: "The generated global group intentionally satisfies SurveyorClient.canModify for other group owners when waypoint networking is GROUP. Atlas must preserve that backend permission, must not manufacture an import layer for direct sharing, and must not silently coerce the operator setting; faithful P0 isolation therefore continues to require explicit globalSharing=false."
+  - id: "DEC-015"
+    date: "2026-08-28"
+    decision: "Execute the complete P9 faithful compatibility release-candidate gate under GPT-5.6 Sol High methodology."
+    source: "Human project owner after correcting the desktop task's initial model setting"
+    rationale: "P9 is correctness-critical and combines exhaustive runtime, persistence, synchronization, clean-checkout, legal/package, and immutable release-candidate evidence."
 
 known_risks:
   - id: "RISK-001"
@@ -1552,10 +1612,13 @@ test_evidence:
     final_artifact_audit: "PASS: main 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9; sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870; nested Surveyor D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
     final_scope_invariant_audit: "PASS: P8 approval range contains only durable state, docs/P8_HARDENING_MATRIX.md, and independent compat-fixtures/p8 harness files; no src/main, production resource, P2 lock, frozen P4/P6 fixture, identifier, format, art, Surveyor policy, RISK-007, tag, design, upstream, or publication change; repository is clean before this YAML checkpoint"
     yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions for revision 80, P0-P8 COMPLETE, P9 BLOCKED, and the single P9 approval-gated next action"
+  p9:
+    approval_preflight: "PASS: exact clean P8 completion HEAD, revision-80 P0-P8 completion and approval gate, locked design hash, unchanged exact P2 lock, annotated P0 tag form/target, all frozen P4/P6 fixture hashes and tree digests, no branch upstream, and no-publication record verified before the YAML-only checkpoint"
+    approval_checkpoint: "PASS: state revision 81 is the YAML-only APPROVAL-P9-001 checkpoint and precedes every P9 test, artifact modification, packaging correction, and tag operation; resolve its immutable SHA from the containing Git commit"
 
 latest_session:
   date_utc: "2026-08-28"
-  phase: "P8"
+  phase: "P9"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
     - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
@@ -1762,12 +1825,14 @@ latest_session:
     - "Normal shutdown saved all dimensions, Minecraft stopped, Gradle succeeded in 8m22s, and process/port cleanup passed."
     - "Post-human frozen-fixture, exact-lock clean-build, artifact-hash, scope, tag, design, upstream, and no-publication audits all pass."
     - "P8 is complete and stops at the P9 explicit-approval gate; no P9 work was entered."
+    - "Human project owner explicitly approved P9 faithful compatibility release-candidate work only; APPROVAL-P9-001 records the exact P9 scope, P10/P11/WAWI exclusions, packaging boundary, tag-name stop rule, and owner-testing pause."
+    - "Reverified clean port/26.1.2 at P8 completion commit 2a741138c9001e977e88351f3bee46c449d6b2c6, revision-80 P0-P8 completion, locked design hash, exact unchanged P2 lock, annotated P0 tag form/target, every frozen P4/P6 fixture digest, no branch upstream, and no-publication record before P9 action."
+    - "Recorded APPROVAL-P9-001 in this YAML-only state revision 81 before any P9 test, artifact modification, packaging correction, or tag operation."
   blockers:
-    - "P9 release-candidate work and all later phases remain independently blocked pending explicit human approval."
+    - "Owner-observed P9 client testing remains paused until the owner separately confirms readiness."
   next_action: >-
-    Stop. Preserve the clean P8 completion state and wait for explicit human approval before recording
-    a P9 approval checkpoint or beginning any release-candidate, legal/package, clean-checkout, tag,
-    publication, or later-phase work.
+    Derive the exhaustive P9 faithful compatibility release-candidate matrix from P0 and P3-P8
+    evidence, and resolve the exact durably authorized local RC tag name/form before running P9 tests.
 
 agent_first_prompt:
   text: >-
