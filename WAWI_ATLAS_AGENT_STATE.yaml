@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 83
-last_updated_utc: "2026-08-28T07:31:25Z"
+state_revision: 84
+last_updated_utc: "2026-08-28T07:34:48Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P9_IN_PROGRESS"
 current_phase: "P9"
-current_task: "P9_T02_DERIVE_RELEASE_CANDIDATE_MATRIX"
+current_task: "P9_T03_EXECUTE_AUTOMATED_RELEASE_CANDIDATE_GATES"
 
 authority:
   precedence:
@@ -1249,13 +1249,16 @@ p9_tasks:
       - "This revision is the required YAML-only APPROVAL-P9-001 checkpoint; its immutable commit SHA is resolved from the Git commit containing state revision 81."
   - id: "P9-T02"
     name: "Derive the exhaustive faithful release-candidate matrix and resolve the authorized tag criterion"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "After APPROVAL-P9-001 checkpoint commit 7db1361e10e3c78117ffc679b33c689d4ade8ecd, searched the complete durable state, design, tracked docs, fixture instructions, and repository text for P9/release-candidate/tag criteria."
       - "The durable record authorizes only an unspecified local RC tag; it contains no exact tag name and no required annotated-versus-lightweight form or annotated tag message."
       - "Per APPROVAL-P9-001's explicit stop rule, no P9 test, regression-matrix document, artifact modification, packaging correction, or tag operation was performed after discovering the missing authority."
       - "APPROVAL-P9-TAG-001 now authorizes exact local annotated tag v82.rc.1-26.1.2 with exact message Release candidate for faithful repro of AA4 on MC v26.1 only after every P9 exit criterion passes."
+      - "docs/P9_RELEASE_CANDIDATE_MATRIX.md derives 14 exhaustive slices from the P0 controls and P3-P8 evidence before the first P9 test."
+      - "The matrix covers immutable controls; compile/static/resource/mixin checks; Surveyor, serialization, persistence, and failure paths; feature/render-model/annotation/output probes; integrated lifecycle/dimensions/import; dedicated synchronization/restart/two-client policy; negative logs/cleanup; owner-observed rendering/input/reload; clean-checkout build; artifact/legal packaging and RISK-007; final invariants; exact local tag; and the P10 stop."
+      - "The matrix preserves disposable-fixture rules, exact locked prerequisites, literal dedicated-server stop, unexplained S2/S3 stop rules, the owner-testing pause, no-publication boundary, and exact tag authority."
   - id: "P9-T03"
     name: "Execute automated regression, failure-path, dedicated, lifecycle, dimension, import, ownership, hearsay, synchronization, rendering, input, and reload gates"
     status: "PENDING"
@@ -1490,6 +1493,7 @@ repository_state:
   p8_dedicated_multiclient_probe_commit: "f0928f0593fe931e128fe90c498858180bd6261e"
   p8_owner_readiness_commit: "b718622f2c12ced960d25a336ff5c04f0f24dc05"
   p9_approval_commit: "7db1361e10e3c78117ffc679b33c689d4ade8ecd"
+  p9_tag_authority_commit: "1ce83f952fd5007ea27a6e90f092c07f3768e66d"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1638,6 +1642,7 @@ test_evidence:
     approval_preflight: "PASS: exact clean P8 completion HEAD, revision-80 P0-P8 completion and approval gate, locked design hash, unchanged exact P2 lock, annotated P0 tag form/target, all frozen P4/P6 fixture hashes and tree digests, no branch upstream, and no-publication record verified before the YAML-only checkpoint"
     approval_checkpoint: "PASS: YAML-only APPROVAL-P9-001 commit 7db1361e10e3c78117ffc679b33c689d4ade8ecd precedes every P9 test, artifact modification, packaging correction, and tag operation"
     tag_criterion_search: "RESOLVED_BY_APPROVAL-P9-TAG-001: exhaustive tracked-text search first found no exact criterion and stopped before tests; owner then authorized local annotated tag v82.rc.1-26.1.2 with exact message Release candidate for faithful repro of AA4 on MC v26.1"
+    release_candidate_matrix: "PASS: docs/P9_RELEASE_CANDIDATE_MATRIX.md defines 14 exhaustive P0/P3-P8-derived slices, exact command families, clean-checkout and RISK-007 rules, owner-testing pause, final tag criterion, stop rules, and P10 boundary before the first P9 test"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1855,11 +1860,13 @@ latest_session:
     - "Searched the complete durable state, design, tracked docs, fixture instructions, and repository text for an exact P9 release-candidate tag criterion; no exact name or annotated/lightweight form is recorded."
     - "Stopped before deriving the P9 matrix or running any P9 test and made no artifact, packaging, or tag change, as required by the explicit missing-tag-authority stop rule."
     - "Human project owner supplied the exact P9 tag authority: local annotated v82.rc.1-26.1.2 with message Release candidate for faithful repro of AA4 on MC v26.1, to be created only after every P9 exit criterion passes."
+    - "Committed the exact tag authority in YAML-only checkpoint 1ce83f952fd5007ea27a6e90f092c07f3768e66d."
+    - "Derived docs/P9_RELEASE_CANDIDATE_MATRIX.md before the first P9 test; its 14 slices exhaustively cover the required client, integrated, dedicated, persistence, dimension, import, ownership, hearsay, synchronization, rendering, input, reload, failure, clean-checkout, artifact/legal, fixture, invariant, process/listener/publication, tag, and P10-stop gates."
   blockers:
     - "Owner-observed P9 client testing remains paused until the owner separately confirms readiness."
   next_action: >-
-    Derive and commit the exhaustive P9 faithful compatibility release-candidate regression matrix
-    from the P0 controls and P3-P8 evidence before running the first P9 test.
+    Commit the exhaustive P9 matrix checkpoint, then execute P9-S01 through P9-S03 immutable,
+    exact-lock build/static/resource, Surveyor/serialization/persistence, and failure-path gates.
 
 agent_first_prompt:
   text: >-
