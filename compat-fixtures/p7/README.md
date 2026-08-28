@@ -17,6 +17,12 @@ world. The probe waits for a real integrated-world join and Atlas terrain comple
 The probe prints `P7_TERRAIN_PROBE_PASS` and requests a normal client stop. It does not score visual
 appearance or user interaction. Frozen P4/P6 fixtures are never modified.
 
+`P7AnnotationProbe` is the P7-S03 data/model slice. After the terrain assertions pass, it uses
+production Atlas and Surveyor paths to create, edit, undo, redo, classify, and remove a marker;
+exercise layer visibility and tracking; verify route sampling/length, inscription and territory
+classification, biome correction/patch, city paint, and hearth presence; restore every captured
+state; then print `P7_ANNOTATION_PROBE_PASS`.
+
 Build the main classes and probe with the exact lock, then place the remapped probe jar in the
 disposable client's `mods` directory. The ignored init script used by the recorded run resolves to
 `build/p7-s01-client-r3`, supplies no program arguments, and the probe invokes Minecraft 26.1.2's

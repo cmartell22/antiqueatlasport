@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 67
-last_updated_utc: "2026-08-28T00:55:00Z"
+state_revision: 68
+last_updated_utc: "2026-08-28T00:59:14Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P7_IN_PROGRESS"
 current_phase: "P7"
-current_task: "P7-T04_ANNOTATION_FEATURE_PARITY"
+current_task: "P7-T05_SHARING_AND_BASIC_SYNC_FEATURE_PARITY"
 
 authority:
   precedence:
@@ -1028,11 +1028,19 @@ p7_tasks:
       - "No production edit was required for P7-S01."
   - id: "P7-T04"
     name: "Recover marker, layer, hearth/death, inscription, territory, city, and route parity"
-    status: "IN_PROGRESS"
+    status: "COMPLETE_AUTOMATED_PENDING_FINAL_HUMAN_CHECK"
     model: "GPT-5.6 Terra High"
+    evidence:
+      - "Extended the independently locked disposable-client probe without changing production source, resources, formats, or the P2 lock."
+      - "Exact-lock probe clean build passed in 9 seconds with six tasks executed and tests NO-SOURCE."
+      - "The first fresh automated runtime passed marker creation, edit, deletion cleanup, custom-layer visibility, tracking, undo/redo, route curve generation, inscription, territory containment/centroid, biome correction, city paint, and hearth/spawn-marker assertions."
+      - "The probe reported one marker, one layer, one edit, one undo, one redo, one route, one inscription, one territory, two biome corrections, one city cell, and one hearth before cleanup."
+      - "Probe cleanup removed every temporary landmark/layer/tracking entry and restored biome/city state; Surveyor's normal shutdown reported zero saved landmarks."
+      - "Minecraft stopped normally, saved all three dimensions and Surveyor data, and Gradle returned BUILD SUCCESSFUL in 33 seconds."
+      - "No production defect or production edit was required for P7-S03."
   - id: "P7-T05"
     name: "Recover map sharing, PNG, ownership, hearsay, and basic synchronization parity"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
   - id: "P7-T06"
     name: "Run the coordinated P7 feature matrix and close at the P8 approval gate"
@@ -1228,6 +1236,9 @@ repository_state:
   p6_resource_api_commit: "4d67550d6e780b27a477720dbf4b685e64907ebc"
   p6_serialization_probe_commit: "6613e4c7e22036e06c9bda66ec2b2a2f1543347f"
   p6_client_reload_commit: "7d130e682370c2b0eb75cc90bb1536352781648f"
+  p7_approval_commit: "8662ac1a148a22c65f8e27392d919aabd7c3ef66"
+  p7_inventory_commit: "b7980c44179626bfa3d5389131729a44be70ea6"
+  p7_terrain_probe_commit: "08116d9eda6ab46f5c3da5e9d090f16fbf2f1ef1"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1326,6 +1337,7 @@ test_evidence:
     entry_clean_build: "PASS: exact-lock offline clean build completed in 16s; eight actionable tasks, five executed, three from cache, tests NO-SOURCE"
     parity_inventory: "PASS: docs/P7_FEATURE_PARITY_MATRIX.md maps every P0 category, existing evidence, bounded P7 slice, P8 boundary, test order, and stop rule; no inventory-only production edit justified"
     automated_terrain_probe: "PASS: exact target client joined disposable P7Auto, resolved 1057 tiles / 526 biome IDs / 1057 providers / 49 batches / 4228 subtiles from four Surveyor exploration regions, loaded 73 biome looks, passed representative name fallbacks, stopped/saved normally, and returned Gradle success in 33s"
+    automated_annotation_probe: "PASS: exact-lock probe build succeeded; fresh target client passed marker/layer/tracking/undo/redo/route/inscription/territory/biome-correction/city/hearth model assertions, cleaned every temporary mutation, saved zero landmarks, stopped normally, and returned Gradle success in 33s"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1488,12 +1500,15 @@ latest_session:
     - "Added the exact-lock P7 automated feature-probe harness without changing production source, resources, or the P2 lock."
     - "Two unscored harness iterations were corrected from exact evidence: the first menu timeout required target QuickPlay.startQuickPlay, and the second used an invalid cold/deep name order in its assertion."
     - "The fresh final P7-S01 client passed with 1,057 explored tiles, 526 biome identities, 1,057 providers, 49 batches / 4,228 subtiles, four Surveyor exploration regions, 73 loaded looks, representative P0 name fallbacks, and normal save/stop."
+    - "Extended the same independently locked harness for P7-S03; its exact-lock clean build passed before runtime."
+    - "The first fresh automated P7-S03 runtime passed marker/layer/tracking/undo/redo/route/inscription/territory/biome-correction/city/hearth assertions, cleaned its temporary mutations, saved zero landmarks, and stopped normally with Gradle success."
+    - "P7-S03 exposed no compatibility defect and required no production edit; its focused owner-observed UI checks remain paused until the owner confirms readiness."
   blockers:
     - "P8 persistence/lifecycle/dimension/multiplayer hardening and all later phases remain independently blocked pending explicit human approval."
     - "P7 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Extend the disposable automated probe with P7-S03 marker, layer, inscription, territory, city,
-    route, undo, and tracking model assertions without beginning user testing.
+    Extend the disposable automated probe with P7-S04 successful .atlas export/import and PNG-save
+    assertions in a fresh runtime, without beginning user testing or P8 hardening.
 
 agent_first_prompt:
   text: >-
