@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 87
-last_updated_utc: "2026-08-28T08:21:39Z"
+state_revision: 88
+last_updated_utc: "2026-08-28T08:55:50Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P9_IN_PROGRESS"
 current_phase: "P9"
-current_task: "P9_T05_AWAIT_OWNER_READINESS_FOR_OBSERVED_CLIENT"
+current_task: "P9_T05_PREPARE_AND_RUN_OWNER_OBSERVED_RELEASE_CLIENT"
 
 authority:
   precedence:
@@ -231,6 +231,18 @@ approvals:
       - "Do not create the tag before all P9 release-candidate criteria pass."
       - "Do not use a different name, tag form, message, or target."
       - "Do not push, release, upload, or publish the tag."
+  - id: "APPROVAL-P9-OWNER-READY-001"
+    recorded_date: "2026-08-28"
+    source: "Human project owner in the Codex task: 'I'm ready'"
+    status: "CONFIRMED"
+    scope: >-
+      Satisfy the APPROVAL-P9-001 pause and permit preparation and launch of one disposable
+      release-candidate client for the focused owner-observed P9-S10 rendering, input, resize,
+      GUI-scale, resource-reload, dimension, import, persistence, and normal-shutdown matrix.
+    exclusions:
+      - "No P10, P11, or WAWI-specific work."
+      - "No release-candidate tag until every P9 exit criterion passes."
+      - "No push, release, upload, or publication."
 
 project:
   working_name: "WAWI Antique Atlas Port"
@@ -1298,8 +1310,11 @@ p9_tasks:
       - "Pre-owner scope/invariant audit passes exact design hash, annotated P0 tag form/target, unchanged P2 dependency lock files, no upstream, absent RC tag, no gameplay/resource/fixture change, no process/listener, and no publication."
   - id: "P9-T05"
     name: "Run owner-observed release-candidate checks after readiness, complete final audits, create the authorized local RC tag, and stop at P10"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "The owner explicitly confirmed readiness in the Codex task with 'I'm ready'; APPROVAL-P9-OWNER-READY-001 satisfies the P9 owner-testing pause for the focused P9-S10 client only."
+      - "This revision is the required YAML-only readiness checkpoint; its immutable commit SHA is resolved from the Git commit containing state revision 88 before any owner runtime preparation or launch."
 
 decisions:
   - id: "DEC-001"
@@ -1694,6 +1709,7 @@ test_evidence:
     final_clean_checkout_build: "PASS: no-local/no-hardlinks clone of exact 8a3b534404c4ebf644fa4f6abdba7246a189adfb had no generated roots; checksum-locked wrapper offline build passed in 1m22s; tests NO-SOURCE; Git clean except ignored output"
     final_recursive_artifact_audit: "PASS: exact main/sources hashes, target Atlas metadata, expected sources template, no duplicate entries, Atlas legal hashes, exact nested Surveyor metadata/hash/license, and nested Kaleido metadata/license"
     pre_owner_scope_invariant_audit: "PASS: exact branch/design/P0 tag/P2 lock, P9 scope limited to state/docs/build packaging, no gameplay/resource/fixture change, no RC tag yet, no upstream/publication, and no Java process/listener"
+    owner_readiness: "CONFIRMED: owner explicitly said 'I'm ready'; APPROVAL-P9-OWNER-READY-001 permits one focused disposable P9-S10 owner-observed client after the YAML-only revision-88 checkpoint commit"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1927,11 +1943,11 @@ latest_session:
     - "The second clean clone's exact-wrapper offline build passed in 1m22s and reproduced both artifacts byte-for-byte: main 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28 and sources AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579."
     - "Recursive clean-artifact inspection passed Atlas/Surveyor/Kaleido metadata, nested coordinates, legal text, exact dependency hash, and duplicate-entry checks; RISK-007 and RISK-020 are clean-checkout verified."
     - "Pre-owner branch, design, P0 tag, P2 dependency lock, scope, process, listener, tag-absence, upstream, and no-publication audits pass. No owner-observed P9 client has been launched."
-  blockers:
-    - "Owner-observed P9 client testing remains paused until the owner separately confirms readiness."
+    - "The owner explicitly confirmed P9 readiness with 'I'm ready'; recorded APPROVAL-P9-OWNER-READY-001 in this YAML-only revision 88 before preparing or launching the owner-observed runtime."
+  blockers: []
   next_action: >-
-    Wait for the owner's explicit P9 readiness confirmation, then record a YAML-only readiness
-    checkpoint before preparing or launching the owner-observed release-candidate client.
+    Commit this YAML-only readiness checkpoint, then prepare and launch one disposable
+    release-candidate client for the focused owner-observed P9-S10 matrix.
 
 agent_first_prompt:
   text: >-
