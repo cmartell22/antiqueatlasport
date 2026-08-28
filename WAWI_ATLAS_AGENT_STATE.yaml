@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 79
-last_updated_utc: "2026-08-28T04:24:51Z"
+state_revision: 80
+last_updated_utc: "2026-08-28T04:44:29Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P8_IN_PROGRESS"
+project_status: "P8_COMPLETE_AWAITING_P9_APPROVAL"
 current_phase: "P8"
-current_task: "P8-T05_COORDINATED_MATRIX_AND_FINAL_GATE"
+current_task: "AWAITING_P9_EXPLICIT_APPROVAL"
 
 authority:
   precedence:
@@ -534,7 +534,7 @@ phase_plan:
       - "The final P7 scope/invariant audit passes and the project stops at the explicit P8 approval gate."
   - id: "P8"
     name: "Persistence, lifecycle, dimensions, and multiplayer hardening"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Adversarially test save/reload, imports, restarts, dimensions, disconnects, and player/server isolation."
@@ -1177,7 +1177,7 @@ p8_tasks:
       - "Committed the tested dedicated/multi-client/policy harness locally as f0928f0593fe931e128fe90c498858180bd6261e; no production source, resource, or dependency-lock edit was required."
   - id: "P8-T05"
     name: "Run the coordinated P8 matrix and close at the P9 approval gate"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "Automated P8-S01 through P8-S07 are complete: immutable controls, integrated lifecycle, dimensions, repeated imports, dedicated restart/reconnect, two-client isolation/hearsay, and both Surveyor globalSharing policy branches pass."
@@ -1187,6 +1187,16 @@ p8_tasks:
       - "Final artifacts reproduce the P7/P8 entry controls: main jar 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9, sources jar 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870, and nested Surveyor D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
       - "Pre-human scope/invariant audit finds no P8 src/main, production resource, P2-lock, frozen-fixture, identifier, format, art, Surveyor-policy, RISK-007, tag, design, upstream, or publication change; automated runtimes were removed by the final clean build and no Java process/listener remains."
       - "The owner explicitly confirmed readiness in the Codex task with 'I'm ready let's proceed'; the P8 client-launch caveat is satisfied for the focused owner-observed matrix only, while P9 and later phases remain unauthorized."
+      - "Committed the YAML-only owner-readiness checkpoint as b718622f2c12ced960d25a336ff5c04f0f24dc05 before preparing or launching the owner-observed runtime."
+      - "A disposable clone of the proven P6 control was seeded through the scored P8 lifecycle probe, cloned after the all-dimension checkpoint, imported twice through the scored repeated-import probe, and reverified in a fresh JVM before owner launch."
+      - "The owner confirmed correct Overworld, Nether, End, and return-map rendering; each non-Overworld map exposed only its dimension-matching P8 marker in P8 Lifecycle, while Overworld alone exposed the Player271 red-X in Map of Player271."
+      - "The owner imported the Player271 scroll again after its preview, confirmed one stable Map of Player271 layer and marker with independent layer toggling, and passed scrolling, zoom, handheld/fullscreen/closed mode cycling, and all visual checks with no error."
+      - "Normal Save and Quit saved Overworld, Nether, and End; Quit Game logged Stopping, Gradle returned BUILD SUCCESSFUL in 8m22s, and no Java process or test listener remained."
+      - "Post-human exact verification passed both P4 scroll hashes, all five P6 store hashes, all five P4 Surveyor tree digests, and the immutable tracked-fixture audit."
+      - "The final exact-lock offline clean build passed in 14 seconds with eight actionable tasks, five executed, three from cache, and tests NO-SOURCE; it removed the disposable owner runtime."
+      - "Final artifacts reproduce the locked controls: main 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9, sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870, and nested Surveyor D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
+      - "Final P8 approval-range audit contains only durable state, docs/P8_HARDENING_MATRIX.md, and the independent compat-fixtures/p8 harness; no production source/resource, P2-lock, frozen-fixture, identifier, format, art, Surveyor-policy, RISK-007, tag, design, upstream, or publication change exists."
+      - "P8 is complete and stops at the explicit P9 approval gate; no P9 or later-phase work was entered."
 
 decisions:
   - id: "DEC-001"
@@ -1397,6 +1407,7 @@ repository_state:
   p8_integrated_lifecycle_probe_commit: "85bee1400b4fc2f6c0d307223f04340d969f2094"
   p8_repeated_import_probe_commit: "d2b173104"
   p8_dedicated_multiclient_probe_commit: "f0928f0593fe931e128fe90c498858180bd6261e"
+  p8_owner_readiness_commit: "b718622f2c12ced960d25a336ff5c04f0f24dc05"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1530,7 +1541,17 @@ test_evidence:
     pre_human_clean_build: "PASS: exact-lock offline clean build completed in 14s; eight actionable tasks, five executed and three from cache, tests NO-SOURCE; main 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9; sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870; nested Surveyor exact P2 hash D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
     pre_human_scope_invariant_audit: "PASS: approval range contains only durable state, docs/P8_HARDENING_MATRIX.md, and independent compat-fixtures/p8 probe files; no src/main production/resource, P2-lock, frozen-fixture, identifier, format, art, Surveyor-policy, RISK-007, tag, design, upstream, or publication change"
     owner_readiness: "CONFIRMED: owner explicitly said 'I'm ready let's proceed'; the approval caveat is satisfied for the focused P8 owner-observed client only"
-    yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions for revision 79, P0-P7 COMPLETE, P8-T04 COMPLETE, P8-T05 IN_PROGRESS, P9 BLOCKED, and the single launch-gated next action"
+    owner_runtime_preparation: "PASS: lifecycle seed produced persisted all-dimension controls; repeated-import seed plus fresh-JVM verify restored 2,188 Overworld, 23 Nether, and 19 End tiles, three dimension-specific P8 markers, one stable Player271 hearsay marker/source layer, and the correction/city sheets before owner launch"
+    human_dimension_matrix: "PASS_OWNER_OBSERVED: Overworld, Nether, End, and return maps rendered correctly; each non-Overworld dimension contained only its matching P8 marker in P8 Lifecycle, while Overworld alone contained the Player271 red-X in Map of Player271"
+    human_import_ownership_matrix: "PASS_OWNER_OBSERVED: another verified Player271 import retained one Map of Player271 layer and one red-X marker; P8 Lifecycle and Player271 layers toggled independently with correct personal-versus-hearsay placement"
+    human_view_matrix: "PASS_OWNER_OBSERVED: scrolling, zoom, handheld, fullscreen, and closed modes all functioned across the focused dimension workflow with no visual error"
+    normal_client_shutdown: "PASS: Save and Quit saved Overworld, Nether, and End; Quit Game logged Stopping; Gradle BUILD SUCCESSFUL in 8m22s; no Java/javaw process or listeners on 25565/25575/25576/25578/25579 remained"
+    human_negative_log_audit: "PASS: owner runtime contains no CME, Network Protocol Error, decoder/encoder failure, or IllegalStateException; only established offline development authentication/Realms errors and optional Punchy warning occurred"
+    post_human_fixture_audit: "PASS: 2 P4 scroll hashes, 5 P6 local-store hashes, and 5 P4 Surveyor tree digests match every frozen value after owner testing"
+    final_clean_build: "PASS: exact-lock offline clean build completed in 14s; eight actionable tasks, five executed and three from cache, tests NO-SOURCE; disposable owner runtime removed"
+    final_artifact_audit: "PASS: main 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9; sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870; nested Surveyor D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
+    final_scope_invariant_audit: "PASS: P8 approval range contains only durable state, docs/P8_HARDENING_MATRIX.md, and independent compat-fixtures/p8 harness files; no src/main, production resource, P2 lock, frozen P4/P6 fixture, identifier, format, art, Surveyor policy, RISK-007, tag, design, upstream, or publication change; repository is clean before this YAML checkpoint"
+    yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions for revision 80, P0-P8 COMPLETE, P9 BLOCKED, and the single P9 approval-gated next action"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1735,13 +1756,18 @@ latest_session:
     - "Final scored-log, process, port, frozen-fixture, exact-lock clean-build, artifact-hash, and P8 scope/invariant audits pass with no production edit or unexplained S2/S3 result."
     - "Stopped before owner-observed P8 client testing; explicit P8 readiness confirmation remains required before launch."
     - "The owner explicitly confirmed readiness for the focused P8 owner-observed matrix; P9 and later phases remain unauthorized."
+    - "Committed the YAML-only P8 owner-readiness checkpoint locally as b718622f2c12ced960d25a336ff5c04f0f24dc05 before runtime preparation or launch."
+    - "Prepared one disposable owner profile by seeding all-dimension lifecycle controls, cloning the scored world, applying the repeated-import cycle, and passing a fresh-JVM import verification."
+    - "The owner passed Overworld/Nether/End/return map isolation, one additional Player271 import, stable source layer and marker behavior, independent layer toggles, scrolling, zoom, all three atlas modes, and the visual audit."
+    - "Normal shutdown saved all dimensions, Minecraft stopped, Gradle succeeded in 8m22s, and process/port cleanup passed."
+    - "Post-human frozen-fixture, exact-lock clean-build, artifact-hash, scope, tag, design, upstream, and no-publication audits all pass."
+    - "P8 is complete and stops at the P9 explicit-approval gate; no P9 work was entered."
   blockers:
     - "P9 release-candidate work and all later phases remain independently blocked pending explicit human approval."
   next_action: >-
-    Prepare and launch the isolated focused P8 owner-observed client, confirm persisted
-    dimension/return maps, repeated-import attribution/layer behavior, and personal-versus-hearsay
-    display, then shut down normally, complete the final P8 audit, and stop at the P9
-    explicit-approval gate.
+    Stop. Preserve the clean P8 completion state and wait for explicit human approval before recording
+    a P9 approval checkpoint or beginning any release-candidate, legal/package, clean-checkout, tag,
+    publication, or later-phase work.
 
 agent_first_prompt:
   text: >-
