@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 89
-last_updated_utc: "2026-08-28T09:21:54Z"
+state_revision: 90
+last_updated_utc: "2026-08-28T09:25:42Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P9_IN_PROGRESS"
 current_phase: "P9"
-current_task: "P9_T05_PROVE_FINAL_CANDIDATE_CHECKOUT_AND_PREPARE_TAG_TARGET"
+current_task: "P9_T05_PROVE_EXACT_TAG_TARGET_CHECKOUT_THEN_CREATE_AUTHORIZED_TAG"
 
 authority:
   precedence:
@@ -1324,6 +1324,9 @@ p9_tasks:
       - "Final workspace exact-lock offline clean build passed in 16 seconds with eight actionable tasks, five executed and three from cache; tests are NO-SOURCE and the disposable owner runtime was removed."
       - "Final workspace artifacts remain exact: main 1,984,944 bytes / 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; sources 1,120,170 bytes / AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579; nested Surveyor 611,808 bytes / D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
       - "Recursive artifact inspection again found no duplicate or unsafe entries, exact Atlas metadata/legal bytes, exact Surveyor metadata/license bytes, and nested Kaleido 0.3.3+1.3.2 metadata plus license."
+      - "A new short no-local/no-hardlinks checkout of exact owner-evidence commit 5b20a2f5c4a9f551dd822afac37f7b481bd5c87d had no generated roots or alternates, was clean before and after its offline build, passed in 1m27s, and reproduced both final artifact hashes byte-for-byte."
+      - "Final pre-tag scope/invariant audit limits P9 tracked changes to durable state, the exhaustive matrix, and the two narrow build.gradle packaging rules; src/main, resources, P2 lock files, P4/P6 fixtures, identifiers, formats, gameplay, WAWI behavior/art, Surveyor policy, design, P0 tag, upstream, process/listener, and publication boundaries remain exact."
+      - "This revision is the final candidate tag-target checkpoint; its commit is not complete until a second fresh no-local/no-hardlinks checkout of that exact commit passes before tag creation."
 
 decisions:
   - id: "DEC-001"
@@ -1556,6 +1559,7 @@ repository_state:
   p9_initial_legal_packaging_commit: "d1d96a65c6927a13f9d47810d36804ad59e1f97b"
   p9_source_archive_reproducibility_commit: "8a3b534404c4ebf644fa4f6abdba7246a189adfb"
   p9_owner_readiness_commit: "b4f681b742fb51879dd313f46dd9df798f0dc793"
+  p9_owner_evidence_commit: "5b20a2f5c4a9f551dd822afac37f7b481bd5c87d"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1728,6 +1732,8 @@ test_evidence:
     final_workspace_clean_build: "PASS: exact-lock offline clean build completed in 16s; eight actionable tasks, five executed and three from cache; tests NO-SOURCE; disposable owner runtime removed"
     final_workspace_artifacts: "PASS: main 1,984,944 bytes / 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; sources 1,120,170 bytes / AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579; nested Surveyor 611,808 bytes / D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
     final_workspace_recursive_artifact_audit: "PASS: no duplicate/unsafe entries; exact Atlas metadata and legal bytes; exact Surveyor metadata/hash/license; nested Kaleido metadata/license present"
+    post_owner_clean_checkout: "PASS: new no-local/no-hardlinks short checkout of exact 5b20a2f5c4a9f551dd822afac37f7b481bd5c87d had no generated roots/alternates, stayed Git-clean, passed locked offline build in 1m27s, and reproduced main/sources hashes exactly"
+    final_pre_tag_scope_invariant_audit: "PASS: only state, P9 matrix, and two bounded build.gradle packaging rules changed in P9; no src/main/resource/P2-lock/fixture/identifier/format/gameplay/WAWI/Surveyor-policy/design/P0-tag/upstream/process/listener/publication violation; RC tag remains absent"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1968,10 +1974,12 @@ latest_session:
     - "The 38,132-byte owner log hashes to 39B012556CA91722EED9CCBD37431F0013CF691EB0591F64A2E2CC6FFA9908AC and corroborates F3+T across all four Atlas reloaders, a 1-landmark/4-region Player271 import, all-dimension saves, normal Stopping, and Gradle success in 13m38s."
     - "Post-owner negative, process, listener, fixture, design, P0 tag, P2 lock, upstream, publication, and scope audits pass with no unexplained S2/S3 result and no RC tag yet."
     - "The final workspace exact-lock clean build passed in 16 seconds and reproduced the clean-checkout-verified main, sources, and nested Surveyor hashes exactly; recursive metadata/legal/package inspection also remains exact."
+    - "A new no-local/no-hardlinks short checkout of exact owner-evidence commit 5b20a2f5c4a9f551dd822afac37f7b481bd5c87d had no generated roots or alternates, stayed Git-clean, passed offline in 1m27s, and reproduced both candidate artifacts exactly."
+    - "Final pre-tag scope, invariant, lock, fixture, design, baseline-tag, process, listener, upstream, publication, and RC-tag-absence audits pass; this revision prepares the final tag-target commit without creating the tag."
   blockers: []
   next_action: >-
-    Commit this owner-observation and final-workspace checkpoint, then prove a new no-local,
-    no-hardlinks clean checkout of that exact candidate commit before preparing the final tag target.
+    Commit this final candidate tag-target checkpoint, then require a second fresh no-local,
+    no-hardlinks clean-checkout build of that exact commit before creating the authorized local tag.
 
 agent_first_prompt:
   text: >-
