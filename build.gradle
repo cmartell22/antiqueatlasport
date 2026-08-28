@@ -93,6 +93,27 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${base.archivesName.get()}" }
 	}
+	from("CREDITS") {
+		rename { "${it}_${base.archivesName.get()}" }
+	}
+	from({
+		def surveyorJar = configurations.includeInternal.files.find { it.name.startsWith("surveyor-1.2.4+26.1") }
+		if (surveyorJar == null) throw new GradleException("Locked Surveyor artifact is absent from includeInternal")
+		zipTree(surveyorJar)
+	}) {
+		include "LICENSE_*"
+		into "META-INF/licenses"
+		rename { "LICENSE_surveyor" }
+	}
+}
+
+sourcesJar {
+	from("LICENSE") {
+		rename { "${it}_${base.archivesName.get()}" }
+	}
+	from("CREDITS") {
+		rename { "${it}_${base.archivesName.get()}" }
+	}
 }
 
 publishing {

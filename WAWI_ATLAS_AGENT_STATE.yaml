@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 84
-last_updated_utc: "2026-08-28T07:34:48Z"
+state_revision: 85
+last_updated_utc: "2026-08-28T08:09:21Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P9_IN_PROGRESS"
 current_phase: "P9"
-current_task: "P9_T03_EXECUTE_AUTOMATED_RELEASE_CANDIDATE_GATES"
+current_task: "P9_T04_PROVE_CLEAN_CHECKOUT_AND_FINAL_ARTIFACT_COMPLIANCE"
 
 authority:
   precedence:
@@ -1261,12 +1261,30 @@ p9_tasks:
       - "The matrix preserves disposable-fixture rules, exact locked prerequisites, literal dedicated-server stop, unexplained S2/S3 stop rules, the owner-testing pause, no-publication boundary, and exact tag authority."
   - id: "P9-T03"
     name: "Execute automated regression, failure-path, dedicated, lifecycle, dimension, import, ownership, hearsay, synchronization, rendering, input, and reload gates"
-    status: "PENDING"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "P9-S01 reverified the locked design hash, annotated P0 tag target, exact unchanged P2 lock/source commits, no upstream, no-publication record, both P4 scroll hashes, all five P6 store hashes, all five P4 Surveyor tree digests, and zero frozen-fixture diff."
+      - "The exact-lock entry build passed offline with Java 25 and tests NO-SOURCE; corrected static/resource/mixin audit parsed all 550 JSON, 358 mcmeta, and 457 PNG resources, found all seven declared client mixins, and found no stale migrated API signature."
+      - "P4 and P6 target probes passed exact Surveyor packet/persistence/landmark/structure/exploration round trips, all five Atlas stores, malformed preview cases, two read_failed paths, and one wrong_dimension path without changing any frozen input."
+      - "The P7 feature run passed terrain/render-model/provider, annotation/edit/undo/redo/route/inscription/territory, export/import/hearsay/source-nonmutation, and decorated PNG checks with normal all-dimension save/stop."
+      - "The P8 integrated seed plus three fresh-JVM repeats passed Overworld/Nether/End isolation and stable 1057/7/289 terrain counts, three markers, layer/biome/patch/city/tracking controls, same-process rejoin, and normal shutdown."
+      - "The P8 repeated-import seed/restart passed four imports, grouped undo/redo, stable Player271 receiver-owned hearsay identity/layer, Player470 correction/city controls, exact copied-source hashes, and 2,188 restored terrain tiles."
+      - "A fresh globalSharing=false server on 127.0.0.1:25578 passed Alice owner/edit/export persistence, literal stop/restart/reconnect, Bob pre-import isolation plus receiver-owned Alice-attributed hearsay import, a second literal restart, Bob persistence, and Alice post-B isolation."
+      - "A separate clean-install server on 127.0.0.1:25579 generated exact recorded Surveyor config SHA-256 4C1917769799DC724E3585064768ABAE717AFEBF61BEFEA059240B55A0CCB818 with globalSharing=true; P8TrueB directly received P8TrueA's owner marker with intended GROUP edit rights and no Atlas import layer."
+      - "All dedicated servers accepted literal stop and returned Gradle success; nine scored runtime logs contain no CME, protocol, codec, decoder/encoder, or probe assertion failure; no Java process or test listener remains."
+      - "Two configuration-only packaging-selector failures and one PowerShell comparison-expression failure were classified unscored harness errors; none launched Minecraft, produced a candidate artifact, changed a fixture, or altered an acceptance criterion."
   - id: "P9-T04"
     name: "Prove clean-checkout build and audit artifacts, embedded Surveyor, metadata, legal notices, packaging, fixtures, and hashes"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
+    evidence:
+      - "The pre-correction artifact audit reproduced the P8 main/sources hashes and exact nested Surveyor hash, then confirmed RISK-007: main omitted CREDITS, sources omitted LICENSE and CREDITS, and nested Surveyor stored valid LGPL text under malformed inherited name LICENSE_extension 'base' property 'archivesName'."
+      - "The narrow build.gradle-only correction adds byte-exact Atlas LICENSE/CREDITS to both main and sources jars and duplicates the locked nested Surveyor license text as META-INF/licenses/LICENSE_surveyor without modifying or replacing the embedded dependency."
+      - "Corrected exact-lock offline clean build passed in 31 seconds with eight actionable tasks, seven executed and compileJava from cache; tests are NO-SOURCE."
+      - "Corrected artifacts are main SHA-256 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28 and sources SHA-256 6D4E4696A36777262957FE4F330FBA5224B20AEC7F4C746CD52215D0986C8640."
+      - "Every Atlas legal entry hashes byte-exact to the tracked source file; the valid top-level Surveyor license hashes byte-exact to the nested license text; nested Surveyor remains 611,808 bytes and exact P2 SHA-256 D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
+      - "Post-correction frozen-fixture audit again passed both P4 scroll hashes, all five P6 store hashes, all five P4 Surveyor tree digests, and zero fixture diff."
   - id: "P9-T05"
     name: "Run owner-observed release-candidate checks after readiness, complete final audits, create the authorized local RC tag, and stop at P10"
     status: "PENDING"
@@ -1385,9 +1403,9 @@ known_risks:
     mitigation: "core.longpaths is enabled and disposable dependency worktrees must use short absolute paths."
   - id: "RISK-007"
     severity: "S2"
-    status: "OPEN_BASELINE_DEFECT"
+    status: "MITIGATED_BY_NARROW_P9_PACKAGING_FIX_PENDING_CLEAN_CHECKOUT_PROOF"
     risk: "The untouched Atlas release jar omits CREDITS, and the reconstructed Surveyor jar contains its license under an inherited malformed filename."
-    mitigation: "Preserve repository notices now; correct and audit release packaging in an approved build/release phase before distribution."
+    mitigation: "P9 adds only build packaging: Atlas LICENSE/CREDITS are byte-exact in main and sources artifacts, and the locked Surveyor LGPL text is duplicated under META-INF/licenses/LICENSE_surveyor while its embedded jar stays byte-identical. Complete the required genuinely clean-checkout build and repeat artifact inspection before closing the risk."
   - id: "RISK-008"
     severity: "S1"
     status: "MITIGATED_AND_TARGET_RUNTIME_VERIFIED"
@@ -1494,6 +1512,7 @@ repository_state:
   p8_owner_readiness_commit: "b718622f2c12ced960d25a336ff5c04f0f24dc05"
   p9_approval_commit: "7db1361e10e3c78117ffc679b33c689d4ade8ecd"
   p9_tag_authority_commit: "1ce83f952fd5007ea27a6e90f092c07f3768e66d"
+  p9_release_candidate_matrix_commit: "b56dfd4fb300220e5d92dd538a24a0341a04a149"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1643,6 +1662,15 @@ test_evidence:
     approval_checkpoint: "PASS: YAML-only APPROVAL-P9-001 commit 7db1361e10e3c78117ffc679b33c689d4ade8ecd precedes every P9 test, artifact modification, packaging correction, and tag operation"
     tag_criterion_search: "RESOLVED_BY_APPROVAL-P9-TAG-001: exhaustive tracked-text search first found no exact criterion and stopped before tests; owner then authorized local annotated tag v82.rc.1-26.1.2 with exact message Release candidate for faithful repro of AA4 on MC v26.1"
     release_candidate_matrix: "PASS: docs/P9_RELEASE_CANDIDATE_MATRIX.md defines 14 exhaustive P0/P3-P8-derived slices, exact command families, clean-checkout and RISK-007 rules, owner-testing pause, final tag criterion, stop rules, and P10 boundary before the first P9 test"
+    immutable_controls: "PASS: design, P0 annotated tag, exact P2 lock/source commits, no upstream/publication, two P4 scrolls, five P6 stores, five P4 trees, and tracked fixture integrity are exact"
+    surveyor_serialization_failure_paths: "PASS: P4/P6 exact target probes passed packets, persistence, structures, landmarks, exploration, five stores, malformed previews, two read_failed cases, and wrong_dimension"
+    feature_automation: "PASS: P7 terrain/render-model/providers, annotation/undo/redo/output/import/hearsay/source-nonmutation and PNG gates passed in a fresh exact-lock client"
+    integrated_lifecycle_dimensions: "PASS_3X_RESTART: seed/rejoin plus three fresh JVMs retained 1057/7/289 dimension terrain counts, markers, stores, tracking, and normal all-dimension shutdown"
+    repeated_import: "PASS: four imports, grouped undo/redo, stable receiver-owned hearsay/source layer, correction/city controls, source nonmutation, and 2,188 restored tiles across restart"
+    dedicated_false_policy: "PASS: Alice owner/edit/export restart persistence; Bob isolation, receiver-owned Alice-attributed hearsay import and restart persistence; Alice post-B isolation; literal server stops"
+    clean_default_true_policy: "PASS: generated config hash 4C1917769799DC724E3585064768ABAE717AFEBF61BEFEA059240B55A0CCB818 records globalSharing=true; direct cross-owner GROUP edit permission and no Atlas import layer"
+    automated_negative_cleanup: "PASS: nine scored logs have no CME/protocol/codec/decoder/encoder/probe failure; no Java process or listener on the controlled ports remains"
+    risk_007_packaging: "MITIGATED_PENDING_CLEAN_CHECKOUT: main 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; sources 6D4E4696A36777262957FE4F330FBA5224B20AEC7F4C746CD52215D0986C8640; legal entries byte-exact; nested Surveyor exact P2 hash"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1862,11 +1890,18 @@ latest_session:
     - "Human project owner supplied the exact P9 tag authority: local annotated v82.rc.1-26.1.2 with message Release candidate for faithful repro of AA4 on MC v26.1, to be created only after every P9 exit criterion passes."
     - "Committed the exact tag authority in YAML-only checkpoint 1ce83f952fd5007ea27a6e90f092c07f3768e66d."
     - "Derived docs/P9_RELEASE_CANDIDATE_MATRIX.md before the first P9 test; its 14 slices exhaustively cover the required client, integrated, dedicated, persistence, dimension, import, ownership, hearsay, synchronization, rendering, input, reload, failure, clean-checkout, artifact/legal, fixture, invariant, process/listener/publication, tag, and P10-stop gates."
+    - "P9-S01 through P9-S09 automated gates passed: immutable controls, static/resources/mixins, P4/P6 persistence/serialization/failure probes, P7 feature/output probes, P8 integrated dimensions/restarts/imports, dedicated false-policy ownership/hearsay isolation, and clean-default true-policy behavior."
+    - "The P9 integrated control retained 1057/7/289 Overworld/Nether/End tiles across the seed/rejoin and three fresh JVMs; repeated imports restored 2,188 tiles and stable receiver-owned hearsay/source-layer identity."
+    - "Fresh P9 dedicated clients proved Alice and Bob isolation in both directions across literal server stops/restarts, while the separate generated true-policy config remained exact and exposed Surveyor's intended direct GROUP sharing without an Atlas import layer."
+    - "Nine scored runtime logs are clear of the forbidden negative signatures; every controlled server stopped through literal stdin, no Java process remains, and all controlled ports are free."
+    - "Artifact inspection dispositioned RISK-007 with one build.gradle-only packaging correction: include Atlas LICENSE/CREDITS in both artifacts and expose byte-exact Surveyor LGPL text under a valid top-level name without changing the nested jar."
+    - "The corrected exact-lock clean build passed; main is 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28, sources is 6D4E4696A36777262957FE4F330FBA5224B20AEC7F4C746CD52215D0986C8640, and nested Surveyor remains exact D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
+    - "Every frozen P4/P6 file and tree digest remains exact after all automated runs and packaging work; no gameplay, production resource, identifier, format, ownership boundary, Surveyor policy, or P2 lock changed."
   blockers:
     - "Owner-observed P9 client testing remains paused until the owner separately confirms readiness."
   next_action: >-
-    Commit the exhaustive P9 matrix checkpoint, then execute P9-S01 through P9-S03 immutable,
-    exact-lock build/static/resource, Surveyor/serialization/persistence, and failure-path gates.
+    Commit the narrow RISK-007 packaging checkpoint, then prove a genuinely clean checkout of that
+    exact commit builds offline and reproduces the audited artifacts before requesting P9 owner readiness.
 
 agent_first_prompt:
   text: >-
