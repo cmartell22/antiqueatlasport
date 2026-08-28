@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 91
-last_updated_utc: "2026-08-28T09:29:20Z"
+state_revision: 92
+last_updated_utc: "2026-08-28T09:36:33Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P9_COMPLETE_AWAITING_P10_APPROVAL"
+project_status: "P9_COMPLETE_PUBLICATION_AUTHORIZED_PREFLIGHT"
 current_phase: "P9"
-current_task: "AWAITING_P10_EXPLICIT_APPROVAL"
+current_task: "GITHUB_GIT_REF_PUBLICATION_PREFLIGHT"
 
 authority:
   precedence:
@@ -243,6 +243,21 @@ approvals:
       - "No P10, P11, or WAWI-specific work."
       - "No release-candidate tag until every P9 exit criterion passes."
       - "No push, release, upload, or publication."
+  - id: "APPROVAL-PUBLICATION-001"
+    recorded_date: "2026-08-28"
+    source: >-
+      Human project owner in the Codex task: "Please copy the entire repo to my github here
+      https://github.com/cmartell22/antiqueatlasport.git"
+    status: "APPROVED"
+    scope: >-
+      Publish the complete tracked local Git repository to the exact GitHub destination
+      https://github.com/cmartell22/antiqueatlasport.git, including every local branch,
+      every local annotated or lightweight tag, and all history reachable from those refs.
+    exclusions:
+      - "No force push, destructive mirror semantics, remote ref deletion, tag movement, or history rewrite."
+      - "No GitHub Release, package, build artifact, deployment, upload, or publication outside Git refs."
+      - "No P10, P11, WAWI-specific work, gameplay change, identity change, or unrelated edit."
+      - "If existing destination refs conflict with local refs, stop rather than overwriting them."
 
 project:
   working_name: "WAWI Antique Atlas Port"
@@ -1574,6 +1589,10 @@ repository_state:
   local_p0_baseline_tag: "p0-baseline-1.21.11"
   local_p0_baseline_tag_target: "7099b4df2420d5441e3b2b02e53201a0b249c8f9"
   pushes_performed: false
+  publication_approval: "APPROVAL-PUBLICATION-001"
+  publication_target: "https://github.com/cmartell22/antiqueatlasport.git"
+  publication_local_branch_count: 1
+  publication_local_tag_count: 111
 
 test_evidence:
   p0:
@@ -1743,6 +1762,10 @@ test_evidence:
     final_pre_tag_scope_invariant_audit: "PASS: only state, P9 matrix, and two bounded build.gradle packaging rules changed in P9; no src/main/resource/P2-lock/fixture/identifier/format/gameplay/WAWI/Surveyor-policy/design/P0-tag/upstream/process/listener/publication violation; RC tag remains absent"
     exact_tag_target_clean_checkout: "PASS: second fresh no-local/no-hardlinks checkout of exact 3f8814fef05b19fe174c457b6b9a61c0461b3095 had no generated roots/alternates, stayed Git-clean, passed offline in 1m27s, and reproduced main/sources hashes exactly"
     release_candidate_tag: "PASS_LOCAL_ANNOTATED: v82.rc.1-26.1.2 object 7158d80020677e4cd0662743da72f7c8296967cf peels to 3f8814fef05b19fe174c457b6b9a61c0461b3095 with exact message Release candidate for faithful repro of AA4 on MC v26.1; no push/publication"
+  publication:
+    authorization: "PASS: APPROVAL-PUBLICATION-001 records the exact GitHub destination and Git-ref-only scope before any push."
+    local_preflight: "PASS: clean port/26.1.2 at 4ed6b8d383b6ab5b77866dae606ae374804ce4d8; one local branch, 111 local tags, no branch upstream, exact design hash, exact annotated P0 tag target, and exact annotated RC tag object/target/message."
+    destination_preflight: "RETRY_REQUIRED: first read-only git ls-remote attempt failed before remote inspection because the host could not resolve github.com; no push was attempted."
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1989,11 +2012,16 @@ latest_session:
     - "A second fresh no-local/no-hardlinks checkout of that exact target had no generated roots or alternates, remained Git-clean, passed its locked offline build in 1m27s, and reproduced main 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28 plus sources AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579 exactly."
     - "Created only local annotated v82.rc.1-26.1.2 after every prior P9 slice passed; tag object 7158d80020677e4cd0662743da72f7c8296967cf peels to exact target 3f8814fef05b19fe174c457b6b9a61c0461b3095 and its annotation is exactly Release candidate for faithful repro of AA4 on MC v26.1."
     - "P9 is complete with no push, release, upload, or publication; stopped at the separate P10 explicit-approval gate without entering P10, P11, or WAWI-specific work."
+    - "The owner explicitly authorized copying the complete tracked local Git repository to https://github.com/cmartell22/antiqueatlasport.git; APPROVAL-PUBLICATION-001 limits this to all local branches, tags, and reachable history without force, deletion, release, package, or P10/P11/WAWI work."
+    - "Publication preflight found a clean port/26.1.2 at 4ed6b8d383b6ab5b77866dae606ae374804ce4d8, one local branch, 111 local tags, no upstream, and exact P0/RC annotated-tag controls."
+    - "The first read-only git ls-remote destination check failed on host DNS resolution before any remote refs could be inspected; no push was attempted, and this YAML-only approval checkpoint precedes every publication action."
   blockers:
     - "P10, P11, and all WAWI-specific integration remain unauthorized pending a separate explicit human approval."
+    - "The GitHub destination must be inspected successfully after the transient github.com DNS failure before any non-forced push."
   next_action: >-
-    Stop and wait for separate explicit human approval before recording a P10 approval checkpoint
-    or beginning any P10, P11, WAWI-specific, push, release, upload, or publication work.
+    Commit this YAML-only APPROVAL-PUBLICATION-001 checkpoint, retry the read-only destination-ref
+    inspection, and, only if no conflicting destination refs exist, push every local branch and tag
+    to the exact approved GitHub URL without force, deletion, release creation, or entering P10.
 
 agent_first_prompt:
   text: >-
