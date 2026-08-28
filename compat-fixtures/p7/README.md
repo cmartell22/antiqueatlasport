@@ -23,6 +23,12 @@ exercise layer visibility and tracking; verify route sampling/length, inscriptio
 classification, biome correction/patch, city paint, and hearth presence; restore every captured
 state; then print `P7_ANNOTATION_PROBE_PASS`.
 
+`P7SharingProbe` is the P7-S04 sharing/output slice. It exports and previews a terrain-bearing
+`.atlas` scroll with a foreign-attributed marker and corrections, imports it through production,
+checks source-layer and hearsay ownership plus grouped undo, composes/decorates/saves a full-map PNG,
+validates its signature and dimensions, removes both disposable outputs, and prints
+`P7_SHARING_PROBE_PASS`.
+
 Build the main classes and probe with the exact lock, then place the remapped probe jar in the
 disposable client's `mods` directory. The ignored init script used by the recorded run resolves to
 `build/p7-s01-client-r3`, supplies no program arguments, and the probe invokes Minecraft 26.1.2's

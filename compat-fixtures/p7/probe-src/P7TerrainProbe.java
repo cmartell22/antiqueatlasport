@@ -56,6 +56,7 @@ public final class P7TerrainProbe implements ClientModInitializer {
 
             probe(summary, atlas);
             P7AnnotationProbe.probe(client, summary, atlas);
+            P7SharingProbe.probe(client, summary, atlas);
             finished = true;
             client.scheduleStop();
         } catch (Throwable throwable) {
