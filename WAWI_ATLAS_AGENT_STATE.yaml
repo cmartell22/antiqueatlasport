@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 86
-last_updated_utc: "2026-08-28T08:16:16Z"
+state_revision: 87
+last_updated_utc: "2026-08-28T08:21:39Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P9_IN_PROGRESS"
 current_phase: "P9"
-current_task: "P9_T04_PROVE_CLEAN_CHECKOUT_AND_FINAL_ARTIFACT_COMPLIANCE"
+current_task: "P9_T05_AWAIT_OWNER_READINESS_FOR_OBSERVED_CLIENT"
 
 authority:
   precedence:
@@ -1276,7 +1276,7 @@ p9_tasks:
       - "Two configuration-only packaging-selector failures and one PowerShell comparison-expression failure were classified unscored harness errors; none launched Minecraft, produced a candidate artifact, changed a fixture, or altered an acceptance criterion."
   - id: "P9-T04"
     name: "Prove clean-checkout build and audit artifacts, embedded Surveyor, metadata, legal notices, packaging, fixtures, and hashes"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "The pre-correction artifact audit reproduced the P8 main/sources hashes and exact nested Surveyor hash, then confirmed RISK-007: main omitted CREDITS, sources omitted LICENSE and CREDITS, and nested Surveyor stored valid LGPL text under malformed inherited name LICENSE_extension 'base' property 'archivesName'."
@@ -1290,6 +1290,12 @@ p9_tasks:
       - "The first clean clone exposed one release-candidate reproducibility defect: its sources jar was 179 bytes smaller because Windows Git checked Java sources out as CRLF while the long-lived workspace had mixed line endings. All 31 differing Java entries became byte-identical after newline normalization; no semantic source difference exists."
       - "A second build.gradle-only packaging correction normalizes only packaged **/*.java source entries to LF through Gradle's FixCrLfFilter; it does not rewrite tracked sources, gameplay classes, resources, metadata, legal text, or the main artifact."
       - "Post-normalization workspace clean build passed in 32 seconds; main remains 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28 and normalized sources are AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579."
+      - "Committed the source-archive reproducibility correction and revision-86 evidence locally as 8a3b534404c4ebf644fa4f6abdba7246a189adfb."
+      - "A second new no-local/no-hardlinks short-path clone checked out exact 8a3b534404c4ebf644fa4f6abdba7246a189adfb with no generated roots and ran its own checksum-locked Gradle 9.5.1 wrapper offline using only documented Java 25 and the host socket fallback."
+      - "The final genuine clean-checkout build passed in 1m22s with eight actionable tasks, five executed and three from cache; tests are NO-SOURCE and the clone remains clean except ignored build output."
+      - "Both final artifacts reproduce exactly between workspace and clean checkout: main 1,984,944 bytes / 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; sources 1,120,170 bytes / AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579."
+      - "Recursive clean-artifact audit verifies exact Atlas target metadata, expected raw source-template metadata, no duplicate entries, byte-exact Atlas legal files, exact Surveyor metadata and 611,808-byte P2 hash, valid top-level Surveyor license copy, and nested Kaleido metadata plus license text."
+      - "Pre-owner scope/invariant audit passes exact design hash, annotated P0 tag form/target, unchanged P2 dependency lock files, no upstream, absent RC tag, no gameplay/resource/fixture change, no process/listener, and no publication."
   - id: "P9-T05"
     name: "Run owner-observed release-candidate checks after readiness, complete final audits, create the authorized local RC tag, and stop at P10"
     status: "PENDING"
@@ -1408,9 +1414,9 @@ known_risks:
     mitigation: "core.longpaths is enabled and disposable dependency worktrees must use short absolute paths."
   - id: "RISK-007"
     severity: "S2"
-    status: "MITIGATED_BY_NARROW_P9_PACKAGING_FIX_PENDING_CLEAN_CHECKOUT_PROOF"
+    status: "MITIGATED_AND_CLEAN_CHECKOUT_VERIFIED"
     risk: "The untouched Atlas release jar omits CREDITS, and the reconstructed Surveyor jar contains its license under an inherited malformed filename."
-    mitigation: "P9 adds only build packaging: Atlas LICENSE/CREDITS are byte-exact in main and sources artifacts, and the locked Surveyor LGPL text is duplicated under META-INF/licenses/LICENSE_surveyor while its embedded jar stays byte-identical. Complete the required genuinely clean-checkout build and repeat artifact inspection before closing the risk."
+    mitigation: "P9 adds only build packaging: Atlas LICENSE/CREDITS are byte-exact in main and sources artifacts, and the locked Surveyor LGPL text is duplicated under META-INF/licenses/LICENSE_surveyor while its embedded jar stays byte-identical. A no-local/no-hardlinks clean checkout reproduced both final artifacts and the recursive legal audit exactly."
   - id: "RISK-008"
     severity: "S1"
     status: "MITIGATED_AND_TARGET_RUNTIME_VERIFIED"
@@ -1473,9 +1479,9 @@ known_risks:
     mitigation: "P8 proved explicit false preserves independent personal/hearsay ownership through restart/reconnect, while a clean generated true config directly shares other-owner markers with Surveyor GROUP edit rights and no Atlas import layer. Atlas does not override the setting; P9 must make the operator deployment choice explicit."
   - id: "RISK-020"
     severity: "S2"
-    status: "MITIGATED_BY_SOURCE_ARCHIVE_NORMALIZATION_PENDING_SECOND_CLEAN_CHECKOUT_PROOF"
+    status: "MITIGATED_AND_CLEAN_CHECKOUT_VERIFIED"
     risk: "The remapped sources jar varied between the long-lived mixed-line-ending workspace and a Windows Git clean checkout even though all source content was semantically identical."
-    mitigation: "Normalize only packaged Java source entries to LF with Gradle FixCrLfFilter; the main jar is unaffected. Repeat the no-local/no-hardlinks clean-checkout build at the correction commit and require exact main and sources hashes before closing P9 artifact reproducibility."
+    mitigation: "Normalize only packaged Java source entries to LF with Gradle FixCrLfFilter; the main jar is unaffected. A second new no-local/no-hardlinks checkout of exact correction commit 8a3b534404c4ebf644fa4f6abdba7246a189adfb reproduced both main and sources hashes exactly."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
@@ -1524,6 +1530,7 @@ repository_state:
   p9_tag_authority_commit: "1ce83f952fd5007ea27a6e90f092c07f3768e66d"
   p9_release_candidate_matrix_commit: "b56dfd4fb300220e5d92dd538a24a0341a04a149"
   p9_initial_legal_packaging_commit: "d1d96a65c6927a13f9d47810d36804ad59e1f97b"
+  p9_source_archive_reproducibility_commit: "8a3b534404c4ebf644fa4f6abdba7246a189adfb"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1681,9 +1688,12 @@ test_evidence:
     dedicated_false_policy: "PASS: Alice owner/edit/export restart persistence; Bob isolation, receiver-owned Alice-attributed hearsay import and restart persistence; Alice post-B isolation; literal server stops"
     clean_default_true_policy: "PASS: generated config hash 4C1917769799DC724E3585064768ABAE717AFEBF61BEFEA059240B55A0CCB818 records globalSharing=true; direct cross-owner GROUP edit permission and no Atlas import layer"
     automated_negative_cleanup: "PASS: nine scored logs have no CME/protocol/codec/decoder/encoder/probe failure; no Java process or listener on the controlled ports remains"
-    risk_007_packaging: "MITIGATED_PENDING_SECOND_CLEAN_CHECKOUT: main 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; normalized sources AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579; legal entries byte-exact; nested Surveyor exact P2 hash"
+    risk_007_packaging: "PASS_CLEAN_CHECKOUT_VERIFIED: main 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28; normalized sources AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579; legal entries byte-exact; nested Surveyor exact P2 hash"
     first_clean_checkout_build: "PASS_BUILD_ARTIFACT_REPRO_DEFECT_FOUND: no-local/no-hardlinks clone of d1d96a65c passed offline build; main reproduced exactly; sources differed only in 31 Java entry line endings because clean Windows checkout was CRLF and workspace was mixed"
-    source_archive_normalization: "IMPLEMENTED_PENDING_SECOND_CLEAN_CHECKOUT: build.gradle FixCrLfFilter normalizes only packaged Java sources to LF; workspace clean build passes; main hash unchanged; sources AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579"
+    source_archive_normalization: "PASS_CLEAN_CHECKOUT_VERIFIED: build.gradle FixCrLfFilter normalizes only packaged Java sources to LF; workspace and second new clean checkout reproduce exact main and sources hashes"
+    final_clean_checkout_build: "PASS: no-local/no-hardlinks clone of exact 8a3b534404c4ebf644fa4f6abdba7246a189adfb had no generated roots; checksum-locked wrapper offline build passed in 1m22s; tests NO-SOURCE; Git clean except ignored output"
+    final_recursive_artifact_audit: "PASS: exact main/sources hashes, target Atlas metadata, expected sources template, no duplicate entries, Atlas legal hashes, exact nested Surveyor metadata/hash/license, and nested Kaleido metadata/license"
+    pre_owner_scope_invariant_audit: "PASS: exact branch/design/P0 tag/P2 lock, P9 scope limited to state/docs/build packaging, no gameplay/resource/fixture change, no RC tag yet, no upstream/publication, and no Java process/listener"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1913,11 +1923,15 @@ latest_session:
     - "Created a no-local/no-hardlinks short-path clone at exact legal-packaging commit d1d96a65c6927a13f9d47810d36804ad59e1f97b with no generated roots; its wrapper-only offline clean build passed in 1m35s and reproduced the main jar exactly."
     - "The clone's sources jar differed from the workspace only across 31 Java entries, and every difference normalized to equality after CRLF/LF conversion; recorded RISK-020 rather than accepting a non-reproducible release-candidate source artifact."
     - "Added a four-line packaged-Java LF normalization rule to sourcesJar, leaving tracked source bytes and the main artifact untouched; the resulting workspace clean build passed with normalized sources hash AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579."
+    - "Committed the source-artifact correction as 8a3b534404c4ebf644fa4f6abdba7246a189adfb, then created a second new no-local/no-hardlinks short-path clone of that exact commit with no generated roots."
+    - "The second clean clone's exact-wrapper offline build passed in 1m22s and reproduced both artifacts byte-for-byte: main 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28 and sources AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579."
+    - "Recursive clean-artifact inspection passed Atlas/Surveyor/Kaleido metadata, nested coordinates, legal text, exact dependency hash, and duplicate-entry checks; RISK-007 and RISK-020 are clean-checkout verified."
+    - "Pre-owner branch, design, P0 tag, P2 dependency lock, scope, process, listener, tag-absence, upstream, and no-publication audits pass. No owner-observed P9 client has been launched."
   blockers:
     - "Owner-observed P9 client testing remains paused until the owner separately confirms readiness."
   next_action: >-
-    Commit the source-archive reproducibility correction, then create a second no-local/no-hardlinks
-    clean checkout of that exact commit and require both main and sources artifact hashes to reproduce.
+    Wait for the owner's explicit P9 readiness confirmation, then record a YAML-only readiness
+    checkpoint before preparing or launching the owner-observed release-candidate client.
 
 agent_first_prompt:
   text: >-
