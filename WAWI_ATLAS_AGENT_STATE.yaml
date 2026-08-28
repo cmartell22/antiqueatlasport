@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 73
-last_updated_utc: "2026-08-28T03:12:16Z"
+state_revision: 74
+last_updated_utc: "2026-08-28T03:17:15Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P7_COMPLETE_AWAITING_P8_APPROVAL"
-current_phase: "P7"
-current_task: "AWAITING_P8_EXPLICIT_APPROVAL"
+project_status: "P8_IN_PROGRESS"
+current_phase: "P8"
+current_task: "P8-T02_HARDENING_MATRIX_AND_FIXTURES"
 
 authority:
   precedence:
@@ -176,6 +176,25 @@ approvals:
       - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
       - "Do not fix RISK-007 packaging."
       - "Do not launch the client for user testing until the owner confirms readiness; automated client testing remains allowed."
+      - "No push, release, upload, or publication."
+  - id: "APPROVAL-P8-001"
+    recorded_date: "2026-08-27"
+    source: "Human project owner in the Codex task: 'proceed with P8'"
+    status: "APPROVED"
+    scope: >-
+      Execute P8 only under GPT-5.6 Sol High methodology: adversarially harden persistence,
+      lifecycle, dimensions, reconnect/restart, imports, multiplayer isolation, authorship,
+      hearsay, and client/server synchronization against the P0 controls and exact pinned sources,
+      using disposable copies of immutable fixtures and small evidence-driven repair categories.
+    exclusions:
+      - "No P9 release-candidate work or any later phase without a new explicit approval."
+      - "No P2 dependency-lock change; a proven lock defect must be recorded and work stopped for separate approval."
+      - "No Surveyor redesign, replacement backend, forced globalSharing override, or ownership-boundary change."
+      - "No WAWI-specific feature, gameplay, identity, resource, art, broad refactor, package rename, or unrelated cleanup."
+      - "Never migrate or save over the frozen P4/P6 fixtures; operate only on verified disposable copies."
+      - "Do not move or recreate the annotated p0-baseline-1.21.11 tag."
+      - "Do not fix unrelated packaging risk RISK-007."
+      - "Pause before any user-testing client launch until the owner confirms readiness; automated client testing remains allowed."
       - "No push, release, upload, or publication."
 
 project:
@@ -515,10 +534,19 @@ phase_plan:
       - "The final P7 scope/invariant audit passes and the project stops at the explicit P8 approval gate."
   - id: "P8"
     name: "Persistence, lifecycle, dimensions, and multiplayer hardening"
-    status: "BLOCKED"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Adversarially test save/reload, imports, restarts, dimensions, disconnects, and player/server isolation."
+    exit_criteria:
+      - "Repeated integrated-world save, quit, rejoin, and fresh-client restart preserve explored terrain, discovered structures, annotations, and local stores without cross-world contamination or recurrence of the P0 lifecycle race."
+      - "Overworld, Nether, and End transitions plus return transitions preserve dimension-specific map knowledge and annotations without loss, leakage, duplication, or prediction of undiscovered data."
+      - "Repeated .atlas import, grouped undo where applicable, disconnect, and restart preserve additive terrain, source attribution, hearsay layers, corrections, and source-data nonmutation."
+      - "A cleanly stopped and restarted dedicated server plus reconnecting clients preserve synchronized terrain/landmarks and release every runtime/listener normally."
+      - "Two clean client identities remain isolated before import and preserve personal versus imported/hearsay knowledge after import, reconnect, and server restart with globalSharing=false."
+      - "The clean-install globalSharing=true difference is explicitly tested or dispositioned as operator policy without Atlas overriding Surveyor configuration."
+      - "Every demonstrated S2/S3 defect is stopped, diagnosed from exact evidence, repaired narrowly, and covered by the smallest practical regression."
+      - "Exact-lock clean build, frozen-fixture verification, final scope/invariant audit, and required owner observations pass; the project stops at the explicit P9 approval gate."
   - id: "P9"
     name: "Faithful compatibility release candidate"
     status: "BLOCKED"
@@ -1087,6 +1115,40 @@ p7_tasks:
       - "Final design hash, annotated baseline tag target, frozen-fixture worktree, clean status, no-upstream, no-publication, RISK-007, and P8 boundaries all pass unchanged."
       - "P7 is complete and stops at the explicit P8 approval gate; no P8 scenario was entered."
 
+p8_tasks:
+  - id: "P8-T01"
+    name: "Record P8 approval and verify entry invariants"
+    status: "COMPLETE"
+    model: "GPT-5.6 Sol High"
+    evidence:
+      - "APPROVAL-P8-001 records the owner's P8-only persistence, lifecycle, dimension, import, reconnect/restart, and multiplayer-hardening scope with P9 and later phases excluded."
+      - "Verified clean port/26.1.2 at P7 completion commit b7c5a06c50b13bade267836b236a142b75b7086c before any P8 runtime, fixture, or production action."
+      - "Verified state revision 73 records P0-P7 COMPLETE and AWAITING_P8_EXPLICIT_APPROVAL with exactly one approval-gated next action."
+      - "Verified design-doc.txt SHA-256 1FC133AE82AECD1CA5728B80015C66A4D32A0C1C30F107EE73EC990520B24079."
+      - "Verified zero P2-lock file changes since f8db0a4fe309a7a409122509f112c2f55a01765a and exact target lock values remain recorded."
+      - "Verified p0-baseline-1.21.11 remains an annotated tag peeling to 7099b4df2420d5441e3b2b02e53201a0b249c8f9."
+      - "Verified no tracked P4/P6 fixture diff, no configured branch upstream, and the durable no-push/no-publication record."
+  - id: "P8-T02"
+    name: "Derive the adversarial hardening matrix and prepare immutable disposable controls"
+    status: "IN_PROGRESS"
+    model: "GPT-5.6 Sol High"
+    evidence: []
+  - id: "P8-T03"
+    name: "Harden integrated persistence, dimensions, imports, and client lifecycle"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+    evidence: []
+  - id: "P8-T04"
+    name: "Harden dedicated-server restart, reconnect, multi-client isolation, ownership, and sharing policy"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+    evidence: []
+  - id: "P8-T05"
+    name: "Run the coordinated P8 matrix and close at the P9 approval gate"
+    status: "PENDING"
+    model: "GPT-5.6 Sol High"
+    evidence: []
+
 decisions:
   - id: "DEC-001"
     date: "2026-08-26"
@@ -1390,10 +1452,12 @@ test_evidence:
     human_sharing_output_matrix: "PASS_OWNER_OBSERVED_AND_LOG_CORROBORATED: .atlas export/preview/import and current-view PNG save passed; logs imported 5 landmarks / 4 terrain regions / 7 corrections; badswamp.atlas is 459952 bytes with SHA-256 61376B4DE47F28F48D53A5B4667978A292FDC881409062F337115056D61DA874; PNG is 788x490 / 134598 bytes with SHA-256 94F52230120F150D588440BB443E71D141423F9E405986BCFE02ACFC2C82C31B"
     normal_client_shutdown: "PASS: normal Save and Quit saved all three dimensions; Quit Game logged Stopping; Gradle BUILD SUCCESSFUL in 9m27s; no Java/javaw process or listeners on 25565/25575/25576 remained"
     final_scope_invariant_audit: "PASS: approval range contains only state, docs/P7_FEATURE_PARITY_MATRIX.md, and independent compat-fixtures/p7 probe files; no src/main, production resource, build/dependency lock, frozen P4/P6 fixture, Surveyor boundary, identifier, format, art, RISK-007, tag, design, upstream, or publication change; repository is clean before this final YAML checkpoint"
+  p8:
+    approval_preflight: "PASS: exact clean P7 completion HEAD, revision-73 P0-P7 completion and approval gate, locked design hash, unchanged P2 lock, annotated P0 tag target, no tracked P4/P6 fixture diff, no upstream, and no-publication record verified before the YAML-only checkpoint"
 
 latest_session:
   date_utc: "2026-08-28"
-  phase: "P7"
+  phase: "P8"
   summary:
     - "Inspected workspace, design input, JavaBackport SDK/runtime/dependency lock, installed JDKs, and Gradle caches."
     - "Initialized the local repository and fetched complete Roleplayer's Atlas history and tags."
@@ -1571,12 +1635,15 @@ latest_session:
     - "The owner passed one .atlas export/preview/import and PNG-save workflow; logs and disposable outputs corroborate the successful results."
     - "Normal shutdown saved every dimension, Gradle succeeded, and final process/port cleanup passed."
     - "Final P7 scope and invariant audit passes with no P7 production edit; P7 is complete and stops at the P8 explicit-approval gate."
+    - "Human project owner explicitly approved P8 persistence, lifecycle, dimension, import, reconnect/restart, and multiplayer hardening only; APPROVAL-P8-001 records the exact scope and P9/later exclusions."
+    - "Reverified clean port/26.1.2 at P7 completion commit b7c5a06c50b13bade267836b236a142b75b7086c, revision-73 P0-P7 completion, locked design hash, unchanged P2 lock, annotated P0 tag target, frozen-fixture worktree, no upstream, and no-publication record before P8 action."
   blockers:
-    - "P8 persistence/lifecycle/dimension/multiplayer hardening and all later phases remain independently blocked pending explicit human approval."
+    - "P9 release-candidate work and all later phases remain independently blocked pending explicit human approval."
+    - "P8 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Stop. Preserve the clean P7 completion state and wait for explicit human approval before recording
-    a P8 approval checkpoint or beginning any persistence, lifecycle, dimension, multiplayer-hardening,
-    or later-phase work.
+    Derive and commit the bounded P8 hardening matrix from the P0/P7 controls, then prepare only
+    verified disposable copies and automated harnesses for the first integrated persistence/lifecycle
+    slice; do not launch a user-testing client or enter P9.
 
 agent_first_prompt:
   text: >-
