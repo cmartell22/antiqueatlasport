@@ -7,7 +7,8 @@
   "entrypoints": {
     "client": [
       "glam.ardor.roleplayers_atlas.P8IntegratedLifecycleProbe",
-      "glam.ardor.roleplayers_atlas.P8RepeatedImportProbe"
+      "glam.ardor.roleplayers_atlas.P8RepeatedImportProbe",
+      "glam.ardor.roleplayers_atlas.P8DedicatedProbe"
     ]
   },
   "depends": {

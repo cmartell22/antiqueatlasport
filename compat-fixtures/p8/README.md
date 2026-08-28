@@ -36,3 +36,14 @@ Build the main project first, then build this probe offline:
 The Loom run-directory override, runtime copies, compiled probe artifact, logs, and world output all
 belong under ignored `build/` paths. Never point the probe at `compat-fixtures/p4` or
 `compat-fixtures/p6`, and never treat an unscored failed harness runtime as input to a scored rerun.
+
+`P8DedicatedProbe` supplies the dedicated P8-S05/S06/S07 client roles. The false-policy sequence
+uses fixed offline identities P8Alice and P8Bob against port 25578, seeds Alice-only terrain from a
+hashed disposable P0 scroll copy, persists a synchronized Alice marker and signed scroll, proves Bob
+lacks both before import, and reasserts personal versus receiver-owned hearsay state after literal
+server restart. A separate clean-install server on port 25579 generates Surveyor's default
+`globalSharing=true`; P8TrueA/P8TrueB then demonstrate its observable cross-identity marker sharing
+without Atlas changing that operator-owned setting. Under Surveyor's exact target `GROUP` waypoint
+semantics, the generated global share group also grants the second identity modification rights for
+the first identity's marker; the probe asserts that backend-owned permission and that direct sharing
+does not manufacture an Atlas import layer.
