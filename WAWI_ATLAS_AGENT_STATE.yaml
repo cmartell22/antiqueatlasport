@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 90
-last_updated_utc: "2026-08-28T09:25:42Z"
+state_revision: 91
+last_updated_utc: "2026-08-28T09:29:20Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
-project_status: "P9_IN_PROGRESS"
+project_status: "P9_COMPLETE_AWAITING_P10_APPROVAL"
 current_phase: "P9"
-current_task: "P9_T05_PROVE_EXACT_TAG_TARGET_CHECKOUT_THEN_CREATE_AUTHORIZED_TAG"
+current_task: "AWAITING_P10_EXPLICIT_APPROVAL"
 
 authority:
   precedence:
@@ -596,7 +596,7 @@ phase_plan:
       - "Exact-lock clean build, frozen-fixture verification, final scope/invariant audit, and required owner observations pass; the project stops at the explicit P9 approval gate."
   - id: "P9"
     name: "Faithful compatibility release candidate"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     thinking: "high"
     purpose: "Exhaustive regression matrix, artifact/legal audit, clean-checkout build, and local RC tag."
@@ -1310,7 +1310,7 @@ p9_tasks:
       - "Pre-owner scope/invariant audit passes exact design hash, annotated P0 tag form/target, unchanged P2 dependency lock files, no upstream, absent RC tag, no gameplay/resource/fixture change, no process/listener, and no publication."
   - id: "P9-T05"
     name: "Run owner-observed release-candidate checks after readiness, complete final audits, create the authorized local RC tag, and stop at P10"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "The owner explicitly confirmed readiness in the Codex task with 'I'm ready'; APPROVAL-P9-OWNER-READY-001 satisfies the P9 owner-testing pause for the focused P9-S10 client only."
@@ -1327,6 +1327,9 @@ p9_tasks:
       - "A new short no-local/no-hardlinks checkout of exact owner-evidence commit 5b20a2f5c4a9f551dd822afac37f7b481bd5c87d had no generated roots or alternates, was clean before and after its offline build, passed in 1m27s, and reproduced both final artifact hashes byte-for-byte."
       - "Final pre-tag scope/invariant audit limits P9 tracked changes to durable state, the exhaustive matrix, and the two narrow build.gradle packaging rules; src/main, resources, P2 lock files, P4/P6 fixtures, identifiers, formats, gameplay, WAWI behavior/art, Surveyor policy, design, P0 tag, upstream, process/listener, and publication boundaries remain exact."
       - "This revision is the final candidate tag-target checkpoint; its commit is not complete until a second fresh no-local/no-hardlinks checkout of that exact commit passes before tag creation."
+      - "A second new no-local/no-hardlinks short checkout of exact final target 3f8814fef05b19fe174c457b6b9a61c0461b3095 had no generated roots or alternates, remained Git-clean, passed its locked offline build in 1m27s, and reproduced both final artifacts exactly."
+      - "Created only local annotated tag v82.rc.1-26.1.2 after P9-S01 through P9-S13 passed; tag object 7158d80020677e4cd0662743da72f7c8296967cf peels to exact final target 3f8814fef05b19fe174c457b6b9a61c0461b3095 and carries the exact authorized message."
+      - "P9-S01 through P9-S14 are complete; P10, P11, and every WAWI-specific integration remain unauthorized and unentered."
 
 decisions:
   - id: "DEC-001"
@@ -1560,6 +1563,10 @@ repository_state:
   p9_source_archive_reproducibility_commit: "8a3b534404c4ebf644fa4f6abdba7246a189adfb"
   p9_owner_readiness_commit: "b4f681b742fb51879dd313f46dd9df798f0dc793"
   p9_owner_evidence_commit: "5b20a2f5c4a9f551dd822afac37f7b481bd5c87d"
+  p9_final_candidate_target_commit: "3f8814fef05b19fe174c457b6b9a61c0461b3095"
+  p9_release_candidate_tag: "v82.rc.1-26.1.2"
+  p9_release_candidate_tag_object: "7158d80020677e4cd0662743da72f7c8296967cf"
+  p9_release_candidate_tag_target: "3f8814fef05b19fe174c457b6b9a61c0461b3095"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1734,6 +1741,8 @@ test_evidence:
     final_workspace_recursive_artifact_audit: "PASS: no duplicate/unsafe entries; exact Atlas metadata and legal bytes; exact Surveyor metadata/hash/license; nested Kaleido metadata/license present"
     post_owner_clean_checkout: "PASS: new no-local/no-hardlinks short checkout of exact 5b20a2f5c4a9f551dd822afac37f7b481bd5c87d had no generated roots/alternates, stayed Git-clean, passed locked offline build in 1m27s, and reproduced main/sources hashes exactly"
     final_pre_tag_scope_invariant_audit: "PASS: only state, P9 matrix, and two bounded build.gradle packaging rules changed in P9; no src/main/resource/P2-lock/fixture/identifier/format/gameplay/WAWI/Surveyor-policy/design/P0-tag/upstream/process/listener/publication violation; RC tag remains absent"
+    exact_tag_target_clean_checkout: "PASS: second fresh no-local/no-hardlinks checkout of exact 3f8814fef05b19fe174c457b6b9a61c0461b3095 had no generated roots/alternates, stayed Git-clean, passed offline in 1m27s, and reproduced main/sources hashes exactly"
+    release_candidate_tag: "PASS_LOCAL_ANNOTATED: v82.rc.1-26.1.2 object 7158d80020677e4cd0662743da72f7c8296967cf peels to 3f8814fef05b19fe174c457b6b9a61c0461b3095 with exact message Release candidate for faithful repro of AA4 on MC v26.1; no push/publication"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1976,10 +1985,15 @@ latest_session:
     - "The final workspace exact-lock clean build passed in 16 seconds and reproduced the clean-checkout-verified main, sources, and nested Surveyor hashes exactly; recursive metadata/legal/package inspection also remains exact."
     - "A new no-local/no-hardlinks short checkout of exact owner-evidence commit 5b20a2f5c4a9f551dd822afac37f7b481bd5c87d had no generated roots or alternates, stayed Git-clean, passed offline in 1m27s, and reproduced both candidate artifacts exactly."
     - "Final pre-tag scope, invariant, lock, fixture, design, baseline-tag, process, listener, upstream, publication, and RC-tag-absence audits pass; this revision prepares the final tag-target commit without creating the tag."
-  blockers: []
+    - "Committed the final P9 release-candidate target as 3f8814fef05b19fe174c457b6b9a61c0461b3095."
+    - "A second fresh no-local/no-hardlinks checkout of that exact target had no generated roots or alternates, remained Git-clean, passed its locked offline build in 1m27s, and reproduced main 40C7CDE08988EDC86C3E3324C80E123A5FE468FF45F49965C9DC7901F9735E28 plus sources AD3889B89068389B6CC7F368F6CB1411A107B46ECC5BB0FB1E4D304F2267D579 exactly."
+    - "Created only local annotated v82.rc.1-26.1.2 after every prior P9 slice passed; tag object 7158d80020677e4cd0662743da72f7c8296967cf peels to exact target 3f8814fef05b19fe174c457b6b9a61c0461b3095 and its annotation is exactly Release candidate for faithful repro of AA4 on MC v26.1."
+    - "P9 is complete with no push, release, upload, or publication; stopped at the separate P10 explicit-approval gate without entering P10, P11, or WAWI-specific work."
+  blockers:
+    - "P10, P11, and all WAWI-specific integration remain unauthorized pending a separate explicit human approval."
   next_action: >-
-    Commit this final candidate tag-target checkpoint, then require a second fresh no-local,
-    no-hardlinks clean-checkout build of that exact commit before creating the authorized local tag.
+    Stop and wait for separate explicit human approval before recording a P10 approval checkpoint
+    or beginning any P10, P11, WAWI-specific, push, release, upload, or publication work.
 
 agent_first_prompt:
   text: >-
