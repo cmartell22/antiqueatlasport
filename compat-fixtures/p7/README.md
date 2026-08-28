@@ -29,6 +29,12 @@ checks source-layer and hearsay ownership plus grouped undo, composes/decorates/
 validates its signature and dimensions, removes both disposable outputs, and prints
 `P7_SHARING_PROBE_PASS`.
 
+`P7SyncProbe` is the bounded P7-S05 dedicated synchronization slice. In `wawi.p7.mode=sync`, the
+harness connects once to the disposable loopback server, authors one marker through Surveyor's
+normal synchronized landmark path, verifies Atlas exposes it as owner-editable, waits for packet
+settling, prints `P7_SYNC_PROBE_PASS`, and closes. Server-side save evidence is inspected after a
+literal clean stop. Reconnect, restart, second-client, dimension, and stress flows remain P8 work.
+
 Build the main classes and probe with the exact lock, then place the remapped probe jar in the
 disposable client's `mods` directory. The ignored init script used by the recorded run resolves to
 `build/p7-s01-client-r3`, supplies no program arguments, and the probe invokes Minecraft 26.1.2's

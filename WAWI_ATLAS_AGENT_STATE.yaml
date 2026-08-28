@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 69
-last_updated_utc: "2026-08-28T01:05:26Z"
+state_revision: 70
+last_updated_utc: "2026-08-28T01:12:59Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P7_IN_PROGRESS"
 current_phase: "P7"
-current_task: "P7-T05_SHARING_AND_BASIC_SYNC_FEATURE_PARITY"
+current_task: "P7-T06_COORDINATED_MATRIX_AND_FINAL_GATE"
 
 authority:
   precedence:
@@ -1040,7 +1040,7 @@ p7_tasks:
       - "No production defect or production edit was required for P7-S03."
   - id: "P7-T05"
     name: "Recover map sharing, PNG, ownership, hearsay, and basic synchronization parity"
-    status: "IN_PROGRESS"
+    status: "COMPLETE_AUTOMATED_PENDING_FINAL_HUMAN_CHECK"
     model: "GPT-5.6 Sol High"
     evidence:
       - "Extended the independent exact-lock client probe for the successful P7-S04 sharing/output path; clean probe builds passed in 9 and 8 seconds with six tasks executed and tests NO-SOURCE."
@@ -1051,9 +1051,18 @@ p7_tasks:
       - "Production full-map composition and decoration saved a valid 618x640 PNG of 207,932 bytes; both disposable scrolls and the PNG were deleted after validation."
       - "Minecraft stopped normally, saved all three dimensions and Surveyor data with zero landmarks, and Gradle returned BUILD SUCCESSFUL in 33 seconds."
       - "No production defect or production edit was required for P7-S04; P7-S05 basic client/dedicated synchronization remains pending."
+      - "Added a separate sync mode that uses exact Minecraft 26.1.2 MultiplayerQuickPlay and one production Surveyor landmark put; exact-lock probe build passed in 9 seconds."
+      - "The first server command was unscored because Loom rejected a nonexistent vmArguments property before launch; exact Loom 1.17.19 javap identified vmArg(String), and only the ignored harness was corrected."
+      - "The fresh loopback server bound 127.0.0.1:25576 with networking.globalSharing=false; one fresh automated client connected as Player848 and Surveyor synchronized 24 missing chunks over four regions."
+      - "The client authored roleplayers_atlas:custom/skull/white/p7_sync through the synchronized Surveyor path, received that landmark back from the server, retained its UUID ownership, and Atlas exposed it as owner-editable after 120 settle ticks."
+      - "The server independently logged the Player848 landmark add; the client then stopped normally and its Surveyor save reported one landmark."
+      - "A literal server stop saved all dimensions and Surveyor state with one landmark, produced a 234-byte landmarks.dat (SHA-256 7E4500B65EA488BC4CCA84A6D43AE8053DF243AB493F0F95CEADEE0DF1D9615A), returned Gradle success in 1m33s, and released port 25576."
+      - "Server passthrough warnings for Atlas source/note components exactly match the P0 dedicated control's passthrough behavior and are not a target regression."
+      - "The bounded run used one client, one connection, one dimension, and one server lifecycle only; multi-client isolation, reconnect, restart, dimension, and stress hardening remain P8."
+      - "No production defect or production edit was required for P7-S05."
   - id: "P7-T06"
     name: "Run the coordinated P7 feature matrix and close at the P8 approval gate"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Terra High"
     escalation: "GPT-5.6 Sol High for any unexplained S2/S3 result"
 
@@ -1249,6 +1258,7 @@ repository_state:
   p7_inventory_commit: "b7980c44179626bfa3d5389131729a44be70ea6"
   p7_terrain_probe_commit: "08116d9eda6ab46f5c3da5e9d090f16fbf2f1ef1"
   p7_annotation_probe_commit: "cebabc734d707c68f33387e34f4be5285d105223"
+  p7_sharing_probe_commit: "44af10476cb7ced414977054c24c18e98bc3616d"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1349,6 +1359,7 @@ test_evidence:
     automated_terrain_probe: "PASS: exact target client joined disposable P7Auto, resolved 1057 tiles / 526 biome IDs / 1057 providers / 49 batches / 4228 subtiles from four Surveyor exploration regions, loaded 73 biome looks, passed representative name fallbacks, stopped/saved normally, and returned Gradle success in 33s"
     automated_annotation_probe: "PASS: exact-lock probe build succeeded; fresh target client passed marker/layer/tracking/undo/redo/route/inscription/territory/biome-correction/city/hearth model assertions, cleaned every temporary mutation, saved zero landmarks, stopped normally, and returned Gradle success in 33s"
     automated_sharing_probe: "PASS: fresh target client exported/previewed/imported 4 terrain regions, 1 foreign landmark, and 3 corrections; source attribution/layer, hearsay ownership, grouped undo, signed-export source nonmutation, and valid decorated 618x640 PNG output passed; disposable outputs were deleted; normal save/stop returned Gradle success in 33s"
+    automated_basic_sync_probe: "PASS: exact target one-client/one-server flow with globalSharing=false synchronized 24 chunks over 4 regions, round-tripped one UUID-owned Atlas marker through Surveyor, exposed it owner-editable, cleanly saved one client/server landmark, stopped both runtimes successfully, and released loopback port 25576"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1517,12 +1528,16 @@ latest_session:
     - "Extended P7-S04 to successful sharing/output behavior and ran it twice in fresh disposable runtimes; the final run added explicit signed-export source-nonmutation evidence."
     - "The final P7-S04 run passed .atlas preview/export/import for four terrain regions, one attributed landmark, and three corrections; source-layer/hearsay ownership and grouped undo also passed."
     - "The same run produced and validated a decorated 618x640 PNG, deleted both scrolls and the PNG, saved zero Surveyor landmarks, and stopped normally; no production edit was required."
+    - "Added and passed the bounded P7-S05 synchronization mode: one fresh client connected once to a fresh loopback server configured globalSharing=false, synchronized 24 chunks over four regions, and round-tripped one UUID-owned marker through Surveyor."
+    - "Client and server logs independently corroborated receipt/addition of the marker; client shutdown and literal server stop each saved one landmark, all dimensions saved, Gradle succeeded, and port 25576 was released."
+    - "Exact P0 logs contain the same Surveyor passthrough warnings for Atlas-defined components, so the warnings are preserved control behavior rather than a target compatibility defect."
+    - "P7-S05 remained inside the basic parity boundary: no second client, reconnect, restart, dimension transition, or stress loop was run, and no production edit was required."
   blockers:
     - "P8 persistence/lifecycle/dimension/multiplayer hardening and all later phases remain independently blocked pending explicit human approval."
     - "P7 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Run one bounded automated target client/dedicated-server P7-S05 synchronization and ownership flow
-    with globalSharing=false, excluding reconnect, restart, dimension, and multi-client P8 hardening.
+    Run the exact-lock clean build and pre-human P7 scope/invariant audit, then pause and request the
+    owner's readiness before launching the final focused user-observed client matrix.
 
 agent_first_prompt:
   text: >-

@@ -22,6 +22,8 @@ public final class P7TerrainProbe implements ClientModInitializer {
     private int ticks;
     private boolean finished;
     private boolean quickPlayStarted;
+    private final boolean syncMode = "sync".equals(System.getProperty("wawi.p7.mode"));
+    private final P7SyncProbe syncProbe = new P7SyncProbe();
 
     @Override
     public void onInitializeClient() {
@@ -34,12 +36,24 @@ public final class P7TerrainProbe implements ClientModInitializer {
         try {
             if (client.world == null || client.player == null || client.getNetworkHandler() == null) {
                 if (!quickPlayStarted && ticks >= 100) {
-                    require(client.getLevelStorage().levelExists("P7Auto"),
-                        "disposable P7Auto world is absent from the configured run directory");
                     quickPlayStarted = true;
-                    QuickPlay.startQuickPlay(client, new RunArgs.SingleplayerQuickPlay("P7Auto"), null);
+                    if (syncMode) {
+                        QuickPlay.startQuickPlay(client, new RunArgs.MultiplayerQuickPlay("127.0.0.1:25576"), null);
+                    } else {
+                        require(client.getLevelStorage().levelExists("P7Auto"),
+                            "disposable P7Auto world is absent from the configured run directory");
+                        QuickPlay.startQuickPlay(client, new RunArgs.SingleplayerQuickPlay("P7Auto"), null);
+                    }
                 }
                 require(ticks < 2400, "client did not join the disposable world within 120 seconds");
+                return;
+            }
+
+            if (syncMode) {
+                if (syncProbe.tick(client)) {
+                    finished = true;
+                    client.scheduleStop();
+                }
                 return;
             }
             if (!BiomeTileProviders.getInstance().hasFallbacks()) {
