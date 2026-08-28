@@ -16,6 +16,13 @@ The `verify` phase starts a fresh JVM against the persisted disposable runtime a
 three dimension summaries, terrain counts, markers, local stores, and tracking before a normal stop.
 P8-S02 requires three independent verify launches after the successful seed sequence.
 
+The separate `import-seed` / `import-verify` phases exercise P8-S04 with disposable, in-runtime
+copies of both frozen P0 scrolls. They import the Player271 terrain/marker scroll twice, cycle both
+grouped undo and redo steps, and assert one stable receiver-owned hearsay marker/source layer. They
+then repeat the same sequence for the P0 singleplayer correction/city control and reassert the final
+state in a fresh JVM. The probe hashes both copied scrolls before and after every phase and writes
+only a disposable manifest beside the runtime's config stores.
+
 The marker tracked by the probe is deliberately placed outside Atlas's arrival radius. A marker at
 the player's feet is correctly untracked by the production `clearTrackingOnArrival` behavior and is
 therefore not a valid persistence control.

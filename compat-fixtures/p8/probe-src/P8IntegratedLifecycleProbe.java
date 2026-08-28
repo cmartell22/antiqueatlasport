@@ -34,7 +34,9 @@ public final class P8IntegratedLifecycleProbe implements ClientModInitializer {
     private static final ChunkPos PATCH_CHUNK = new ChunkPos(200, 200);
     private static final ChunkPos CITY_CHUNK = new ChunkPos(201, 200);
 
-    private final boolean seed = "seed".equals(System.getProperty("wawi.p8.phase"));
+    private final String phase = System.getProperty("wawi.p8.phase", "");
+    private final boolean active = "seed".equals(phase) || "verify".equals(phase);
+    private final boolean seed = "seed".equals(phase);
     private Stage stage = Stage.MENU_INITIAL;
     private int totalTicks;
     private int stageTicks;
@@ -44,7 +46,7 @@ public final class P8IntegratedLifecycleProbe implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ClientTickEvents.END_CLIENT_TICK.register(this::tick);
+        if (active) ClientTickEvents.END_CLIENT_TICK.register(this::tick);
     }
 
     private void tick(MinecraftClient client) {

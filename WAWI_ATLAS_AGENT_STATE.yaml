@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 76
-last_updated_utc: "2026-08-28T03:41:02Z"
+state_revision: 77
+last_updated_utc: "2026-08-28T03:49:12Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P8_IN_PROGRESS"
 current_phase: "P8"
-current_task: "P8-T03_INTEGRATED_LIFECYCLE_DIMENSIONS_IMPORTS"
+current_task: "P8-T04_DEDICATED_RESTART_RECONNECT_MULTICLIENT"
 
 authority:
   precedence:
@@ -1142,7 +1142,7 @@ p8_tasks:
       - "Entry artifacts reproduce the P7 hashes: main 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9 and sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870."
   - id: "P8-T03"
     name: "Harden integrated persistence, dimensions, imports, and client lifecycle"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
     evidence:
       - "Added compat-fixtures/p8 as an independent exact-P2-lock client probe; its build command `.\\gradlew.bat -p compat-fixtures\\p8\\probe-project build --offline --no-daemon --console=plain --no-problems-report` passed in 8 seconds with five actionable tasks, three executed, two up-to-date."
@@ -1152,9 +1152,15 @@ p8_tasks:
       - "Three subsequent fresh-JVM verify launches each reloaded exactly 1057 / 5 / 289 tiles, three dimension-isolated markers, all four local-store controls, and tracking, then stopped normally with Gradle success in 28, 28, and 27 seconds."
       - "All four scored runtime logs are free of ConcurrentModificationException, Network Protocol Error, decoder/encoder failure, or probe IllegalStateException; only expected development-session authentication and fail-soft optional Punchy warnings remain."
       - "Post-slice persisted evidence contains 9 Overworld / 8 Nether / 5 End Surveyor files and exact semantic local-store entries under sp:P6test; all two P4 scroll hashes, five P6 store hashes, and five P4 Surveyor tree digests still pass."
+      - "Extended the exact-lock probe with separate import-seed/import-verify entrypoints and a fixed P8Reader identity; the offline probe build passed in 8 seconds with five actionable tasks, four executed and one up-to-date."
+      - "A fresh disposable runtime copied both frozen P0 scrolls only after their recorded hashes passed; the in-runtime copies retained those hashes before seed, after four imports plus undo/redo, and after fresh-JVM restart."
+      - "The Player271 control imported twice as one stable receiver-owned UUID marker with Player271 hearsay attribution and exactly one scroll_player271 layer; two grouped undos removed marker/layer but not additive terrain, and two redos restored the identical marker."
+      - "The P0 singleplayer control imported twice with 6 regions and 6 corrections (1 biome, 5 towns) under Player470 ownership; duplicate sheet counts stayed stable, two grouped undos removed both sheets, and two redos restored them once."
+      - "The seed phase stopped/saved normally with 2,188 known terrain bits and one server landmark; a fresh JVM restored 2,188 Atlas tiles, the exact marker identity/hearsay/layer, correction/city sheets, and both immutable source hashes; both Gradle launches succeeded in 28 seconds."
+      - "P8-T03 closes P8-S02/S03/S04 automated evidence with no production edit and no unexplained S2/S3 result."
   - id: "P8-T04"
     name: "Harden dedicated-server restart, reconnect, multi-client isolation, ownership, and sharing policy"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
     evidence: []
   - id: "P8-T05"
@@ -1364,6 +1370,7 @@ repository_state:
   p7_basic_sync_probe_commit: "8ff3c260a5d335c6161480074ae96af5a7d09986"
   p8_approval_commit: "b5f9e570c"
   p8_hardening_matrix_commit: "9a6cc693d"
+  p8_integrated_lifecycle_probe_commit: "85bee1400b4fc2f6c0d307223f04340d969f2094"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1484,6 +1491,10 @@ test_evidence:
     fresh_jvm_restart_repetition: "PASS_3X: three independent JVM launches restored identical 1057/5/289 tiles, three markers, all local stores, and tracking, then normally saved/stopped with Gradle success in 28s, 28s, and 27s"
     integrated_negative_log_audit: "PASS: four scored runtime logs contain no ConcurrentModificationException, Network Protocol Error, decoder/encoder failure, or probe IllegalStateException"
     integrated_post_fixture_audit: "PASS: two P4 scrolls, five P6 stores, and five P4 Surveyor trees retain every recorded SHA-256/tree digest after the scored integrated slice"
+    repeated_import_probe_build: "PASS: extended independent exact-lock probe built offline in 8s; five actionable tasks, four executed and one up-to-date"
+    repeated_import_undo_redo: "PASS: disposable Player271 control imported twice as one stable receiver-owned hearsay marker/source layer; two undos removed marker/layer but retained additive terrain; two redos restored identical identity; P0 singleplayer control repeated the same grouped cycle for 6 regions and 1 biome plus 5 city cells under one Player470 sheet"
+    repeated_import_restart: "PASS: seed and fresh-JVM verify launches each completed in 28s; restart restored 2,188 tiles, one stable Player271 marker/source layer, one Player470 biome sheet, five Player470 city cells, and exact copied-source hashes"
+    repeated_import_source_integrity: "PASS: frozen and disposable Player271 scrolls remain FA711A577D70FB6D2CD577855CF6FDBA0BF09471145BA7BCCB5A72CCE78D34DE; frozen and disposable singleplayer scrolls remain FAB249FCC170BBE1D50A54A96B634220133BC54C13B8FD78C4E62E853A53D9C2"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1675,14 +1686,19 @@ latest_session:
     - "The final fresh seed run passed Overworld/Nether/Overworld/End/Overworld transitions, dimension-isolated markers, deterministic local stores, clean Atlas disconnect clearing, same-process rejoin, and normal all-dimension save/stop."
     - "Three fresh-JVM restart repetitions restored identical 1057/5/289 terrain counts, three markers, layer/biome/patch/city/tracking controls, with no CME, protocol, codec, or probe assertion failure."
     - "Post-slice runtime artifacts are dimension-separated and every frozen P4/P6 digest remains exact; P8-S02 and P8-S03 automated persistence evidence pass without a production change."
+    - "Extended the exact-lock P8 probe for repeated P0 scroll import, grouped undo/redo, source-integrity, and fresh-JVM restart using a separate disposable runtime and fixed P8Reader identity."
+    - "The Player271 scroll remained one stable receiver-owned hearsay marker and source layer across two imports, two undos, two redos, save, and restart; additive terrain reached and restored 2,188 tiles."
+    - "The frozen P0 singleplayer scroll repeated the same lifecycle for six correction items (one biome and five towns) under Player470, without sheet duplication or source-byte mutation."
+    - "P8-T03 and automated P8-S02/S03/S04 are complete without a production edit; work advances only to the authorized dedicated restart/reconnect/multi-client task."
   blockers:
     - "P9 release-candidate work and all later phases remain independently blocked pending explicit human approval."
     - "P8 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Build and run P8-S04 repeated import and restart against a digest-verified disposable copy of
-    the P0 multiplayer-author scroll: import twice, assert stable identity, source attribution/layer,
-    hearsay ownership, grouped undo, correction/city behavior, source-byte nonmutation, and restart
-    persistence; do not launch a user-testing client or enter dedicated P8-T04/P9 work.
+    Build and run P8-S05 on fresh disposable dedicated-server/client runtimes with explicit
+    networking.globalSharing=false: connect, synchronize deterministic terrain and marker state,
+    disconnect, stop the server with Minecraft's literal stop command, restart the same server,
+    reconnect the same clean client, and reassert persisted server/client state before P8-S06; do
+    not launch a user-testing client or enter P9.
 
 agent_first_prompt:
   text: >-
