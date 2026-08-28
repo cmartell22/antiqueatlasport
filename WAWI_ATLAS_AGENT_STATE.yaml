@@ -9,8 +9,8 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 70
-last_updated_utc: "2026-08-28T01:12:59Z"
+state_revision: 71
+last_updated_utc: "2026-08-28T01:15:51Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P7_IN_PROGRESS"
 current_phase: "P7"
@@ -1065,6 +1065,15 @@ p7_tasks:
     status: "IN_PROGRESS"
     model: "GPT-5.6 Terra High"
     escalation: "GPT-5.6 Sol High for any unexplained S2/S3 result"
+    evidence:
+      - "Pre-human exact-lock offline clean build passed in 14 seconds: eight actionable tasks, five executed, three from cache, tests NO-SOURCE, and remapped main/sources artifacts produced."
+      - "Pre-human scope audit from APPROVAL-P7-001 contains only the durable state, P7 matrix, and independent P7 probe harness; there is no P7 src/main production or production-resource diff."
+      - "Final-build main jar SHA-256 is 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9; sources jar is 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870."
+      - "Nested Surveyor is byte-exact to the P2 lock: 611,808 bytes and SHA-256 D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
+      - "Pre-human invariants pass: exact branch and clean HEAD, design hash, annotated P0 tag target, unchanged P2 build-lock files, no upstream, git diff --check, and no tracked P4/P6 fixture diff."
+      - "Both P4 scroll hashes, all five deterministic P4 Surveyor tree digests, and all five P6 local-store hashes match their frozen records exactly."
+      - "No push, release, upload, or publication was performed; RISK-007, the baseline tag, and the P8 boundary remain untouched."
+      - "Per the owner's caveat, no user-testing client has been launched; final owner-observed checks remain paused pending readiness confirmation."
 
 decisions:
   - id: "DEC-001"
@@ -1259,6 +1268,7 @@ repository_state:
   p7_terrain_probe_commit: "08116d9eda6ab46f5c3da5e9d090f16fbf2f1ef1"
   p7_annotation_probe_commit: "cebabc734d707c68f33387e34f4be5285d105223"
   p7_sharing_probe_commit: "44af10476cb7ced414977054c24c18e98bc3616d"
+  p7_basic_sync_probe_commit: "8ff3c260a5d335c6161480074ae96af5a7d09986"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1360,6 +1370,8 @@ test_evidence:
     automated_annotation_probe: "PASS: exact-lock probe build succeeded; fresh target client passed marker/layer/tracking/undo/redo/route/inscription/territory/biome-correction/city/hearth model assertions, cleaned every temporary mutation, saved zero landmarks, stopped normally, and returned Gradle success in 33s"
     automated_sharing_probe: "PASS: fresh target client exported/previewed/imported 4 terrain regions, 1 foreign landmark, and 3 corrections; source attribution/layer, hearsay ownership, grouped undo, signed-export source nonmutation, and valid decorated 618x640 PNG output passed; disposable outputs were deleted; normal save/stop returned Gradle success in 33s"
     automated_basic_sync_probe: "PASS: exact target one-client/one-server flow with globalSharing=false synchronized 24 chunks over 4 regions, round-tripped one UUID-owned Atlas marker through Surveyor, exposed it owner-editable, cleanly saved one client/server landmark, stopped both runtimes successfully, and released loopback port 25576"
+    pre_human_clean_build: "PASS: exact-lock offline clean build completed in 14s; eight actionable tasks, five executed, three from cache, tests NO-SOURCE; main jar 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9; sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870; nested Surveyor exact P2 hash D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
+    pre_human_scope_invariant_audit: "PASS: P7 approval range has no src/main production/resource or P2-lock change; branch/tag/design/upstream/no-publication controls pass; git diff check and status are clean; both P4 scrolls, five P4 trees, and five P6 stores match frozen hashes"
 
 latest_session:
   date_utc: "2026-08-27"
@@ -1532,12 +1544,15 @@ latest_session:
     - "Client and server logs independently corroborated receipt/addition of the marker; client shutdown and literal server stop each saved one landmark, all dimensions saved, Gradle succeeded, and port 25576 was released."
     - "Exact P0 logs contain the same Surveyor passthrough warnings for Atlas-defined components, so the warnings are preserved control behavior rather than a target compatibility defect."
     - "P7-S05 remained inside the basic parity boundary: no second client, reconnect, restart, dimension transition, or stress loop was run, and no production edit was required."
+    - "The pre-human exact-lock clean build passed in 14 seconds and produced exact target artifacts with the locked Surveyor jar byte-identical inside the main artifact."
+    - "Pre-human P7 scope and invariant audit passes with zero P7 production/resource/build-lock edit, every frozen P4/P6 digest exact, the annotated baseline tag and design hash unchanged, no upstream, and no publication."
+    - "Stopped without launching a user-testing client, as required; the final focused owner-observed matrix awaits explicit readiness confirmation."
   blockers:
     - "P8 persistence/lifecycle/dimension/multiplayer hardening and all later phases remain independently blocked pending explicit human approval."
     - "P7 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Run the exact-lock clean build and pre-human P7 scope/invariant audit, then pause and request the
-    owner's readiness before launching the final focused user-observed client matrix.
+    Wait for the owner's readiness confirmation before launching the final focused P7 user-observed
+    client matrix; do not launch the user-testing client until that confirmation arrives.
 
 agent_first_prompt:
   text: >-
