@@ -9,12 +9,12 @@
 # RULE: Never cross a phase gate without the user's explicit approval recorded in approvals.
 
 schema_version: 1
-state_revision: 77
-last_updated_utc: "2026-08-28T03:49:12Z"
+state_revision: 78
+last_updated_utc: "2026-08-28T04:17:51Z"
 state_owner: "Human project owner; maintained by the active implementation agent"
 project_status: "P8_IN_PROGRESS"
 current_phase: "P8"
-current_task: "P8-T04_DEDICATED_RESTART_RECONNECT_MULTICLIENT"
+current_task: "P8-T05_COORDINATED_MATRIX_AND_FINAL_GATE"
 
 authority:
   precedence:
@@ -1160,14 +1160,33 @@ p8_tasks:
       - "P8-T03 closes P8-S02/S03/S04 automated evidence with no production edit and no unexplained S2/S3 result."
   - id: "P8-T04"
     name: "Harden dedicated-server restart, reconnect, multi-client isolation, ownership, and sharing policy"
-    status: "IN_PROGRESS"
+    status: "COMPLETE"
     model: "GPT-5.6 Sol High"
-    evidence: []
+    evidence:
+      - "Added P8DedicatedProbe under the independent exact-P2-lock P8 harness; its offline build passed in 8 seconds with five actionable tasks, four executed and one up-to-date before the dedicated runs."
+      - "Probe build command: `.\\gradlew.bat -p compat-fixtures\\p8\\probe-project build --offline --no-daemon --console=plain --no-problems-report` with the established jdk.net.unixdomain.tmpdir TCP fallback."
+      - "Runtime commands used `.\\gradlew.bat -I build\\p8-tools\\p8-dedicated-server.init.gradle runServer ...` and `.\\gradlew.bat -I build\\p8-tools\\p8-dedicated-client.init.gradle runClient ...` with isolated runDir/username/phase system properties; every server was ended through retained stdin with Minecraft's literal `stop`."
+      - "A fresh dedicated server on 127.0.0.1:25578 explicitly used networking.globalSharing=false; P8Alice synchronized terrain, imported only a verified disposable copy of the frozen P0 terrain scroll, retained 2,116 terrain bits/Atlas tiles, authored one UUID-owned editable marker, and exported one signed six-region scroll without source mutation."
+      - "A literal stop saved all dimensions and Surveyor state; restarting the same server and reconnecting the same clean P8Alice identity restored the exact UUID, 2,116 terrain bits/tiles, editable marker, and byte-identical signed scroll."
+      - "A separate clean P8Bob identity initially had only 30 local terrain tiles and no Alice-owned marker; importing the verified Alice scroll produced one Bob-owned Alice-attributed hearsay marker in scroll_p8alice, retained Bob's independent marker, restored 2,116 terrain bits/tiles, and never exposed Alice's server-owned marker identity."
+      - "After a second literal server stop/restart, fresh-JVM P8Bob restored both Bob-owned identities and 2,116 terrain bits/tiles while Alice's original remained invisible; fresh-JVM P8Alice then restored her own marker/terrain and saw zero Bob-owned personal or imported markers."
+      - "The clean-install control used a new server/world/config on 127.0.0.1:25579; generated Surveyor config SHA-256 4C1917769799DC724E3585064768ABAE717AFEBF61BEFEA059240B55A0CCB818 records globalSharing=true."
+      - "The first clean-default B run was unscored because the probe incorrectly expected other-owner marks to be read-only. Exact official Surveyor 1.2.4+26.1 source proves GROUP mode plus the generated global group deliberately makes SurveyorClient.canModify(otherOwner) true; the entire failed runtime was discarded and only the harness assertion was corrected."
+      - "The fresh scored clean-default rerun proved P8TrueB directly receives P8TrueA's owner identity, receives Surveyor's intended GROUP modification right, and has no Atlas import layer; both clients and the literal server stop returned Gradle success."
+      - "All scored dedicated/client/server logs are free of ConcurrentModificationException, protocol, codec, decoder/encoder, and probe assertion failures; only established development authentication, optional Punchy, and Surveyor passthrough warnings occurred. Ports 25578/25579 and all Java processes were released."
+      - "Committed the tested dedicated/multi-client/policy harness locally as f0928f0593fe931e128fe90c498858180bd6261e; no production source, resource, or dependency-lock edit was required."
   - id: "P8-T05"
     name: "Run the coordinated P8 matrix and close at the P9 approval gate"
-    status: "PENDING"
+    status: "IN_PROGRESS"
     model: "GPT-5.6 Sol High"
-    evidence: []
+    evidence:
+      - "Automated P8-S01 through P8-S07 are complete: immutable controls, integrated lifecycle, dimensions, repeated imports, dedicated restart/reconnect, two-client isolation/hearsay, and both Surveyor globalSharing policy branches pass."
+      - "Final immutable-input audit reverified both P4 scroll hashes, all five P6 normalized-store hashes, and all five documented P4 Surveyor tree digests exactly."
+      - "Final exact-lock offline clean build passed in 14 seconds with eight actionable tasks, five executed and three from cache; tests are NO-SOURCE."
+      - "Final build command: `.\\gradlew.bat clean build --offline --no-daemon --console=plain --no-problems-report` with the established jdk.net.unixdomain.tmpdir TCP fallback."
+      - "Final artifacts reproduce the P7/P8 entry controls: main jar 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9, sources jar 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870, and nested Surveyor D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC."
+      - "Pre-human scope/invariant audit finds no P8 src/main, production resource, P2-lock, frozen-fixture, identifier, format, art, Surveyor-policy, RISK-007, tag, design, upstream, or publication change; automated runtimes were removed by the final clean build and no Java process/listener remains."
+      - "Required focused owner observations remain pending, and the client-launch pause remains active until the owner explicitly confirms P8 testing readiness."
 
 decisions:
   - id: "DEC-001"
@@ -1233,6 +1252,11 @@ decisions:
     decision: "Classify the two initial P8 integrated runs as unscored probe defects, discard their complete runtimes, and make no production edit."
     source: "P8 exact Atlas lifecycle behavior and fresh-runtime stop rules"
     rationale: "Local-store writes intentionally retile Atlas asynchronously, and clearTrackingOnArrival intentionally removes a marker at the player's position. Waiting for the retile and placing the tracked control outside the arrival radius preserve the acceptance criteria without masking a product failure."
+  - id: "DEC-014"
+    date: "2026-08-28"
+    decision: "Treat Surveyor's clean-install globalSharing=true behavior, including GROUP modification rights across distinct owner UUIDs, as explicit operator-owned target policy rather than an Atlas defect."
+    source: "Exact official Surveyor 1.2.4+26.1 SurveyorConfig and SurveyorClient source plus fresh two-identity runtime evidence"
+    rationale: "The generated global group intentionally satisfies SurveyorClient.canModify for other group owners when waypoint networking is GROUP. Atlas must preserve that backend permission, must not manufacture an import layer for direct sharing, and must not silently coerce the operator setting; faithful P0 isolation therefore continues to require explicit globalSharing=false."
 
 known_risks:
   - id: "RISK-001"
@@ -1327,9 +1351,9 @@ known_risks:
     mitigation: "P5 selected target entityTranslucent(texture, false) from exact source; the human owner observed correct handheld transparency, depth/layering, and no black box, flicker, or unwanted outline."
   - id: "RISK-019"
     severity: "S1"
-    status: "OPEN_ASSIGNED_TO_P7_P8_POLICY_AND_RUNTIME_MATRIX"
+    status: "MITIGATED_BY_P8_RUNTIME_MATRIX_RETAINED_FOR_P9_DEPLOYMENT_POLICY"
     risk: "Current Surveyor defaults networking.globalSharing to true, while the legacy P0 default was false; a clean server can therefore begin with broader sharing than the independent-knowledge P0 control."
-    mitigation: "Config-preserving upgrades retain the explicit P0 false value. Do not override operator configuration in Atlas; document and exercise globalSharing=false in faithful isolation tests, then make the clean-install deployment policy explicit before the release candidate."
+    mitigation: "P8 proved explicit false preserves independent personal/hearsay ownership through restart/reconnect, while a clean generated true config directly shares other-owner markers with Surveyor GROUP edit rights and no Atlas import layer. Atlas does not override the setting; P9 must make the operator deployment choice explicit."
 
 repository_state:
   source_import_commit: "dab58dae0db912e91df8fbc2f6c52768e16dc742"
@@ -1371,6 +1395,8 @@ repository_state:
   p8_approval_commit: "b5f9e570c"
   p8_hardening_matrix_commit: "9a6cc693d"
   p8_integrated_lifecycle_probe_commit: "85bee1400b4fc2f6c0d307223f04340d969f2094"
+  p8_repeated_import_probe_commit: "d2b173104"
+  p8_dedicated_multiclient_probe_commit: "f0928f0593fe931e128fe90c498858180bd6261e"
   state_commit_note: "The commit containing the current revision is intentionally resolved with git rev-parse HEAD rather than self-embedded."
   working_branch: "port/26.1.2"
   source_tree_modified: true
@@ -1495,6 +1521,15 @@ test_evidence:
     repeated_import_undo_redo: "PASS: disposable Player271 control imported twice as one stable receiver-owned hearsay marker/source layer; two undos removed marker/layer but retained additive terrain; two redos restored identical identity; P0 singleplayer control repeated the same grouped cycle for 6 regions and 1 biome plus 5 city cells under one Player470 sheet"
     repeated_import_restart: "PASS: seed and fresh-JVM verify launches each completed in 28s; restart restored 2,188 tiles, one stable Player271 marker/source layer, one Player470 biome sheet, five Player470 city cells, and exact copied-source hashes"
     repeated_import_source_integrity: "PASS: frozen and disposable Player271 scrolls remain FA711A577D70FB6D2CD577855CF6FDBA0BF09471145BA7BCCB5A72CCE78D34DE; frozen and disposable singleplayer scrolls remain FAB249FCC170BBE1D50A54A96B634220133BC54C13B8FD78C4E62E853A53D9C2"
+    dedicated_alice_restart_reconnect: "PASS: globalSharing=false Alice retained exact offline UUID, 2,116 terrain bits/tiles, one editable owner marker, and byte-identical signed six-region scroll across literal server stop/restart and fresh-JVM reconnect"
+    dedicated_bob_isolation_import_restart: "PASS: Bob lacked Alice-only terrain/marker before import; afterward and across server restart retained Bob's marker plus one Bob-owned Alice-attributed hearsay marker in scroll_p8alice and 2,116 terrain bits/tiles, while Alice's original owner identity remained invisible"
+    dedicated_alice_post_b_isolation: "PASS: fresh-JVM Alice retained her own marker/terrain and received zero Bob-owned personal or imported marker identities"
+    clean_default_global_sharing: "PASS: fresh server generated globalSharing=true; distinct P8TrueB directly received P8TrueA's owner marker with exact Surveyor GROUP modification rights and no Atlas import layer"
+    dedicated_negative_log_cleanup_audit: "PASS: all scored integrated/import/dedicated/global logs contain no CME, protocol, codec, decoder/encoder, or probe assertion failure; literal server stops saved all dimensions; no Java process or 25578/25579 listener remains"
+    final_fixture_audit: "PASS: 2 P4 scroll hashes, 5 P6 store hashes, and 5 P4 Surveyor tree digests match every recorded value exactly after all automated P8 slices"
+    pre_human_clean_build: "PASS: exact-lock offline clean build completed in 14s; eight actionable tasks, five executed and three from cache, tests NO-SOURCE; main 1E628A481D8E2093F58C90E1F53F5F5315174FBD088AC404E73B37AC2A1FBCA9; sources 5933BE2821287481BE886C19A76E58DB69A7C0CC0B15224CB8FF5319F0C37870; nested Surveyor exact P2 hash D705677212A38B2071B621012478109ABD13E60A9678E11A6B90F1BF7A6EEFAC"
+    pre_human_scope_invariant_audit: "PASS: approval range contains only durable state, docs/P8_HARDENING_MATRIX.md, and independent compat-fixtures/p8 probe files; no src/main production/resource, P2-lock, frozen-fixture, identifier, format, art, Surveyor-policy, RISK-007, tag, design, upstream, or publication change"
+    yaml_parse: "PASS: SnakeYAML 1.27 load plus structural assertions for revision 78, P0-P7 COMPLETE, P8-T04 COMPLETE, P8-T05 IN_PROGRESS, P9 BLOCKED, and the single readiness-gated next action"
 
 latest_session:
   date_utc: "2026-08-28"
@@ -1690,15 +1725,22 @@ latest_session:
     - "The Player271 scroll remained one stable receiver-owned hearsay marker and source layer across two imports, two undos, two redos, save, and restart; additive terrain reached and restored 2,188 tiles."
     - "The frozen P0 singleplayer scroll repeated the same lifecycle for six correction items (one biome and five towns) under Player470, without sheet duplication or source-byte mutation."
     - "P8-T03 and automated P8-S02/S03/S04 are complete without a production edit; work advances only to the authorized dedicated restart/reconnect/multi-client task."
+    - "Added and exact-lock built a dedicated P8 probe for server restart/reconnect, two-client isolation/import, and clean-default sharing policy."
+    - "With explicit globalSharing=false, Alice retained 2,116 terrain cells, her editable marker, and signed scroll through a literal server stop/restart; Bob initially lacked Alice-only data, then retained only a Bob-owned Alice-attributed hearsay import plus his independent marker through another restart."
+    - "Alice's final fresh-JVM reconnect saw none of Bob's personal or imported identities, proving the isolation boundary in both directions."
+    - "A clean generated Surveyor config recorded globalSharing=true. Exact target source corrected one unscored harness assumption: the generated global GROUP intentionally grants cross-owner modification rights; the failed runtime was discarded before the scored rerun."
+    - "The fresh clean-default rerun proved direct cross-owner visibility and GROUP edit permission with no Atlas import layer and no production policy override."
+    - "Committed the tested P8 dedicated/multi-client harness as f0928f0593fe931e128fe90c498858180bd6261e."
+    - "Final scored-log, process, port, frozen-fixture, exact-lock clean-build, artifact-hash, and P8 scope/invariant audits pass with no production edit or unexplained S2/S3 result."
+    - "Stopped before owner-observed P8 client testing; explicit P8 readiness confirmation remains required before launch."
   blockers:
     - "P9 release-candidate work and all later phases remain independently blocked pending explicit human approval."
     - "P8 human-observed testing must pause before client launch until the owner confirms readiness; automated client testing is allowed."
   next_action: >-
-    Build and run P8-S05 on fresh disposable dedicated-server/client runtimes with explicit
-    networking.globalSharing=false: connect, synchronize deterministic terrain and marker state,
-    disconnect, stop the server with Minecraft's literal stop command, restart the same server,
-    reconnect the same clean client, and reassert persisted server/client state before P8-S06; do
-    not launch a user-testing client or enter P9.
+    Obtain the owner's explicit readiness confirmation for the focused P8 owner-observed matrix;
+    only after that confirmation, prepare and launch an isolated client to confirm persisted
+    dimension/return maps, repeated-import attribution/layer behavior, and personal-versus-hearsay
+    display, then complete the final P8 audit and stop at the P9 explicit-approval gate.
 
 agent_first_prompt:
   text: >-
